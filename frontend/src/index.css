@@ -1,0 +1,42 @@
+:root{
+  --primary: #5EB877;
+  --secondary: #B4CD60;
+  --secondaryButDarker: #9db357;
+  --third: rgb(227, 239, 230);
+  --darkNavyBlue: #2f3350;
+}
+
+@font-face {
+  font-family: "DIN";   /*Can be any text*/
+  src: url("./fonts/DINRegular.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DIN";   /*Can be any text*/
+  src: url("./fonts/DINBold.otf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FoulFiend";   /*Can be any text*/
+  src: url("./fonts/FoulFiend.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'DIN', 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

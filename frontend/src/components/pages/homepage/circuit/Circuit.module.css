@@ -1,0 +1,51 @@
+.parent{
+    background-color: var(--darkNavyBlue);
+    /* height: 1024px; */
+    width: 320px;
+    box-shadow: 2px 2px 2px black;
+    color: white;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.playerSignups{
+    color: lightgray;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    /* background-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 40%, rgb(255, 255, 255, 0) 80%);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent; */
+}
+
+.signUpButton{
+    background-color: var(--secondary);
+    border: none;
+    padding: 8px;
+    /* border-radius: 1000px; */
+    
+    box-shadow: 4px 4px 2px black;
+
+    font-family: FoulFiend;
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+.signUpButton:hover{
+    background-color: var(--secondaryButDarker);
+}
+
+.title{
+    font-family: FoulFiend;
+    font-size: 13px;
+}
+
+.header{
+    text-align: center;
+}

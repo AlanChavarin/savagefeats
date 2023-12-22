@@ -1,0 +1,35 @@
+.parent{
+    background-color: black;
+    height: 64px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-left: 64px;
+    padding-right: 64px;
+
+}
+
+.logoLink{
+    width: 100px;
+    cursor: pointer;
+}
+
+.linkContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 48px;
+}
+
+.navbarLink{
+    color: white;
+    font-weight: bold;
+    font-size: 23px;
+    cursor: pointer;
+}
+
+.navbarLink:hover{
+    color: var(--secondary);
+}

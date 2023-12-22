@@ -1,0 +1,7 @@
+.parent{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-height: 550px;
+    flex-wrap: wrap;
+}

@@ -1,0 +1,47 @@
+.parent{
+    border: 1px solid gray;
+    width: 900px;
+    height: 320px;
+    position: relative;
+
+    display: flex;
+
+    cursor: pointer;
+}
+
+.slider{
+    background-color: rgba(215, 215, 215, 0.4);
+    height: 100%;
+    width: 48px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: larger;
+    cursor: pointer;
+}
+
+.sliderLeft{
+    left: 0px; 
+}
+
+.sliderRight{
+    right: 0px;
+}
+
+.textContainer{
+    margin-left: 64px;
+    margin-bottom: 16px;
+    color: white;
+    align-self: flex-end;
+}
+
+.textContainerTitle{
+    font-weight: bold;
+    font-size: 23px;
+    text-shadow: 4px 4px 2px rgba(0, 0, 0, 1);
+}
+
+.textContainerDescription{
+    text-shadow: 4px 4px 2px rgba(0, 0, 0, 1);
+}

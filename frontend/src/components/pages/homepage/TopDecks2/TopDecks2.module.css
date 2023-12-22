@@ -1,0 +1,14 @@
+.parent{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.deckPreviewContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-height: 550px;
+    flex-wrap: wrap;
+}

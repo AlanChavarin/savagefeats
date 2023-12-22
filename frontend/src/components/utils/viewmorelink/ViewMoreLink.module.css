@@ -1,0 +1,17 @@
+.parent{
+    font-size: 19px;
+    font-weight: bold;
+    margin: 32px;
+    align-self: center;
+
+    cursor: pointer;
+}
+
+.parent:hover{
+    color: var(--secondary)
+}
+
+.icon{
+    margin-left: 8px;
+    font-size: 13px;
+}

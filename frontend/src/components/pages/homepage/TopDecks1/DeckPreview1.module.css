@@ -1,0 +1,87 @@
+.parent{
+    border: 1px solid rgb(206, 206, 206);
+    border-bottom: 0px;
+    height: 160px;
+    width: 640px;
+    display: flex;
+    box-shadow: 2px 2px 4px rgb(97, 97, 97);
+    overflow: hidden;
+}
+
+.imgContainer{
+    height: 160px;
+    width: 128px;
+    overflow: hidden;
+}
+
+.img{
+    height: 128px;
+    width: 96px;
+    object-fit: cover;
+    object-position: top center;
+    transform-origin: top;
+    transform: scale(5) translate(5px, -20px);
+}
+
+.textContainer{
+    display: flex;
+    flex-direction: column;
+    padding: 8px 12px 8px 12px;
+    flex: 1;
+    gap: 8px;
+}
+
+.title{
+    font-weight: 700;
+    font-size: 19px;
+}
+
+.links{
+    display: flex;
+    gap: 16px;
+    justify-content: flex-start;
+}
+
+.link{
+    font-size: 13px;
+}
+
+.listPreview{
+    margin-top: 16px;
+    display: flex;
+    gap: 16px;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, .5), rgba(0, 0, 0, 0));
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+
+}
+
+.listPreviewColumn{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.listPreviewColumnHeader{
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.listPreviewColumnItem{
+    font-size: 13px;
+}
+
+.descriptionContainer{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-direction: row;
+}
+
+.descriptionItem{
+    font-size: 16px;
+    color: rgb(74, 74, 74)
+}

@@ -1,0 +1,36 @@
+.parent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 64px;
+    width: 1400px;
+}
+
+.mainColumn{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* padding: 64px; */
+    flex-direction: column;
+}
+
+.sideColumn{
+    
+}
+
+.item{
+    width: 100%;
+}
+
+.bigSection{
+    background-color: var(--darkNavyBlue);
+    height: 512px;
+    width: 100vw;
+}
