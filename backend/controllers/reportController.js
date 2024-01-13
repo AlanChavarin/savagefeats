@@ -51,9 +51,29 @@ const getReport = asyncHandler(async (req, res) => {
     res.json(report)
 })
 
+//this will require a captcha system
 const postReport = asyncHandler(async (req, res) => {
-    const {subject, body} = req.body
+    const {subject, body, token} = req.body
 
+    //validate captcha token, throw error if it fails
+    // const secret = process.env.CAPTCHA_KEY
+    // const response = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`)
+    // const data = await response.json()
+    // if(data.success){
+    //     const report = await Report.create({
+    //         subject,
+    //         body,
+    //         status: 'pending'
+    //     })
+
+    //     res.status(200)
+    //     res.json(report)
+    // } else {
+    //     res.status(400)
+    //     throw new Error('captcha failed')
+    // }
+
+    //get rid of this once captcha is implemented
     const report = await Report.create({
         subject,
         body,
@@ -62,6 +82,8 @@ const postReport = asyncHandler(async (req, res) => {
 
     res.status(200)
     res.json(report)
+
+    
 })
 
 const updateReport = asyncHandler(async (req, res) => {
