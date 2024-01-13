@@ -35,51 +35,12 @@ app.use('/api/names', require('./routes/nameRoutes'))
 app.use('/api/heroes', require('./routes/heroRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
 
-// app.use('/api/content', require('./routes/contentRoutes'))
-// app.use('/api/contentcreators', require('./routes/contentCreatorRoutes'))
+app.use('/api/content', require('./routes/contentRoutes'))
+app.use('/api/contentcreators', require('./routes/contentCreatorRoutes'))
 
-//temp
-app.get('/api/youtube', (req, res) => {
-    const apiKey = process.env.YOUTUBE_API_KEY
-    const channelid = 'UCI5yJdQ4y8r_3J9JCiyHIzQ'
-    const videoid = '3st2cokycyk'
+app.use('/api/reports', require('./routes/reportRoutes'))
 
-    //const apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelid}&part=snippet,id&order=date&maxResults=100`
-
-    //const apiUrl = `https://www.googleapis.com/youtube/v3/channels?key=${apiKey}&id=${channelid}&part=snippet`
-
-    const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${videoid}&part=snippet,contentDetails&key=${apiKey}`
-
-
-
-    fetch(apiUrl)
-    .then(response => response.json())
-    .then(data => {
-        res.status(200)
-        res.json(data)
-    })
-    .catch(error => {
-        console.error('Error fetching videos:', error.message)
-    })
-})
-
-// app.get('/api/temp/', async (req, res) => {
-//     const parser = require('xml2json')
-//     const channelid = 'UCI5yJdQ4y8r_3J9JCiyHIzQ'
-//     fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${channelid}`)
-//     .then( => {
-//         console.log(xmlResponse.text)
-//         //return parser.toJson(xmlResponse)
-//     })
-//     // .then(data => {
-//     //     console.log(data)
-//     //     res.status(200)
-//     //     res.json(data)
-//     // })
-// })
-
-
-
+app.use(errorHandler)
 
 //app.use('/api/issues', require('./routes/issueRoutes'))
 //app.use('/api/admin', require('./routes/adminRoutes'))  
@@ -93,7 +54,5 @@ app.get('/api/youtube', (req, res) => {
 // app.get('*', (req, res) => {
 //     res.sendFile(path.resolve( 'frontend', 'build', 'index.html'))
 // })
-
-app.use(errorHandler)
 
 

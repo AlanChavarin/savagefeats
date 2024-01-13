@@ -4,7 +4,7 @@ const Hero = require('../models/heroModel')
 const Event = require('../models/eventModel')
 const Name = require('../models/nameModel')
 const wordWrapper = require('../helpers/wordWrapper')
-//const ObjectId = require('mongodb').ObjectId
+const ObjectId = require('mongodb').ObjectId
 
 const getDecklists = asyncHandler(async (req, res) => {
     let skip, limit, find, order
@@ -86,7 +86,7 @@ const getDecklists = asyncHandler(async (req, res) => {
     res.json(data)
 })
 
-getDecklistsByEvent = asyncHandler(async (req, res) => {
+const getDecklistsByEvent = asyncHandler(async (req, res) => {
     let decklists
     if(ObjectId.isValid(req.params.event)){
         const doesEventExist = await Event.exists({'_id': new ObjectId(req.params.event), deleted: req.recyclebin})
@@ -122,10 +122,17 @@ const getDecklist = asyncHandler(async (req, res) => {
 
 const postDecklist = asyncHandler(async (req, res) => {
     const {playerName, decklistLink, placement, placementRangeEnding, format, hero, event} = req.body
-    const eventData = await Event.findOne({name: event})
+
+    let eventData
+    if(ObjectId.isValid(event)){
+        eventData = await Event.findOne({_id: event})
+    } else {
+        eventData = await Event.findOne({name: event})
+    }
+    
     if(!eventData){
         res.status(400)
-        throw new Error('given event name not found')
+        throw new Error('given event name or id not found')
     }
 
     const decklist = await Decklist.create({
@@ -168,6 +175,7 @@ const deleteDecklist = asyncHandler(async (req, res) => {
 
 module.exports = {
     getDecklist,
+    getDecklistsByEvent,
     getDecklists,
     postDecklist,
     updateDecklist,

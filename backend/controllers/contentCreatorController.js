@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler')
-const ContentCreator = require('../models/decklistModel')
+const ContentCreator = require('../models/contentCreatorModel')
 const wordWrapper = require('../helpers/wordWrapper')
 //const ObjectId = require('mongodb').ObjectId
 
@@ -28,7 +28,7 @@ const postContentCreator = asyncHandler(async (req, res) => {
 
     const response  = await fetch(`https://www.googleapis.com/youtube/v3/channels?key=${process.env.YOUTUBE_API_KEY}&id=${req.body.channelid}&part=snippet`)
 
-    const data = response.json()
+    const data = await response.json()
 
     const item = data.items[0]
 
@@ -48,17 +48,20 @@ const postContentCreator = asyncHandler(async (req, res) => {
     res.json(contentCreator)
 })
 
+//this is currently broken
 const updateContentCreator = asyncHandler(async (req, res) => {
-    const contentCreator = await ContentCreator.findById(req.body.contentCreatorid)
+    const contentCreator = await ContentCreator.findOne({id: req.params.contentCreatorid})
 
     if(!contentCreator){
         res.status(400)
         throw new Error('channel of that id not found')
     }
 
-    const response  = await fetch(`https://www.googleapis.com/youtube/v3/channels?key=${process.env.YOUTUBE_API_KEY}&id=${contentCreator.channelid}}&part=snippet`)
+    //console.log(contentCreator[0])
 
-    const data = response.json()
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/channels?key=${process.env.YOUTUBE_API_KEY}&id=${contentCreator.channelid}&part=snippet`)
+
+    const data = await response.json()
 
     const item = data.items[0]
 
