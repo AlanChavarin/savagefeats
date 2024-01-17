@@ -1,0 +1,33 @@
+'use client'
+
+import Image from "next/image"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons"
+
+function Footer() {
+  return (
+    <div className="bg-black text-white">
+
+      <div className="m-auto flex flex-col place-items-center justify-center text-[11px] w-full py-[32px] gap-[32px] md:gap-[0px] lg:gap-[64px] *:w-[256px]
+        md:flex-row md:text-[13px] ">
+        <div className="text-center flex flex-col gap-[16px] justify-center align-middle md:order-2">
+          <Image src={'/SVGWHITE.PNG'} width={144} height={32} alt='savage feats' className="m-auto"/>
+          <div className="flex gap-[32px] justify-center align-middle">
+            <a target="_blank" href="https://twitter.com/SavageFeats" className="flex align-middle text-[32px]"><FontAwesomeIcon icon={faTwitter}/></a>
+            <a target="_blank" href="https://youtube.com/@SavageFeats/featured" className="flex align-middle text-[32px]"><FontAwesomeIcon icon={faYoutube}/></a>
+          </div>
+        </div>
+
+        <div className="text-center md:order-1">
+          <span className="text-custom-primary">Savage Feats</span> is both the central hub for all things competitive Flesh and Blood and the premier production company for Flesh and Blood Tournaments. Created by fans, for fans. 
+        </div>
+
+        <div className="text-center md:order-3">
+          <span className="text-custom-primary">Savage Feats</span> is in no way affiliated with <a target="_blank" href="https://www.fabtcg.com"><span className="underline">Legend Story Studios®</span>. <span className="underline">Flesh and Blood™</span></a> is a registered trademark of Legend Story Studios. Flesh and Blood™ and all associated images are copyright © Legend Story Studios. All rights reserved.
+        </div>
+      </div>
+
+    </div>
+  )
+}
+export default Footer
