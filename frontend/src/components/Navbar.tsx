@@ -60,9 +60,9 @@ function Navbar() {
                     Shop
                 </Link>
                 <div className='relative'>
-                    <button className="hover:text-custom-primary relative h-full" onClick={() => servicesDropdownToggleEvent()}>
+                    <button data-dropdown={true} className="hover:text-custom-primary relative h-full" onClick={() => servicesDropdownToggleEvent()}>
                         Services
-                        <FontAwesomeIcon icon={servicesDropdownToggle ? faCaretDown : faCaretUp} width='16px' className='mx-[12px]'/>
+                        <FontAwesomeIcon data-dropdown={true} icon={servicesDropdownToggle ? faCaretDown : faCaretUp} width='16px' className='mx-[12px]'/>
                     </button>
                     {servicesDropdownToggle && 
                         <div data-dropdown={true} className='absolute top-[100%] right-[0px] bg-black flex flex-col gap-[16px] p-[16px] w-[256px]'>

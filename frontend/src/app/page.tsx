@@ -16,18 +16,14 @@
 
 'use client'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretUp } from "@fortawesome/free-solid-svg-icons"
-
 export default async function Home() {
 
   //const data: string = await getData()
 
   return (
     <main className="flex-1">
-      <div className=''> 
-        hello world
-        <FontAwesomeIcon icon={faCaretUp} width='32px'/>
+      <div className='w-full h-[1200px] bg-cover' style={{backgroundImage: `url('/mulch.jpg')`}}> 
+
       </div>
     </main>
   )
