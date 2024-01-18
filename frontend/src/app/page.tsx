@@ -22,8 +22,8 @@ export default async function Home() {
 
   return (
     <main className="flex-1">
-      <div className='w-full h-[1200px] bg-cover' style={{backgroundImage: `url('/mulch.jpg')`}}> 
-
+      <div className='w-full h-[1200px] bg-cover' style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.60)), url('/mulch.jpg')`}}> 
+        
       </div>
     </main>
   )
