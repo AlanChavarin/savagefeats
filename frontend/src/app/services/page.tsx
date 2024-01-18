@@ -1,7 +1,9 @@
 function page() {
   return (
     <main className='flex-1'>
-        services page
+      <div className='text-[96px]' style={{textShadow: '10px 10px 2px red'}}>
+        Hello world
+      </div>
     </main>
   )
 }

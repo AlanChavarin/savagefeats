@@ -38,8 +38,8 @@ function Navbar() {
 
 
   return (
-    <div className="bg-black h-[48px] md:h-[64px] flex place-items-center justify-around">
-        <div className="w-[1400px] hidden md:flex place-items-center justify-around gap-[16px] lg:gap-[128px] xl:gap-[256px] h-full">
+    <div className="bg-black h-[48px] md:h-[64px] flex place-items-center justify-center">
+        <div className="w-[1200px] hidden md:flex place-items-center justify-between gap-[16px] lg:gap-[128px] xl:gap-[256px] h-full">
             <Link href="/" className="cursor-pointer hover:bg-color">
                 <Image src={'/SVGWHITE.PNG'} width={96} height={32} alt='savage feats'/>
             </Link>
@@ -60,9 +60,9 @@ function Navbar() {
                     Shop
                 </Link>
                 <div className='relative'>
-                    <button data-dropdown={true} className="hover:text-custom-primary relative h-full" onClick={() => servicesDropdownToggleEvent()}>
+                    <button data-dropdown={true} className="hover:text-custom-primary relative h-full flex gap-[8px] items-center" onClick={() => servicesDropdownToggleEvent()}>
                         Services
-                        <FontAwesomeIcon data-dropdown={true} icon={servicesDropdownToggle ? faCaretDown : faCaretUp} width='16px' className='mx-[12px]'/>
+                        <FontAwesomeIcon data-dropdown={true} icon={servicesDropdownToggle ? faCaretDown : faCaretUp} width='16px'/>
                     </button>
                     {servicesDropdownToggle && 
                         <div data-dropdown={true} className='absolute top-[100%] right-[0px] bg-black flex flex-col gap-[16px] p-[16px] w-[256px]'>
