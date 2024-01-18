@@ -20,6 +20,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'FoulFiend';
+    src: url('/fonts/FoulFiend.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     font-family: 'DIN', sans-serif;
 }

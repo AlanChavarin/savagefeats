@@ -7,6 +7,7 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -16,7 +17,11 @@ const config: Config = {
       colors: {
         custom: {
           primary: '#5EB877',
+          tertiary: '#B85E5E',
         },
+      },
+      fontFamily: {
+        custom: ['foulfiend', 'sans-serif'], // 'CustomFont' is the font name
       },
     },
   },

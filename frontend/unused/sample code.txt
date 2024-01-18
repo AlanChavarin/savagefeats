@@ -1,0 +1,15 @@
+// const getData = async (): Promise<string> => {
+//   'use server'
+//   return new Promise(resolve => {
+//     console.log(`${process.env.BACKEND_API}example`)
+//       fetch(`${process.env.BACKEND_API}example`, {cache: 'no-store'})
+//       .then(r => r.json())
+//       .then(data => {
+//           console.log(data)
+//           resolve(data.data)
+//       })
+//       .catch(error => {
+//         console.error(error)
+//       })
+//   })
+// }
