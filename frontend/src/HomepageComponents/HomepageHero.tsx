@@ -8,7 +8,7 @@ import { faYoutube } from "@fortawesome/free-brands-svg-icons"
 
 function HomepageHero() {
   return (
-    <div className='w-full bg-fill py-[128px] flex flex-col items-center gap-[96px]' style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.70), rgba(0, 0, 0, 0.70)), url('/mulch.jpg')`, backgroundPosition: 'center -192px'}}>
+    <div className='w-full bg-fill py-[64px] flex flex-col items-center gap-[96px]' style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.70), rgba(0, 0, 0, 0.70)), url('/mulch.jpg')`, backgroundPosition: 'center -192px'}}>
         <div className='w-[80%] sm:w-[512px] flex flex-col gap-[32px] items-center'>
           <Image src={'/SVGWHITE.png'} alt='savage feats logo' width={512} height={128} className='w-full'/>
           <h1 className="text-white text-[19px] ssm:text-[23px] sm:text-[27px] text-balance w-full text-center leading-[48px]" style={{fontFamily: 'foulfiend'}}>

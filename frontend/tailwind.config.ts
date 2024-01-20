@@ -25,7 +25,8 @@ const config: Config = {
       },
       screens: {
         'ssm': "533px"
-      }
+      },
+      
     },
   },
   plugins: [],

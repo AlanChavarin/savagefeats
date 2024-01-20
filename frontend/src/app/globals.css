@@ -27,6 +27,22 @@
     font-style: normal;
 }
 
+@layer components {
+    .foulfiend {
+        font-family: foulfiend
+    }
+
+    .text-shadow{
+        text-shadow: 4px 4px 2px black
+    }
+
+    .box-shadow{
+        box-shadow: 4px 4px 2px black;
+    }
+
+
+}
+
 body {
     font-family: 'DIN', sans-serif;
 }
