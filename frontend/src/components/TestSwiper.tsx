@@ -1,37 +1,50 @@
-import { Swiper, SwiperSlide } from 'swiper/react'
 
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/pagination'
+'use client'
 
-// import required modules
-import { Pagination } from 'swiper/modules'
+import useEmblaCarousel from 'embla-carousel-react'
 
 function TestSwiper() {
+
+    const [emblaRef, emblaApi] = useEmblaCarousel()
+
+    const prevOnClick = () => {
+        emblaApi?.scrollPrev()
+        console.log('prev')
+    }
+
+    const nextOnClick = () => {
+        emblaApi?.scrollNext()
+        console.log('next')
+    }
+
   return (
-    <div>
-        <Swiper
-        slidesPerView={4}
-        spaceBetween={30}
-        pagination={{
-            clickable: true,
-        }}
-        modules={[Pagination]}
-        className="mySwiper"
-        >
-            <SwiperSlide>Slide 1</SwiperSlide>
-            <SwiperSlide>Slide 2</SwiperSlide>
-            <SwiperSlide>Slide 3</SwiperSlide>
-            <SwiperSlide>Slide 4</SwiperSlide>
-            <SwiperSlide>Slide 5</SwiperSlide>
-            <SwiperSlide>Slide 6</SwiperSlide>
-            <SwiperSlide>Slide 7</SwiperSlide>
-            <SwiperSlide>Slide 8</SwiperSlide>
-            <SwiperSlide>Slide 9</SwiperSlide>
-        </Swiper>
-        <div className='swiper-pagination'></div>
-    </div>
-    
+    <>
+        <div className="flex flex-row h-[578px] border-2" ref={emblaRef}>
+            <div className="flex *:border-2 gap-[64px]">
+                {/* <div className="h-[600px] video-slides" style={{flex: '0 0 1024px'}}>
+                    <iframe className='w-[1024px] h-[578px]'  src={`https://www.youtube-nocookie.com/embed/MvnYBCDaEKU?start=1`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+                </div>
+                <div className="h-[600px]" style={{flex: '0 0 1024px'}}>
+                    <iframe className='w-[1024px] h-[578px]'  src={`https://www.youtube-nocookie.com/embed/MvnYBCDaEKU?start=1`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+                </div>
+                <div className="h-[600px]" style={{flex: '0 0 1024px'}}>
+                    <iframe className='w-[1024px] h-[578px]'  src={`https://www.youtube-nocookie.com/embed/MvnYBCDaEKU?start=1`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+                </div> */}
+                {/* <div className="h-[600px]" style={{flex: '0 0 1024px'}}>
+                    <iframe className='w-[1024px] h-[578px]'  src={`https://www.youtube-nocookie.com/embed/MvnYBCDaEKU?start=1`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+                </div> */}
+                <div style={{flex: '0 0 1024px'}}>etkjholdfjgkjjdfg</div>
+                <div style={{flex: '0 0 1024px'}}>etkjholdfjgkjjdfg</div>
+                <div style={{flex: '0 0 1024px'}}>etkjholdfjgkjjdfg</div>
+                <div style={{flex: '0 0 1024px'}}>etkjholdfjgkjjdfg</div>
+                <div className="relative h-[600px]" style={{flex: '0 0 1024px'}}>
+                    <iframe className='w-[1024px] h-[578px] absolute'  src={`https://www.youtube-nocookie.com/embed/MvnYBCDaEKU?start=1`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+                </div>
+            </div>
+        </div>
+        <button onClick={() => prevOnClick()} className='w-[128px] h-[64px] bg-red-100'>PREV</button>
+        <button onClick={() => nextOnClick()} className='w-[128px] h-[64px] bg-red-100'>NEXT</button>
+    </>
   )
 }
 export default TestSwiper

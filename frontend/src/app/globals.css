@@ -46,3 +46,22 @@
 body {
     font-family: 'DIN', sans-serif;
 }
+
+.video-slide {
+position: relative;
+aspect-ratio: 16 / 9; 
+container-type: size;
+
+    &:after {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: calc(100% - 14cqh); 
+        clip-path: polygon(0% 0%, 0% 100%, 44% 100%, 44% 49%, 56% 49%, 56% 67%, 0% 67%, 0% 100%, 100% 100%, 100% 0%); 
+    }
+}
+
+  
