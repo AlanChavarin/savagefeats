@@ -5,6 +5,8 @@ const config: Config = {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/HomepageComponents/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/SwiperComponents/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/eyeofophidiaComponents/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
