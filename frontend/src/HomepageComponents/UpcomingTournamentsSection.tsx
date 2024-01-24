@@ -5,6 +5,7 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { DotButton, useDotButton } from '../components/EmblaCarouselDotButton'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
+import EventThumbnail from "@/EyeofophidiaComponents/EventThumbnail"
 
 function UpcomingTournamentsSection() {
 
@@ -25,7 +26,7 @@ function UpcomingTournamentsSection() {
       <SectionBackground image={'wildride.jpg'} top={-80}/>
 
       <div className='flex justify-between lg:w-[900px] lg:my-[32px]'>
-        <div className='text-[11px] md:text-[16px] lg:text-[19px] xl:text-[23px] text-white foulfiend text-shadow'>
+        <div className='text-[13px] md:text-[16px] lg:text-[19px] xl:text-[23px] text-white foulfiend text-shadow'>
           Upcoming Tournaments
         </div>
         <a className='hidden text-[16px] lg:block text-white text-shadow underline' href='eyeofophidia/tournaments'>
@@ -36,26 +37,21 @@ function UpcomingTournamentsSection() {
         </a>
       </div>
 
-      {/* <div className="w-[80vw] md:w-[564px]" ref={emblaRef}>
-        <div className="grid grid-flow-col grid-auto-rows-80">
 
-          <div className="h-[64px] w-[64px] bg-red-100">hello world</div>
-          <div className="h-[64px] w-[64px] bg-red-100">hello world</div>
+      <div className="w-[90vw]" ref={emblaRef}>
+        <div className="flex gap-[16px]">
 
-        </div>
-      </div> */}
-
-      <div className="w-[80px]" ref={emblaRef}>
-        <div className="flex">
-
-          <div className="h-[64px] w-[64px] bg-red-100 basis-[64px] grow-0 shrink-0 mx-[16px]">
-            <div className="h-[64px] w-[64px] bg-red-100 basis-[64px] grow-0 shrink-0 mx-[16px]">hello world</div>
-            <div className="h-[64px] w-[64px] bg-red-100 basis-[64px] grow-0 shrink-0 mx-[16px]">hello world</div>
+          <div className="h-[50vw] basis-[90vw] grow-0 shrink-0">
+            <EventThumbnail />
           </div>
-          <div className="h-[64px] w-[64px] bg-red-100 basis-[64px] grow-0 shrink-0 mx-[16px]">hello world</div>
-          <div className="h-[64px] w-[64px] bg-red-100 basis-[64px] grow-0 shrink-0 mx-[16px]">hello world</div>
-          <div className="h-[64px] w-[64px] bg-red-100 basis-[64px] grow-0 shrink-0 mx-[16px]">hello world</div>
-          <div className="h-[64px] w-[64px] bg-red-100 basis-[64px] grow-0 shrink-0 mx-[16px]">hello world</div>
+
+          <div className="h-[50vw] basis-[90vw] grow-0 shrink-0">
+            <EventThumbnail />  
+          </div>
+
+          <div className="h-[50vw] basis-[90vw] grow-0 shrink-0">
+            <EventThumbnail />
+          </div>
 
         </div>
       </div>
