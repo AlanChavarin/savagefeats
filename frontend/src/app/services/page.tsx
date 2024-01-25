@@ -9,6 +9,7 @@ function page() {
       <div className='w-[256px]'>
         <DeckThumbnail size='smallSlide' />
       </div>
+      <DeckThumbnail size='featuredSlide' />
     </main>
   )
 }
