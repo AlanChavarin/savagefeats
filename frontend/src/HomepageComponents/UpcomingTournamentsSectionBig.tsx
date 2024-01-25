@@ -43,7 +43,7 @@ function UpcomingTournamentsSectionBig() {
 
         <div className="flex gap-[32px]">
 
-          <div className="h-[320px] basis-[320px] *:grow-0 shrink-0">
+          <div className="h-[320px] basis-[320px] grow-0 shrink-0">
             <EventThumbnail size='featuredSlide'/>
           </div>
 

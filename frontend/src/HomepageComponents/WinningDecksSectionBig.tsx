@@ -4,8 +4,23 @@ import SectionBackground from "@/swiperComponents/SectionBackground"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import DeckThumbnail from "@/eyeofophidiaComponents/DeckThumbnail"
+import useEmblaCarousel from 'embla-carousel-react'
+import { DotButton, useDotButton } from '../swiperComponents/EmblaCarouselDotButton'
 
 function WinningDecksSectionBig() {
+
+  const [emblaRef, emblaApi] = useEmblaCarousel()
+
+  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
+
+
+  const prevOnClick = () => {
+    emblaApi?.scrollPrev()
+  }
+
+  const nextOnClick = () => {
+    emblaApi?.scrollNext()
+  }
 
   return (
     <div className='h-[512px] relative bg-red flex flex-col items-center py-[32px] gap-[24px]'>
@@ -29,14 +44,47 @@ function WinningDecksSectionBig() {
 
           <DeckThumbnail size='featuredSlide'/>
         </div>
+        
+        <div className='w-[512px] h-full flex flex-col justify-between pr-[8px] overflow-hidden' ref={emblaRef}>
+          <div className='flex gap-[32px]'>
+            <div className="flex flex-col gap-[32px] basis-[496px] grow-0 shrink-0">
+              <DeckThumbnail size='normal' />
+              <DeckThumbnail size='normal' />
+              <DeckThumbnail size='normal' />
+              <DeckThumbnail size='normal' />
+              <DeckThumbnail size='normal' />
+            </div>
 
-        <div className="flex flex-col gap-[32px] flex-1">
-          <DeckThumbnail size='normal' />
-          <DeckThumbnail size='normal' />
-          <DeckThumbnail size='normal' />
-          <DeckThumbnail size='normal' />
-          <DeckThumbnail size='normal' />
+            <div className="flex flex-col gap-[32px] basis-[496px] grow-0 shrink-0">
+              <DeckThumbnail size='normal' />
+              <DeckThumbnail size='normal' />
+              <DeckThumbnail size='normal' />
+              <DeckThumbnail size='normal' />
+              <DeckThumbnail size='normal' />
+            </div>
+
+            <div className="flex flex-col gap-[32px] basis-[496px] grow-0 shrink-0">
+              <DeckThumbnail size='normal' />
+              <DeckThumbnail size='normal' />
+              <DeckThumbnail size='normal' />
+              <DeckThumbnail size='normal' />
+              <DeckThumbnail size='normal' />
+            </div>
+          </div>
+
+          <div className="flex gap-[16px] w-full border-2 items-center justify-center">
+            <FontAwesomeIcon onClick={() => prevOnClick()} icon={faChevronLeft} className='h-[24px] w-[24px] cursor-pointer'/>
+            {scrollSnaps.map((_, index) => (<>
+              <DotButton
+                key={index}
+                active={(selectedIndex === index)}
+                onClick={() => onDotButtonClick(index)}
+              />
+            </>))}
+            <FontAwesomeIcon onClick={() => nextOnClick()} icon={faChevronRight} className='h-[24px] w-[24px] cursor-pointer'/>
+          </div>
         </div>
+        
       </div>
 
       
