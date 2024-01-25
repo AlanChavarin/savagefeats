@@ -1,8 +1,8 @@
 'use client'
 
-import SectionBackground from "@/components/SectionBackground"
+import SectionBackground from "@/swiperComponents/SectionBackground"
 import useEmblaCarousel from 'embla-carousel-react'
-import { DotButton, useDotButton } from '../components/EmblaCarouselDotButton'
+import { DotButton, useDotButton } from '../swiperComponents/EmblaCarouselDotButton'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 
@@ -23,7 +23,7 @@ function TheLatestInFABSection() {
   }
 
   return (
-    <div className='h-[65vw] md:h-[312px] relative bg-red flex flex-col items-center py-[32px] gap-[24px]'>
+    <div className='h-[65vw] min-[490px]:h-[256px] lg:h-[360px] relative bg-red flex flex-col items-center py-[32px] gap-[24px]'>
       <SectionBackground image={'hvy.PNG'} top={0}/>
 
       <div className='text-[11px] md:text-[16px] lg:text-[19px] lg:my-[32px] xl:text-[27px] text-white foulfiend text-shadow'>
