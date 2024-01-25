@@ -1,29 +1,29 @@
 version: '3.8'
 services:
-  frontend:
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile.dev
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-      - /app/.next
-  backend:
-    build: 
-      context: ./backend
-      dockerfile: Dockerfile.dev
-    ports:
-      - "5000:5000"
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
+  # frontend:
+  #   build: 
+  #     context: ./frontend
+  #     dockerfile: Dockerfile.dev
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./frontend:/app
+  #     - /app/node_modules
+  #     - /app/.next
+  # backend:
+  #   build: 
+  #     context: ./backend
+  #     dockerfile: Dockerfile.dev
+  #   ports:
+  #     - "5000:5000"
+  #   volumes:
+  #     - ./backend:/app
+  #     - /app/node_modules
   mongo:
     image: mongo
     environment:
-      MONGO_INITDB_ROOT_USERNAME: mongo
-      MONGO_INITDB_ROOT_PASSWORD: mongopassword12345
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
     ports:
       - 27017:27017
     volumes:

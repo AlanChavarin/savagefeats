@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import DeckThumbnail from "@/eyeofophidiaComponents/DeckThumbnail"
 
-function WinningDecksSectionSmall() {
+function WinningDecksSectionBig() {
 
   const [emblaRef, emblaApi] = useEmblaCarousel()
 
@@ -30,6 +30,12 @@ function WinningDecksSectionSmall() {
         <div className='text-[13px] md:text-[16px] lg:text-[19px] xl:text-[23px] text-white foulfiend text-shadow'>
           Winning Decklists
         </div>
+        <a className='text-[16px] text-white text-shadow underline' href='eyeofophidia/tournaments'>
+          View all upcoming Tournaments
+          &nbsp;&nbsp;
+          <FontAwesomeIcon icon={faChevronRight}/>
+          <FontAwesomeIcon icon={faChevronRight}/>
+        </a>
       </div>
 
 
@@ -37,7 +43,7 @@ function WinningDecksSectionSmall() {
         <div className="flex gap-[32px]">
 
           <div className="basis-[90vw] min-[390px]:basis-[360px] grow-0 shrink-0 flex flex-col gap-[16px]">
-            <iframe className='w-full box-shadow' src={`https://www.youtube-nocookie.com/embed/ZKxA3LAZybw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+            <iframe className='w-full md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/ZKxA3LAZybw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
             <DeckThumbnail size='smallSlide' />
           </div>
 
@@ -69,14 +75,8 @@ function WinningDecksSectionSmall() {
         <FontAwesomeIcon onClick={() => nextOnClick()} icon={faChevronRight} className='h-[24px] w-[24px] cursor-pointer'/>
       </div>
 
-      <a className='block text-[11px] text-black underline' href='eyeofophidia/tournaments'>
-        View all winning deck lists
-        &nbsp;&nbsp;
-        <FontAwesomeIcon icon={faChevronRight}/>
-        <FontAwesomeIcon icon={faChevronRight}/>
-      </a>
 
     </div>
   )
 }
-export default WinningDecksSectionSmall
+export default WinningDecksSectionBig

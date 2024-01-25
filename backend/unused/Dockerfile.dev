@@ -1,0 +1,23 @@
+# FROM node
+
+# WORKDIR /app
+
+# COPY ./package*.json .
+
+# RUN npm ci
+
+# COPY . . 
+
+# EXPOSE 5000
+
+# ENV PORT=5000
+# ENV MONGO_URI=mongodb://mongo:mongopassword12345@mongo:27017
+# ENV NODE_ENV=development
+
+# ENV JWT_SECRET = 
+# ENV EMAIL_SECRET = 
+
+# ENV EMAIL=
+# ENV EMAIL_PASSWORD=
+
+# CMD ["npm", "run", "dev"]

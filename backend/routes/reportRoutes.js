@@ -7,6 +7,7 @@ router.get('/', getReports)
 
 router.get('/:reportid', getReport)
 
+//this will require a captcha system
 router.post('/', postReport)
 
 router.put('/:reportid', protect, protectModerator, updateReport)

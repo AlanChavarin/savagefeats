@@ -55,7 +55,8 @@ const getReport = asyncHandler(async (req, res) => {
 const postReport = asyncHandler(async (req, res) => {
     const {subject, body, token} = req.body
 
-    //validate captcha token, throw error if it fails
+    //code to validate captcha token, throw error if it fails
+
     // const secret = process.env.CAPTCHA_KEY
     // const response = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`)
     // const data = await response.json()
@@ -73,7 +74,8 @@ const postReport = asyncHandler(async (req, res) => {
     //     throw new Error('captcha failed')
     // }
 
-    //get rid of this once captcha is implemented
+
+    //get rid of the rest of this once captcha is implemented
     const report = await Report.create({
         subject,
         body,
