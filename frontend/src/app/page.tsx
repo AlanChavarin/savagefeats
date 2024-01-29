@@ -5,6 +5,8 @@ import UpcomingTournamentsSectionBig from "@/HomepageComponents/UpcomingTourname
 import UpcomingTournamentsSectionSmall from "@/HomepageComponents/UpcomingTournamentsSectionSmall"
 import WinningDecksSectionSmall from "@/HomepageComponents/WinningDecksSectionSmall"
 import WinningDecksSectionBig from "@/HomepageComponents/WinningDecksSectionBig"
+import ContentCreatorSectionSmall from "@/HomepageComponents/ContentCreatorSectionSmall"
+import ContentCreatorSectionBig from "@/HomepageComponents/ContentCreatorSectionBig"
 
 export default function Home() {
 
@@ -18,9 +20,9 @@ export default function Home() {
         <div className='hidden lg:block'><UpcomingTournamentsSectionBig/></div>
         <div className='block lg:hidden'><WinningDecksSectionSmall /></div>
         <div className='hidden lg:block'><WinningDecksSectionBig /></div>
+        <div className='block md:hidden'><ContentCreatorSectionSmall /></div>
+        <div className='hidden md:block'><ContentCreatorSectionBig /></div>
       </div>
-
-      
     </main>
   )
 }
