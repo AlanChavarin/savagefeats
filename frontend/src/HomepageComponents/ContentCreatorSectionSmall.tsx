@@ -1,8 +1,8 @@
 'use client'
 
-import SectionBackground from "@/swiperComponents/SectionBackground"
+import SectionBackground from "@/HomepageComponents/swiperComponents/SectionBackground"
 import useEmblaCarousel from 'embla-carousel-react'
-import { DotButton, useDotButton } from '../swiperComponents/EmblaCarouselDotButton'
+import { DotButton, useDotButton } from './swiperComponents/EmblaCarouselDotButton'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 
@@ -23,7 +23,7 @@ function ContentCreatorSectionSmall() {
   }
 
   return (
-    <div className='h-[65vw] min-[490px]:h-[256px] lg:h-[360px] relative bg-red flex flex-col items-center mt-[32px]'>
+    <div className='h-[65vw] min-[490px]:h-[256px] lg:h-[360px] relative bg-red flex flex-col items-center mt-[32px] mb-[96px]'>
       <SectionBackground image={'hvy.PNG'} top={0}/>
         
         <div className='text-[11px] min-[400px]:text-[16px] min-[540px]:my-[16px] text-white foulfiend text-shadow flex flex-row justify-between align-middle w-[85vw] max-w-[400px] '>
@@ -39,7 +39,7 @@ function ContentCreatorSectionSmall() {
         <div className="flex">
 
           <div className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
-            <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/ZKxA3LAZybw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+            c
             <div className='h-[50%] w-[35%] absolute left-[0px]'></div>
             <div className='h-[50%] w-[35%] absolute right-[0px]'></div>
           </div>

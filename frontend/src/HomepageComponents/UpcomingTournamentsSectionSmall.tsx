@@ -1,8 +1,8 @@
 'use client'
 
-import SectionBackground from "@/swiperComponents/SectionBackground"
+import SectionBackground from "@/HomepageComponents/swiperComponents/SectionBackground"
 import useEmblaCarousel from 'embla-carousel-react'
-import { DotButton, useDotButton } from '../swiperComponents/EmblaCarouselDotButton'
+import { DotButton, useDotButton } from './swiperComponents/EmblaCarouselDotButton'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import EventThumbnail from "@/eyeofophidiaComponents/EventThumbnail"

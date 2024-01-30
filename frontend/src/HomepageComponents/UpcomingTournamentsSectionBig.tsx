@@ -1,8 +1,8 @@
 'use client'
 
-import SectionBackground from "@/swiperComponents/SectionBackground"
+import SectionBackground from "@/HomepageComponents/swiperComponents/SectionBackground"
 import useEmblaCarousel from 'embla-carousel-react'
-import { DotButton, useDotButton } from '../swiperComponents/EmblaCarouselDotButton'
+import { DotButton, useDotButton } from './swiperComponents/EmblaCarouselDotButton'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import EventThumbnail from "@/eyeofophidiaComponents/EventThumbnail"
@@ -39,25 +39,25 @@ function UpcomingTournamentsSectionBig() {
       </div>
 
 
-      <div className="w-[320px]" ref={emblaRef}>
+      <div className="w-[430px]" ref={emblaRef}>
 
-        <div className="flex gap-[32px]">
+        <div className="flex gap-[48px]">
 
-          <div className="h-[320px] basis-[320px] grow-0 shrink-0">
+          <div className="h-[430px] basis-[430px] grow-0 shrink-0">
             <EventThumbnail size='featuredSlide'/>
           </div>
 
-          <div className='flex flex-col h-[320px] basis-[320px] grow-0 shrink-0 gap-[32px]'>
+          <div className='flex flex-col h-[430px] basis-[340px] grow-0 shrink-0 gap-[48px]'>
             <EventThumbnail size='sideSlide'/>
             <EventThumbnail size='sideSlide'/>
           </div>
 
-          <div className='flex flex-col h-[320px] basis-[320px] grow-0 shrink-0 gap-[32px]'>
+          <div className='flex flex-col h-[430px] basis-[340px] grow-0 shrink-0 gap-[48px]'>
             <EventThumbnail size='sideSlide'/>
             <EventThumbnail size='sideSlide'/>
           </div>
 
-          <div className='flex flex-col h-[320px] basis-[320px] grow-0 shrink-0 gap-[32px]'>
+          <div className='flex flex-col h-[430px] basis-[340px] grow-0 shrink-0 gap-[48px]'>
             <EventThumbnail size='sideSlide'/>
             <EventThumbnail size='sideSlide'/>
           </div>

@@ -1,8 +1,8 @@
 'use client'
 
-import SectionBackground from "@/swiperComponents/SectionBackground"
+import SectionBackground from "@/HomepageComponents/swiperComponents/SectionBackground"
 import useEmblaCarousel from 'embla-carousel-react'
-import { DotButton, useDotButton } from '../swiperComponents/EmblaCarouselDotButton'
+import { DotButton, useDotButton } from './swiperComponents/EmblaCarouselDotButton'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 
@@ -35,14 +35,8 @@ function ContentCreatorSectionSmall() {
 
         <div className='flex flex-col items-center justify-center gap-[32px] translate-y-[32px]'>
           <div className='foulfiend text-white text-[19px] text-shadow'>Savage Lands News' latest content</div>
-          <div className="overflow-hidden" ref={emblaRef}>
-            <div className="flex">
-              <div className='grid grid-cols-2 gap-[32px] relative grow-0 shrink-0'>
-                <iframe className='w-[320px] h-[180px] box-shadow' src={`https://www.youtube-nocookie.com/embed/ZKxA3LAZybw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-                <iframe className='w-[320px] h-[180px] box-shadow' src={`https://www.youtube-nocookie.com/embed/IjG3XpmLWCs?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-                <iframe className='w-[320px] h-[180px] box-shadow' src={`https://www.youtube-nocookie.com/embed/R2p1qSTQOck?start=8503`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-                <iframe className='w-[320px] h-[180px] box-shadow' src={`https://www.youtube-nocookie.com/embed/zxCaHNrpHLE?start=4834`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-              </div>
+          <div className="w-[673px] overflow-hidden" ref={emblaRef}>
+            <div className="flex gap-[32px] mr-[8px] mb-[8px]">
 
               <div className='grid grid-cols-2 gap-[32px] relative grow-0 shrink-0'>
                 <iframe className='w-[320px] h-[180px] box-shadow' src={`https://www.youtube-nocookie.com/embed/ZKxA3LAZybw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
@@ -57,6 +51,7 @@ function ContentCreatorSectionSmall() {
                 <iframe className='w-[320px] h-[180px] box-shadow' src={`https://www.youtube-nocookie.com/embed/R2p1qSTQOck?start=8503`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
                 <iframe className='w-[320px] h-[180px] box-shadow' src={`https://www.youtube-nocookie.com/embed/zxCaHNrpHLE?start=4834`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
               </div>
+
             </div>
           </div>
 

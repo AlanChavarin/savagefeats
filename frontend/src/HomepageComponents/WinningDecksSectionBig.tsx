@@ -1,11 +1,11 @@
 'use client'
 
-import SectionBackground from "@/swiperComponents/SectionBackground"
+import SectionBackground from "@/HomepageComponents/swiperComponents/SectionBackground"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import DeckThumbnail from "@/eyeofophidiaComponents/DeckThumbnail"
 import useEmblaCarousel from 'embla-carousel-react'
-import { DotButton, useDotButton } from '../swiperComponents/EmblaCarouselDotButton'
+import { DotButton, useDotButton } from './swiperComponents/EmblaCarouselDotButton'
 
 function WinningDecksSectionBig() {
 
@@ -26,7 +26,7 @@ function WinningDecksSectionBig() {
     <div className='h-[512px] relative bg-red flex flex-col items-center py-[32px] gap-[24px]'>
       <SectionBackground image={'ripples.jpg'} top={-80}/>
 
-      <div className='flex justify-between w-[900px] my-[32px]'>
+      <div className='flex justify-between w-[1000px] my-[32px]'>
         <div className='text-[13px] md:text-[16px] lg:text-[19px] xl:text-[23px] text-white foulfiend text-shadow'>
           Winning Decklists
         </div>
@@ -38,7 +38,7 @@ function WinningDecksSectionBig() {
         </a>
       </div>
 
-      <div className='flex flex-row gap-[32px] w-[1024px]'>
+      <div className='flex flex-row gap-[48px] w-[1032px]'>
         <div className="flex flex-col gap-[32px] flex-1">
           <iframe className='box-shadow h-[279px]' src={`https://www.youtube-nocookie.com/embed/ZKxA3LAZybw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
 
@@ -72,7 +72,7 @@ function WinningDecksSectionBig() {
             </div>
           </div>
 
-          <div className="flex gap-[16px] w-full border-2 items-center justify-center">
+          <div className="flex gap-[16px] w-full items-center justify-center">
             <FontAwesomeIcon onClick={() => prevOnClick()} icon={faChevronLeft} className='h-[24px] w-[24px] cursor-pointer'/>
             {scrollSnaps.map((_, index) => (<>
               <DotButton

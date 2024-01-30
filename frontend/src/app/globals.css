@@ -44,6 +44,10 @@
         box-shadow: 4px 4px 2px black;
     }
 
+    .glowing-shadow{
+        box-shadow: 0px 0px 32px rgb(0, 0, 0);
+    }
+
 
 }
 
