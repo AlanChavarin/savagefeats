@@ -6,6 +6,7 @@ import { DotButton, useDotButton } from './swiperComponents/EmblaCarouselDotButt
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import DeckThumbnail from "@/eyeofophidiaComponents/DeckThumbnail"
+import YoutubeEmbedContainer from "./swiperComponents/YoutubeEmbedContainer"
 
 function WinningDecksSectionSmall() {
 
@@ -24,7 +25,7 @@ function WinningDecksSectionSmall() {
 
   return (
     <div className='h-[80vw] min-[360px]:h-[320px] relative bg-red flex flex-col items-center py-[32px] gap-[24px]'>
-      <SectionBackground image={'ripples.jpg'} top={-80}/>
+      <SectionBackground image={'ripples.jpg'} size={'big'}/>
 
       <div className='flex justify-between lg:w-[900px] lg:my-[32px]'>
         <div className='text-[13px] md:text-[16px] lg:text-[19px] xl:text-[23px] text-white foulfiend text-shadow'>
@@ -37,7 +38,9 @@ function WinningDecksSectionSmall() {
         <div className="flex gap-[32px]">
 
           <div className="basis-[90vw] min-[390px]:basis-[360px] grow-0 shrink-0 flex flex-col gap-[16px]">
-            <iframe className='w-full box-shadow' src={`https://www.youtube-nocookie.com/embed/ZKxA3LAZybw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+            <YoutubeEmbedContainer>
+              <iframe className='w-full box-shadow' src={`https://www.youtube-nocookie.com/embed/ZKxA3LAZybw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+            </YoutubeEmbedContainer>
             <DeckThumbnail size='smallSlide' />
           </div>
 
@@ -57,7 +60,7 @@ function WinningDecksSectionSmall() {
       </div>
       
 
-      <div className="flex gap-[16px] border-2 items-center">
+      <div className="flex gap-[16px] items-center">
         <FontAwesomeIcon onClick={() => prevOnClick()} icon={faChevronLeft} className='h-[24px] w-[24px] cursor-pointer'/>
         {scrollSnaps.map((_, index) => (<>
           <DotButton

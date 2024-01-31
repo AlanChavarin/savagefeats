@@ -1,12 +1,10 @@
 'use client'
-
 import SectionBackground from "@/HomepageComponents/swiperComponents/SectionBackground"
 import useEmblaCarousel from 'embla-carousel-react'
 import { DotButton, useDotButton } from './swiperComponents/EmblaCarouselDotButton'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import YoutubeEmbedContainer from "./swiperComponents/YoutubeEmbedContainer"
-
 function TheLatestInFABSection() {
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -23,51 +21,53 @@ function TheLatestInFABSection() {
     emblaApi?.scrollNext()
   }
 
+  //h-[65vw]
+
   return (
     <div className='h-[65vw] min-[490px]:h-[256px] lg:h-[360px] relative bg-red flex flex-col items-center py-[32px] gap-[24px]'>
-      <SectionBackground image={'hvy.PNG'} top={0}/>
+      <SectionBackground image={'hvy.PNG'} size={'small'}/>
 
       <div className='text-[11px] md:text-[16px] lg:text-[19px] lg:my-[32px] xl:text-[27px] text-white foulfiend text-shadow'>
         The Latest in Flesh and Blood
       </div>
 
-      <div className="w-[80vw] md:w-[564px]" ref={emblaRef}>
+      <div className="w-[90vw] md:w-[564px]" ref={emblaRef}>
         <div className="flex">
 
-          <div className='h-[45vw] basis-[80vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
+          <div className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
             <YoutubeEmbedContainer>
-              <iframe className='h-[45vw] w-[75vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/ZKxA3LAZybw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+              <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/ZKxA3LAZybw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
             </YoutubeEmbedContainer>
           </div>
 
-          <div className='h-[45vw] basis-[80vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
+          <div className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
             <YoutubeEmbedContainer>
-              <iframe className='h-[45vw] w-[75vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/IjG3XpmLWCs?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+              <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/IjG3XpmLWCs?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
             </YoutubeEmbedContainer>
           </div>
 
-          <div className='h-[45vw] basis-[80vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
+          <div className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
             <YoutubeEmbedContainer>
-              <iframe className='h-[45vw] w-[75vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/R2p1qSTQOck?start=8503`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+              <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/R2p1qSTQOck?start=8503`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
             </YoutubeEmbedContainer>
           </div>
 
-          <div className='h-[45vw] basis-[80vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
+          <div className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
             <YoutubeEmbedContainer>
-              <iframe className='h-[45vw] w-[75vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/zxCaHNrpHLE?start=4834`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+              <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/zxCaHNrpHLE?start=4834`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
             </YoutubeEmbedContainer>
           </div>
 
-          <div className='h-[45vw] basis-[80vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
+          <div className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
             <YoutubeEmbedContainer>
-              <iframe className='h-[45vw] w-[75vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/G_Pp41Enahw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+              <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/G_Pp41Enahw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
             </YoutubeEmbedContainer>
           </div>
 
         </div>
       </div>
 
-      <div className="flex gap-[16px] border-2 items-center">
+      <div className="flex gap-[16px] items-center">
         <FontAwesomeIcon onClick={() => prevOnClick()} icon={faChevronLeft} className='h-[24px] w-[24px] cursor-pointer'/>
         {scrollSnaps.map((_, index) => (<>
           <DotButton

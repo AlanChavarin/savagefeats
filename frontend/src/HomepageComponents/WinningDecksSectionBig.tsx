@@ -6,6 +6,7 @@ import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons
 import DeckThumbnail from "@/eyeofophidiaComponents/DeckThumbnail"
 import useEmblaCarousel from 'embla-carousel-react'
 import { DotButton, useDotButton } from './swiperComponents/EmblaCarouselDotButton'
+import YoutubeEmbedContainer from "./swiperComponents/YoutubeEmbedContainer"
 
 function WinningDecksSectionBig() {
 
@@ -24,7 +25,7 @@ function WinningDecksSectionBig() {
 
   return (
     <div className='h-[512px] relative bg-red flex flex-col items-center py-[32px] gap-[24px]'>
-      <SectionBackground image={'ripples.jpg'} top={-80}/>
+      <SectionBackground image={'ripples.jpg'} size={'big'}/>
 
       <div className='flex justify-between w-[1000px] my-[32px]'>
         <div className='text-[13px] md:text-[16px] lg:text-[19px] xl:text-[23px] text-white foulfiend text-shadow'>
@@ -40,6 +41,7 @@ function WinningDecksSectionBig() {
 
       <div className='flex flex-row gap-[48px] w-[1032px]'>
         <div className="flex flex-col gap-[32px] flex-1">
+
           <iframe className='box-shadow h-[279px]' src={`https://www.youtube-nocookie.com/embed/ZKxA3LAZybw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
 
           <DeckThumbnail size='featuredSlide'/>

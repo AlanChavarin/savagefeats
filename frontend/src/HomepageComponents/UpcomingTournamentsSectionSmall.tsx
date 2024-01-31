@@ -24,7 +24,7 @@ function UpcomingTournamentsSectionSmall() {
 
   return (
     <div className='h-[65vw] min-[360px]:h-[256px] relative bg-red flex flex-col items-center py-[32px] gap-[24px]'>
-      <SectionBackground image={'wildride.jpg'} top={-80}/>
+      <SectionBackground image={'wildride.jpg'} size={'big'}/>
 
       <div className='flex justify-between lg:w-[900px] lg:my-[32px]'>
         <div className='text-[13px] md:text-[16px] lg:text-[19px] xl:text-[23px] text-white foulfiend text-shadow'>
@@ -54,7 +54,7 @@ function UpcomingTournamentsSectionSmall() {
       </div>
       
 
-      <div className="flex gap-[16px] border-2 items-center">
+      <div className="flex gap-[16px] items-center">
         <FontAwesomeIcon onClick={() => prevOnClick()} icon={faChevronLeft} className='h-[24px] w-[24px] cursor-pointer'/>
         {scrollSnaps.map((_, index) => (<>
           <DotButton

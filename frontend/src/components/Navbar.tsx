@@ -65,7 +65,7 @@ function Navbar() {
                         <FontAwesomeIcon data-dropdown={true} icon={servicesDropdownToggle ? faCaretDown : faCaretUp} width='16px'/>
                     </button>
                     {servicesDropdownToggle && 
-                        <div data-dropdown={true} className='absolute top-[100%] right-[0px] bg-black flex flex-col gap-[16px] p-[16px] w-[256px]'>
+                        <div data-dropdown={true} className='z-10 absolute top-[100%] right-[0px] bg-black flex flex-col gap-[16px] p-[16px] w-[256px]'>
                             <Link data-dropdown={true} href="/services" className='text-white hover:text-custom-primary'>
                                 Production Services
                             </Link>

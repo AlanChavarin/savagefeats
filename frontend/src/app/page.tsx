@@ -11,7 +11,7 @@ import ContentCreatorSectionBig from "@/HomepageComponents/ContentCreatorSection
 export default function Home() {
 
   return (
-    <main className="flex-1 overflow-hidden pb-[128px]">
+    <main className="flex-1 overflow-hidden pb-[128px]" style={{transformStyle: 'preserve-3d'}}>
       <HomepageHero />
       {/* section conatiner */}
       <div className='flex flex-col gap-[196px] min-[480px]:gap-[280px] lg:gap-[384px] justify-between py-[64px] md:py-[128px] lg:py-[256px]'>

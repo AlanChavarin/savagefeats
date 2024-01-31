@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import EventThumbnail from "@/eyeofophidiaComponents/EventThumbnail"
 
+
 function UpcomingTournamentsSectionBig() {
 
   const [emblaRef, emblaApi] = useEmblaCarousel({startIndex: 1})
@@ -24,10 +25,10 @@ function UpcomingTournamentsSectionBig() {
 
   return (
     <div className='h-[360px] relative bg-red flex flex-col items-center py-[32px] gap-[24px]'>
-      <SectionBackground image={'wildride.jpg'} top={-80}/>
+      <SectionBackground image={'wildride.jpg'} size={'big'}/>
 
-      <div className='flex justify-between lg:w-[900px] lg:my-[32px]'>
-        <div className='text-[19px]  text-white foulfiend text-shadow'>
+      <div className='flex justify-between lg:w-[1000px] lg:my-[32px]'>
+        <div className='text-[23px]  text-white foulfiend text-shadow'>
           Upcoming Tournaments
         </div>
         <a className='hidden text-[16px] lg:block text-white text-shadow underline' href='eyeofophidia/tournaments'>
@@ -67,7 +68,7 @@ function UpcomingTournamentsSectionBig() {
       </div>
       
 
-      <div className="flex gap-[16px] border-2 items-center">
+      <div className="flex gap-[16px] items-center">
         <FontAwesomeIcon onClick={() => prevOnClick()} icon={faChevronLeft} className='h-[24px] w-[24px] cursor-pointer'/>
         {scrollSnaps.map((_, index) => (<>
           <DotButton

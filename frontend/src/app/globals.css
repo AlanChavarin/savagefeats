@@ -6,6 +6,7 @@
     --main-color: #5EB877;
 }
 
+
 @font-face {
     font-family: 'DIN';
     src: url('/fonts/DINRegular.otf') format('opentype');
@@ -47,6 +48,20 @@
     .glowing-shadow{
         box-shadow: 0px 0px 32px rgb(0, 0, 0);
     }
+
+    /* .test::before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        background-image: url('/mulch.jpg');
+        background-position: 'center -192px';
+        transform: translateZ(-1px) scale(2.2);
+        filter: blur(2px);
+    } */
 
 
 }
