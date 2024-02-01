@@ -16,7 +16,7 @@ function SectionBackground({image, size}: {image: string, size: ('small' | 'medi
       (size==='medium') && 
       <div className='text-white w-full h-[65vw] min-[455px]:h-[256px] min-[774px]:h-[400px] skew-y-[-3deg] lg:skew-y-[-2deg] absolute top-[0px] bottom-[0px] z-[-1]'>
         <ParallaxBanner layers={[{image, speed: -30, opacity: [.5, .5]}]}>
-          <div className='w-full bg-black h-[65vw] min-[455px]:h-[256px] min-[774px]:h-[400px]'></div>
+          <div className='w-full bg-black h-[65vw] min-[455px]:h-[256px] min-[774px]:h-[400px] bg-top' style={{backgroundPosition: '0px -200px'}}></div>
         </ParallaxBanner>
       </div>
     }

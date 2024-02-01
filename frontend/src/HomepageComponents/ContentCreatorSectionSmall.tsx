@@ -27,12 +27,12 @@ function ContentCreatorSectionSmall() {
     <div className='h-[65vw] min-[490px]:h-[256px] lg:h-[360px] relative bg-red flex flex-col items-center mt-[32px] mb-[96px]'>
       <SectionBackground image={'alpharampage.PNG'} size={'big'}/>
         
-        <div className='text-[11px] min-[400px]:text-[16px] min-[540px]:my-[16px] text-white foulfiend text-shadow flex flex-row justify-between align-middle w-[85vw] max-w-[400px] '>
-          <img src='savagelandsnewsprofile.jpg' className='w-[64px] h-[64px] min-[540px]:w-[96px] min-[540px]:h-[96px] rounded-full box-shadow translate-y-[-16px]'/>
-          <div className='h-[8px] my-auto min-[540px]:mt-[24px]'>
-            SavageLand's News
-          </div>
+      <div className='text-[11px] min-[400px]:text-[16px] min-[540px]:my-[16px] text-white foulfiend text-shadow flex flex-row justify-between align-middle w-[85vw] max-w-[400px] '>
+        <img src='savagelandsnewsprofile.jpg' className='w-[64px] h-[64px] min-[540px]:w-[96px] min-[540px]:h-[96px] rounded-full box-shadow translate-y-[-16px]'/>
+        <div className='h-[8px] my-auto min-[540px]:mt-[24px]'>
+          SavageLand&apos;s News
         </div>
+      </div>
 
       
 
