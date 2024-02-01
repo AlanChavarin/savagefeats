@@ -28,43 +28,43 @@ function ContentCreatorSectionSmall() {
     <div className='h-[65vw] min-[490px]:h-[256px] lg:h-[360px] relative bg-red flex flex-col items-center mt-[32px] mb-[96px]'>
       <SectionBackground image={'alpharampage.PNG'} size={'big'}/>
         
-      <div className='text-[11px] min-[400px]:text-[16px] min-[540px]:my-[16px] text-white foulfiend text-shadow flex flex-row justify-between align-middle w-[85vw] max-w-[400px] '>
+      <div className='text-[11px] min-[400px]:text-[16px] min-[540px]:my-[16px] text-white foulfiend text-shadow flex flex-row justify-between items-center w-[85vw] max-w-[400px] gap-[16px] '>
         {/* <img src='savagelandsnewsprofile.jpg' className='w-[64px] h-[64px] min-[540px]:w-[96px] min-[540px]:h-[96px] rounded-full box-shadow translate-y-[-16px]'/> */}
 
-        <div className='rounded-full box-shadow cursor-pointer w-[180px] h-[180px] lg:w-[256px] lg:h-[256px] relative'>
+        <div className='rounded-full box-shadow cursor-pointer w-[64px] h-[64px] min-[400px]:w-[96px] min-[400px]:h-[96px] min-[600px]:w-[128px] min-[600px]:h-[128px] lg:w-[256px] lg:h-[256px] relative self-start min-[290px]:self-center translate-y-[-16px]'>
           <Image src='/savagelandsnewsprofile.jpg' alt='Savage Lands News Icon' layout='fill' className='rounded-full'/>
         </div>
 
-        <div className='h-[8px] my-auto min-[540px]:mt-[24px]'>
+        <div className='h-[8px] translate-y-[-8px]'>
           SavageLand&apos;s News
         </div>
       </div>
 
       
 
-      <div className="w-[90vw] md:w-[564px] mb-[24px]" ref={emblaRef}>
+      <div className="w-[90vw] min-[500px]:w-[500px] min-[500px]:h-[253px] mb-[24px]" ref={emblaRef}>
         <div className="flex">
-          <div className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
+          <div className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[253px] flex items-center justify-center relative grow-0 shrink-0'>
             <YoutubeEmbedContainer>
-              <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/IjG3XpmLWCs?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+              <iframe className='h-[50vw] w-[85vw] min-[500px]:w-[450px] min-[500px]:h-[253px] box-shadow' src={`https://www.youtube-nocookie.com/embed/IjG3XpmLWCs?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
             </YoutubeEmbedContainer>
           </div>
 
-          <div className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
+          <div className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[253px] flex items-center justify-center relative grow-0 shrink-0'>
             <YoutubeEmbedContainer>
-              <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/R2p1qSTQOck?start=8503`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+              <iframe className='h-[50vw] w-[85vw] min-[500px]:w-[450px] min-[500px]:h-[253px] box-shadow' src={`https://www.youtube-nocookie.com/embed/R2p1qSTQOck?start=8503`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
             </YoutubeEmbedContainer>
           </div>
 
-          <div className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
+          <div className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[253px] flex items-center justify-center relative grow-0 shrink-0'>
             <YoutubeEmbedContainer>
-              <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/zxCaHNrpHLE?start=4834`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+              <iframe className='h-[50vw] w-[85vw] min-[500px]:w-[450px] min-[500px]:h-[253px] box-shadow' src={`https://www.youtube-nocookie.com/embed/zxCaHNrpHLE?start=4834`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
             </YoutubeEmbedContainer>
           </div>
 
-          <div className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
+          <div className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
             <YoutubeEmbedContainer>
-              <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/G_Pp41Enahw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+              <iframe className='h-[50vw] w-[85vw] min-[500px]:w-[450px] min-[500px]:h-[253px] box-shadow' src={`https://www.youtube-nocookie.com/embed/G_Pp41Enahw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
             </YoutubeEmbedContainer>
           </div>
 

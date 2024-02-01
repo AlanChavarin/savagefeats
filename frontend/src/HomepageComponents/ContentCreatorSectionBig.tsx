@@ -38,7 +38,7 @@ function ContentCreatorSectionSmall() {
         </div>
 
         <div className='flex flex-col items-center justify-center gap-[32px] translate-y-[32px]'>
-          <div className='foulfiend text-white text-[19px] text-shadow'>Savage Lands News&apos; latest content</div>
+          <div className='foulfiend text-white text-[19px] text-shadow my-[16px]'>Savage Lands News&apos; latest content</div>
           <div className="w-[673px] overflow-hidden" ref={emblaRef}>
             <div className="flex gap-[32px] mr-[8px] mb-[8px]">
 
