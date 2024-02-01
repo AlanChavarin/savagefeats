@@ -6,6 +6,7 @@ import { DotButton, useDotButton } from './swiperComponents/EmblaCarouselDotButt
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import YoutubeEmbedContainer from "./swiperComponents/YoutubeEmbedContainer"
+import Image from "next/image"
 
 function ContentCreatorSectionSmall() {
 
@@ -28,7 +29,12 @@ function ContentCreatorSectionSmall() {
       <SectionBackground image={'alpharampage.PNG'} size={'big'}/>
         
       <div className='text-[11px] min-[400px]:text-[16px] min-[540px]:my-[16px] text-white foulfiend text-shadow flex flex-row justify-between align-middle w-[85vw] max-w-[400px] '>
-        <img src='savagelandsnewsprofile.jpg' className='w-[64px] h-[64px] min-[540px]:w-[96px] min-[540px]:h-[96px] rounded-full box-shadow translate-y-[-16px]'/>
+        {/* <img src='savagelandsnewsprofile.jpg' className='w-[64px] h-[64px] min-[540px]:w-[96px] min-[540px]:h-[96px] rounded-full box-shadow translate-y-[-16px]'/> */}
+
+        <div className='rounded-full box-shadow cursor-pointer w-[180px] h-[180px] lg:w-[256px] lg:h-[256px] relative'>
+          <Image src='/savagelandsnewsprofile.jpg' alt='Savage Lands News Icon' layout='fill' className='rounded-full'/>
+        </div>
+
         <div className='h-[8px] my-auto min-[540px]:mt-[24px]'>
           SavageLand&apos;s News
         </div>

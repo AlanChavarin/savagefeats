@@ -11,7 +11,7 @@ function Footer() {
       <div className="m-auto flex flex-col place-items-center justify-center text-[11px] w-full py-[32px] gap-[32px] md:gap-[0px] lg:gap-[64px] *:w-[256px]
         md:flex-row md:text-[13px] ">
         <div className="text-center flex flex-col gap-[16px] justify-center align-middle md:order-2">
-          <Image src={'/SVGWHITE.PNG'} width={144} height={32} alt='savage feats' className="m-auto"/>
+          <Image src={'/SVGWHITE.png'} width={144} height={32} alt='savage feats' className="m-auto"/>
           <div className="flex gap-[32px] justify-center align-middle">
             <a target="_blank" href="https://twitter.com/SavageFeats" className="flex align-middle text-[32px]"><FontAwesomeIcon icon={faTwitter}/></a>
             <a target="_blank" href="https://youtube.com/@SavageFeats/featured" className="flex align-middle text-[32px]"><FontAwesomeIcon icon={faYoutube}/></a>

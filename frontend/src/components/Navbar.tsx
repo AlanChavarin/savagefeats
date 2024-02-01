@@ -41,7 +41,7 @@ function Navbar() {
     <div className="bg-black h-[48px] md:h-[64px] flex place-items-center justify-center">
         <div className="w-[1200px] hidden md:flex place-items-center justify-between gap-[16px] lg:gap-[128px] xl:gap-[256px] h-full">
             <Link href="/" className="cursor-pointer hover:bg-color">
-                <Image src={'/SVGWHITE.PNG'} width={96} height={32} alt='savage feats'/>
+                <Image src={'/SVGWHITE.png'} width={96} height={32} alt='savage feats'/>
             </Link>
             <div className="hidden md:flex text-white place-items-center h-full *:mx-[16px] xl:*:mx-[32px] *:text-center  *:font-bold lg:text-[16px] xl:text-[19px] *:cursor-pointer *:h-full *:flex *:place-items-center">
                 <Link href="/eyeofophidia/matches" className="hover:text-custom-primary">
