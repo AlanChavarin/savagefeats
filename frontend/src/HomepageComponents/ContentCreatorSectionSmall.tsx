@@ -42,29 +42,29 @@ function ContentCreatorSectionSmall() {
 
       
 
-      <div className="w-[90vw] md:w-[564px] mb-[24px]" ref={emblaRef}>
+      <div className="w-[90vw] min-[500px]:w-[500px] min-[500px]:h-[253px] mb-[24px]" ref={emblaRef}>
         <div className="flex">
-          <div className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
+          <div className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[253px] flex items-center justify-center relative grow-0 shrink-0'>
             <YoutubeEmbedContainer>
-              <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/IjG3XpmLWCs?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+              <iframe className='h-[50vw] w-[85vw] min-[500px]:w-[450px] min-[500px]:h-[253px] box-shadow' src={`https://www.youtube-nocookie.com/embed/IjG3XpmLWCs?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
             </YoutubeEmbedContainer>
           </div>
 
-          <div className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
+          <div className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[253px] flex items-center justify-center relative grow-0 shrink-0'>
             <YoutubeEmbedContainer>
-              <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/R2p1qSTQOck?start=8503`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+              <iframe className='h-[50vw] w-[85vw] min-[500px]:w-[450px] min-[500px]:h-[253px] box-shadow' src={`https://www.youtube-nocookie.com/embed/R2p1qSTQOck?start=8503`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
             </YoutubeEmbedContainer>
           </div>
 
-          <div className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
+          <div className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[253px] flex items-center justify-center relative grow-0 shrink-0'>
             <YoutubeEmbedContainer>
-              <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/zxCaHNrpHLE?start=4834`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+              <iframe className='h-[50vw] w-[85vw] min-[500px]:w-[450px] min-[500px]:h-[253px] box-shadow' src={`https://www.youtube-nocookie.com/embed/zxCaHNrpHLE?start=4834`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
             </YoutubeEmbedContainer>
           </div>
 
-          <div className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
+          <div className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
             <YoutubeEmbedContainer>
-              <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/G_Pp41Enahw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+              <iframe className='h-[50vw] w-[85vw] min-[500px]:w-[450px] min-[500px]:h-[253px] box-shadow' src={`https://www.youtube-nocookie.com/embed/G_Pp41Enahw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
             </YoutubeEmbedContainer>
           </div>
 
