@@ -25,17 +25,17 @@ function ContentCreatorSectionSmall() {
   }
 
   return (
-    <div className='h-[65vw] min-[490px]:h-[256px] lg:h-[360px] relative bg-red flex flex-col items-center mt-[32px] mb-[96px]'>
+    <div className='h-[65vw] min-[490px]:h-[256px] lg:h-[360px] relative bg-red flex flex-col items-center mt-[32px] mb-[96px] gap-[16px]'>
       <SectionBackground image={'alpharampage.PNG'} size={'big'}/>
         
-      <div className='text-[11px] min-[400px]:text-[16px] min-[540px]:my-[16px] text-white foulfiend text-shadow flex flex-row justify-between align-middle w-[85vw] max-w-[400px] '>
+      <div className=' min-[540px]:my-[16px] text-white foulfiend text-shadow flex flex-row justify-between align-middle w-[85vw]'>
         {/* <img src='savagelandsnewsprofile.jpg' className='w-[64px] h-[64px] min-[540px]:w-[96px] min-[540px]:h-[96px] rounded-full box-shadow translate-y-[-16px]'/> */}
 
-        <div className='rounded-full box-shadow cursor-pointer w-[180px] h-[180px] lg:w-[256px] lg:h-[256px] relative'>
+        <div className='rounded-full box-shadow cursor-pointer w-[64px] h-[64px] min-[350px]:w-[96px] min-[350px]:h-[96px] min-[600px]:w-[180px] min-[600px]:h-[180px] lg:w-[256px] lg:h-[256px] relative'>
           <Image src='/savagelandsnewsprofile.jpg' alt='Savage Lands News Icon' layout='fill' className='rounded-full'/>
         </div>
 
-        <div className='h-[8px] my-auto min-[540px]:mt-[24px]'>
+        <div className='h-[8px] self-center flex-1 text-center text-[11px] min-[400px]:text-[19px]'>
           SavageLand&apos;s News
         </div>
       </div>
