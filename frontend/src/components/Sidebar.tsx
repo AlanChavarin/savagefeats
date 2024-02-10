@@ -11,7 +11,7 @@ import { faX } from "@fortawesome/free-solid-svg-icons"
 
 function Sidebar({buttonClickEvent} : {buttonClickEvent: () => void}) {
   return (
-    <div className="h-full bg-black w-[192px] md:w-[256px] absolute top-0 right-0 text-white">
+    <div className="h-full bg-black w-[192px] md:w-[256px] absolute top-0 right-0 text-white z-[10]">
       <div className="flex flex-col text-white m-[16px] gap-[16px] *:font-bold *:cursor-pointer *:flex *:place-items-center">
         <Link href="/" className="cursor-pointer hover:bg-color">
           <Image src={'/SVGWHITE.png'} width={96} height={32} alt='savage feats'/>

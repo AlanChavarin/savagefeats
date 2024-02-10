@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect } from "react"
+import { usePathname } from 'next/navigation'
 
 //font awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -12,6 +13,8 @@ import { faCaretUp, faCaretDown, faBars } from "@fortawesome/free-solid-svg-icon
 import Sidebar from "./Sidebar"
 
 function Navbar() {
+
+    const pathname = usePathname()
 
     const [sidebarToggle, setSidebarToggle] = useState<Boolean>(false)
 
@@ -35,6 +38,10 @@ function Navbar() {
     useEffect(() => {
         window.addEventListener('mousedown', handleOutsideClick)
     }, [])
+
+    useEffect(() => {
+        setSidebarToggle(!sidebarToggle)
+    }, [pathname])
 
 
   return (
