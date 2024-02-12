@@ -15,7 +15,11 @@ export default function Home() {
       <HomepageHero />
       {/* section conatiner */}
       <div className='flex flex-col gap-[196px] min-[480px]:gap-[280px] lg:gap-[384px] justify-between py-[64px] md:py-[128px] lg:py-[256px]'>
-        <YoutubeVideoCarousel youtubeIDs={['ZKxA3LAZybw', 'IjG3XpmLWCs', 'R2p1qSTQOck', 'zxCaHNrpHLE', 'G_Pp41Enahw']} backgroundImage={'hvy.PNG'}/>
+        <YoutubeVideoCarousel youtubeIDs={['ZKxA3LAZybw', 'IjG3XpmLWCs', 'R2p1qSTQOck', 'zxCaHNrpHLE', 'G_Pp41Enahw']} backgroundImage={'hvy.PNG'}>
+          <div className='text-[11px] md:text-[16px] lg:text-[19px] lg:my-[32px] xl:text-[27px] text-white foulfiend text-shadow'>
+            The Latest in Flesh and Blood
+          </div>
+        </YoutubeVideoCarousel>
         <div className='block lg:hidden'><UpcomingTournamentsSectionSmall/></div>
         <div className='hidden lg:block'><UpcomingTournamentsSectionBig/></div>
         <div className='block lg:hidden'><WinningDecksSectionSmall /></div>

@@ -1,5 +1,5 @@
 'use client'
-import ServicesHero from "./ServicesHero"
+import ServicesHero from "./servicePageComponents/ServicesHero"
 import ImageSection from "./servicePageComponents/ImageSection"
 import GetInTouchButton from "./servicePageComponents/GetInTouchButton"
 import TestimonialSection from "./servicePageComponents/TestimonialSection"
@@ -9,7 +9,7 @@ import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons"
 
 function page() {
   return (
-    <main className='flex-1 gap-[384px] md:gap-[512px] flex flex-col items-start pb-[512px] overflow-hidden'>
+    <main className='flex-1 gap-[280px] md:gap-[512px] flex flex-col items-start pb-[512px] overflow-hidden'>
 
       <ServicesHero />
 
@@ -19,7 +19,7 @@ function page() {
             Live Streaming Services
           </div>
           <div className='text-[11px] sm:text-[16px] md:text-[19px] font-bold text-white text-shadow'>
-            Our livestreaming experts handle everything from camera setup, lighting, and the  networking required for your event's livestream.
+            Our livestreaming experts handle everything from camera setup, lighting, and the  networking required for your event&apos;s livestream.
           </div>
         </div>
       </ImageSection>
@@ -32,7 +32,7 @@ function page() {
               Casting Services
             </div>
             <div className='text-[11px] sm:text-[16px] md:text-[19px] font-bold text-white text-shadow'>
-              We work with the most talented and knowledgeable casters to bring the best quality commentary to your event's livestream. 
+              We work with the most talented and knowledgeable casters to bring the best quality commentary to your event&apos;s livestream. 
             </div>
           </div>
 

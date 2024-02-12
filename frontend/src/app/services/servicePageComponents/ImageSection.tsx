@@ -36,8 +36,8 @@ function StreamServiceSection({images, backgroundImage, children, imageSize} : {
         {imageSize === 'normal' && 
           <div ref={emblaRef} className='w-[90vw] sm:w-[471px]'>
             <div className="flex gap-[64px]">
-              {images.map(image => 
-                <div className='w-full items-center justify-center relative grow-0 shrink-0 flex flex-col gap-[8px]'>
+              {images.map((image, i) => 
+                <div key={i} className='w-full items-center justify-center relative grow-0 shrink-0 flex flex-col gap-[8px]'>
                   <Image width={471} height={266} src={`/servicePagePics/${image}`} alt='BH Orlando' className='box-shadow'/>
                   <p className='text-[13px] md:text-[19px] text-gray-700'>Battle Hardened Orlando</p>
                 </div>
@@ -49,8 +49,8 @@ function StreamServiceSection({images, backgroundImage, children, imageSize} : {
         {imageSize === 'square' && 
           <div ref={emblaRef} className='w-[266px]'>
             <div className="flex gap-[32px] md:gap-[64px]">
-              {images.map(image => 
-                <div className='w-full items-center justify-center relative grow-0 shrink-0 flex flex-col gap-[8px]'>
+              {images.map((image, i) => 
+                <div key={i} className='w-full items-center justify-center relative grow-0 shrink-0 flex flex-col gap-[8px]'>
                   <Image width={266} height={266} src={`/servicePagePics/${image}`} alt='BH Orlando' className='box-shadow'/>
                   <p className='text-[13px] md:text-[19px] text-gray-700'>Battle Hardened Orlando</p>
                 </div>

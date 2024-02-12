@@ -36,9 +36,9 @@ function TestimonialSection({backgroundImage} : {backgroundImage: string}) {
                 <div className="flex gap-[64px]">
 
                     <div className='w-full h-[332px] min-[550px]:h-[256px] relative grow-0 shrink-0 flex flex-col justify-between bg-white box-shadow p-[24px] '>
-                        <div className='text-[16px] min-[380px]:text-[27px] font-bold'>"IMPRESSIVE QUALITY CONTENT"</div>
+                        <div className='text-[16px] min-[380px]:text-[27px] font-bold'>&quot;IMPRESSIVE QUALITY CONTENT&quot;</div>
                         <div className='text-[11px] min-[380px]:text-[13px] grow'>
-                            I’ve been a player, viewer, and even caster of several events covered by Savage Feats, and each stream has been increasingly well-run and impressive. Ethan and Nathan are incredibly dedicated to quality and continued improvement.
+                            I&apos;ve been a player, viewer, and even caster of several events covered by Savage Feats, and each stream has been increasingly well-run and impressive. Ethan and Nathan are incredibly dedicated to quality and continued improvement.
                         </div>
                         <div className='flex gap-[16px]'>
                             <Image alt="brodie" width={48} height={48} src={'/servicePagePics/brodie.webp'} className='box-shadow'/>
@@ -54,9 +54,9 @@ function TestimonialSection({backgroundImage} : {backgroundImage: string}) {
                     </div>
 
                     <div className='w-full h-[332px] min-[550px]:h-[256px] relative grow-0 shrink-0 flex flex-col justify-between bg-white box-shadow p-[24px] '>
-                        <div className='text-[16px] min-[380px]:text-[27px] font-bold'>"THE BEST BEATS"</div>
+                        <div className='text-[16px] min-[380px]:text-[27px] font-bold'>&quot;THE BEST BEATS&quot;</div>
                         <div className='text-[11px] min-[380px]:text-[13px] grow'>
-                            Savage Feats has got the beats you're looking for in Tournament Coverage and Brute Knowledge! Long time fan and supporter of this program and I'm certain you will love the work this strong team produces! Tournament Organizer, Stream Sponsor, or Passionate FaB Stream Viewer, you need to stay tuned with the best production product in FaB!
+                            Savage Feats has got the beats you&apos;re looking for in Tournament Coverage and Brute Knowledge! Long time fan and supporter of this program and I&apos;m certain you will love the work this strong team produces! Tournament Organizer, Stream Sponsor, or Passionate FaB Stream Viewer, you need to stay tuned with the best production product in FaB!
                         </div>
                         <div className='flex gap-[16px]'>
                             <Image alt="brodie" width={48} height={48} src={'/servicePagePics/image0.webp'} className='box-shadow'/>
@@ -72,9 +72,9 @@ function TestimonialSection({backgroundImage} : {backgroundImage: string}) {
                     </div>
 
                     <div className='w-full h-[332px] min-[550px]:h-[256px] relative grow-0 shrink-0 flex flex-col justify-between bg-white box-shadow p-[24px] '>
-                        <div className='text-[16px] min-[380px]:text-[27px] font-bold'>“BRING THE BOOM”</div>
+                        <div className='text-[16px] min-[380px]:text-[27px] font-bold'>&quot;BRING THE BOOM&quot;</div>
                         <div className='text-[11px] min-[380px]:text-[13px] grow'>
-                            FaB Unsealed reporting in, and let me tell you, Savage Feats' streaming services bring the BOOM! Not only does their team possess an impressive mastery of the game, but their passion for ensuring every game, big or small, receives coverage is truly commendable. The streaming quality is top-notch, guaranteeing that every thrilling moment is captured with clarity and precision. I can't recommend their services enough.
+                            FaB Unsealed reporting in, and let me tell you, Savage Feats&apos; streaming services bring the BOOM! Not only does their team possess an impressive mastery of the game, but their passion for ensuring every game, big or small, receives coverage is truly commendable. The streaming quality is top-notch, guaranteeing that every thrilling moment is captured with clarity and precision. I can&apos;t recommend their services enough.
                         </div>
                         <div className='flex gap-[16px]'>
                             <Image alt="brodie" width={48} height={48} src={'/servicePagePics/FaBUnsealed.webp'} className='box-shadow'/>

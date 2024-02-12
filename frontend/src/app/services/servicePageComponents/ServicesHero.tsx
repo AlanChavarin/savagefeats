@@ -1,14 +1,14 @@
 'use client'
-import IFrameBackground from './IFrameBackground'
+import IFrameBackground from '../IFrameBackground'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMicrophone, faVideo, faRectangleAd, faArrowDown, faChevronDown } from "@fortawesome/free-solid-svg-icons"
-import GetInTouchButton from './servicePageComponents/GetInTouchButton'
+import GetInTouchButton from './GetInTouchButton'
 
 function ServicesHero() {
 
   return (
-    <div className='w-full relative items-center min-[1500px]:h-auto overflow-hidden'>
+    <div className='w-full relative items-center min-[1500px]:h-auto overflow-hidden mb-[-128px]'>
 
       <IFrameBackground />
 
