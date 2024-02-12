@@ -40,13 +40,19 @@ function Navbar() {
     }, [])
 
     useEffect(() => {
-        setSidebarToggle(!sidebarToggle)
+        if(sidebarToggle){
+            setSidebarToggle(!sidebarToggle)
+        }
+
+        if(servicesDropdownToggle){
+            setServicesDropdownToggle(!servicesDropdownToggle)
+        }
     }, [pathname])
 
 
   return (
     <div className="bg-black h-[48px] md:h-[64px] flex place-items-center justify-center">
-        <div className="w-[1200px] hidden md:flex place-items-center justify-between gap-[16px] lg:gap-[128px] xl:gap-[256px] h-full">
+        <div className="w-[1200px] hidden md:flex place-items-center justify-between gap-[16px] lg:gap-[128px] xl:gap-[256px] h-full ml-[32px]">
             <Link href="/" className="cursor-pointer hover:bg-color">
                 <Image src={'/SVGWHITE.png'} width={96} height={32} alt='savage feats'/>
             </Link>

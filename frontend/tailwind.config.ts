@@ -23,6 +23,7 @@ const config: Config = {
       colors: {
         custom: {
           primary: '#5EB877',
+          primaryHover: '#4a915e',
           tertiary: '#B85E5E',
         },
       },

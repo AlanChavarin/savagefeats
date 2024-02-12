@@ -3,6 +3,7 @@ import IFrameBackground from './IFrameBackground'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMicrophone, faVideo, faRectangleAd, faArrowDown, faChevronDown } from "@fortawesome/free-solid-svg-icons"
+import GetInTouchButton from './servicePageComponents/GetInTouchButton'
 
 function ServicesHero() {
 
@@ -46,11 +47,7 @@ function ServicesHero() {
             </div>
           </div>
 
-          <button className='py-[12px] px-[24px] bg-custom-primary flex flex-row gap-[16px] items-center box-shadow font-bold text-[19px]
-           min-[1900px]:text-[27px]'>
-            <div>Get in touch</div>
-            <FontAwesomeIcon icon={faArrowDown} className='text-black'/>
-          </button>
+          <GetInTouchButton />
 
           
 

@@ -1,7 +1,7 @@
 'use client'
 import { ParallaxBanner } from 'react-scroll-parallax'
 
-function SectionBackground({image, size}: {image: string, size: ('small' | 'medium' | 'big')}) {
+function SectionBackground({image, size}: {image: string, size: ('small' | 'medium' | 'big' | 'veryBig')}) {
   return (<>
     {
       (size==='small') && 
@@ -26,6 +26,15 @@ function SectionBackground({image, size}: {image: string, size: ('small' | 'medi
       <div className='text-white w-full h-[65vw] min-[455px]:h-[256px] lg:h-[512px] skew-y-[-3deg] lg:skew-y-[-2deg] absolute top-[0px] bottom-[0px] z-[-1]'>
         <ParallaxBanner layers={[{image, translateY: [-30, 30], opacity: [.5, .5]}]} style={{willChange: 'transform'}}>
           <div className='w-full bg-black h-[65vw] min-[455px]:h-[256px] lg:h-[512px]'></div>
+        </ParallaxBanner>
+      </div>
+    }
+
+    {
+      (size==='veryBig') && 
+      <div className='text-white w-full h-[80vw] min-[455px]:h-[256px] md:h-[512px] skew-y-[-3deg] lg:skew-y-[-2deg] absolute top-[0px] bottom-[0px] z-[-1]'>
+        <ParallaxBanner layers={[{image, translateY: [-30, 30], opacity: [.5, .5]}]} style={{willChange: 'transform'}}>
+          <div className='w-full bg-black h-[80vw] min-[455px]:h-[256px] md:h-[512px]'></div>
         </ParallaxBanner>
       </div>
     }

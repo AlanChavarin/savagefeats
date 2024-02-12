@@ -1,11 +1,11 @@
 'use client'
 
-import SectionBackground from "@/HomepageComponents/swiperComponents/SectionBackground"
+import SectionBackground from "@/components/swiperComponents/SectionBackground"
 import useEmblaCarousel from 'embla-carousel-react'
-import { DotButton, useDotButton } from './swiperComponents/EmblaCarouselDotButton'
+import { DotButton, useDotButton } from '../components/swiperComponents/EmblaCarouselDotButton'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
-import YoutubeEmbedContainer from "./swiperComponents/YoutubeEmbedContainer"
+import YoutubeEmbedContainer from "../components/swiperComponents/YoutubeEmbedContainer"
 import Image from "next/image"
 
 function ContentCreatorSectionSmall() {
