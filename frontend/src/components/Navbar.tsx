@@ -51,7 +51,7 @@ function Navbar() {
 
 
   return (
-    <div className="bg-black h-[48px] md:h-[64px] flex place-items-center justify-center">
+    <div className="bg-black h-[64px] flex place-items-center justify-center">
         <div className="w-[1200px] hidden md:flex place-items-center justify-between gap-[16px] lg:gap-[128px] xl:gap-[256px] h-full ml-[32px]">
             <Link href="/" className="cursor-pointer hover:bg-color">
                 <Image src={'/SVGWHITE.png'} width={96} height={32} alt='savage feats'/>
@@ -90,19 +90,16 @@ function Navbar() {
                             </Link>
                         </div>
                     }
-                    
                 </div>
-                
             </div>
-            
         </div>
 
         <div className='flex md:hidden justify-between w-full align-middle mx-[12px]'>
-            <div className="cursor-pointer hover:bg-color">
-                <Image src={'/favicon.png'} width={32} height={32} alt='savage feats'/>
-            </div>
+            <Link href="/" className="cursor-pointer hover:bg-color">
+                <Image src={'/favicon.png'} width={48} height={48} alt='savage feats'/>
+            </Link>
             <button className='text-white flex flex-col justify-center' onClick={() => buttonClickEvent()}>
-                <FontAwesomeIcon icon={faBars} className='text-[24px]'/>
+                <FontAwesomeIcon icon={faBars} className='text-[32px]'/>
             </button>
         </div>
 

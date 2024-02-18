@@ -9,7 +9,7 @@ function HomepageHero() {
 
   return (
     <ParallaxBanner layers={[{image: '/mulch.jpg', translateY:[-25, 25]}]} style={{willChange: 'transform'}}>
-      <div className='min-h-[100vh] relative w-full bg-fill py-[64px] flex flex-col items-center gap-[96px] test '
+      <div className='min-h-[100vh] relative w-full bg-fill py-[64px] flex flex-col items-center gap-[96px]'
       style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.70), rgba(0, 0, 0, 0.70))`}}
       > 
           <div className='w-[80%] sm:w-[512px] flex flex-col gap-[32px] items-center'>

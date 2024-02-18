@@ -14,9 +14,9 @@ function ContactUsSection() {
     }
 
   return (
-    <div className='relative w-full py-[64px] lg:py-[96px] text-white flex flex-col justify-center items-center skew-y-[-3deg] lg:skew-y-[-2deg] bg-custom-dark'>
+    <div id="contactUsSection" className='relative w-full py-[64px] lg:py-[96px] text-white flex flex-col justify-center items-center skew-y-[-3deg] lg:skew-y-[-2deg] bg-custom-dark'>
         {/* <div className='w-full h-[60vw] min-[370px]:h-[256px] lg:h-[384px] skew-y-[-3deg] lg:skew-y-[-2deg] bg-custom-dark absolute top-0 right-0 z-[-1]'></div> */}
-        <form action="" onSubmit={(e) => onSubmit(e)} className="text-black bg-white p-[16px] flex flex-col gap-[8px] w-[90%] box-shadow skew-y-[3deg] lg:skew-y-[2deg] min-[300px]:max-w-[384px] lg:max-w-[512px] lg:p-[32px] lg:gap-[16px]">
+        <form action="" id="contactUsForm" onSubmit={(e) => onSubmit(e)} className="text-black bg-white p-[16px] flex flex-col gap-[8px] w-[90%] box-shadow skew-y-[3deg] lg:skew-y-[2deg] min-[300px]:max-w-[384px] lg:max-w-[512px] lg:p-[32px] lg:gap-[16px]">
             <div className='text-[16px] font-bold min-[350px]:text-[23px] lg:text-[33px]'>We want to work with you!</div>
             <div className='text-[9px] font-bold min-[350px]:text-[13px] lg:text-[16px]'>
                 We offer multiple packages for <span className='text-custom-primary'>livestreaming</span> your event and even more opportunities for <span className='text-custom-primary'>sponsorship</span>. Send us a message today!
