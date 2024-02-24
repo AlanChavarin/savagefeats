@@ -21,6 +21,7 @@
     "react-dom": "^18",
     "react-scroll-parallax": "^3.4.5",
     "react-slick": "^0.29.0",
+    "rss-parser": "^3.13.0",
     "swiper": "^11.0.5"
   },
   "devDependencies": {

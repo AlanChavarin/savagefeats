@@ -40,8 +40,6 @@ function ContentCreatorSectionSmall() {
         </div>
       </div>
 
-      
-
       <div className="w-[90vw] min-[500px]:w-[500px] min-[500px]:h-[253px] mb-[24px]" ref={emblaRef}>
         <div className="flex">
           <div className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[253px] flex items-center justify-center relative grow-0 shrink-0'>

@@ -1,4 +1,5 @@
-'use client'
+// 'use client'
+
 import HomepageHero from "@/HomepageComponents/HomepageHero"
 import UpcomingTournamentsSectionBig from "@/HomepageComponents/UpcomingTournamentsSectionBig"
 import UpcomingTournamentsSectionSmall from "@/HomepageComponents/UpcomingTournamentsSectionSmall"
@@ -25,7 +26,7 @@ export default function Home() {
         <div className='block lg:hidden'><WinningDecksSectionSmall /></div>
         <div className='hidden lg:block'><WinningDecksSectionBig /></div>
         <div className='block md:hidden'><ContentCreatorSectionSmall /></div>
-        <div className='hidden md:block'><ContentCreatorSectionBig /></div>
+        <div className='hidden md:block'><ContentCreatorSectionBig channelId='UCI5yJdQ4y8r_3J9JCiyHIzQ'/></div>
       </div>
     </main>
   )

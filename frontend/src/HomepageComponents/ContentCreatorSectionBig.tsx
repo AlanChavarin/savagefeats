@@ -1,28 +1,13 @@
-'use client'
-
 import SectionBackground from "@/components/swiperComponents/SectionBackground"
-import useEmblaCarousel from 'embla-carousel-react'
-import { DotButton, useDotButton } from '../components/swiperComponents/EmblaCarouselDotButton'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
-import YoutubeEmbedContainer from "../components/swiperComponents/YoutubeEmbedContainer"
 import Image from "next/image"
+import ContentCreatorSectionBigCarousel from "./helpers/ContentCreatorSectionBigCarousel"
+import { getYoutubeIds } from "./helpers/getYoutubeIds"
+import { getChannelData } from "./helpers/getChannelData"
 
-function ContentCreatorSectionSmall() {
-
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    startIndex: 2
-  })
-
-  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
-
-  const prevOnClick = () => {
-    emblaApi?.scrollPrev()
-  }
-
-  const nextOnClick = () => {
-    emblaApi?.scrollNext()
-  }
+async function ContentCreatorSectionBig({channelId}: {channelId: string}) {
+  //'UCI5yJdQ4y8r_3J9JCiyHIzQ'
+  const youtubeIds: string[] = await getYoutubeIds(channelId)
+  const channelData = await getChannelData(channelId)
 
   return (
     <div className='h-[320px] relative bg-red flex flex-col items-center mt-[32px]'>
@@ -34,62 +19,13 @@ function ContentCreatorSectionSmall() {
             <Image src='/savagelandsnewsprofile.jpg' alt='Savage Lands News Icon' layout='fill' className='rounded-full'/>
           </div>
           
-          <div className='text-center lg:text-left'>SavageLand&apos;s News</div>
+          <div className='text-center lg:text-left'>{channelData.name}</div>
         </div>
 
-        <div className='flex flex-col items-center justify-center gap-[32px] translate-y-[32px]'>
-          <div className='foulfiend text-white text-[19px] text-shadow my-[16px]'>Savage Lands News&apos; latest content</div>
-          <div className="w-[673px] overflow-hidden" ref={emblaRef}>
-            <div className="flex gap-[32px] mr-[8px] mb-[8px]">
-
-              <div className='grid grid-cols-2 gap-[32px] relative grow-0 shrink-0'>
-                <YoutubeEmbedContainer>
-                  <iframe className='w-[320px] h-[180px] box-shadow' src={`https://www.youtube-nocookie.com/embed/ZKxA3LAZybw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-                </YoutubeEmbedContainer>
-                <YoutubeEmbedContainer>
-                  <iframe className='w-[320px] h-[180px] box-shadow' src={`https://www.youtube-nocookie.com/embed/IjG3XpmLWCs?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-                </YoutubeEmbedContainer>
-                <YoutubeEmbedContainer>
-                  <iframe className='w-[320px] h-[180px] box-shadow' src={`https://www.youtube-nocookie.com/embed/R2p1qSTQOck?start=8503`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-                </YoutubeEmbedContainer>
-                <YoutubeEmbedContainer>
-                  <iframe className='w-[320px] h-[180px] box-shadow' src={`https://www.youtube-nocookie.com/embed/zxCaHNrpHLE?start=4834`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-                </YoutubeEmbedContainer>
-              </div>
-
-              <div className='grid grid-cols-2 gap-[32px] relative grow-0 shrink-0'>
-                <YoutubeEmbedContainer>
-                  <iframe className='w-[320px] h-[180px] box-shadow' src={`https://www.youtube-nocookie.com/embed/ZKxA3LAZybw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-                </YoutubeEmbedContainer>
-                <YoutubeEmbedContainer>
-                  <iframe className='w-[320px] h-[180px] box-shadow' src={`https://www.youtube-nocookie.com/embed/IjG3XpmLWCs?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-                </YoutubeEmbedContainer>
-                <YoutubeEmbedContainer>
-                  <iframe className='w-[320px] h-[180px] box-shadow' src={`https://www.youtube-nocookie.com/embed/R2p1qSTQOck?start=8503`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-                </YoutubeEmbedContainer>
-                <YoutubeEmbedContainer>
-                  <iframe className='w-[320px] h-[180px] box-shadow' src={`https://www.youtube-nocookie.com/embed/zxCaHNrpHLE?start=4834`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-                </YoutubeEmbedContainer>
-              </div>
-
-            </div>
-          </div>
-
-          <div className="flex gap-[16px] items-center">
-            <FontAwesomeIcon onClick={() => prevOnClick()} icon={faChevronLeft} className='h-[24px] w-[24px] cursor-pointer'/>
-            {scrollSnaps.map((_, index) => (<>
-              <DotButton
-                key={index}
-                active={(selectedIndex === index)}
-                onClick={() => onDotButtonClick(index)}
-              />
-            </>))}
-            <FontAwesomeIcon onClick={() => nextOnClick()} icon={faChevronRight} className='h-[24px] w-[24px] cursor-pointer'/>
-          </div>
-
-        </div>
+        <ContentCreatorSectionBigCarousel youtubeIds={youtubeIds}/>
+        
       </div>
     </div>
   )
 }
-export default ContentCreatorSectionSmall
+export default ContentCreatorSectionBig
