@@ -22,7 +22,7 @@ async function ContentCreatorSectionBig({channelId}: {channelId: string}) {
           <div className='text-center lg:text-left'>{channelData.name}</div>
         </div>
 
-        <ContentCreatorSectionBigCarousel youtubeIds={youtubeIds}/>
+        <ContentCreatorSectionBigCarousel youtubeIds={youtubeIds} channelData={channelData}/>
         
       </div>
     </div>

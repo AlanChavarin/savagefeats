@@ -8,7 +8,7 @@ import { useEffect, useState } from "react"
 import { splitIntoGroupsOfFour } from "./splitIntoGroupsOfFour"
 import { ChannelData } from "./getChannelData"
 
-function ContentCreatorSectionBigCarousel({youtubeIds, channelData}: {youtubeIds: string[], channelData: ChannelData}) {
+function ContentCreatorSectionSmallCarousel({youtubeIds, channelData}: {youtubeIds: string[], channelData: ChannelData}) {
 
     const [youtubeIdsFours, setYoutubeIdsFours] = useState<string[][]>([])
 
@@ -67,4 +67,4 @@ function ContentCreatorSectionBigCarousel({youtubeIds, channelData}: {youtubeIds
         </div>
   )
 }
-export default ContentCreatorSectionBigCarousel
+export default ContentCreatorSectionSmallCarousel
