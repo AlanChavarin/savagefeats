@@ -5,7 +5,7 @@ import ContactUsSection from "../services/servicePageComponents/ContactUsSection
 
 function page() {
   return (
-    <div className="flex-1 overflow-hidden flex flex-col gap-[32px] min-[1200px]:gap-[128px] pb-[128px]">
+    <div className="flex-1 overflow-hidden flex flex-col gap-[32px] pb-[128px]">
       <Header />
       <Videos />
       <ContactUsSection />

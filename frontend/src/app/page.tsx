@@ -25,8 +25,8 @@ export default function Home() {
         <div className='hidden lg:block'><UpcomingTournamentsSectionBig/></div>
         <div className='block lg:hidden'><WinningDecksSectionSmall /></div>
         <div className='hidden lg:block'><WinningDecksSectionBig /></div>
-        <div className='block md:hidden'><ContentCreatorSectionSmall /></div>
-        <div className='hidden md:block'><ContentCreatorSectionBig channelId='UCI5yJdQ4y8r_3J9JCiyHIzQ'/></div>
+        <div className='block lg:hidden'><ContentCreatorSectionSmall channelId='UCI5yJdQ4y8r_3J9JCiyHIzQ'/></div>
+        <div className='hidden lg:block'><ContentCreatorSectionBig channelId='UCI5yJdQ4y8r_3J9JCiyHIzQ'/></div>
       </div>
     </main>
   )

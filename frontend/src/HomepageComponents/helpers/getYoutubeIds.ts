@@ -1,6 +1,6 @@
 import Parser from "rss-parser"
 
-export const getYoutubeIds = async (channelId: string) => {
+export const getYoutubeIds = async (channelId: string, limit: number) => {
     //fetching functions
     const parser = new Parser()
 
@@ -8,11 +8,11 @@ export const getYoutubeIds = async (channelId: string) => {
     let youtubeIds: string[] = []
     const feed = await parser.parseURL(`https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`)
 
-    youtubeIds = feed.items.map(item => {
+    for(let i = 0; i < limit && i < feed.items.length; i++){
         // @ts-ignore
-        const videoUrlParts = item.link.split('?v=') 
-        return videoUrlParts[videoUrlParts.length - 1]
-    })
+        const videoUrlParts = feed.items[i].link.split('?v=') 
+        youtubeIds.push(videoUrlParts[videoUrlParts.length - 1])
+    }
 
     return youtubeIds
 

@@ -70,9 +70,11 @@ function page() {
           <div className='text-[27px] sm:text-[39px] md:text-[48px] text-white text-shadow font-bold'>
             Our Latest Events
           </div>
-          <div className='text-[13px] sm:text-[19px] md:text-[19px] text-white text-shadow underline font-normal'>
-            View the rest of our portfolio Hardened &nbsp;
-            <FontAwesomeIcon icon={faSquareArrowUpRight}/>
+          <div className='text-[13px] sm:text-[19px] md:text-[19px] text-white text-shadow underline font-normal flex justify-center'>
+            <a href="/portfolio">
+              View the rest of our portfolio &nbsp;
+              <FontAwesomeIcon icon={faSquareArrowUpRight}/>
+            </a>
           </div>
         </div>
         
