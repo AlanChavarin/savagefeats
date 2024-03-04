@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo
+    volumes:
+     - ./mongodump:/docker-entrypoint-initdb.d/mongodump
+     - ./scripts/loadMongoDBDumpIntoDocker.sh:/docker-entrypoint-initdb.d/custom-entrypoint.sh
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - 27017:27017
+

@@ -18,6 +18,7 @@ const getContentCreator = asyncHandler(async (req, res) => {
 
     res.status(200)
     res.json(contentCreator)
+    
 })
 
 const postContentCreator = asyncHandler(async (req, res) => {
@@ -26,9 +27,14 @@ const postContentCreator = asyncHandler(async (req, res) => {
         throw new Error('no id provided')
     }
 
-    const response  = await fetch(`https://www.googleapis.com/youtube/v3/channels?key=${process.env.YOUTUBE_API_KEY}&id=${req.body.channelid}&part=snippet`)
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/channels?key=${process.env.YOUTUBE_API_KEY}&id=${req.body.channelid}&part=snippet`)
 
     const data = await response.json()
+
+    if(!data.items){
+        res.status(400)
+        throw new Error('Channel ID likely doesnt exist')
+    }
 
     const item = data.items[0]
 
