@@ -32,7 +32,7 @@ const matchSchema = mongoose.Schema({
             required: true
         },
         format: {
-            type: String,
+            type: [String],
             required: true,
             enum: formats
         },
@@ -42,6 +42,7 @@ const matchSchema = mongoose.Schema({
         notATypicalTournamentStructure: Boolean,
         dayRoundArr: [Number],
         top8Day: Boolean,
+        official: Boolean,
     },
 
     top8: {type: Boolean, required: true},

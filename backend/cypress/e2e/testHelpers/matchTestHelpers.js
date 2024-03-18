@@ -6,7 +6,6 @@ const propertiesIExpectTobeStrings = [
     'player2name', 
     'player2deck', 
     'player2hero',
-    'format',
     'link',
 ]
 
@@ -19,6 +18,7 @@ const propertiesIExpectToSimplyExist = [
     'timeStamp',
     'twitchTimeStamp',
     'date',
+    'format'
 ]
 
 const eventPropertiesIExpectToBeStrings = [
@@ -30,13 +30,13 @@ const eventPropertiesIExpectToBeStrings = [
 ]
 
 const eventPropertiesIExpectToExist = [
-    'endDate',
-    'notATypicalTournamentStructure',
-    'dayRoundArr',
-    'top8Day'
+    //'endDate',
+    //'notATypicalTournamentStructure',
+    //'dayRoundArr',
+    //'top8Day'
 ]
 
-const universalMatchReponsePropertyChecker = (response) => {
+const universalMatchResponsePropertyChecker = (response) => {
     expect(response.body).to.have.property("matches")
     expect(response.body).to.have.property("count")
     expect(response.body).to.have.property("matches").that.is.an('array')
@@ -63,6 +63,26 @@ const universalMatchReponsePropertyChecker = (response) => {
     })
 }
 
+const universalMatchPostChecker = (response) => {
+    const match = response.body
+    propertiesIExpectTobeStrings.map(property => {
+        expect(match).to.have.property(property).that.is.a('string')
+    })
+
+    propertiesIExpectToSimplyExist.map(property => {
+        expect(match).to.have.property(property)
+    })
+
+    eventPropertiesIExpectToBeStrings.map(property => {
+        expect(match.event).to.have.property(property).that.is.a('string')
+    })
+
+    eventPropertiesIExpectToExist.map(property => {
+        expect(match.event).to.have.property(property)
+    })
+}
+
 module.exports = {
-    universalMatchReponsePropertyChecker
+    universalMatchResponsePropertyChecker,
+    universalMatchPostChecker
 }

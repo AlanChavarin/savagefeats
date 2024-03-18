@@ -95,6 +95,9 @@ const postEvent = asyncHandler(async (req, res) => {
     if(typeof(req.body.coincidingEvents)==='string'){
         req.body.coincidingEvents = JSON.parse("[" + req.body.coincidingEvents + "]")
     }
+    if(typeof(req.body.format)==='string'){
+        req.body.dayRoundArr = JSON.parse("[" + req.body.format + "]")
+    }
 
 
 
@@ -106,6 +109,7 @@ const postEvent = asyncHandler(async (req, res) => {
         formatDescription: req.body.formatDescription,
         venue: req.body.venue,
         coincidingEvents: req.body.coincidingEvents,
+        official: req.body.official,
         officialDetails: req.body.officialDetails,
         signUpLink: req.body.signUpLink,
         liveStream: req.body.liveStream,
@@ -156,6 +160,10 @@ const updateEvent = asyncHandler(async (req, res) => {
     }
     if(typeof(req.body.coincidingEvents)==='string'){
         req.body.coincidingEvents = JSON.parse("[" + req.body.coincidingEvents + "]")
+    }
+
+    if(typeof(req.body.format)==='string'){
+        req.body.dayRoundArr = JSON.parse("[" + req.body.format + "]")
     }
 
     //const oldEvent = await Event.findById(req.params.eventid)

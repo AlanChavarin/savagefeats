@@ -1,4 +1,6 @@
-const {universalMatchReponsePropertyChecker} = require('./testHelpers/matchTestHelpers')
+const {
+    universalMatchResponsePropertyChecker
+} = require('./testHelpers/matchTestHelpers')
 
 beforeEach(() => {
     // restores database before each test runs 
@@ -6,7 +8,7 @@ beforeEach(() => {
     cy.exec(resetMongoDBCommand)
 })
 
-context("matches routes test suite", () => {
+context("matches GET routes test suite", () => {
 
     it("example test (singular)", () => {
         //console.log(Cypress.env('CYPRESS_BACKEND_API'))
@@ -19,7 +21,7 @@ context("matches routes test suite", () => {
         cy.request(`${Cypress.env('CYPRESS_BACKEND_API')}matches`)
         .then(response => {
             expect(response.status).to.eq(200)
-            universalMatchReponsePropertyChecker(response)
+            universalMatchResponsePropertyChecker(response)
         })
     })
 
@@ -27,7 +29,7 @@ context("matches routes test suite", () => {
         cy.request(`${Cypress.env('CYPRESS_BACKEND_API')}matches?&hero1=Ser Boltyn, Breaker of Dawn`)
         .then(response => {
             expect(response.status).to.eq(200)
-            universalMatchReponsePropertyChecker(response)
+            universalMatchResponsePropertyChecker(response)
             response.body.matches.forEach(match => {
                 if(match.player1hero === 'Ser Boltyn, Breaker of Dawn' || match.player2hero === 'Ser Boltyn, Breaker of Dawn'){
                     expect(true)
@@ -46,5 +48,10 @@ context("matches routes test suite", () => {
         })
     })
 
-    
 })
+
+
+
+
+
+
