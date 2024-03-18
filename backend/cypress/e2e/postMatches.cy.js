@@ -99,7 +99,7 @@ context("matches POST routes test suite", () => {
 
             expect(body.timeStamp).to.equal(10137)
             expect(body.top8).to.equal(true)
-            expect(body.top8Round).to.equal('Finals')
+            expect(body.top8Round).to.equal('Quarter Finals')
 
             const event = body.event
             //test correct event entered
