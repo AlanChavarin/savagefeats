@@ -2,11 +2,11 @@ const {
     universalMatchResponsePropertyChecker
 } = require('./testHelpers/matchTestHelpers')
 
-beforeEach(() => {
-    // restores database before each test runs 
-    const resetMongoDBCommand = (`mongorestore --drop --uri ${Cypress.env('MONGO_TEST_URI')} ../mongodump`)
-    cy.exec(resetMongoDBCommand)
-})
+// beforeEach(() => {
+//     // restores database before each test runs 
+//     const resetMongoDBCommand = (`mongorestore --drop --uri ${Cypress.env('MONGO_TEST_URI')} ../mongodump`)
+//     cy.exec(resetMongoDBCommand)
+// })
 
 context("matches GET routes test suite", () => {
 
