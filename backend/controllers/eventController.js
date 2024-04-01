@@ -48,6 +48,10 @@ const getEvents = asyncHandler(async (req, res) => {
         find["startDate"] = {"$lt": date}
     }
 
+    if(req.query?.format){
+        find["format"] = req.query?.format
+    }
+
     const pipeline = [
         {"$match": find},
         { "$facet": {
@@ -99,14 +103,12 @@ const postEvent = asyncHandler(async (req, res) => {
         req.body.dayRoundArr = JSON.parse("[" + req.body.format + "]")
     }
 
-
-
-
     const event = await Event.create({
         name: req.body.name,
         location: req.body.location,
         format: req.body.format,
         formatDescription: req.body.formatDescription,
+        tier: req.body.tier,
         venue: req.body.venue,
         coincidingEvents: req.body.coincidingEvents,
         official: req.body.official,
