@@ -142,6 +142,8 @@ const updateEvent = asyncHandler(async (req, res) => {
         throw new Error('Event with that id does not exist or has been deleted')
     }
 
+    
+
     // if(req.files?.image && req.files?.bigImage && req.body.resetImage !== 'true'){
     //     //call cloudinary helper function that takes the files, handles upload, and returns the image links
     //     const imageObject = await handleImageFiles(req.files.image, req.files.bigImage)

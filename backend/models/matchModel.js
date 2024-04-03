@@ -36,7 +36,14 @@ const matchSchema = mongoose.Schema({
             required: true,
             enum: formats
         },
+        official: {
+            type: Boolean,
+            required: true,
+        },
+        tier: Number,
         formatDescription: String,
+        officialDetails: String,
+        venue: String,
         startDate: Date,
         endDate: Date,
         notATypicalTournamentStructure: Boolean,
