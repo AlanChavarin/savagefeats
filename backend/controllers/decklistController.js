@@ -89,7 +89,7 @@ const getDecklists = asyncHandler(async (req, res) => {
 const getDecklistsByEvent = asyncHandler(async (req, res) => {
     let decklists
     if(ObjectId.isValid(req.params.event)){
-        const doesEventExist = await Event.exists({'_id': new ObjectId(req.params.event), deleted: req.recyclebin})
+        const doesEventExist = await Event.exists({'_id': new ObjectId(req.params.event)})
         if(!doesEventExist){
             res.status(400)
             throw new Error('event of that name or id not found')
@@ -170,7 +170,7 @@ const deleteDecklist = asyncHandler(async (req, res) => {
         throw new Error('given decklist doesnt exist')
     }
     res.status(200)
-    res.json(match)
+    res.json(decklist)
 })
 
 module.exports = {

@@ -36,7 +36,7 @@ const decklistSchema = mongoose.Schema({
             required: true
         },
         format: {
-            type: String,
+            type: [String],
             required: true,
             enum: formats
         },
