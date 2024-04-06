@@ -5,13 +5,13 @@ const {protect, protectModerator} = require('../middleware/authMiddleware')
 
 router.get('/', getAllContent)
 
-router.get('/:contentCreatorid', getContentByContentCreator)
+router.get('/:contentcreatorid', getContentByContentCreator)
 
-router.put('/:contentCreatorid', protect, protectModerator, updateContentByContentCreator)
+router.put('/:contentcreatorid', protect, protectModerator, updateContentByContentCreator)
 
 router.post('/', protect, protectModerator, postContent)
 
-router.delete('/:contentid', protect, protectModerator, deleteContent)
+router.delete('/:contentcreatorid', protect, protectModerator, deleteContent)
 
 //insert route here for latest assorted content (needs to be figured out)
 

@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const ContentCreator = require('../models/contentCreatorModel')
 const wordWrapper = require('../helpers/wordWrapper')
-//const ObjectId = require('mongodb').ObjectId
+const ObjectId = require('mongodb').ObjectId
 
 const getContentCreators = asyncHandler(async (req, res) => {
     const contentCreators = await ContentCreator.find({})
@@ -54,16 +54,13 @@ const postContentCreator = asyncHandler(async (req, res) => {
     res.json(contentCreator)
 })
 
-//this is currently broken
 const updateContentCreator = asyncHandler(async (req, res) => {
-    const contentCreator = await ContentCreator.findOne({id: req.params.contentCreatorid})
+    const contentCreator = await ContentCreator.findById(new ObjectId(req.params.contentcreatorid))
 
     if(!contentCreator){
         res.status(400)
         throw new Error('channel of that id not found')
     }
-
-    //console.log(contentCreator[0])
 
     const response = await fetch(`https://www.googleapis.com/youtube/v3/channels?key=${process.env.YOUTUBE_API_KEY}&id=${contentCreator.channelid}&part=snippet`)
 
@@ -73,7 +70,7 @@ const updateContentCreator = asyncHandler(async (req, res) => {
 
     if(item.etag !== contentCreator.etag){
         const updatedContentCreator = await ContentCreator.findByIdAndUpdate(
-            contentCreator._id, 
+            new ObjectId(contentCreator._id), 
             {
                 channelid: item?.id,
                 title: item?.snippet?.title,
@@ -99,7 +96,7 @@ const updateContentCreator = asyncHandler(async (req, res) => {
 })
 
 const deleteContentCreator = asyncHandler(async (req, res) => {
-    const contentCreator = await ContentCreator.findByIdAndDelete(req.body.channelid)
+    const contentCreator = await ContentCreator.findByIdAndDelete(new ObjectId(req.params.contentcreatorid))
 
     if(!contentCreator){
         res.status(400)

@@ -5,7 +5,7 @@ const ObjectId = require('mongodb').ObjectId
 //const parser = require('xml2json')
 
 const getAllContent = asyncHandler(async (req, res) => {
-    const content = await Content.find({})
+    const content = await Content.find()
     res.status(200)
     res.json(content)
 })
@@ -41,7 +41,7 @@ const postContent = asyncHandler(async (req, res) => {
     const content = await Content.create({
         videoid: item.id,
         publishedAt: item.snippet.publishedAt,
-        parentContentCreatorYoutubeChannelid: item.channelId,
+        parentContentCreatorYoutubeChannelid: item.snippet.channelId,
         parentContentCreatorid: contentCreator ? contentCreator._id : null,
         title: item.snippet.title,
         description: item.snippet.description,

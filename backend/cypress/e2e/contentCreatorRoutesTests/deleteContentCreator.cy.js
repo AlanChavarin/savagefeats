@@ -1,32 +1,32 @@
-
 beforeEach(() => {
     // restores database before each test runs 
     const resetMongoDBCommand = (`mongorestore --drop --uri ${Cypress.env('MONGO_TEST_URI')} ../mongodump`)
     cy.exec(resetMongoDBCommand)
 })
 
-
-context("delete decklist routes tests suite", () => {
-    it("delete decklist", () => {
+context("deleteContentCreator test suite", () => {
+    it("deleteContentCreator", () => {
         cy.request({
             method: 'DELETE',
-            url: `${Cypress.env('CYPRESS_BACKEND_API')}decklists/65e56186bb2a4338f25fafef`,
+            url: `${Cypress.env('CYPRESS_BACKEND_API')}contentcreators/65e5712cf638b89e146d1bdf`,
             headers: {
-                Authorization: `Bearer ${Cypress.env('CYPRESS_TEST_BEARER_TOKEN')}`,
+                'Authorization': `Bearer ${Cypress.env('CYPRESS_TEST_BEARER_TOKEN')}`,
                 'Content-Type': 'application/json'
             }
-        })
-        .then(response => {
+        }).then(response => {
             expect(response.status).to.equal(200)
+            expect(response.body._id).to.equal('65e5712cf638b89e146d1bdf')
         })
 
-        //make sure its actually deleted and doesnt exist
+        //check that its actually deleted
+
         cy.request({
             failOnStatusCode: false,
-            method: 'GET',
-            url: `${Cypress.env('CYPRESS_BACKEND_API')}decklists/65e56186bb2a4338f25fafef`
+            
+            url: `${Cypress.env('CYPRESS_BACKEND_API')}contentcreators/65e5712cf638b89e146d1bdf`
         }).then(response => {
             expect(response.status.toString()[0]).to.equal('4')
+
         })
     })
 })

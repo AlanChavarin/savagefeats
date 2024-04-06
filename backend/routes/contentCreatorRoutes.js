@@ -11,7 +11,7 @@ router.post('/', protect, protectModerator, postContentCreator)
 
 router.put('/:contentcreatorid', protect, protectModerator, updateContentCreator)
 
-router.delete('/', protect, protectModerator, deleteContentCreator)
+router.delete('/:contentcreatorid', protect, protectModerator, deleteContentCreator)
 
 //insert route here for latest assorted content (needs to be figured out)
 
