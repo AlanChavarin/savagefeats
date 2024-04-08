@@ -10,6 +10,18 @@ const getAllContent = asyncHandler(async (req, res) => {
     res.json(content)
 })
 
+const getContent = asyncHandler(async (req, res) => {
+    const content = await Content.findById(new ObjectId(req.params.contentid))
+
+    if(!content){
+        res.status(400)
+        throw new Error('content of that id not found')
+    }
+
+    res.status(200)
+    res.json(content)
+})
+
 const getContentByContentCreator = asyncHandler(async (req, res) => {
     const contentCreator = req.params.contentCreatorid
     let content
@@ -58,6 +70,26 @@ const postContent = asyncHandler(async (req, res) => {
 
 })
 
+//data that isn't grabbed from youtube api, only type, relatedEventid, relatedMatchid, relatedDecklistid
+const updateContentRelatedData = asyncHandler(async (req, res) => {
+    //req.params.contentid
+
+    if(!(await Content.findById(new ObjectId(req.params.contentid)))){
+        res.status(400)
+        throw new Error('content of that id not found')
+    }
+
+    const {type, relatedEventid, relatedMatchid, relatedDecklistid} = req.body
+    const content = await Content.findByIdAndUpdate(new ObjectId(req.params.contentid), {
+        type, relatedEventid, relatedMatchid, relatedDecklistid
+    }, {new: true, runValidators: true})
+
+    res.status(200)
+    res.json(content)
+})
+
+//what the f*ck did i write here
+//i aint even gonna test this just yet
 const updateContentByContentCreator = asyncHandler(async (req, res) => {
     const contentCreator = await ContentCreator.findById(req.params.contentCreatorid)
     if(!contentCreator){
@@ -139,8 +171,10 @@ const deleteContent = asyncHandler(async (req, res) => {
 
 module.exports = {
     getAllContent,
+    getContent,
     getContentByContentCreator, 
     postContent,
+    updateContentRelatedData,
     updateContentByContentCreator,
     deleteContent
 }
