@@ -6,7 +6,7 @@ beforeEach(() => {
 })
 
 
-context("delete decklist routes tests suite", () => {
+context("get decklist routes tests suite", () => {
     it("delete decklist", () => {
         cy.request({
             method: 'DELETE',

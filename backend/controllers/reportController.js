@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const Report = require('../models/reportModel')
+const ObjectId = require('mongodb').ObjectId
 
 const getReports = asyncHandler(async (req, res) => {
     var skip, limit, find, order
@@ -41,7 +42,7 @@ const getReports = asyncHandler(async (req, res) => {
 })
 
 const getReport = asyncHandler(async (req, res) => {
-    const report = await Report.find({_id: req.params.reportid})
+    const report = await Report.findById(new ObjectId(req.params.reportid))
     if(!report){
         res.status(400)
         throw new Error('report not found')
@@ -57,22 +58,22 @@ const postReport = asyncHandler(async (req, res) => {
 
     //code to validate captcha token, throw error if it fails
 
-    // const secret = process.env.CAPTCHA_KEY
-    // const response = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`)
-    // const data = await response.json()
-    // if(data.success){
-    //     const report = await Report.create({
-    //         subject,
-    //         body,
-    //         status: 'pending'
-    //     })
+    const secret = process.env.CAPTCHA_KEY
+    const response = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`)
+    const data = await response.json()
+    if(data.success){
+        const report = await Report.create({
+            subject,
+            body,
+            status: 'pending'
+        })
 
-    //     res.status(200)
-    //     res.json(report)
-    // } else {
-    //     res.status(400)
-    //     throw new Error('captcha failed')
-    // }
+        res.status(200)
+        res.json(report)
+    } else {
+        res.status(400)
+        throw new Error('captcha failed')
+    }
 
 
     //get rid of the rest of this once captcha is implemented
@@ -90,14 +91,14 @@ const postReport = asyncHandler(async (req, res) => {
 
 const updateReport = asyncHandler(async (req, res) => {
 
-    if(!(await Report.findOne({_id: req.params.reportid}))){
+    if(!(await Report.findById(new ObjectId(req.params.reportid)))){
         res.status(400)
         throw new Error('report of the given id was not found')
     }
 
     const {status} = req.body
 
-    const report = await Report.findOneAndUpdate({_id: req.params.reportid}, {
+    const report = await Report.findByIdAndUpdate(new ObjectId(req.params.reportid), {
         status
     }, {runValidators: true, new: true})
 
