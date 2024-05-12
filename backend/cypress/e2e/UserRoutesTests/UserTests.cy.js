@@ -19,8 +19,8 @@ context("User Routes test suite", () => {
         })
     })
 
-    it("generateSignUpLink, then register", () => {
-        // part 1
+    it("generateSignUpLink, then register, then verify, then login", () => {
+        // part 1 generate signuplink
         cy.request({
             method: 'GET',
             url: `${Cypress.env('CYPRESS_BACKEND_API')}users/generatesignuplink`,
@@ -33,7 +33,7 @@ context("User Routes test suite", () => {
             expect(response.body.link.includes('register')).to.equal(true)
             return response.body.token
         }).then(token => 
-            // part 2
+            // part 2 register
 
             cy.request({
                 method: 'POST',
@@ -49,8 +49,41 @@ context("User Routes test suite", () => {
                 expect(response.status).to.equal(200)
                 expect(response.body).to.have.property('_id')
                 expect(response.body.name).to.equal('AlanChavarin')
+                return response.body._id
+            }).then((id) => {
+                //part 3 verify
+
+                cy.request({
+                    method: 'PUT',
+                    url: `${Cypress.env('CYPRESS_BACKEND_API')}users/verify/${id}`,
+                    headers: {
+                        Authorization: `Bearer ${Cypress.env('CYPRESS_TEST_BEARER_TOKEN')}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: {
+                        verified: true
+                    }
+                }).then(response => {
+                    expect(response.status).to.equal(200)
+                    expect(response.body.verified).to.equal(true)
+                    expect(response.body._id).to.equal(id)
+                })})
+
+        ).then(() => {
+            //part 4 login
+            cy.request({
+                method: 'POST',
+                url: `${Cypress.env('CYPRESS_BACKEND_API')}users/login`,
+                body: {
+                    // using account that exists and is already verified 
+                    name: 'AlanChavarin',
+                    password: 'password1234'
+                }
+            }).then(response => {
+                expect(response.status).to.equal(200)
+                expect(response.body).to.have.property('token')
             })
-        )
+        })
     })
 
     it("verify a user", () => {
@@ -123,6 +156,21 @@ context("User Routes test suite", () => {
                 expect(user).to.have.property('_id')
                 expect(user).not.have.property('password')
             })
+        })
+    })
+
+    it("loginUser", () => {
+        cy.request({
+            method: 'POST',
+            url: `${Cypress.env('CYPRESS_BACKEND_API')}users/login`,
+            body: {
+                // using account that exists and is already verified 
+                name: 'test_user_12345',
+                password: 'password12345'
+            }
+        }).then(response => {
+            expect(response.status).to.equal(200)
+            expect(response.body).to.have.property('token')
         })
     })
 })
