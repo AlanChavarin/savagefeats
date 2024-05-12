@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const Name = require('../models/nameModel')
 const Match = require('../models/matchModel')
+const Event = require('../models/eventModel')
 
 const getNames = asyncHandler(async (req, res) => {
     const names = await Name.find({})
@@ -8,6 +9,16 @@ const getNames = asyncHandler(async (req, res) => {
 })
 
 const getNameLinkPairsbyEvent = asyncHandler(async (req, res) => {
+    if(!req.query.event){
+        res.status(400)
+        throw new Error('no event given')
+    }
+
+    if(!!Event.exists({'name': req.query.event})){
+        res.status(400)
+        throw new Error('given event not found')
+    }
+
     const matches = await Match.find({'event.name': req.query.event, 'format': req.query.format, deleted: false})
     
     let pairs = {}
@@ -25,7 +36,7 @@ const getNameLinkPairsbyEvent = asyncHandler(async (req, res) => {
 })
 
 const postName = asyncHandler(async (req, res) => {
-    if(!req.params.name){
+    if(!req.params.name || req.params.name == '' || req.params.name || ' '){
         res.status(400)
         throw new Error('name cannot be empty')
     }
@@ -33,6 +44,7 @@ const postName = asyncHandler(async (req, res) => {
     const name = await Name.create({
         name: req.params.name
     })
+
     res.status(200).json(name)
 })
 
