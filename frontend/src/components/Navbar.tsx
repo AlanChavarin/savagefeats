@@ -12,7 +12,13 @@ import { faCaretUp, faCaretDown, faBars } from "@fortawesome/free-solid-svg-icon
 //components
 import Sidebar from "./Sidebar"
 
+//context
+import { useContext } from "react"
+import UserContext from "@/context/UserContext"
+
 function Navbar() {
+
+    const {user} = useContext(UserContext)
 
     const pathname = usePathname()
 
@@ -23,15 +29,21 @@ function Navbar() {
     }
 
     const [servicesDropdownToggle, setServicesDropdownToggle] = useState<Boolean>(false)
+    const [adminDropdownToggle, setAdminDropdownToggle] = useState<Boolean>(false)
 
     const servicesDropdownToggleEvent = () => {
         setServicesDropdownToggle(!servicesDropdownToggle)
+    }
+
+    const adminDropdownToggleEvent = () => {
+        setAdminDropdownToggle(!adminDropdownToggle)
     }
 
     const handleOutsideClick = (e: MouseEvent) => {
         const target = e.target as HTMLElement
         if(!target.getAttribute('data-dropdown')){
             setServicesDropdownToggle(false)
+            setAdminDropdownToggle(false)
         }
     }
 
@@ -72,6 +84,8 @@ function Navbar() {
                 <Link href="/shop" className="hover:text-custom-primary">
                     Shop
                 </Link>
+                
+                
                 <div className='relative'>
                     <button data-dropdown={true} className="hover:text-custom-primary relative h-full flex gap-[8px] items-center" onClick={() => servicesDropdownToggleEvent()}>
                         Services
@@ -91,6 +105,26 @@ function Navbar() {
                         </div>
                     }
                 </div>
+
+                {user &&
+                    <div className='relative'>
+                        <button data-dropdown={true} className="hover:text-custom-primary relative h-full flex gap-[8px] items-center" onClick={() => adminDropdownToggleEvent()}>
+                        Admin
+                        <FontAwesomeIcon data-dropdown={true} icon={adminDropdownToggle ? faCaretDown : faCaretUp} width='16px'/>
+                    </button>
+                    {adminDropdownToggle && 
+                        <div data-dropdown={true} className='z-10 absolute top-[100%] right-[0px] bg-black flex flex-col gap-[16px] p-[16px] w-[196px]'>
+                            <Link data-dropdown={true} href="/dashboard" className='text-white hover:text-custom-primary'>
+                                Dashboard
+                            </Link>
+                            <Link data-dropdown={true} href="/logout" className='text-white hover:text-custom-primary'>
+                                Logout
+                            </Link>
+                        </div>
+                    }
+                    </div>
+
+                }
             </div>
         </div>
 

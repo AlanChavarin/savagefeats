@@ -3,6 +3,7 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { Providers } from './Providers'
+import { UserProvider } from '../context/UserContext'
 
 
 export const metadata: Metadata = {
@@ -16,14 +17,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-        <body className="flex flex-col min-h-screen">
-          <Navbar />
-          <Providers>
-            {children}
-          </Providers>
-          <Footer />
-        </body>
-    </html>
+    <UserProvider>
+      <html lang="en">
+          <body className="flex flex-col min-h-screen bg-[#ECECEC]">
+            <Navbar />
+            <Providers>
+              {children}
+            </Providers>
+            <Footer />
+          </body>
+      </html>
+    </UserProvider>
   )
 }

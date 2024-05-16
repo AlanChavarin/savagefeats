@@ -4,15 +4,16 @@ const mongoose = require('mongoose')
 const {errorHandler} = require('./middleware/errorMiddleware')
 const {sanitate} = require('./middleware/sanitateMiddleware')
 require('dotenv').config()
+const cors = require('cors')
 
 //const cors = require('cors')
 //const dotenv = require('dotenv').config()
 //const path = require('path')
 
-// app.use(cors({
-//     origin: 'http://localhost:5000',
-//     origin: 'http://localhost:3000'
-// }))
+app.use(cors({
+    origin: 'http://localhost:5000',
+    origin: 'http://localhost:3000'
+}))
 
 app.listen(process.env.PORT, () => {
     console.log('App started on port ' + process.env.PORT)

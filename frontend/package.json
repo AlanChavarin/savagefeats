@@ -14,15 +14,18 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@hookform/resolvers": "^3.3.4",
     "babel-plugin-macros": "^3.1.0",
     "embla-carousel-react": "^8.0.0-rc19",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
+    "react-hook-form": "^7.51.4",
     "react-scroll-parallax": "^3.4.5",
     "react-slick": "^0.29.0",
     "rss-parser": "^3.13.0",
-    "swiper": "^11.0.5"
+    "swiper": "^11.0.5",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",
