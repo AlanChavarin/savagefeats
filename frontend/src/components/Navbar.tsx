@@ -64,7 +64,7 @@ function Navbar() {
 
   return (
     <div className="bg-black h-[64px] flex place-items-center justify-center">
-        <div className="w-[1200px] hidden md:flex place-items-center justify-between gap-[16px] lg:gap-[128px] xl:gap-[256px] h-full ml-[32px]">
+        <div className="max-w-[1200px] w-[85%] hidden md:flex place-items-center justify-between h-full ml-[32px]">
             <Link href="/" className="cursor-pointer hover:bg-color">
                 <Image src={'/SVGWHITE.png'} width={96} height={32} alt='savage feats'/>
             </Link>

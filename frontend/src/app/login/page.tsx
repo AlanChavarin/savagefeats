@@ -4,6 +4,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import UserContext from "@/context/UserContext";
 import { useContext } from "react";
+import { toast } from "react-toastify";
+//schemas
+import {errorSchema} from '../schemas/schemas'
 
 const formSchema = z.object({
     name: z.string().min(8),
@@ -14,18 +17,11 @@ const tokenSchema = z.object({
     token: z.string().min(20), //json web tokens prob more than 20 characters big i think
 })
 
-const errorSchema = z.object({
-    errorMessage: z.string()
-})
-
-type TokenType = z.infer<typeof tokenSchema>
-
 type FormFields = z.infer<typeof formSchema>
 
-type ErrorType = z.infer<typeof errorSchema>
-
 function page() {
-    const {user} = useContext(UserContext)
+
+    const {initUser} = useContext(UserContext)
 
     const {register, handleSubmit, setError, formState: { errors, isSubmitting }}
     = useForm<FormFields>({
@@ -38,18 +34,16 @@ function page() {
                 headers:{
                     'content-type': 'application/json' 
                 },
-                body: JSON.stringify({
-                    name: data.name,
-                    password: data.password
-                })
+                body: JSON.stringify(data)
             })
             .then(r => r.json())
-            .then((data: TokenType | ErrorType) => {
+            .then(data => {
                 const validatedData = tokenSchema.safeParse(data)
                 const validatedError = errorSchema.safeParse(data)
                 if(validatedData.success){
-                    console.log(validatedData.data?.token) //do what we needa do w dis token
                     localStorage.setItem('token', validatedData.data.token)
+                    initUser()
+                    toast('Login Successful!')
                     return
                 }
 
@@ -61,6 +55,7 @@ function page() {
                 console.error(validatedError.error)
                 throw new Error('Unexpected data. Check console for further details')
             }).catch(err => {
+                toast(err.message);
                 setError("root", {
                     message: err.message,
                 })
@@ -90,8 +85,6 @@ function page() {
             </div>}
 
         </form>
-
-        <div>{user?.name}</div>
     </div>
   )
 }
