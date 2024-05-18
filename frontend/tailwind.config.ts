@@ -26,6 +26,7 @@ const config: Config = {
           primaryHover: '#4a915e',
           tertiary: '#B85E5E',
           dark: '#0F0F0F',
+          whiteHover: '#e8e8e8'
         },
       },
       fontFamily: {
