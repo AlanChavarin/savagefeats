@@ -25,7 +25,8 @@ function matches() {
 
   useEffect(() => {
     if(searchParams.get('query') === 'true'){
-      const url = `http://localhost:5000/api/matches?` + new URLSearchParams(searchParams.toString() + `&limit=${limit}` ).toString()
+      const url = `${process.env.NEXT_PUBLIC_BACKEND_API}matches?` + new URLSearchParams(searchParams.toString() + `&limit=${limit}` ).toString()
+      console.log(url)
       fetch(url)
       .then(r => r.json())
       .then(data => {

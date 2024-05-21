@@ -39,7 +39,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     const initUser = () => {
         const token = localStorage.getItem('token')
         if(token){
-            fetch('http://localhost:5000/api/users/me', {
+            fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}users/me`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,

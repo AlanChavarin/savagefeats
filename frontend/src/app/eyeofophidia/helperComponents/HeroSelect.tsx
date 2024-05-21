@@ -1,7 +1,6 @@
 'use client'
-import { useState, useEffect, SyntheticEvent } from "react"
+import { useState, useEffect } from "react"
 import { heroSchema, errorSchema } from "@/app/schemas/schemas"
-import { heroSchemaType } from "@/app/types/types"
 import { z } from 'zod'
 import { toast } from "react-toastify"
 import { UseFormReturn } from "react-hook-form"
@@ -13,7 +12,7 @@ function HeroSelect({placeholder, name, form}: {placeholder: string, name: strin
   const [heroes, setHeroes] = useState<string[] | undefined>()
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/heroes/')
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}heroes/`)
     .then(r => r.json())
     .then(data => {
       const validatedHeroData = responseSchema.safeParse(data)

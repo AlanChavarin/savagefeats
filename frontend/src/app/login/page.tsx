@@ -29,7 +29,7 @@ function page() {
       });
 
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
-        fetch(`http://localhost:5000/api/users/login`, {
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}users/login`, {
             method: 'POST',
             headers:{
                 'content-type': 'application/json' 
