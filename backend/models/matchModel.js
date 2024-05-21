@@ -49,7 +49,6 @@ const matchSchema = mongoose.Schema({
         notATypicalTournamentStructure: Boolean,
         dayRoundArr: [Number],
         top8Day: Boolean,
-        official: Boolean,
     },
 
     top8: {type: Boolean, required: true},

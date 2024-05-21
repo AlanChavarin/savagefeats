@@ -77,7 +77,7 @@ const getMatches = asyncHandler(async (req, res) => {
 
     const data = {
         "matches": matchesQuery[0].matches,
-        "count": matchesQuery[0].count[0]?.count
+        "count": matchesQuery[0].count[0]?.count ? matchesQuery[0].count[0]?.count : 0 
     }
 
     res.status(200)

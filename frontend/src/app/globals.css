@@ -37,6 +37,10 @@
         text-shadow: 4px 4px 2px black;
     }
 
+    .text-shadow-medium{
+        text-shadow: 3px 3px 2px black;
+    }
+
     .text-shadow-small{
         text-shadow: 2px 2px 2px black;
     }
@@ -52,6 +56,28 @@
     .box-shadow-small{
         box-shadow: 3px 3px 2px black;
     }
+
+    .box-shadow-extra-small{
+        box-shadow: 2px 2px black;
+    }
+
+    .box-shadow-small-blurry{
+        box-shadow: 3px 3px 4px black;
+    }
+
+    .box-shadow-light{
+        box-shadow: 1px 1px 3px rgb(54, 54, 54);
+    }
+
+    .box-shadow-light:hover{
+        box-shadow: 1px 1px 15px black;
+    }
+
+    .input-focus-shadow{
+        box-shadow: 3px 3px 10px #4a915e;
+    }
+
+
 
     /* .test::before{
         content: '';
