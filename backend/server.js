@@ -12,7 +12,8 @@ const cors = require('cors')
 
 app.use(cors({
     origin: 'http://localhost:5000',
-    origin: 'http://localhost:3000'
+    origin: 'http://localhost:3000',
+    origin: 'https://savagefeats-production.up.railway.app/'
 }))
 
 app.listen(process.env.PORT, () => {
