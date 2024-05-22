@@ -9,10 +9,10 @@ const cors = require('cors')
 //const cors = require('cors')
 //const dotenv = require('dotenv').config()
 //const path = require('path')
+// console.log((process.env.NODE_ENV==='production') ? 'https://savagefeats-production.up.railway.app/' : 'http://localhost:5000')
 
 app.use(cors({
-    origin: (process.env.NODE_ENV==='production') ? 'https://savagefeats-production.up.railway.app/' : 'http://localhost:5000',
-    origin: 'http://localhost:3000',
+    origin: (process.env.NODE_ENV==='production') ? 'https://savagefeats-production.up.railway.app/' : 'http://localhost:3000',
 }))
 
 app.listen(process.env.PORT, () => {
