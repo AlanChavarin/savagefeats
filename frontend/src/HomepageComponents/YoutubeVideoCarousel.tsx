@@ -36,26 +36,25 @@ function YoutubeVideoCarousel({youtubeIDs, backgroundImage, children} : {youtube
       <div className="w-[90vw] md:w-[564px]" ref={emblaRef}>
         <div className="flex">
 
-          {youtubeIDs.map(id => <>
+          {youtubeIDs.map(id =>
             <div key={id} className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
               <YoutubeEmbedContainer>
                 <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/${id}?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
               </YoutubeEmbedContainer>
-            </div>
-          </>)}
+            </div>)}
 
         </div>
       </div>
 
       <div className="flex gap-[16px] items-center">
         <FontAwesomeIcon onClick={() => prevOnClick()} icon={faChevronLeft} className='h-[24px] w-[24px] cursor-pointer'/>
-        {scrollSnaps.map((_, index) => (<>
+        {scrollSnaps.map((_, index) => (<div key={index}>
           <DotButton
             key={index}
             active={(selectedIndex === index)}
             onClick={() => onDotButtonClick(index)}
           />
-        </>))}
+        </div>))}
         <FontAwesomeIcon onClick={() => nextOnClick()} icon={faChevronRight} className='h-[24px] w-[24px] cursor-pointer'/>
       </div>
 

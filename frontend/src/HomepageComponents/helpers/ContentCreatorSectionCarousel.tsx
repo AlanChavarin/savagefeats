@@ -36,7 +36,7 @@ function ContentCreatorSectionCarousel({youtubeIds, channelData, size}: {youtube
           <div className="w-[90vw] min-[500px]:w-[500px] min-[500px]:h-[253px] mb-[24px]" ref={emblaRef}>
             <div className="flex">
               {youtubeIds.map(id => 
-                <div className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[253px] flex items-center justify-center relative grow-0 shrink-0'>
+                <div key={id} className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[253px] flex items-center justify-center relative grow-0 shrink-0'>
                   <YoutubeEmbedContainer>
                     <iframe className='h-[50vw] w-[85vw] min-[500px]:w-[450px] min-[500px]:h-[253px] box-shadow' src={`https://www.youtube-nocookie.com/embed/${id}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
                   </YoutubeEmbedContainer>
@@ -47,13 +47,13 @@ function ContentCreatorSectionCarousel({youtubeIds, channelData, size}: {youtube
 
           <div className="flex gap-[16px] items-center">
             <FontAwesomeIcon onClick={() => prevOnClick()} icon={faChevronLeft} className='h-[24px] w-[24px] cursor-pointer'/>
-            {scrollSnaps.map((_, index) => (<>
+            {scrollSnaps.map((_, index) => (<div key={index}>
               <DotButton
                 key={index}
                 active={(selectedIndex === index)}
                 onClick={() => onDotButtonClick(index)}
               />
-            </>))}
+            </div>))}
             <FontAwesomeIcon onClick={() => nextOnClick()} icon={faChevronRight} className='h-[24px] w-[24px] cursor-pointer'/>
           </div>
         </>}
@@ -69,30 +69,30 @@ function ContentCreatorSectionCarousel({youtubeIds, channelData, size}: {youtube
             <div className="w-[680px] overflow-hidden" ref={emblaRef}>
               <div className="flex gap-[32px] mb-[8px]">
 
-                {youtubeIdsFours && youtubeIdsFours.map(idArray => <>
+                {youtubeIdsFours && youtubeIdsFours.map(idArray =>
                 
                   <div key={idArray[0]} className='grid grid-cols-2 gap-[32px] relative grow-0 shrink-0 pr-[8px]'>
-                    {idArray.map(id => <>
+                    {idArray.map(id => <div key={id}>
                     
                       <YoutubeEmbedContainer>
                         <iframe key={id} className='w-[320px] h-[180px] box-shadow' src={`https://www.youtube-nocookie.com/embed/${id}?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
                       </YoutubeEmbedContainer>
 
-                    </>)}
+                    </div>)}
                   </div>
-                </>)}
+                )}
               </div>
             </div>
 
             <div className="flex gap-[16px] items-center">
               <FontAwesomeIcon onClick={() => prevOnClick()} icon={faChevronLeft} className='h-[24px] w-[24px] cursor-pointer'/>
-              {scrollSnaps.map((_, index) => (<>
+              {scrollSnaps.map((_, index) => (<div key={index}>
                 <DotButton
                   key={index}
                   active={(selectedIndex === index)}
                   onClick={() => onDotButtonClick(index)}
                 />
-              </>))}
+              </div>))}
               <FontAwesomeIcon onClick={() => nextOnClick()} icon={faChevronRight} className='h-[24px] w-[24px] cursor-pointer'/>
             </div>
         </div>}

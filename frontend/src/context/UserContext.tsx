@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useState, useEffect, ReactNode} from 'react'
+import { createContext, useState, useEffect, ReactNode, useCallback} from 'react'
 import { z } from "zod"
 import { errorSchema } from '@/app/schemas/schemas'
 import { toast } from 'react-toastify'
@@ -31,10 +31,10 @@ interface UserProviderProps {
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null)
 
-    const logout = () => {
+    const logout = useCallback(() => {
         localStorage.removeItem('token')
         setUser(null)
-    }
+    }, [])
 
     const initUser = () => {
         const token = localStorage.getItem('token')

@@ -1,5 +1,5 @@
 'use client'
-import MatchSearchForm from "./matchSearchForm"
+import MatchSearchForm from "./MatchSearchForm"
 import { useState, useEffect } from "react"
 import { matchSchemaType } from '@/app/types/types'
 import MatchThumbnail from "../helperComponents/MatchThumbnail"
@@ -18,7 +18,7 @@ const responseSchema = z.object({
 
 const limit = 60
 
-function matches() {
+function Matches() {
   const [matches, setMatches] = useState<matchSchemaType[] | undefined>()
   const [count, setCount] = useState<number | undefined>()
   const searchParams = useSearchParams()
@@ -86,4 +86,4 @@ function matches() {
     </div>
   )
 }
-export default matches
+export default Matches

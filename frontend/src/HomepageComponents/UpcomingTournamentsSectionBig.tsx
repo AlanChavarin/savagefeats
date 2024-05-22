@@ -70,13 +70,13 @@ function UpcomingTournamentsSectionBig() {
 
       <div className="flex gap-[16px] items-center">
         <FontAwesomeIcon onClick={() => prevOnClick()} icon={faChevronLeft} className='h-[24px] w-[24px] cursor-pointer'/>
-        {scrollSnaps.map((_, index) => (<>
+        {scrollSnaps.map((_, index) => (<div key={index}>
           <DotButton
             key={index}
             active={(selectedIndex === index)}
             onClick={() => onDotButtonClick(index)}
           />
-        </>))}
+        </div>))}
         <FontAwesomeIcon onClick={() => nextOnClick()} icon={faChevronRight} className='h-[24px] w-[24px] cursor-pointer'/>
       </div>
 

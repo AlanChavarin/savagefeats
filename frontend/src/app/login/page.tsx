@@ -19,7 +19,7 @@ const tokenSchema = z.object({
 
 type FormFields = z.infer<typeof formSchema>
 
-function page() {
+function Login() {
 
     const {initUser} = useContext(UserContext)
 
@@ -92,4 +92,4 @@ function page() {
     </div>
   )
 }
-export default page
+export default Login
