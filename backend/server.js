@@ -12,7 +12,7 @@ const cors = require('cors')
 // console.log((process.env.NODE_ENV==='production') ? 'https://savagefeats-production.up.railway.app/' : 'http://localhost:5000')
 
 app.use(cors({
-    origin: (process.env.NODE_ENV==='production') ? 'https://savagefeats-production.up.railway.app/' : 'http://localhost:3000',
+    origin: process.env.CORS,
 }))
 
 app.listen(process.env.PORT, () => {
