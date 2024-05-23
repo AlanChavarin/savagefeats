@@ -2,7 +2,7 @@
 import { useState, SyntheticEvent } from "react"
 import { UseFormReturn } from "react-hook-form"
 
-function HeroSelect({placeholder, name, form, data}: {placeholder: string | undefined, name: string, form: UseFormReturn, data: string[] | undefined}) {
+function Select({placeholder, name, form, data}: {placeholder: string | undefined, name: string, form: UseFormReturn, data: string[] | undefined}) {
   const {register, setValue} = form
   const [dropdown, setDropdown] = useState<boolean>(false)
   var a = document.getElementsByClassName('dropdownItem')
@@ -47,4 +47,4 @@ function HeroSelect({placeholder, name, form, data}: {placeholder: string | unde
     </div>
   )
 }
-export default HeroSelect
+export default Select

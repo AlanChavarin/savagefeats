@@ -119,6 +119,61 @@ context('events route test suite', () => {
             })
         })
     })
+
+    it("getEvents query official=true", () => {
+        cy.request(`${Cypress.env('CYPRESS_BACKEND_API')}events?&official=true`)
+        .then(response => {
+            expect(response.status).to.eq(200)
+            console.log(response.body)
+            expect(typeof response.body.count).to.equal('number')
+            checkPropertiesOfEachEvent(response.body.events)
+
+            response.body.events.map(event => {
+                console.log(event)
+                expect(event.official).to.equal(true)
+            })
+        })
+    })
+
+    it("getEvents query official=false", () => {
+        cy.request(`${Cypress.env('CYPRESS_BACKEND_API')}events?&official=false`)
+        .then(response => {
+            expect(response.status).to.eq(200)
+            expect(typeof response.body.count).to.equal('number')
+            checkPropertiesOfEachEvent(response.body.events)
+
+            response.body.events.map(event => {
+                expect(event.official).to.equal(false)
+            })
+        })
+    })
+
+    it("getEvents query official=false", () => {
+        cy.request(`${Cypress.env('CYPRESS_BACKEND_API')}events?&official=false`)
+        .then(response => {
+            expect(response.status).to.eq(200)
+            expect(typeof response.body.count).to.equal('number')
+            checkPropertiesOfEachEvent(response.body.events)
+
+            response.body.events.map(event => {
+                expect(event.official).to.equal(false)
+            })
+        })
+    })
+
+    it("getEvents query tier=1", () => {
+        cy.request(`${Cypress.env('CYPRESS_BACKEND_API')}events?&tier=1`)
+        .then(response => {
+            expect(response.status).to.eq(200)
+            expect(typeof response.body.count).to.equal('number')
+            checkPropertiesOfEachEvent(response.body.events)
+
+            response.body.events.map(event => {
+                expect(event.tier).to.equal(1)
+            })
+        })
+    })
+    
     
 
 

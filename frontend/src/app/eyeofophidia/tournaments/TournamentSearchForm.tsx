@@ -5,18 +5,18 @@ import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from "zod"
 import { useRouter } from "next/navigation"
-import HeroSelect from "../helperComponents/HeroSelect"
 import Select from '@/app/eyeofophidia/helperComponents/Select'
+import CustomRadio from "../helperComponents/CustomRadio"
 //schemas
 import { zodResolver } from "@hookform/resolvers/zod"
 
 const formSchema = z.object({
   text: z.string().optional(),
-  hero1: z.string().optional(),
-  hero2: z.string().optional(),
   startDate: z.string().optional(),
   endDate: z.string().optional(),
-  format: z.enum(['Classic Constructed', 'Blitz', 'Living Legend', 'Draft', 'Sealed', '']).optional(),
+  format: z.enum(['Classic Constructed', 'Blitz', 'Living Legend', 'Draft', 'Sealed', 'Mixed', '']).optional(),
+  tier: z.number().optional(),
+  official: z.boolean().optional(),
   order: z.number().optional(),
   page: z.number().optional(),
   limit: z.number().optional(),
@@ -24,7 +24,7 @@ const formSchema = z.object({
 
 type FormFields = z.infer<typeof formSchema>
 
-function MatchSearchForm(){
+function TournamentSearchForm(){
   const [settings, setSettings] = useState<boolean>(false)
   const router = useRouter()
 
@@ -55,7 +55,7 @@ function MatchSearchForm(){
 
     // @ts-ignore
     const params = new URLSearchParams(filteredData).toString()
-    router.push('matches?query=true&' + params)
+    router.push('tournaments?query=true&' + params)
 }
 
   return (
@@ -86,16 +86,6 @@ function MatchSearchForm(){
       {/* dropdown parameters */}
       {settings && 
         <div className="relative font-bold flex flex-col gap-[16px] items-start md:items-center bg-white border-[1px] border-black w-[90%] px-[16px] md:px-[0px] pt-[16px] pb-[24px]" style={{boxShadow: "2px 2px black"}}>
-          {/* hero selector */}
-          <div className="flex flex-col gap-[8px] w-[85%] md:items-center md:flex-row">
-            <div className="whitespace-nowrap">Hero Matchup: </div>
-            {/* hero 1 */}
-            <HeroSelect placeholder="Hero" name="hero1" form={form} />
-            <div className="hidden md:block"> VS. </div>
-            {/* hero 2 */}
-            <HeroSelect placeholder="Hero" name="hero2" form={form} />
-          </div>
-
           {/* date range  */}
           <div className="flex flex-col gap-[8px] md:items-center md:flex-row">
             <div>Date Range: </div>
@@ -104,12 +94,34 @@ function MatchSearchForm(){
             <div className="hidden md:block"> To </div>
             <input {...register('endDate')} type="date" placeholder="Hero" className='flex flex-row items-center bg-white border-[1px] border-black px-[8px] py-[0px] focus:outline-none hover:cursor-text box-shadow-extra-small focus:border-[2px] text-custom-gray' />
           </div>
+          {/* select if official events or not */}
+          <div className="flex flex-col gap-[8px] w-[85%] md:items-center md:flex-row md:justify-center">
+            <div className="whitespace-nowrap">Official Events: </div>
+            <CustomRadio options={{
+              'Official': true,
+              'Unofficial': false,
+              'All': undefined
+            }} form={form} name="official"/>
+          </div>
+
+          {/* Select event tier */}
+          <div className="flex flex-col gap-[8px] w-[85%] md:items-center md:flex-row md:justify-center" >
+            <div className="whitespace-nowrap">Event Tier Level: </div>
+            <CustomRadio options={{
+              '1': 1,
+              '2': 2,
+              '3': 3,
+              '4': 4,
+              'All': undefined
+            }} form={form} name="tier"/>
+          </div>
+
 
           {/* format  */}
           <div className="flex flex-col gap-[8px] md:items-center md:flex-row">
             <div>Format: </div>
             {/* <input {...register('format')} type="text" placeholder="Format" className="max-w-[196px] flex flex-row items-center bg-white border-[1px] border-black px-[8px] py-[1px] focus:outline-none box-shadow-extra-small focus:border-[2px]"/> */}
-            <Select placeholder='Format' name='format' form={form} data={['Classic Constructed', 'Blitz', 'Living Legend', 'Draft', 'Sealed', '']}/>
+            <Select placeholder='Format' name='format' form={form} data={['Classic Constructed', 'Blitz', 'Living Legend', 'Draft', 'Sealed', 'Mixed', '']}/>
           </div>
 
           {/* Sort by new/old rn this doesnt work  */}
@@ -145,4 +157,4 @@ function MatchSearchForm(){
        
   )
 }
-export default MatchSearchForm
+export default TournamentSearchForm

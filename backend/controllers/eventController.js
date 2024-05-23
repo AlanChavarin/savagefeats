@@ -52,6 +52,14 @@ const getEvents = asyncHandler(async (req, res) => {
         find["format"] = req.query?.format
     }
 
+    if(req.query?.official){
+        find["official"] = req.query.official === 'true'
+    }
+
+    if(req.query?.tier){
+        find["tier"] = Number(req.query.tier)
+    }
+
     const pipeline = [
         {"$match": find},
         { "$facet": {
