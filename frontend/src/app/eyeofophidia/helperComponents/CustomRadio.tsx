@@ -7,11 +7,8 @@ interface OptionsType {
 function CustomRadio({options, form, name}: {options: OptionsType, form: UseFormReturn, name: string}) {
   const {setValue, watch} = form
 
-  console.log(name, watch(name))
-
   const handleClick = (value: any) => {
     setValue(name, value)
-    //console.log(watch(name))
   }
 
   return (

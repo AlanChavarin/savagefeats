@@ -5,7 +5,7 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { DotButton, useDotButton } from '../components/swiperComponents/EmblaCarouselDotButton'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
-import EventThumbnail from "@/eyeofophidiaComponents/EventThumbnail"
+import EventThumbnail from "@/app/eyeofophidia/helperComponents/EventThumbnail"
 
 function UpcomingTournamentsSectionSmall() {
 
@@ -37,7 +37,7 @@ function UpcomingTournamentsSectionSmall() {
 
         <div className="flex gap-[32px]">
 
-          <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
+          {/* <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
             <EventThumbnail size='smallSlide'/>
           </div>
 
@@ -47,7 +47,7 @@ function UpcomingTournamentsSectionSmall() {
 
           <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
             <EventThumbnail size='smallSlide'/>
-          </div>
+          </div> */}
 
         </div>
 

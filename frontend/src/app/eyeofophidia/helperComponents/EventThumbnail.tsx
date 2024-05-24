@@ -1,7 +1,37 @@
+import { eventSchemaType } from "@/app/types/types"
 
 
-function EventThumbnail({size}: {size: ('smallSlide' | 'featuredSlide' | 'sideSlide')}) {
+const getImage = (str: string) => {
+  const slicedHex = str.slice(str.length-2, str.length)
+  const decimalValue = parseInt(slicedHex, 16)
+  return `${Math.round(decimalValue / 12)}.jpg`
+}
+
+function EventThumbnail({event, size}: {event: eventSchemaType, size: ('normal' | 'smallSlide' | 'featuredSlide' | 'sideSlide')}) {
+
+  console.log(getImage(event._id))
+
   return (<>
+
+    {(size==='normal') && 
+      <div className='flex flex-col justify-start items-center h-[220px] w-[90vw] sm:w-[400px] box-shadow text-white text-shadow-small hover:  cursor-pointer' style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `center 20px`}}>
+
+        <div className='bg-black bg-opacity-60 w-full font-bold p-[8px] text-[20px] flex justify-center items-center'>{event.name}</div>
+
+        <div className='flex flex-col gap-[8px] font-bold text-[16px] items-start self-start p-[8px]'>
+            <div>{
+              event.format.map((format, i) => <div key={i}>
+                {i>0 && ' + '}
+                {format}
+              </div>)}
+            </div>
+            <div>{event.startDate && event.startDate.slice(0,10)} {event.endDate && ' - ' + event.endDate.slice(0, 10)}</div>
+            <div>{event.location}</div>
+        </div>
+      </div>
+    }
+
+
     {(size==='smallSlide') && 
       <div className='flex flex-col justify-start items-center h-full w-full box-shadow text-white text-shadow-small cursor-pointer' style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('wreckhavoc.jpg')`, backgroundSize: 'cover', backgroundPosition: `0 -48px `}}>
 

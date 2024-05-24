@@ -38,15 +38,28 @@ const getEvents = asyncHandler(async (req, res) => {
         find["$text"] = {"$search": wordWrapper(req.query.text)}
     }
 
-    if(req.query?.startDate){
-        const date = new Date(req.query.startDate)
-        find["startDate"] = {"$gte": date}
+    if(req.query?.startDate && req.query?.endDate){
+        const startDate = new Date(req.query.startDate)
+        const endDate = new Date(req.query.endDate)
+        find["startDate"] = {
+            "$gte": startDate,
+            "$lte": endDate,  
+        }
+    } else {
+        if(req.query?.startDate){
+            const date = new Date(req.query.startDate)
+            find["startDate"] = {"$gte": date}
+        }
+
+        if(req.query?.endDate){
+            const date = new Date(req.query.endDate)
+            find["startDate"] = {"$lte": date}
+        }
     }
 
-    if(req.query?.endDate){
-        const date = new Date(req.query.endDate)
-        find["startDate"] = {"$lt": date}
-    }
+    
+
+    console.log(find)
 
     if(req.query?.format){
         find["format"] = req.query?.format
@@ -78,7 +91,7 @@ const getEvents = asyncHandler(async (req, res) => {
 
     const data = {
         "events": eventsQuery[0].events,
-        "count": eventsQuery[0].count[0]?.count
+        "count": eventsQuery[0].count[0]?.count ? eventsQuery[0].count[0]?.count : 0
     }
 
     res.status(200)
@@ -108,7 +121,7 @@ const postEvent = asyncHandler(async (req, res) => {
         req.body.coincidingEvents = JSON.parse("[" + req.body.coincidingEvents + "]")
     }
     if(typeof(req.body.format)==='string'){
-        req.body.dayRoundArr = JSON.parse("[" + req.body.format + "]")
+        req.body.format = JSON.parse("[" + req.body.format + "]")
     }
 
     const event = await Event.create({

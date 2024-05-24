@@ -9,6 +9,7 @@ import { z } from "zod"
 import { useSearchParams } from 'next/navigation'
 import PaginationButton from "../helperComponents/PaginationButton"
 import Title from "../helperComponents/Title"
+import Pagination from "../helperComponents/Pagination"
 
 const responseSchema = z.object({
   count: z.number(),
@@ -70,13 +71,7 @@ function Matches() {
 
       {/* pagination */}
 
-      {(count && count>0) && 
-        <div className="flex flex-row gap-[8px] flex-wrap justify-center w-[75%]">
-          {count && Array.from(Array(Math.floor(count/limit + 1)), (_, i) => <>
-            <PaginationButton page={i}/>
-          </>)}
-        </div>
-      }
+      <Pagination count={count} limit={limit}/>
       
     </div>
   )

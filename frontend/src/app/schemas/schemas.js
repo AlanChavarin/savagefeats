@@ -4,11 +4,13 @@ export const errorSchema = z.object({
     errorMessage: z.string()
 })
 
+const formatArray = z.enum(['Classic Constructed', 'Blitz', 'Living Legend', 'Draft', 'Sealed', 'Mixed', ''])
+
 export const eventSchema = z.object({
     _id: z.string(),
     name: z.string(),
     location: z.string(),
-    format: z.enum(['Classic Constructed', 'Blitz', 'Living Legend', 'Draft', 'Sealed', 'Mixed', '']),
+    format: z.array(formatArray),
     official: z.boolean().optional(),
     tier: z.number().optional(),
     formatDescription: z.string().optional(),

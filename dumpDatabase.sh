@@ -1,0 +1,1 @@
+mongodump --uri=mongodb://admin:password@localhost:27017/ --out=./mongodump

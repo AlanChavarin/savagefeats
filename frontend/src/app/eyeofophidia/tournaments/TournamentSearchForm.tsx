@@ -76,7 +76,7 @@ function TournamentSearchForm(){
         </button>
 
         {/* text input */}
-        <input {...register("text")} type="text" placeholder="Search For Matches" className="pl-[16px] pr-[16px] flex-1 focus:outline-none"/>
+        <input {...register("text")} type="text" placeholder="Search For Tournaments" className="pl-[16px] pr-[16px] flex-1 focus:outline-none"/>
 
         <button type="button" className="w-[32px] h-[32px] flex items-center justify-center border-l-[1px] border-black hover:bg-custom-whiteHover" onClick={() => setSettings(!settings)}>
           <FontAwesomeIcon icon={faGear}/>
@@ -90,9 +90,9 @@ function TournamentSearchForm(){
           <div className="flex flex-col gap-[8px] md:items-center md:flex-row">
             <div>Date Range: </div>
             {/* start date */}
-            <input {...register('startDate')} type="date" placeholder="Hero" className="text-custom-gray flex flex-row items-center bg-white border-[1px] border-black px-[8px] py-[0px] focus:outline-none hover:cursor-text box-shadow-extra-small focus:border-[2px]"/>
+            <input {...register('startDate')} type="date" className="text-custom-gray flex flex-row items-center bg-white border-[1px] border-black px-[8px] py-[0px] focus:outline-none hover:cursor-text box-shadow-extra-small focus:border-[2px]"/>
             <div className="hidden md:block"> To </div>
-            <input {...register('endDate')} type="date" placeholder="Hero" className='flex flex-row items-center bg-white border-[1px] border-black px-[8px] py-[0px] focus:outline-none hover:cursor-text box-shadow-extra-small focus:border-[2px] text-custom-gray' />
+            <input {...register('endDate')} type="date" className='flex flex-row items-center bg-white border-[1px] border-black px-[8px] py-[0px] focus:outline-none hover:cursor-text box-shadow-extra-small focus:border-[2px] text-custom-gray' />
           </div>
           {/* select if official events or not */}
           <div className="flex flex-col gap-[8px] w-[85%] md:items-center md:flex-row md:justify-center">
