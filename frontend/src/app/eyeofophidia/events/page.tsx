@@ -1,6 +1,6 @@
 'use client'
 import Title from "../helperComponents/Title"
-import TournamentSearchForm from "./TournamentSearchForm"
+import EventSearchForm from "./EventSearchForm"
 import { useState, useEffect } from "react"
 import { eventSchemaType } from "@/app/types/types"
 import { useSearchParams } from "next/navigation"
@@ -17,7 +17,7 @@ const responseSchema = z.object({
 
 const limit = 40
 
-function Tournaments() {
+function Events() {
 
   const [events, setEvents] = useState<eventSchemaType[] | undefined>()
   const [count, setCount] = useState<number | undefined>()
@@ -41,7 +41,7 @@ function Tournaments() {
         if(validatedError.success){
           throw new Error(validatedError.data.errorMessage)
         }
-  
+
         console.error(validatedData.error)
         console.error(validatedError.error)
         throw new Error('Unexpected data. Check console for further details')
@@ -52,27 +52,27 @@ function Tournaments() {
 
   }, [searchParams])
 
-  useEffect(() => {
-    console.log(events)
-    console.log(count)
-  }, [events, count])
+  // useEffect(() => {
+  //   console.log(events)
+  //   console.log(count)
+  // }, [events, count])
 
   return (
     <div className="flex-1 overflow-hidden pb-[128px] flex flex-col justify-start items-center w-[100%] p-[16px] gap-[48px] pt-[32px]">
-      <Title subheader="Tournaments"/>
-      <TournamentSearchForm />
+      <Title subheader="Events"/>
+      <EventSearchForm />
 
-      {/* tournament thumbnail container */}
+      {/* event thumbnail container */}
       <div className="flex flex-row flex-wrap gap-[24px] justify-center">
         {events && events.map(event => <div key={event._id}>
             <EventThumbnail event={event} size={"normal"}/>
           </div>
         )}
-        {(count===0) && <div>No Tournaments Found :{'('}</div>}
+        {(count===0) && <div>No Events Found :{'('}</div>}
       </div>
 
       <Pagination count={count} limit={limit}/>
     </div>
   )
 }
-export default Tournaments
+export default Events

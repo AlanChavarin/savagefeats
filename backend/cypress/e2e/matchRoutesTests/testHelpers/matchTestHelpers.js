@@ -25,7 +25,6 @@ const eventPropertiesIExpectToBeStrings = [
     "_id",
     "name",
     "location",
-    "format",
     "startDate",
 ]
 

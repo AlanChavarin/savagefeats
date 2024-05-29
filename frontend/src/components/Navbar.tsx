@@ -72,8 +72,8 @@ function Navbar() {
                 <Link href="/eyeofophidia/matches" className="hover:text-custom-primary">
                     Matches
                 </Link>
-                <Link href="/eyeofophidia/tournaments" className="hover:text-custom-primary">
-                    Tournaments
+                <Link href="/eyeofophidia/events" className="hover:text-custom-primary">
+                    Events
                 </Link>
                 <Link href="/eyeofophidia/decklists" className="hover:text-custom-primary">
                     Decklists

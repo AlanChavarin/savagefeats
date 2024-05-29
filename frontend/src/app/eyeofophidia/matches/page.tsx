@@ -7,7 +7,6 @@ import { toast } from "react-toastify"
 import { errorSchema, matchSchema } from '@/app/schemas/schemas'
 import { z } from "zod"
 import { useSearchParams } from 'next/navigation'
-import PaginationButton from "../helperComponents/PaginationButton"
 import Title from "../helperComponents/Title"
 import Pagination from "../helperComponents/Pagination"
 

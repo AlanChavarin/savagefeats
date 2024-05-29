@@ -48,6 +48,15 @@ context("matches GET routes test suite", () => {
         })
     })
 
+    it("getMatch", () => {
+        cy.request(`${Cypress.env('CYPRESS_BACKEND_API')}matches/642b7fe5ff5f3ef28bc36cac`)
+        .then(response => {
+            expect(response.status).to.eq(200)
+            const body = response.body
+            expect(body._id).to.eq('642b7fe5ff5f3ef28bc36cac')
+        })
+    })
+
 })
 
 

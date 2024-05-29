@@ -116,6 +116,40 @@ const getMatch = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('Match with that id not found')
     }
+    relatedMatches = []
+
+
+    if(req.query.includeRelatedMatches==='true'){
+        // add on new data to match object
+        let find = {'event._id': match.event._id}
+        const matchesByEvent = await Match.find(find).sort({top8: 1, swissRound: 1})
+
+        if(2 < matchesByEvent.length){
+            for(let i = 0; i < matchesByEvent.length; i++){
+                if(matchesByEvent[i]._id.equals(match._id)){
+                    if(i < matchesByEvent.length-2){
+                        relatedMatches[0] = matchesByEvent[i+1]
+                        relatedMatches[1] = matchesByEvent[i+2]
+                    } else if(i < matchesByEvent.length-1){
+                        relatedMatches[0] = matchesByEvent[i+1]
+                        relatedMatches[1] = matchesByEvent[i-1]
+                    } else {
+                        relatedMatches[0] = matchesByEvent[i-1]
+                        relatedMatches[1] = matchesByEvent[i-2]
+                    }
+                }
+            }
+        }
+    }
+
+    
+
+    const data = match
+
+    data['relatedMatches'] = relatedMatches
+
+    console.log(data)
+
     res.status(200)
     res.json(match)
 })

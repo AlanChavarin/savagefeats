@@ -17,7 +17,7 @@ const {protect, protectModerator} = require('../middleware/authMiddleware')
 
 router.get('/', getMatches)
 
-router.get('/:id', protect, protectModerator, getMatch)
+router.get('/:id', getMatch)
 
 router.get('/byevent/:event', getMatchesByEvent)
 

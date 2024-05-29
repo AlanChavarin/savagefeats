@@ -83,6 +83,8 @@ const matchSchema = mongoose.Schema({
         min: this.event?.startDate,
         max: this.event?.endDate,
     }, 
+
+    relatedMatches: [Schema.Types.Mixed],
     deleted: Boolean
 })
 

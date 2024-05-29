@@ -57,10 +57,6 @@ const getEvents = asyncHandler(async (req, res) => {
         }
     }
 
-    
-
-    console.log(find)
-
     if(req.query?.format){
         find["format"] = req.query?.format
     }

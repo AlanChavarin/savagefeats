@@ -24,7 +24,7 @@ const formSchema = z.object({
 
 type FormFields = z.infer<typeof formSchema>
 
-function TournamentSearchForm(){
+function EventSearchForm(){
   const [settings, setSettings] = useState<boolean>(false)
   const router = useRouter()
 
@@ -55,7 +55,7 @@ function TournamentSearchForm(){
 
     // @ts-ignore
     const params = new URLSearchParams(filteredData).toString()
-    router.push('tournaments?query=true&' + params)
+    router.push('events?query=true&' + params)
 }
 
   return (
@@ -157,4 +157,4 @@ function TournamentSearchForm(){
        
   )
 }
-export default TournamentSearchForm
+export default EventSearchForm

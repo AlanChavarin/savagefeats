@@ -22,7 +22,7 @@ export const eventSchema = z.object({
     dayRoundArr: z.union([z.array(z.number()), z.null(), z.array(z.null())]).optional(),
     top8Day: z.boolean().optional(),
 })
-  
+    
 export const matchSchema = z.object({
     _id: z.string(),
     player1name: z.string(),
@@ -50,4 +50,15 @@ export const heroSchema = z.object({
     name: z.string(),
     class: z.string().optional(),
     young: z.boolean().optional(),
+})
+
+export const decklistSchema = z.object({
+    _id: z.string(),
+    format: z.array(formatArray),
+    playername: z.string().optional(),
+    decklistLink: z.string().optional(),
+    placement: z.number().optional(),
+    hero: z.string(),
+    placementRangeEnding: z.number().optional(),
+
 })

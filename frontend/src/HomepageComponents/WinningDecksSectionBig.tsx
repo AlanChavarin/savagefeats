@@ -3,7 +3,7 @@
 import SectionBackground from "@/components/swiperComponents/SectionBackground"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
-import DeckThumbnail from "@/eyeofophidiaComponents/DeckThumbnail"
+import DeckThumbnail from "@/app/eyeofophidia/helperComponents/DeckThumbnail"
 import useEmblaCarousel from 'embla-carousel-react'
 import { DotButton, useDotButton } from '../components/swiperComponents/EmblaCarouselDotButton'
 import YoutubeEmbedContainer from "../components/swiperComponents/YoutubeEmbedContainer"
