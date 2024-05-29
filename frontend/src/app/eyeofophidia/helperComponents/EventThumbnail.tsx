@@ -12,11 +12,11 @@ function EventThumbnail({event, size}: {event: eventSchemaType, size: ('normal' 
   return (<>
 
     {(size==='eventPage') && 
-      <div className={`h-[280px] w-[100%] flex flex-col justify-start items-center box-shadow text-white text-shadow-small hover:cursor-pointer`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `center 0px`}}>
+      <div className={`h-[200px] md:h-[280px] w-[100%] flex flex-col justify-start items-center box-shadow text-white text-shadow-small hover:cursor-pointer`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `center 0px`}}>
 
-        <div className='bg-black bg-opacity-60 w-full font-bold p-[8px] text-[40px] flex justify-center items-center'>{event.name}</div>
+        <div className='bg-black bg-opacity-60 w-full font-bold p-[8px] text-[24px] md:text-[40px] flex justify-center items-center'>{event.name}</div>
 
-        <div className='flex flex-col gap-[8px] font-bold text-[19px] self-start p-[8px] w-[100%] items-center'>
+        <div className='flex flex-col gap-[8px] font-bold text-[16px] md:text-[19px] self-start p-[8px] w-[100%] items-center'>
             <div>{
               event.format.map((format, i) => <div key={i}>
                 {i>0 && ' + '}

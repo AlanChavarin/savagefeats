@@ -92,19 +92,22 @@ function page({params}: {params: {eventid: string}}) {
 
             {/* <div className="text-[39px] font-bold">Matches:</div>  */}
 
+          
+
             {event.dayRoundArr && event.endDate ? 
                 <>
                     {event.dayRoundArr.map((num, i, arr) => <>
-                        <div className="text-[39px] font-bold">Day {i+1}:</div>
-                        <div className="w-[384px] border-[1px] border-black"></div>
+                        <div className="text-[30px] md:text-[39px] font-bold">Day {i+1}:</div>
+                        <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
                         <div className="flex flex-row flex-wrap gap-[24px] justify-center">
+                            {/* @ts-ignore */}
                             {matches && matches.slice((arr[i-1] ? arr[i-1] : 0), num).map(match => 
                                 <MatchThumbnail match={match} key={match._id}/>
                             )}
                         </div>
                     </>)}
-                    <div className="text-[39px] font-bold">Top Cut:</div>
-                    <div className="w-[384px] border-[1px] border-black"></div>
+                    <div className="text-[30px] md:text-[39px] font-bold">Top Cut:</div>
+                    <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
                     <div className="flex flex-row flex-wrap gap-[24px] justify-center">
                         {matches && matches.filter(match => (match.top8===true)).map(match => 
                             <MatchThumbnail match={match} key={match._id}/>
