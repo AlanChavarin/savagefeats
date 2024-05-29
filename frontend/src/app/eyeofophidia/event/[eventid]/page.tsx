@@ -1,5 +1,4 @@
 'use client'
-import { useState, useEffect } from "react"
 import { toast } from "react-toastify"
 import { errorSchema, matchSchema, eventSchema, decklistSchema } from '@/app/schemas/schemas'
 import { matchSchemaType, eventSchemaType, decklistSchemaType } from "@/app/types/types"
@@ -7,9 +6,10 @@ import EventThumbnail from "../../helperComponents/EventThumbnail"
 import DeckThumbnail from "../../helperComponents/DeckThumbnail"
 import { z } from "zod"
 import MatchThumbnail from "../../helperComponents/MatchThumbnail"
+import { useState, useEffect } from "react"
 
 
-function page({params}: {params: {eventid: string}}) {
+function Event({params}: {params: {eventid: string}}) {
   const [event, setEvent] = useState<eventSchemaType | undefined>(undefined)
   const [matches, setMatches] = useState<matchSchemaType[] | undefined>(undefined)
   const [decklists, setDecklists] = useState<decklistSchemaType[] | undefined>(undefined)
@@ -137,4 +137,4 @@ function page({params}: {params: {eventid: string}}) {
     </div>
   )
 }
-export default page
+export default Event

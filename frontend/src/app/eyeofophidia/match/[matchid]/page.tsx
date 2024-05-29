@@ -9,7 +9,7 @@ import { z } from "zod"
 import MatchThumbnail from "../../helperComponents/MatchThumbnail"
 
 
-function page({params}: {params: {matchid: string}}) {
+function Match({params}: {params: {matchid: string}}) {
   const [match, setMatch] = useState<matchSchemaType | undefined>(undefined)
   const [relatedMatches, setRelatedMatches] = useState<matchSchemaType[] | undefined>(undefined)
   const { matchid } = params
@@ -75,7 +75,7 @@ function page({params}: {params: {matchid: string}}) {
 
             {relatedMatches && 
               <>
-                {relatedMatches.map(match => <MatchThumbnail match={match} maxWidth={true}/>)}
+                {relatedMatches.map(match => <MatchThumbnail key={match._id} match={match} maxWidth={true} />)}
               </>
             }
 
@@ -84,4 +84,4 @@ function page({params}: {params: {matchid: string}}) {
     </div>
   )
 }
-export default page
+export default Match
