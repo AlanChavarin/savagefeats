@@ -17,9 +17,9 @@ const deckPlacementString = (placement: number | undefined) => {
     }
 }
 
-function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featuredSlide' | 'sideSlide' | 'normal'), deck: deckSchemaType}) {
+function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featuredSlide' | 'sideSlide' | 'normal'), deck?: deckSchemaType}) {
   return (<>
-    { (size === 'normal') && 
+    { (size === 'normal' && deck) && 
         <a href={deck.decklistLink} target="_blank" className='bg-white box-shadow w-[100%] sm:w-[496px] flex hover:bg-gray-50 cursor-pointer'>
             <div className='h-full w-[80px]' style={{backgroundImage: `url('/heroes/${deck.hero}.jpg')`, backgroundSize: '150%', backgroundPosition: `center 0`}}></div>
             <div className='flex flex-col h-full flex-1 p-[8px] justify-start gap-[2px] relative text-[13px]'>

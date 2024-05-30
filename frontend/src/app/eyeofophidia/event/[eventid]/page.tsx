@@ -1,7 +1,7 @@
 'use client'
 import { toast } from "react-toastify"
-import { errorSchema, matchSchema, eventSchema, decklistSchema } from '@/app/schemas/schemas'
-import { matchSchemaType, eventSchemaType, decklistSchemaType } from "@/app/types/types"
+import { errorSchema, matchSchema, eventSchema, deckSchema } from '@/app/schemas/schemas'
+import { matchSchemaType, eventSchemaType, deckSchemaType } from "@/app/types/types"
 import EventThumbnail from "../../helperComponents/EventThumbnail"
 import DeckThumbnail from "../../helperComponents/DeckThumbnail"
 import { z } from "zod"
@@ -12,7 +12,7 @@ import { useState, useEffect } from "react"
 function Event({params}: {params: {eventid: string}}) {
   const [event, setEvent] = useState<eventSchemaType | undefined>(undefined)
   const [matches, setMatches] = useState<matchSchemaType[] | undefined>(undefined)
-  const [decklists, setDecklists] = useState<decklistSchemaType[] | undefined>(undefined)
+  const [decks, setDecks] = useState<deckSchemaType[] | undefined>(undefined)
   const { eventid } = params
  
   useEffect(() => {
@@ -63,10 +63,10 @@ function Event({params}: {params: {eventid: string}}) {
     .then(r => r.json())
     .then(data => {
         console.log(data)
-      const validatedDecklistData = z.array(decklistSchema).safeParse(data)
+      const validatedDecklistData = z.array(deckSchema).safeParse(data)
       const validatedError = errorSchema.safeParse(data)
       if(validatedDecklistData.success){
-        setDecklists(validatedDecklistData.data)
+        setDecks(validatedDecklistData.data)
         return
       }
 
@@ -125,10 +125,10 @@ function Event({params}: {params: {eventid: string}}) {
 
             <div className="grid grid-col-2 gap-[24px] justify-center">
                 
-                {decklists && <>
-                    {decklists.length > 0 && <div className="text-[39px] font-bold">Decklists</div>} 
-                    {decklists.map(decklist => 
-                        <DeckThumbnail decklist={decklist} size={'matchPage'} key={decklist._id}/>
+                {decks && <>
+                    {decks.length > 0 && <div className="text-[39px] font-bold">Decklists</div>} 
+                    {decks.map(deck => 
+                        <DeckThumbnail deck={deck} size={'matchPage'} key={deck._id}/>
                     )}
                 </>}
             </div>
