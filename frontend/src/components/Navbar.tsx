@@ -75,7 +75,7 @@ function Navbar() {
                 <Link href="/eyeofophidia/events" className="hover:text-custom-primary">
                     Events
                 </Link>
-                <Link href="/eyeofophidia/decklists" className="hover:text-custom-primary">
+                <Link href="/eyeofophidia/decks" className="hover:text-custom-primary">
                     Decklists
                 </Link>
                 <Link href="/content" className="hover:text-custom-primary">

@@ -142,8 +142,6 @@ const getMatch = asyncHandler(async (req, res) => {
         }
     }
 
-    
-
     const data = match
 
     data['relatedMatches'] = relatedMatches

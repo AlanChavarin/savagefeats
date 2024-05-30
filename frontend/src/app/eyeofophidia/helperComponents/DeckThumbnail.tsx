@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons"
-import { decklistSchemaType } from "@/app/types/types"
+import { deckSchemaType } from "@/app/types/types"
 
-const decklistPlacementString = (placement: number | undefined) => {
+const deckPlacementString = (placement: number | undefined) => {
     switch(placement){
         case undefined:
             return ''
@@ -17,40 +17,49 @@ const decklistPlacementString = (placement: number | undefined) => {
     }
 }
 
-function DeckThumbnail({size, decklist}: {size: ('matchPage' | 'smallSlide' | 'featuredSlide' | 'sideSlide' | 'normal'), decklist?: decklistSchemaType}) {
+function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featuredSlide' | 'sideSlide' | 'normal'), deck: deckSchemaType}) {
   return (<>
     { (size === 'normal') && 
-        <div className='bg-white box-shadow w-[496px] h-[80px] flex hover:bg-gray-50 cursor-pointer'>
-            <div className='h-full w-[80px]' style={{backgroundImage: `url('/Betsy, Skin in the Game.PNG')`, backgroundSize: '150%', backgroundPosition: `center 0`}}></div>
-            <div className='flex flex-col h-full flex-1 p-[8px] justify-between relative text-[13px]'>
-                <div className='text-[16px] font-bold'>Calling: Las Vegas - Betsy, Skin in the Game</div>
-                <div className='text-gray-600 flex flex-row justify-between'>
-                    <div>2nd Place - John Doe</div>
-                    <div>Dec 3th, 2023</div>
-                </div>
-                
-                <div className='flex flex-row justify-between text-gray-600'>
-                    <div className='*:underline'>
-                        <a href="">Deck List</a> {' - '}
-                        <a href="">Deck Tech</a>
-                    </div>
-                    <div>
-                        Classic Constructed
-                    </div>
+        <a href={deck.decklistLink} target="_blank" className='bg-white box-shadow w-[100%] sm:w-[496px] flex hover:bg-gray-50 cursor-pointer'>
+            <div className='h-full w-[80px]' style={{backgroundImage: `url('/heroes/${deck.hero}.jpg')`, backgroundSize: '150%', backgroundPosition: `center 0`}}></div>
+            <div className='flex flex-col h-full flex-1 p-[8px] justify-start gap-[2px] relative text-[13px]'>
+
+                <div className={`${(deck.event.name + ' - ' + deck.hero).length > 50 ? 'text-[13px]' : 'text-[16px]'} font-bold flex flex-row flex-wrap`}>
+                    <span >{deck.event.name}&nbsp;-&nbsp;</span>
+                    <span className="">{deck.hero}</span>
                 </div>
 
-                <FontAwesomeIcon icon={faSquareArrowUpRight} className='absolute top-[8px] right-[8px]'/>
+                <div className='text-gray-600 flex flex-col gap-[4px] sm:gap-[0px] sm:flex-row justify-between'>
+                    {/* 2nd Place - John Doe - Dec 3th, 2023 */}
+                    {deck.placement && <>{`${deckPlacementString(deck.placement)} Place`}</>}
+                    {deck.playername && <>{` - ${deck.playername}`}</>}
+                    {deck.event.startDate && <>{` - ${deck.event.startDate.slice(0, 10)}`}</>}
+                </div>
+
+                <div className=" text-gray-600">
+                    {deck.format}
+                </div>
+                {/* <div className='flex flex-col sm:flex-row justify-between items-start text-gray-600 gap-[4px] sm:gap-[0px]'>
+                    <div className='gap-[4px] sm:gap-[0px] flex flex-col sm:flex-row'>
+                        {deck.decklistLink && <a target="_blank" href={deck.decklistLink} className="underline hover:text-purple-500">Deck List</a>}
+                        <span className="hidden sm:block no-underline">&nbsp;{' - '}&nbsp;</span>
+                        <a href={deck.decktechlink} className="underline hover:text-purple-500">Deck Tech</a>
+                    </div>
+                    
+                </div> */}
+
+                <FontAwesomeIcon icon={faSquareArrowUpRight} className='absolute top-[2px] right-[2px]'/>
                 
             </div>
-        </div>
+        </a>
     }
 
     { (size === 'matchPage') && 
         <div className='bg-white box-shadow w-full h-[64px] flex hover:bg-gray-50 cursor-pointer'>
-            <div className='h-[64px] w-[64px]' style={{backgroundImage: `url('/${decklist?.hero}.PNG')`, backgroundSize: '150%', backgroundPosition: `center 0`}}></div>
+            <div className='h-[64px] w-[64px]' style={{backgroundImage: `url('/${deck?.hero}.PNG')`, backgroundSize: '150%', backgroundPosition: `center 0`}}></div>
             <div className='flex flex-col h-full flex-1 p-[8px] justify-around relative'>
-                <div className='text-[13px] font-bold'>{decklist?.hero}</div>
-                <div className='text-[13px] text-gray-600 flex flex-row justify-between'>{decklistPlacementString(decklist?.placement)} Place - {decklist?.playername}</div>
+                <div className='text-[13px] font-bold'>{deck?.hero}</div>
+                <div className='text-[13px] text-gray-600 flex flex-row justify-between'>{deckPlacementString(deck?.placement)} Place - {deck?.playername}</div>
 
                 <FontAwesomeIcon icon={faSquareArrowUpRight} className='absolute top-[8px] right-[8px]'/>
             </div>

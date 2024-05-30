@@ -30,12 +30,12 @@ const getDecklists = asyncHandler(async (req, res) => {
 
     //official filter
     if(req.query?.official){
-        find["official"] = req.query.official
+        find["event.official"] = req.query.official === 'true'
     }
 
     //tier filter
     if(req.query?.tier){
-        find["tier"] = req.query.tier
+        find["event.tier"] = req.query.tier
     }
 
     //hero filter
@@ -78,7 +78,7 @@ const getDecklists = asyncHandler(async (req, res) => {
 
     const data = {
         "decklists": decklistsQuery[0].decklists,
-        "count": decklistsQuery[0].count[0]?.count
+        "count": decklistsQuery[0].count[0]?.count ? decklistsQuery[0].count[0]?.count : 0
     }
 
 

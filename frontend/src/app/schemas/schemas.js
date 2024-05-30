@@ -52,13 +52,14 @@ export const heroSchema = z.object({
     young: z.boolean().optional(),
 })
 
-export const decklistSchema = z.object({
+export const deckSchema = z.object({
     _id: z.string(),
-    format: z.array(formatArray),
+    format: z.enum(['Classic Constructed', 'Blitz', 'Living Legend', 'Draft', 'Sealed', 'Mixed', '']),
     playername: z.string().optional(),
     decklistLink: z.string().optional(),
     placement: z.number().optional(),
     hero: z.string(),
     placementRangeEnding: z.number().optional(),
+    event: eventSchema
 
 })

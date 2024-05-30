@@ -7,12 +7,12 @@ router.get('/', getDecklists)
 
 router.get('/byevent/:event', getDecklistsByEvent)
 
-router.get('/:decklistId', getDecklist)
+router.get('/:deckId', getDecklist)
 
 router.post('/', protect, protectModerator, postDecklist)
 
-router.put('/:decklistid', protect, protectModerator, updateDecklist)
+router.put('/:deckid', protect, protectModerator, updateDecklist)
 
-router.delete('/:decklistid', protect, protectModerator, deleteDecklist)
+router.delete('/:deckid', protect, protectModerator, deleteDecklist)
 
 module.exports = router
