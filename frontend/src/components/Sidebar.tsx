@@ -1,15 +1,21 @@
 'use client'
-
 //nextjs
 import Link from "next/link"
 import Image from "next/image"
-
 
 //font awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faX } from "@fortawesome/free-solid-svg-icons"
 
+//context
+import { useContext } from "react"
+import UserContext from "@/context/UserContext"
+
 function Sidebar({buttonClickEvent} : {buttonClickEvent: () => void}) {
+
+  const {user} = useContext(UserContext)
+
+
   return (
     <div className="h-full bg-black w-[256px] md:w-[256px] absolute top-0 right-0 text-white z-[10]">
       <div className="text-[27px] flex flex-col text-white m-[16px] gap-[16px] *:font-bold *:cursor-pointer *:flex *:place-items-center">
@@ -38,6 +44,18 @@ function Sidebar({buttonClickEvent} : {buttonClickEvent: () => void}) {
         <Link href="/shop" className="hover:text-custom-primary">
           Shop
         </Link>
+
+        { user && <>
+          <Link href="/eyeofophidia/postevent" className="hover:text-custom-primary">
+            Post Event
+          </Link>
+          <Link href="/eyeofophidia/postmatch" className="hover:text-custom-primary">
+            Post Match
+          </Link>
+          <Link href="/logout" className='text-white hover:text-custom-primary'>
+            Logout
+          </Link>
+        </>}
         <button onClick={() => buttonClickEvent()}>
           <FontAwesomeIcon icon={faX} className="absolute right-[24px] top-[24px] text-[33px]"/>
         </button>

@@ -29,7 +29,6 @@ function Events() {
       fetch(url)
       .then(r => r.json())
       .then(data => {
-        console.log(data)
         const validatedData = responseSchema.safeParse(data)
         const validatedError = errorSchema.safeParse(data)
         if(validatedData.success){

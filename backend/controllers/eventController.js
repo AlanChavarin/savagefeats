@@ -16,6 +16,19 @@ const getEvent = asyncHandler(async (req, res) => {
     res.json(event)
 })
 
+const getEventNames = asyncHandler(async (req, res) => {
+    if(!req.recyclebin){req.recyclebin = false}
+    const events = await Event.find({deleted: req.recyclebin}, {name: 1, _id: 0})
+    let data = []
+
+    events.map(event => {
+        data.push(event.name)
+    })
+
+    res.status(200)
+    res.json(data)
+})
+
 const getEvents = asyncHandler(async (req, res) => {
     var skip, limit, find, order
     if(!req.query?.limit){limit = 10} 
@@ -284,6 +297,7 @@ module.exports = {
     updateEvent,
     deleteEvent,
     restoreEvent,
+    getEventNames
     // editBackgroundPosition,
     // getAllBackgroundImageLinks,
     // deleteBackgroundImage

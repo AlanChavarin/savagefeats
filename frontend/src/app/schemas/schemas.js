@@ -4,7 +4,7 @@ export const errorSchema = z.object({
     errorMessage: z.string()
 })
 
-const formatArray = z.enum(['Classic Constructed', 'Blitz', 'Living Legend', 'Draft', 'Sealed', 'Mixed', ''])
+const formatArray = z.enum(['Classic Constructed', 'Blitz', 'Living Legend', 'Draft', 'Sealed', 'Mixed'])
 
 export const eventSchema = z.object({
     _id: z.string(),

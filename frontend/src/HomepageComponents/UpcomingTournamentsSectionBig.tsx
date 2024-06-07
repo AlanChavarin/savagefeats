@@ -14,7 +14,6 @@ function UpcomingTournamentsSectionBig() {
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
 
-
   const prevOnClick = () => {
     emblaApi?.scrollPrev()
   }
@@ -31,7 +30,7 @@ function UpcomingTournamentsSectionBig() {
         <div className='text-[23px]  text-white foulfiend text-shadow'>
           Upcoming Tournaments
         </div>
-        <a className='hidden text-[16px] lg:block text-white text-shadow underline' href='eyeofophidia/tournaments'>
+        <a className='hidden text-[16px] lg:block text-white text-shadow underline' href='eyeofophidia/events'>
           View all upcoming Tournaments
           &nbsp;&nbsp;
           <FontAwesomeIcon icon={faChevronRight}/>
@@ -39,10 +38,9 @@ function UpcomingTournamentsSectionBig() {
         </a>
       </div>
 
-
       <div className="w-[430px]" ref={emblaRef}>
 
-        {/* <div className="flex gap-[48px]">
+        <div className="flex gap-[48px]">
 
           <div className="h-[430px] basis-[430px] grow-0 shrink-0">
             <EventThumbnail size='featuredSlide'/>
@@ -63,7 +61,7 @@ function UpcomingTournamentsSectionBig() {
             <EventThumbnail size='sideSlide'/>
           </div>
 
-        </div> */}
+        </div>
 
       </div>
       

@@ -117,6 +117,12 @@ function Navbar() {
                             <Link data-dropdown={true} href="/dashboard" className='text-white hover:text-custom-primary'>
                                 Dashboard
                             </Link>
+                            <Link data-dropdown={true} href="/eyeofophidia/postevent" className='text-white hover:text-custom-primary'>
+                                Post Event
+                            </Link>
+                            <Link data-dropdown={true} href="/eyeofophidia/postmatch" className='text-white hover:text-custom-primary'>
+                                Post Match
+                            </Link>
                             <Link data-dropdown={true} href="/logout" className='text-white hover:text-custom-primary'>
                                 Logout
                             </Link>

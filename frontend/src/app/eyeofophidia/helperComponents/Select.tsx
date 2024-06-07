@@ -2,10 +2,10 @@
 import { useState, SyntheticEvent } from "react"
 import { UseFormReturn } from "react-hook-form"
 
-function Select({placeholder, name, form, data}: {placeholder: string | undefined, name: string, form: UseFormReturn, data: string[] | undefined}) {
+function Select({placeholder, name, form, data}: {placeholder: string | undefined, name: string, form: UseFormReturn<any>, data: string[] | undefined}) {
   const {register, setValue} = form
   const [dropdown, setDropdown] = useState<boolean>(false)
-  var a = document.getElementsByClassName('dropdownItem')
+  var a = document.getElementsByClassName(name)
 
   const onFilter = (e: SyntheticEvent) => {
     // @ts-ignore
@@ -42,7 +42,7 @@ function Select({placeholder, name, form, data}: {placeholder: string | undefine
         })}
       />
       <span className="absolute border-[2px] border-black max-h-[150px] overflow-y-scroll bg-white z-[10] w-[196px] box-shadow-extra-small" style={{visibility: dropdown ? "visible" : "hidden"}}>
-        {data?.map((item) => (<div onClick={() => setValue(name, item)} className='hover:bg-custom-whiteHover cursor-pointer dropdownItem text-[16px] font-normal' key={item}>{item}</div>))}
+        {data?.map((item) => (<div onClick={() => setValue(name, item)} className={`hover:bg-custom-whiteHover cursor-pointer ${name} text-[16px] font-normal`} key={item}>{item}</div>))}
       </span>
     </div>
   )

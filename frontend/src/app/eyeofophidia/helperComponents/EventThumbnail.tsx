@@ -1,5 +1,6 @@
 import { eventSchemaType } from "@/app/types/types"
 import Link from "next/link"
+import EditButton from "./EditButton"
 
 const getImage = (str: string) => {
   const slicedHex = str.slice(str.length-2, str.length)
@@ -12,7 +13,7 @@ function EventThumbnail({event, size}: {event: eventSchemaType, size: ('normal' 
   return (<>
 
     {(size==='eventPage') && 
-      <div className={`h-[200px] md:h-[280px] w-[100%] flex flex-col justify-start items-center box-shadow text-white text-shadow-small hover:cursor-pointer`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `center 0px`}}>
+      <div className={`relative h-[200px] md:h-[280px] w-[100%] flex flex-col justify-start items-center box-shadow text-white text-shadow-small hover:cursor-pointer`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `center 0px`}}>
 
         <div className='bg-black bg-opacity-60 w-full font-bold p-[8px] text-[24px] md:text-[40px] flex justify-center items-center'>{event.name}</div>
 
@@ -26,6 +27,11 @@ function EventThumbnail({event, size}: {event: eventSchemaType, size: ('normal' 
             <div>{event.startDate && event.startDate.slice(0,10)} {event.endDate && ' - ' + event.endDate.slice(0, 10)}</div>
             <div>{event.location}</div>
         </div>
+ 
+        <div className="absolute bottom-[12px] right-[12px]">
+          <EditButton text="Edit Event" link={`/eyeofophidia/postevent?eventid=${event._id}`} />
+        </div>
+        
       </div>
     }
 

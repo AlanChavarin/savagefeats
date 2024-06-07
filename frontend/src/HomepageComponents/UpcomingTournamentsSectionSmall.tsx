@@ -37,17 +37,17 @@ function UpcomingTournamentsSectionSmall() {
 
         <div className="flex gap-[32px]">
 
-          {/* <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
-            <EventThumbnail size='smallSlide'/>
-          </div>
-
           <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
             <EventThumbnail size='smallSlide'/>
           </div>
 
           <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
             <EventThumbnail size='smallSlide'/>
-          </div> */}
+          </div>
+
+          <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
+            <EventThumbnail size='smallSlide'/>
+          </div>
 
         </div>
 

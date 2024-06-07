@@ -120,11 +120,10 @@ function EventSearchForm(){
           {/* format  */}
           <div className="flex flex-col gap-[8px] md:items-center md:flex-row">
             <div>Format: </div>
-            {/* <input {...register('format')} type="text" placeholder="Format" className="max-w-[196px] flex flex-row items-center bg-white border-[1px] border-black px-[8px] py-[1px] focus:outline-none box-shadow-extra-small focus:border-[2px]"/> */}
             <Select placeholder='Format' name='format' form={form} data={['Classic Constructed', 'Blitz', 'Living Legend', 'Draft', 'Sealed', 'Mixed', '']}/>
           </div>
 
-          {/* Sort by new/old rn this doesnt work  */}
+          {/* Sort by new/old  */}
           <div className="flex flex-col gap-[8px] w-[85%] md:items-center md:justify-center md:flex-row">
             <div>Sort By: </div>
             <div className="flex flex-row w-[85%] border-[1px] border-black max-w-[128px] cursor-pointer select-none" style={{boxShadow: "2px 2px black"}} onClick={() => handleOrder()}>

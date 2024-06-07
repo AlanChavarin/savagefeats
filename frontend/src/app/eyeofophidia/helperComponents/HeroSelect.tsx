@@ -8,7 +8,7 @@ import Select from '@/app/eyeofophidia/helperComponents/Select'
 
 const responseSchema = z.array(heroSchema)
 
-function HeroSelect({placeholder, name, form}: {placeholder: string, name: string, form: UseFormReturn}) {
+function HeroSelect({placeholder, name, form}: {placeholder: string, name: string, form: UseFormReturn<any>}) {
   const [heroes, setHeroes] = useState<string[] | undefined>()
 
   useEffect(() => {
