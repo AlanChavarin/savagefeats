@@ -15,7 +15,7 @@ context("matches POST routes test suite for errors", () => {
                 'Content-Type': 'application/json'
             },
             body: {
-                player1name: '',//error
+                player1name: '', //error
                 player1hero: 'Victor Goldmane, High and Mighty',
                 player1deck: '',
                 player2name: 'Player 2 name',

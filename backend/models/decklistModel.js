@@ -5,7 +5,10 @@ const Hero = require('../models/heroModel')
 
 const decklistSchema = mongoose.Schema({
     playerName: String,
-    decklistLink: String, 
+    decklistLink: {
+        type: String,
+        unique: true
+    }, 
     placement: Number,
     hero: {
         type: String, 
@@ -64,4 +67,10 @@ decklistSchema.index({
     'event.format': 'text',
 })
 
-module.exports = mongoose.model('Decklist', decklistSchema)
+//decklist model
+const Decklist = mongoose.model('Decklist', decklistSchema)
+
+module.exports = {
+    Decklist, //decklist model
+    decklistSchema
+}

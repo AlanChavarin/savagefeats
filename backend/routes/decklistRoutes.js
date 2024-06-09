@@ -7,7 +7,7 @@ router.get('/', getDecklists)
 
 router.get('/byevent/:event', getDecklistsByEvent)
 
-router.get('/:deckId', getDecklist)
+router.get('/:decklistId', getDecklist)
 
 router.post('/', protect, protectModerator, postDecklist)
 

@@ -1,8 +1,9 @@
 const asyncHandler = require('express-async-handler')
-const Decklist = require('../models/decklistModel')
+const {Decklist} = require('../models/decklistModel')
 const Hero = require('../models/heroModel')
 const Event = require('../models/eventModel')
 const Name = require('../models/nameModel')
+const Match = require('../models/matchModel')
 const wordWrapper = require('../helpers/wordWrapper')
 const ObjectId = require('mongodb').ObjectId
 
@@ -14,7 +15,7 @@ const getDecklists = asyncHandler(async (req, res) => {
     else {skip = parseInt(req.query.page*limit)}
 
     order = parseInt(req.query?.order)
-    !(order === 1 || order === -1) && (order = -1)
+    !(order === 1 || order === -1) && (order = -1) 
 
     find = {}
 
@@ -147,6 +148,31 @@ const postDecklist = asyncHandler(async (req, res) => {
 
     if(!await Name.exists({name: playerName})){Name.create({name: playerName})} 
 
+    //replace decklist links with decklist object id
+    //replaceDeckListLinks(req.body.decklistLink, req.body.format, Decklist._id)
+
+    // player 1
+    await Match.updateMany({
+        'event._id': decklist.event._id,
+        player1name: decklist.playerName,
+        format: decklist.format,
+    },
+    {
+        player1deck: decklist._id
+    },
+    {runValidators: true, new: true})
+
+    // player 2
+    await Match.updateMany({
+        'event._id': decklist.event._id,
+        player2name: decklist.playerName,
+        format: decklist.format,
+    },
+    {
+        player2deck: decklist._id
+    },
+    {runValidators: true, new: true})
+
     res.status(200)
     res.json(decklist)
 })
@@ -159,6 +185,29 @@ const updateDecklist = asyncHandler(async (req, res) => {
     req.body.event = await Event.findOne({name: req.body.event})
     const decklist = await Decklist.findOneAndUpdate({_id: req.params.decklistid}, req.body, {runValidators: true, new: true})
     if(!await Name.exists({name: req.body.playerName})){Name.create({name: req.body.playerName})} 
+
+    // player 1
+    await Match.updateMany({
+        'event._id': decklist._id,
+        player1name: decklist.playerName,
+        format: decklist.format,
+    },
+    {
+        player1deck: decklist._id
+    },
+    {runValidators: true, new: true})
+
+    // player 2
+    await Match.updateMany({
+        'event._id': decklist._id,
+        player2name: decklist.playerName,
+        format: decklist.format,
+    },
+    {
+        player2deck: decklist._id
+    },
+    {runValidators: true, new: true})
+
     res.status(200)
     res.json(decklist)
 })
@@ -173,11 +222,34 @@ const deleteDecklist = asyncHandler(async (req, res) => {
     res.json(decklist)
 })
 
+//internal use only
+
+// const replaceDeckListLinks = async (decklistLink, format, decklistId) => {
+//     const {decklistLink, format} = formData
+
+//     if(decklistLink && decklistId && !ObjectId.isValid(decklistLink)){
+//         // player1 side
+//         await Match.updateMany({
+//             'player1deck': decklistLink,
+//             'format': format,
+//         }, {'player1deck': decklistId}, 
+//         {runValidators: true, new: true})
+
+//         //player2 side
+//         await Match.updateMany({
+//             'player2deck': decklistLink,
+//             'format': format,
+//         }, {'player2deck': decklistId}, 
+//         {runValidators: true, new: true})
+//     }
+// }
+
 module.exports = {
     getDecklist,
     getDecklistsByEvent,
     getDecklists,
     postDecklist,
     updateDecklist,
-    deleteDecklist
+    deleteDecklist,
+    //internal use only, do not put in a route
 }

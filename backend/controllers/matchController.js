@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler')
 const Match = require('../models/matchModel')
 const Event = require('../models/eventModel')
 const Name = require('../models/nameModel')
+const {Decklist} = require('../models/decklistModel')
 const wordWrapper = require('../helpers/wordWrapper')
 //const Issue = require('../models/issueModel')
 //const {postMatchEdit} = require('./matchEditHistoryController') 
@@ -111,17 +112,62 @@ const getMatchesByEvent = asyncHandler(async (req, res) => {
 
 const getMatch = asyncHandler(async (req, res) => {
     if(!req.recyclebin){req.recyclebin = false}
-    const match = await Match.findOne({_id: req.params.id, deleted: req.recyclebin})
+    //const match = await Match.findOne({_id: req.params.id, deleted: req.recyclebin})
+
+    let match = await Match.aggregate([
+        {
+            $match: {
+                _id: new ObjectId(req.params.id),
+            }
+        },
+        {
+            $lookup: {
+                from: "decklists",
+                localField: "player1deck",
+                foreignField: "_id",
+                as: "player1deckData"
+            }
+        },
+        {
+            $lookup: {
+                from: "decklists",
+                localField: "player2deck",
+                foreignField: "_id",
+                as: "player2deckData"
+            }
+        },
+        {
+            $limit: 1
+        },
+    ])
+
     if(!match){
         res.status(400)
         throw new Error('Match with that id not found')
     }
-    relatedMatches = []
 
+    match = match[0]
+
+
+    if(match.player1deckData.length){
+        match.player1deckData = match.player1deckData[0]
+    } else {
+        delete match.player1deckData
+    }
+
+    if(match.player2deckData.length){
+        match.player2deckData = match.player2deckData[0]
+    } else {        
+        delete match.player2deckData
+    }
+
+    relatedMatches = []
 
     if(req.query.includeRelatedMatches==='true'){
         // add on new data to match object
+
         let find = {'event._id': match.event._id}
+
         const matchesByEvent = await Match.find(find).sort({top8: 1, swissRound: 1})
 
         if(2 < matchesByEvent.length){
@@ -142,12 +188,6 @@ const getMatch = asyncHandler(async (req, res) => {
         }
     }
 
-    const data = match
-
-    data['relatedMatches'] = relatedMatches
-
-    console.log(data)
-
     res.status(200)
     res.json(match)
 })
@@ -163,14 +203,28 @@ const postMatch = asyncHandler(async (req, res) => {
     } else {
         req.body.top8Round='None'
     }
+
+    //before creating a match lets grab decklists
+    const decklist1 = await Decklist.findOne({
+        'event._id': eventData._id,
+        playerName: player1name,
+        format: format
+    })
+
+    const decklist2 = await Decklist.findOne({
+        'event._id': eventData._id,
+        playerName: player2name,
+        format: format
+    })
+
     const match = await Match.create({
         player1name: player1name,
         player1hero: player1hero,
-        player1deck: player1deck,
+        player1deck: decklist1 ? decklist1._id : null,
 
         player2name: player2name,
         player2hero: player2hero,
-        player2deck: player2deck,
+        player2deck: decklist2 ? decklist2._id : null,
 
         top8: top8,
         swissRound: swissRound,
@@ -192,7 +246,11 @@ const postMatch = asyncHandler(async (req, res) => {
     if(!await Name.exists({name: player1name})){Name.create({name: player1name})} 
     if(!await Name.exists({name: player2name})){Name.create({name: player2name})} 
 
-    req.query.dontUpdateLinks !== 'true' && updateDeckLinks(req.body)
+    // convert decklist link strings to decklist documents and link the id back instead, assuming the decklist document doesnt exist yet. 
+    //turnDecklistLinksIntoDocuments(req.body)
+
+    ///req.query.dontUpdateLinks !== 'true' && updateDeckLinks(req.body)
+
 
     res.status(200)
     res.json(match)
@@ -209,11 +267,28 @@ const updateMatch = asyncHandler(async (req, res) => {
     } else {
         req.body.top8Round='None'
     }
+
+    //before updating a match lets grab decklists
+    const decklist1 = Decklist.findOne({
+        'event._id': eventData._id,
+        playerName: player1name,
+        format: format
+    })
+
+    const decklist2 = Decklist.findOne({
+        'event._id': eventData._id,
+        playerName: player2name,
+        format: format
+    })
+
+    req.body.player1deck = decklist1 ? decklist1._id : null
+    req.body.player2deck = decklist2 ? decklist2._id : null
+
     const match = await Match.findOneAndUpdate({_id: req.params.matchid, deleted: false}, req.body, {runValidators: true, new: true})
     //postMatchEdit(match, req.user._id)
     if(!await Name.exists({name: req.body.player1name})){Name.create({name: req.body.player1name})} 
     if(!await Name.exists({name: req.body.player2name})){Name.create({name: req.body.player2name})} 
-    req.query.dontUpdateLinks !== 'true' && updateDeckLinks(req.body)
+    //req.query.dontUpdateLinks !== 'true' && updateDeckLinks(req.body)
     res.status(200)
     res.json(match)
     
@@ -237,6 +312,27 @@ const restoreMatch = asyncHandler(async (req, res) => {
 })
 
 //internal use only
+
+// const turnDecklistLinksIntoDocuments = async (formData) => {
+//     const {player1deck, player2deck, player1name, player2name, top8, top8Round, swissRound, format } = formData
+
+//     //simply creating a new decklist document will automatically update any other match documents that only have links into objectids of the decklist document. So we are going to first check that the document doesnt exist yet for this decklist, then create it.
+
+
+//     if(player1deck && !ObjectId.isValid(player1deck)){
+//         const decklist = Decklist.findOne({decklistLink: player1deck})
+//         if(!decklist){
+//             const decklist = await Decklist.create({
+//                 player1name,
+//                 player1deck,
+//                 player1hero,
+//                 format,
+//                 event: eventData,
+//             })
+//         }
+//     }
+// }
+
 const updateDeckLinks = async (formData) => {
 
     const {player1name, player1hero, player1deck, 

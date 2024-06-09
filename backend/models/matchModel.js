@@ -3,17 +3,20 @@ const formats = ['Classic Constructed', 'Blitz', 'Draft', 'Sealed', 'Living Lege
 const top8Rounds = ['Quarter Finals', 'Semi Finals', 'Finals', 'None']
 const Hero = require('../models/heroModel')
 const ObjectId = require('mongodb').ObjectId
-const { Schema } = mongoose;
-
+const { Schema } = mongoose
+const {decklistSchema} = require('./decklistModel')
 
 const matchSchema = mongoose.Schema({
     player1name: {type: String, required: true},
-    player1deck: {type: Schema.Types.Mixed},
+    player1deck: {type: Schema.Types.Mixed}, //should ideally be decklist id
     player1hero: {type: String, required: true, validate: v => heroEnum(v)},
 
     player2name: {type: String, required: true},
-    player2deck: {type: Schema.Types.Mixed},
+    player2deck: {type: Schema.Types.Mixed}, //should ideally be decklist id
     player2hero: {type: String, required: true, validate: v => heroEnum(v)},
+
+    player1deckData: decklistSchema,
+    player2deckData: decklistSchema,
 
     // winner: {type: string, required: true},
 

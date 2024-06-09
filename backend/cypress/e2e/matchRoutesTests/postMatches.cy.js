@@ -16,10 +16,10 @@ context("matches POST routes test suite", () => {
             body: {
                 player1name: 'Player 1 name',
                 player1hero: 'Victor Goldmane, High and Mighty',
-                player1deck: 'https://www.google.com',
+                //player1deck: 'https://www.google.com',
                 player2name: 'Player 2 name',
                 player2hero: 'Betsy, Skin in the Game',
-                player2deck: 'https://www.youtube.com',
+                //player2deck: 'https://www.youtube.com',
                 format: 'Classic Constructed',
                 event: 'test empty event',
                 link: 'bzh6PrdTZpc',
@@ -33,11 +33,11 @@ context("matches POST routes test suite", () => {
 
             expect(body.player1name).to.equal('Player 1 name')
             expect(body.player1hero).to.equal('Victor Goldmane, High and Mighty')
-            expect(body.player1deck).to.equal('https://www.google.com')
+            //expect(body.player1deck).to.equal('https://www.google.com')
 
             expect(body.player2name).to.equal('Player 2 name')
             expect(body.player2hero).to.equal('Betsy, Skin in the Game')
-            expect(body.player2deck).to.equal('https://www.youtube.com')
+            //expect(body.player2deck).to.equal('https://www.youtube.com')
 
             
             expect(body.format).to.equal('Classic Constructed')
@@ -69,10 +69,10 @@ context("matches POST routes test suite", () => {
             body: {
                 player1name: 'Player 1 name',
                 player1hero: 'Victor Goldmane, High and Mighty',
-                player1deck: '',
+                //player1deck: '',
                 player2name: 'Player 2 name',
                 player2hero: 'Betsy, Skin in the Game',
-                player2deck: '',
+                //player2deck: '',
                 format: 'Classic Constructed',
                 event: 'test empty event',
                 link: 'bzh6PrdTZpc',
@@ -86,11 +86,11 @@ context("matches POST routes test suite", () => {
 
             expect(body.player1name).to.equal('Player 1 name')
             expect(body.player1hero).to.equal('Victor Goldmane, High and Mighty')
-            expect(body.player1deck).to.equal('')
+            //expect(body.player1deck).to.equal('')
 
             expect(body.player2name).to.equal('Player 2 name')
             expect(body.player2hero).to.equal('Betsy, Skin in the Game')
-            expect(body.player2deck).to.equal('')
+            //expect(body.player2deck).to.equal('')
 
             
             expect(body.format).to.equal('Classic Constructed')
@@ -129,10 +129,10 @@ context("matches POST routes test suite", () => {
                 body: {
                     player1name: names[i],
                     player1hero: heroes[i],
-                    player1deck: 'https://www.google.com',
+                    //player1deck: 'https://www.google.com',
                     player2name: names[13-i],
                     player2hero: heroes[13-i],
-                    player2deck: 'https://www.youtube.com',
+                    //player2deck: 'https://www.youtube.com',
                     format: 'Classic Constructed',
                     event: 'example pro tour event',
                     link: 'bzh6PrdTZpc',
@@ -147,11 +147,11 @@ context("matches POST routes test suite", () => {
 
                 expect(body.player1name).to.equal(names[i])
                 expect(body.player1hero).to.equal(heroes[i])
-                expect(body.player1deck).to.equal('https://www.google.com')
+                //expect(body.player1deck).to.equal('https://www.google.com')
 
                 expect(body.player2name).to.equal(names[13-i])
                 expect(body.player2hero).to.equal(heroes[13-i])
-                expect(body.player2deck).to.equal('https://www.youtube.com')
+                //expect(body.player2deck).to.equal('https://www.youtube.com')
 
                 
                 expect(body.format).to.equal('Classic Constructed')
@@ -184,10 +184,10 @@ context("matches POST routes test suite", () => {
                 body: {
                     player1name: names[i],
                     player1hero: heroes[i],
-                    player1deck: 'https://www.google.com',
+                    //player1deck: 'https://www.google.com',
                     player2name: names[13-i],
                     player2hero: heroes[13-i],
-                    player2deck: 'https://www.youtube.com',
+                    //player2deck: 'https://www.youtube.com',
                     format: 'Classic Constructed',
                     event: 'example pro tour event',
                     link: 'bzh6PrdTZpc',
@@ -202,11 +202,11 @@ context("matches POST routes test suite", () => {
 
                 expect(body.player1name).to.equal(names[i])
                 expect(body.player1hero).to.equal(heroes[i])
-                expect(body.player1deck).to.equal('https://www.google.com')
+                //expect(body.player1deck).to.equal('https://www.google.com')
 
                 expect(body.player2name).to.equal(names[13-i])
                 expect(body.player2hero).to.equal(heroes[13-i])
-                expect(body.player2deck).to.equal('https://www.youtube.com')
+                //expect(body.player2deck).to.equal('https://www.youtube.com')
 
                 
                 expect(body.format).to.equal('Classic Constructed')
@@ -240,10 +240,10 @@ context("matches POST routes test suite", () => {
             body: {
                 player1name: 'Player 1 name',
                 player1hero: 'Victor Goldmane, High and Mighty',
-                player1deck: '',
+                //player1deck: '',
                 player2name: 'Player 2 name',
                 player2hero: 'Betsy, Skin in the Game',
-                player2deck: '',
+                //player2deck: '',
                 format: 'Classic Constructed',
                 event: 'test empty event',
                 twitch: true,
@@ -258,11 +258,11 @@ context("matches POST routes test suite", () => {
 
             expect(body.player1name).to.equal('Player 1 name')
             expect(body.player1hero).to.equal('Victor Goldmane, High and Mighty')
-            expect(body.player1deck).to.equal('')
+            //expect(body.player1deck).to.equal('')
 
             expect(body.player2name).to.equal('Player 2 name')
             expect(body.player2hero).to.equal('Betsy, Skin in the Game')
-            expect(body.player2deck).to.equal('')
+            //expect(body.player2deck).to.equal('')
 
             
             expect(body.format).to.equal('Classic Constructed')
@@ -284,7 +284,7 @@ context("matches POST routes test suite", () => {
         })
     })
 
-    it('posts match with new decklists and checks if those decklists are also updated for other matches featuring the same player within the same event', () => {
+    it("post match to event that has decklists, and check if the decklist attaches to the match, then check that grabbing that match fully joins the decklist data with match.player1deckData", () => {
         cy.request({
             method: 'POST',
             url: `${Cypress.env('CYPRESS_BACKEND_API')}matches`,
@@ -293,78 +293,144 @@ context("matches POST routes test suite", () => {
                 'Content-Type': 'application/json'
             },
             body: {
-                player1name: 'Mara Faris',
-                player1hero: 'Dromai, Ash Artist',
-                player1deck: 'https://www.google.com',
-                player2name: 'Michael Feng',
-                player2hero: 'Oldhim, Grandfather of Eternity',
-                player2deck: 'https://www.youtube.com',
+                player1name: 'Alan Chavarin',
+                player1hero: 'Ser Boltyn, Breaker of Dawn',
+                player2name: 'Player 2 name',
+                player2hero: 'Betsy, Skin in the Game',
                 format: 'Classic Constructed',
-                event: 'Pro Tour Baltimore',
+                event: 'test empty event',
                 twitch: true,
-                link: '1807645052',
-                twitchTimeStamp: '09h03m23s', 
+                link: '1805764935',
+                twitchTimeStamp: '6h14m27s',
                 top8: 'true', 
                 top8Round: 'Finals', 
             }
         }).then((response) => {
-            // first check the update works on the match itself
             expect(response.status).to.equal(200)
             const body = response.body
 
-            expect(body.player1name).to.equal('Mara Faris')
-            expect(body.player1hero).to.equal('Dromai, Ash Artist')
-            expect(body.player1deck).to.equal('https://www.google.com')
+            expect(body.player1name).to.equal('Alan Chavarin')
+            expect(body.player1hero).to.equal('Ser Boltyn, Breaker of Dawn')
 
-            expect(body.player2name).to.equal('Michael Feng')
-            expect(body.player2hero).to.equal('Oldhim, Grandfather of Eternity')
-            expect(body.player2deck).to.equal('https://www.youtube.com')
+            //player1deck would automically get attached
+            expect(body.player1deck).to.equal('66580006b6fe78a064c07f75')   
+
+            expect(body.player2name).to.equal('Player 2 name')
+            expect(body.player2hero).to.equal('Betsy, Skin in the Game')
             
             expect(body.format).to.equal('Classic Constructed')
-            expect(body.event.name).to.equal('Pro Tour Baltimore')
-            expect(body.link).to.equal('1807645052')
+            expect(body.event.name).to.equal('test empty event')
+            expect(body.twitch).to.equal(true)
+            expect(body.link).to.equal('1805764935')
 
-            expect(body.twitchTimeStamp).to.equal('09h03m23s')
+            expect(body.twitchTimeStamp).to.equal('6h14m27s')
             expect(body.top8).to.equal(true)
             expect(body.top8Round).to.equal('Finals')
 
             const event = body.event
             //test correct event entered
-            expect(event.name).to.equal("Pro Tour Baltimore")
-        })
+            expect(event.name).to.equal("test empty event")
+            expect(event.location).to.equal("Los Angeles, CA")
+            expect(event.format).to.deep.equal(["Classic Constructed"])
+            expect(event.official).to.equal(true)
+            expect(event.startDate.slice(0, 10)).to.equal("2024-03-22")
 
-        //then check all other matches with mara or michael in them
-        cy.request({
-            method: 'GET',
-            url: `${Cypress.env('CYPRESS_BACKEND_API')}matches/byevent/Pro Tour Baltimore`,
-            headers: {
-                Authorization: `Bearer ${Cypress.env('CYPRESS_TEST_BEARER_TOKEN')}`,
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            // first check the update works on the match itself
-            expect(response.status).to.equal(200)
-            const body = response.body
 
-            body.map(match => {
+            //check that the join works
+            cy.request(`${Cypress.env('CYPRESS_BACKEND_API')}matches/${body._id}`,)
+            .then(response => {
+                expect(response.status).to.equal(200)
+                const body = response.body
+                //we are only gonna check if the decklistdata was joined correctly
+                expect(body.player1deckData._id).to.equal('66580006b6fe78a064c07f75')
+                expect(body.player1deckData.playerName).to.equal('Alan Chavarin')
+                expect(body.player1deckData.hero).to.equal('Ser Boltyn, Breaker of Dawn')
 
-                //console.log(match.player1name)
-                if(match.player1name == 'Mara Faris'){
-                    expect(match.player1deck).to.equal('https://www.google.com')
-                }
-
-                if(match.player2name == 'Mara Faris'){
-                    expect(match.player2deck).to.equal('https://www.google.com')
-                }
-
-                if(match.player1name == 'Michael Feng'){
-                    expect(match.player1deck).to.equal('https://www.youtube.com')
-                }
-
-                if(match.player2name == 'Michael Feng'){
-                    expect(match.player2deck).to.equal('https://www.youtube.com')
-                }
             })
         })
     })
+
+    // it('posts match with new decklists and checks if those decklists are also updated for other matches featuring the same player within the same event', () => {
+    //     cy.request({
+    //         method: 'POST',
+    //         url: `${Cypress.env('CYPRESS_BACKEND_API')}matches`,
+    //         headers: {
+    //             Authorization: `Bearer ${Cypress.env('CYPRESS_TEST_BEARER_TOKEN')}`,
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: {
+    //             player1name: 'Mara Faris',
+    //             player1hero: 'Dromai, Ash Artist',
+    //             //player1deck: 'https://www.google.com',
+    //             player2name: 'Michael Feng',
+    //             player2hero: 'Oldhim, Grandfather of Eternity',
+    //             //player2deck: 'https://www.youtube.com',
+    //             format: 'Classic Constructed',
+    //             event: 'Pro Tour Baltimore',
+    //             twitch: true,
+    //             link: '1807645052',
+    //             twitchTimeStamp: '09h03m23s', 
+    //             top8: 'true', 
+    //             top8Round: 'Finals', 
+    //         }
+    //     }).then((response) => {
+    //         // first check the update works on the match itself
+    //         expect(response.status).to.equal(200)
+    //         const body = response.body
+
+    //         expect(body.player1name).to.equal('Mara Faris')
+    //         expect(body.player1hero).to.equal('Dromai, Ash Artist')
+    //         //expect(body.player1deck).to.equal('https://www.google.com')
+
+    //         expect(body.player2name).to.equal('Michael Feng')
+    //         expect(body.player2hero).to.equal('Oldhim, Grandfather of Eternity')
+    //         //expect(body.player2deck).to.equal('https://www.youtube.com')
+            
+    //         expect(body.format).to.equal('Classic Constructed')
+    //         expect(body.event.name).to.equal('Pro Tour Baltimore')
+    //         expect(body.link).to.equal('1807645052')
+
+    //         expect(body.twitchTimeStamp).to.equal('09h03m23s')
+    //         expect(body.top8).to.equal(true)
+    //         expect(body.top8Round).to.equal('Finals')
+
+    //         const event = body.event
+    //         //test correct event entered
+    //         expect(event.name).to.equal("Pro Tour Baltimore")
+    //     })
+
+    //     //then check all other matches with mara or michael in them
+    //     cy.request({
+    //         method: 'GET',
+    //         url: `${Cypress.env('CYPRESS_BACKEND_API')}matches/byevent/Pro Tour Baltimore`,
+    //         headers: {
+    //             Authorization: `Bearer ${Cypress.env('CYPRESS_TEST_BEARER_TOKEN')}`,
+    //             'Content-Type': 'application/json'
+    //         }
+    //     }).then((response) => {
+    //         // first check the update works on the match itself
+    //         expect(response.status).to.equal(200)
+    //         const body = response.body
+
+    //         body.map(match => {
+
+    //             //console.log(match.player1name)
+    //             if(match.player1name == 'Mara Faris'){
+    //                 expect(match.player1deck).to.equal('https://www.google.com')
+    //             }
+
+    //             if(match.player2name == 'Mara Faris'){
+    //                 expect(match.player2deck).to.equal('https://www.google.com')
+    //             }
+
+    //             if(match.player1name == 'Michael Feng'){
+    //                 expect(match.player1deck).to.equal('https://www.youtube.com')
+    //             }
+
+    //             if(match.player2name == 'Michael Feng'){
+    //                 expect(match.player2deck).to.equal('https://www.youtube.com')
+    //             }
+    //         })
+    //     })
+    // })
 })
