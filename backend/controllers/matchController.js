@@ -170,6 +170,7 @@ const getMatch = asyncHandler(async (req, res) => {
 
         const matchesByEvent = await Match.find(find).sort({top8: 1, swissRound: 1})
 
+
         if(2 < matchesByEvent.length){
             for(let i = 0; i < matchesByEvent.length; i++){
                 if(matchesByEvent[i]._id.equals(match._id)){
@@ -186,6 +187,8 @@ const getMatch = asyncHandler(async (req, res) => {
                 }
             }
         }
+
+        match.relatedMatches = relatedMatches
     }
 
     res.status(200)
@@ -220,11 +223,11 @@ const postMatch = asyncHandler(async (req, res) => {
     const match = await Match.create({
         player1name: player1name,
         player1hero: player1hero,
-        player1deck: decklist1 ? decklist1._id : null,
+        player1deck: decklist1 ? decklist1._id : '',
 
         player2name: player2name,
         player2hero: player2hero,
-        player2deck: decklist2 ? decklist2._id : null,
+        player2deck: decklist2 ? decklist2._id : '',
 
         top8: top8,
         swissRound: swissRound,
@@ -281,8 +284,8 @@ const updateMatch = asyncHandler(async (req, res) => {
         format: format
     })
 
-    req.body.player1deck = decklist1 ? decklist1._id : null
-    req.body.player2deck = decklist2 ? decklist2._id : null
+    req.body.player1deck = decklist1 ? decklist1._id : ''
+    req.body.player2deck = decklist2 ? decklist2._id : ''
 
     const match = await Match.findOneAndUpdate({_id: req.params.matchid, deleted: false}, req.body, {runValidators: true, new: true})
     //postMatchEdit(match, req.user._id)
