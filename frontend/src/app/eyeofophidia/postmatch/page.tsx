@@ -4,7 +4,7 @@ import { z } from "zod"
 import CustomRadio from "../helperComponents/CustomRadio"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Select from "../helperComponents/Select"
-import { useState, useEffect, SyntheticEvent } from "react"
+import { useState, useEffect } from "react"
 import BasicTextInput from "../helperComponents/BasicTextInput"
 import { matchSchema, errorSchema } from "@/app/schemas/schemas"
 import { toast } from "react-toastify"
@@ -13,6 +13,8 @@ import getYoutubeParams from '../helpers/YoutubeParams'
 import { getTwitchParams } from "../helpers/TwitchParams"
 import HeroSelect from "../helperComponents/HeroSelect"
 import { useSearchParams } from "next/navigation"
+import NameSelect from "../helperComponents/NameSelect"
+import DeleteButton from "../helperComponents/DeleteButton"
 
 const formSchema = z.object({
   event: z.string().min(3),
@@ -28,11 +30,11 @@ const formSchema = z.object({
 
   player1name: z.string().min(1),
   player1hero: z.string().min(1),
-  player1deck: z.string(),
+  //player1deck: z.string(),
 
   player2name: z.string().min(1),
   player2hero: z.string().min(1),
-  player2deck: z.string(),
+  //player2deck: z.string(),
 
 
   //dummy fields that the backend doesnt actually accept
@@ -48,6 +50,8 @@ function Postmatch() {
 
   const [eventNames, setEventNames] = useState<string[] | undefined>(undefined)
 
+  const [actionAfterSubmit, setActionAfterSubmit] = useState<'TO_MATCH' | 'RESET_FORM' | undefined>(undefined)
+
   const form = useForm<FormFields>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -56,15 +60,17 @@ function Postmatch() {
     }
   })
 
-  const { register, handleSubmit, setValue, getValues, reset, watch, formState: {errors, isSubmitting}} = form
+  const { register, handleSubmit, setValue, getValues, reset, resetField, watch, formState: {errors, isSubmitting}} = form
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => { 
 
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_API}matches`
+    const matchid = searchParams.get('matchid')
+
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_API}matches/${matchid ? matchid : ''}`
 
     fetch(url, {
       cache: 'no-store',
-      method: 'POST',
+      method: matchid ? 'PUT' : 'POST',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
@@ -78,7 +84,21 @@ function Postmatch() {
       if(validatedData.success){
         console.log(validatedData.data)
         toast(`Post Match Success for ${validatedData.data._id}`)
-        router.push(`match/${validatedData.data._id}`)
+        if(actionAfterSubmit === 'RESET_FORM'){
+          resetField('videolink')
+          resetField('link')
+          resetField('player1hero')
+          resetField('player2hero')
+          resetField('player1name')
+          resetField('player2name')
+          resetField('timeStamp')
+          resetField('twitchTimeStamp')
+        }
+
+        if(actionAfterSubmit === 'TO_MATCH'){
+          router.push(`match/${validatedData.data._id}`)
+        }
+        
         return
       }
 
@@ -99,6 +119,38 @@ function Postmatch() {
     // get match data if we are editing a match
 
     const matchid = searchParams.get('matchid')
+    const eventName = searchParams.get('eventname')
+    const lastRound = searchParams.get('lastRound')
+    const lastFormat = searchParams.get('lastFormat')
+    const lastTwitch = searchParams.get('lastTwitch')
+
+    if(eventName && !matchid){
+      setValue('event', eventName)
+    }
+
+    if(!matchid && lastRound){
+      if(lastRound === 'Finals' || lastRound === 'Semi Finals' || lastRound === 'Quarter Finals'){
+        setValue('top8', true)
+        setValue('top8Round', lastRound)
+      } else {
+        setValue('top8', false)
+        setValue('swissRound', parseInt(lastRound))
+      }
+    }
+
+    if(!matchid && lastFormat){
+      if(lastFormat === 'Classic Constructed' || lastFormat === 'Blitz' || lastFormat === 'Draft' || lastFormat === 'Sealed' || lastFormat === 'Sealed' || lastFormat === 'Living Legend'){
+        setValue('format', lastFormat)
+      }
+    }
+
+    if(!matchid && lastTwitch){
+      if(lastTwitch === 'true'){
+        setValue('twitch', true)
+      } else if (lastTwitch === 'false'){
+        setValue('twitch', false)
+      }
+    }
 
     if(matchid){
       const url = `${process.env.NEXT_PUBLIC_BACKEND_API}matches/${matchid}`
@@ -110,7 +162,11 @@ function Postmatch() {
         const validatedData = matchSchema.safeParse(data)
         const validatedError = errorSchema.safeParse(data)
         if(validatedData.success){
-          const {event, format, top8, swissRound, top8Round, twitch, twitchTimeStamp, link, timeStamp, date, player1name, player1hero, player1deck, player2name, player2hero, player2deck} = validatedData.data
+          const {event, format, top8, swissRound, top8Round, twitch, twitchTimeStamp, link, timeStamp, date, player1name, player1hero, 
+          //player1deck, 
+          player2name, player2hero, 
+          //player2deck
+          } = validatedData.data
           reset({
             event: event.name, 
             format, 
@@ -124,10 +180,10 @@ function Postmatch() {
             date: date ? date : undefined, 
             player1name, 
             player1hero, 
-            player1deck, 
+            //player1deck, 
             player2name, 
             player2hero, 
-            player2deck
+            //player2deck
           })
           return
         }
@@ -181,6 +237,36 @@ function Postmatch() {
     }
   }
 
+  const deleteAction = () => {
+    const matchid = searchParams.get('matchid')
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_API}matches/${matchid}`
+    fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(r => r.json())
+    .then(data => {
+      const validatedData = matchSchema.safeParse(data)
+      const validatedError = errorSchema.safeParse(data)
+      if(validatedData.success){
+        console.log(matchid + ' Successfully deleted')
+        toast(matchid + ' Successfully deleted')
+        router.push(`event/${validatedData.data.event._id}`)
+      }
+
+      if(validatedError.success){
+        throw new Error(validatedError.data.errorMessage)
+      }
+
+      console.error(validatedData.error)
+      console.error(validatedError.error)
+      throw new Error('Unexpected event name data. Check console for further details')
+    })
+  }
+
   return (
     <div className="flex-1 flex justify-center items-start my-[32px]">
       <form onSubmit={handleSubmit(onSubmit)} className="relative font-bold flex flex-col gap-[8px] items-start bg-white border-[1px] border-black w-[90%] px-[16px] pt-[16px] pb-[24px] box-shadow-extra-small max-w-[300px]">
@@ -195,14 +281,22 @@ function Postmatch() {
           )
         })}
 
+        { searchParams.get('matchid') &&
+          <div className="absolute top-[8px] right-[8px]">
+            <DeleteButton warningText="Are you sure you want to delete this match? It cannot be restored" deleteAction={deleteAction}/>
+          </div>
+        }
+
+        
+
         <div className="text-[24px] self-center">{searchParams.get('matchid') ? 'Edit' : 'Post'} Match</div>
 
         <div className="flex flex-col w-[100%]">
-          <label>Format: <span className="text-red-500">*</span></label>
+          <label>Event Name: <span className="text-red-500">*</span></label>
           <Select placeholder='Event Name' name='event' form={form} data={eventNames}/>
         </div>
 
-        <div className="flex flex-col w-[100%]">
+        <div className="flex flex-col">
           <label>Format: <span className="text-red-500">*</span></label>
           <Select placeholder='Format' name='format' form={form} data={['Classic Constructed', 'Blitz', 'Living Legend', 'Draft', 'Sealed']}/>
         </div>
@@ -255,19 +349,34 @@ function Postmatch() {
           <label>Player 1 Hero: <span className="text-red-500">*</span>&nbsp;</label>
           <HeroSelect placeholder="" name="player1hero" form={form}/>
         </div>
-        <BasicTextInput placeholder='' name='player1name' label='Player 1 Full Name: ' register={register} required={true}/>
-        <BasicTextInput placeholder='' name='player1deck' label='Player 1 Deck Link: ' register={register} required={false}/>
+        {/* <BasicTextInput placeholder='' name='player1name' label='Player 1 Full Name: ' register={register} required={true}/> */}
+
+        <div className="flex flex-col">
+          <label>Player 1 Full Name: <span className="text-red-500">*</span>&nbsp;</label>
+          <NameSelect placeholder='' name='player1name' form={form}/>
+        </div>
 
         <div className="flex flex-col">
           <label>Player 2 Hero: <span className="text-red-500">*</span>&nbsp;</label>
           <HeroSelect placeholder="" name="player2hero" form={form}/>
         </div>
-        <BasicTextInput placeholder='' name='player2name' label='Player 2 Full Name: ' register={register} required={true}/>
-        <BasicTextInput placeholder='' name='player2deck' label='Player 2 Deck Link: ' register={register} required={false}/>
+
+        <div className="flex flex-col">
+          <label>Player 2 Full Name: <span className="text-red-500">*</span>&nbsp;</label>
+          <NameSelect placeholder='' name='player2name' form={form}/>
+        </div>
 
 
-        <button disabled={isSubmitting} type="submit" className="bg-custom-primary hover:bg-custom-primaryHover py-[8px] px-[48px] mt-[16px] self-center border-[1px] border-black box-shadow-extra-small">
-          {isSubmitting ? "Submitting..." : "Submit"}
+        <button onClick={() => setActionAfterSubmit('TO_MATCH')} disabled={isSubmitting} type="submit" className="bg-custom-primary hover:bg-custom-primaryHover py-[8px] w-[80%] mt-[16px] self-center border-[1px] border-black box-shadow-extra-small">
+          {isSubmitting ? "Submitting..." : "Submit & go to match"}
+        </button>
+
+        <button onClick={() => setActionAfterSubmit('RESET_FORM')} disabled={isSubmitting} type="submit" className="bg-custom-primary hover:bg-custom-primaryHover py-[8px] w-[80%] mt-[16px] self-center border-[1px] border-black box-shadow-extra-small">
+          {isSubmitting ? "Submitting..." : "Submit & reset form"}
+        </button>
+
+        <button disabled={isSubmitting} type="reset" onClick={() => reset()} className="bg-custom-gray hover:bg-custom-grayHover py-[4px] px-[12px] mt-[16px] border-[1px] text-[14px] border-black box-shadow-extra-small">
+          Reset Form
         </button>
 
       </form>

@@ -7,7 +7,7 @@ import DeckThumbnail from "../../helperComponents/DeckThumbnail"
 import { z } from "zod"
 import MatchThumbnail from "../../helperComponents/MatchThumbnail"
 import { useState, useEffect } from "react"
-
+import { calculateLastFormat, calculateLastRound, calculateLastTwitch } from "../../helpers/LastHelpers"
 
 function Event({params}: {params: {eventid: string}}) {
   const [event, setEvent] = useState<eventSchemaType | undefined>(undefined)
@@ -52,8 +52,8 @@ function Event({params}: {params: {eventid: string}}) {
         throw new Error(validatedError.data.errorMessage)
       }
 
-      console.error(validatedMatchData.error)
-      console.error(validatedError.error)
+      console.error(validatedMatchData.error.toString())
+      console.error(validatedError.error.toString())
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
       toast(err.message)
@@ -83,16 +83,13 @@ function Event({params}: {params: {eventid: string}}) {
 
   }, [params])
 
-
   return (
     <div className="justify-start items-center flex flex-1 flex-col gap-[32px] pb-[64px]">
         {event && <>
 
-            <EventThumbnail size="eventPage" event={event} />
+            <EventThumbnail size="eventPage" event={event} lastRound={calculateLastRound(matches)} lastFormat={calculateLastFormat(matches)} lastTwitch={calculateLastTwitch(matches)}/>
 
             {/* <div className="text-[39px] font-bold">Matches:</div>  */}
-
-          
 
             {event.dayRoundArr && event.endDate ? 
                 <>
@@ -123,12 +120,12 @@ function Event({params}: {params: {eventid: string}}) {
             }
 
 
-            <div className="grid grid-col-2 gap-[24px] justify-center">
-                
+            {decks && decks.length > 0 && <div className="text-[39px] font-bold">Decklists</div>} 
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 flex-wrap gap-[24px] justify-center w-[90%]">
                 {decks && <>
-                    {decks.length > 0 && <div className="text-[39px] font-bold">Decklists</div>} 
                     {decks.map(deck => 
-                        <DeckThumbnail deck={deck} size={'matchPage'} key={deck._id}/>
+                        <DeckThumbnail deck={deck} size={'normal'} key={deck._id}/>
                     )}
                 </>}
             </div>

@@ -14,6 +14,7 @@ import { eventSchema, errorSchema } from "@/app/schemas/schemas"
 import { toast } from "react-toastify"
 import { useRouter } from "next/navigation"
 import { useSearchParams } from "next/navigation"
+import DeleteButton from "../helperComponents/DeleteButton"
 
 const formSchema = z.object({
   name: z.string().min(3),
@@ -83,6 +84,8 @@ function Postevent() {
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => { 
 
+    const eventid = searchParams.get('eventid')
+
     if(!multiDayToggle){
       data.dayRoundArr = []
       data.endDate = ''
@@ -93,10 +96,10 @@ function Postevent() {
       data.dayRoundArr = []
     }
 
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_API}events`
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_API}events/${eventid ? eventid : ''}`
 
     fetch(url, {
-      method: 'POST',
+      method: eventid ? 'PUT' : 'POST',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
@@ -181,10 +184,11 @@ function Postevent() {
             official, 
             startDate: startDate ? startDate.slice(0, 10) : undefined, 
             endDate: endDate ? endDate.slice(0, 10) : undefined, 
-            notATypicalTournamentStructure, 
+            notATypicalTournamentStructure: notATypicalTournamentStructure ? notATypicalTournamentStructure : false, 
             dayRoundArr: dayRoundArr ? dayRoundArr : undefined, 
-            top8Day
+            top8Day: top8Day ? top8Day : false
           })
+
           return
         }
 
@@ -192,14 +196,42 @@ function Postevent() {
           throw new Error(validatedError.data.errorMessage)
         }
 
-        console.error(validatedData.error)
-        console.error(validatedError.error)
+        console.error(validatedData.error.toString())
+        console.error(validatedError.error.toString())
         throw new Error('Unexpected event name data. Check console for further details')
       }).catch(err => {
         toast(err.message)
       })
     }
    }, [])
+
+   const deleteAction = () => {
+    const eventid = searchParams.get('eventid')
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_API}events/${eventid}`
+    fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(r => r.json())
+    .then(data => {
+      const validatedError = errorSchema.safeParse(data)
+      if(data.status.toString()[0] === '2'){
+        console.log(eventid + ' Successfully deleted')
+        toast(eventid + ' Successfully deleted')
+        router.push(`/eyeofophidia/events`)
+      }
+
+      if(validatedError.success){
+        throw new Error(validatedError.data.errorMessage)
+      }
+
+      console.error(validatedError.error.toString())
+      throw new Error('Unexpected event name data. Check console for further details')
+    })
+  }
 
   return (
     <div className="flex-1 flex justify-center items-start my-[32px]">
@@ -214,6 +246,13 @@ function Postevent() {
             </div>
           )
         })}
+
+        { searchParams.get('eventid') &&
+          <div className="absolute top-[8px] right-[8px]">
+            <DeleteButton warningText="Are you sure you want to delete this deck? It cannot be restored" deleteAction={deleteAction}/>
+          </div>
+        }
+
 
         <div className="text-[24px] self-center">Post Event</div>
 
@@ -296,6 +335,10 @@ function Postevent() {
 
         <button disabled={isSubmitting} type="submit" className="bg-custom-primary hover:bg-custom-primaryHover py-[8px] px-[48px] mt-[16px] self-center border-[1px] border-black box-shadow-extra-small">
           {isSubmitting ? "Submitting..." : "Submit"}
+        </button>
+
+        <button disabled={isSubmitting} type="reset" onClick={() => reset()} className="bg-custom-gray hover:bg-custom-grayHover py-[4px] px-[12px] mt-[16px] border-[1px] text-[14px] border-black box-shadow-extra-small">
+          Reset Form
         </button>
 
       </form>

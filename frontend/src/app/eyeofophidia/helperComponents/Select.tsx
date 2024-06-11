@@ -31,17 +31,17 @@ function Select({placeholder, name, form, data}: {placeholder: string | undefine
   }
 
   return (
-    <div>
+    <div className="relative w-[100%]">
       <input 
         placeholder={placeholder} 
-        className="focus:outline-none focus:border-[2px] rounded-none max-w-[196px] flex flex-row items-center bg-white border-[1px] border-black px-[8px] py-[1px] relative box-shadow-extra-small "
+        className="focus:outline-none focus:border-[2px] w-[100%] rounded-none flex flex-row items-center bg-white border-[1px] border-black px-[8px] py-[1px] relative box-shadow-extra-small "
         onFocus={() => onFocus()} 
         {...register(name, {
           onChange: (e: SyntheticEvent) => {onFilter(e)},
           onBlur: () => {onBlur()},
         })}
       />
-      <span className="absolute border-[2px] border-black max-h-[150px] overflow-y-scroll bg-white z-[10] w-[196px] box-shadow-extra-small" style={{visibility: dropdown ? "visible" : "hidden"}}>
+      <span className="absolute border-[2px] border-black max-h-[150px] overflow-y-scroll bg-white z-[10] box-shadow-extra-small w-[100%]" style={{visibility: dropdown ? "visible" : "hidden"}}>
         {data?.map((item) => (<div onClick={() => setValue(name, item)} className={`hover:bg-custom-whiteHover cursor-pointer ${name} text-[16px] font-normal`} key={item}>{item}</div>))}
       </span>
     </div>

@@ -1,18 +1,21 @@
 const express = require('express')
 const router = express.Router()
-const {getDecklist, getDecklists, getDecklistsByEvent, postDecklist, updateDecklist, deleteDecklist} = require('../controllers/decklistController')
+const {getDecklist, getDecklists, getDecklistsByEvent, postDecklist, updateDecklist, deleteDecklist, replaceDecklistLinksWithDecklistDocumentIds} = require('../controllers/decklistController')
 const {protect, protectModerator} = require('../middleware/authMiddleware')
+
+router.get('/replacedecklistlinkswithdecklistdocumentids', protect, protectModerator, replaceDecklistLinksWithDecklistDocumentIds)
 
 router.get('/', getDecklists)
 
 router.get('/byevent/:event', getDecklistsByEvent)
 
-router.get('/:decklistId', getDecklist)
+router.get('/:decklistid', getDecklist)
 
 router.post('/', protect, protectModerator, postDecklist)
 
-router.put('/:deckid', protect, protectModerator, updateDecklist)
+router.put('/:decklistid', protect, protectModerator, updateDecklist)
 
-router.delete('/:deckid', protect, protectModerator, deleteDecklist)
+router.delete('/:decklistid', protect, protectModerator, deleteDecklist)
+
 
 module.exports = router

@@ -1,14 +1,14 @@
 'use client'
-
 import SectionBackground from "@/components/swiperComponents/SectionBackground"
 import useEmblaCarousel from 'embla-carousel-react'
 import { DotButton, useDotButton } from '../components/swiperComponents/EmblaCarouselDotButton'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import EventThumbnail from "@/app/eyeofophidia/helperComponents/EventThumbnail"
+import { eventSchemaType } from "@/app/types/types"
+import chunkArray from "./helpers/ChunkArray"
 
-
-function UpcomingTournamentsSectionBig() {
+function UpcomingTournamentsSectionBig({events}: {events: eventSchemaType[] | undefined}) {
 
   const [emblaRef, emblaApi] = useEmblaCarousel({startIndex: 1})
 
@@ -28,43 +28,33 @@ function UpcomingTournamentsSectionBig() {
 
       <div className='flex justify-between lg:w-[1000px] lg:my-[32px]'>
         <div className='text-[23px]  text-white foulfiend text-shadow'>
-          Upcoming Tournaments
+          Latest Tournaments
         </div>
-        <a className='hidden text-[16px] lg:block text-white text-shadow underline' href='eyeofophidia/events'>
-          View all upcoming Tournaments
+        <a className='hover:text-purple-400  hidden text-[16px] lg:block text-white text-shadow underline' href='eyeofophidia/events'>
+          View all Events
           &nbsp;&nbsp;
           <FontAwesomeIcon icon={faChevronRight}/>
           <FontAwesomeIcon icon={faChevronRight}/>
         </a>
       </div>
 
-      <div className="w-[430px]" ref={emblaRef}>
+        <div className="w-[430px]" ref={emblaRef}>
 
-        <div className="flex gap-[48px]">
+          <div className="flex gap-[48px]">
 
-          <div className="h-[430px] basis-[430px] grow-0 shrink-0">
-            <EventThumbnail size='featuredSlide'/>
-          </div>
+            <div className="h-[430px] basis-[430px] grow-0 shrink-0">
+              {events && <EventThumbnail size='featuredSlide' event={events[0]}/>}
+            </div>
 
-          <div className='flex flex-col h-[430px] basis-[340px] grow-0 shrink-0 gap-[48px]'>
-            <EventThumbnail size='sideSlide'/>
-            <EventThumbnail size='sideSlide'/>
-          </div>
+            {events && chunkArray(events, 2).map(chunk => 
+              <div className='flex flex-col h-[430px] basis-[340px] grow-0 shrink-0 gap-[48px]'>
+                  {chunk.map(event => <EventThumbnail size='sideSlide' event={event}/>) }
+              </div>
+            )}
 
-          <div className='flex flex-col h-[430px] basis-[340px] grow-0 shrink-0 gap-[48px]'>
-            <EventThumbnail size='sideSlide'/>
-            <EventThumbnail size='sideSlide'/>
-          </div>
-
-          <div className='flex flex-col h-[430px] basis-[340px] grow-0 shrink-0 gap-[48px]'>
-            <EventThumbnail size='sideSlide'/>
-            <EventThumbnail size='sideSlide'/>
           </div>
 
         </div>
-
-      </div>
-      
 
       <div className="flex gap-[16px] items-center">
         <FontAwesomeIcon onClick={() => prevOnClick()} icon={faChevronLeft} className='h-[24px] w-[24px] cursor-pointer'/>

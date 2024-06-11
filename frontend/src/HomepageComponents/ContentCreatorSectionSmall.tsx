@@ -1,14 +1,15 @@
+'use client'
 import SectionBackground from "@/components/swiperComponents/SectionBackground"
 import Image from "next/image"
 import ContentCreatorSectionCarousel from "./helpers/ContentCreatorSectionCarousel"
-import { getYoutubeIds } from "./helpers/getYoutubeIds"
-import { getChannelData } from "./helpers/getChannelData"
+// import { getYoutubeIds } from "./helpers/getYoutubeIds"
+// import { getChannelData } from "./helpers/getChannelData"
 
-async function ContentCreatorSectionSmall({channelId}: {channelId: string}) {
+function ContentCreatorSectionSmall({channelData, youtubeIds}: {channelData: any, youtubeIds: string[] | undefined}) {
 
   //'UCI5yJdQ4y8r_3J9JCiyHIzQ'
-  const youtubeIds: string[] = await getYoutubeIds(channelId, 5)
-  const channelData = await getChannelData(channelId)
+  // const youtubeIds: string[] = await getYoutubeIds(channelId, 5)
+  // const channelData = await getChannelData(channelId)
 
   return (
     <div className='h-[65vw] min-[490px]:h-[256px] lg:h-[360px] relative bg-red flex flex-col items-center mt-[32px] mb-[96px] gap-[16px]'>
@@ -26,7 +27,7 @@ async function ContentCreatorSectionSmall({channelId}: {channelId: string}) {
         </div>
       </div>
 
-      <ContentCreatorSectionCarousel youtubeIds={youtubeIds} channelData={channelData} size="small"/>
+      {youtubeIds && <ContentCreatorSectionCarousel youtubeIds={youtubeIds} channelData={channelData} size="small"/>}
 
     </div>
   )

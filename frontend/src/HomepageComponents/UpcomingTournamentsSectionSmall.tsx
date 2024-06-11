@@ -6,13 +6,13 @@ import { DotButton, useDotButton } from '../components/swiperComponents/EmblaCar
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import EventThumbnail from "@/app/eyeofophidia/helperComponents/EventThumbnail"
+import { eventSchemaType } from "@/app/types/types"
 
-function UpcomingTournamentsSectionSmall() {
+function UpcomingTournamentsSectionSmall({events}: {events: eventSchemaType[] | undefined}) {
 
   const [emblaRef, emblaApi] = useEmblaCarousel({startIndex: 1})
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
-
 
   const prevOnClick = () => {
     emblaApi?.scrollPrev()
@@ -38,15 +38,23 @@ function UpcomingTournamentsSectionSmall() {
         <div className="flex gap-[32px]">
 
           <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
-            <EventThumbnail size='smallSlide'/>
+            {events && <EventThumbnail size='smallSlide' event={events[5]}/>}
           </div>
 
           <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
-            <EventThumbnail size='smallSlide'/>
+            {events && <EventThumbnail size='smallSlide' event={events[2]}/>}
           </div>
 
           <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
-            <EventThumbnail size='smallSlide'/>
+            {events && <EventThumbnail size='smallSlide' event={events[0]}/>}
+          </div>
+
+          <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
+            {events && <EventThumbnail size='smallSlide' event={events[2]}/>}
+          </div>
+
+          <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
+            {events && <EventThumbnail size='smallSlide' event={events[4]}/>}
           </div>
 
         </div>
@@ -66,7 +74,7 @@ function UpcomingTournamentsSectionSmall() {
         <FontAwesomeIcon onClick={() => nextOnClick()} icon={faChevronRight} className='h-[24px] w-[24px] cursor-pointer'/>
       </div>
 
-      <a className='block text-[11px] text-blackunderline underline' href='eyeofophidia/tournaments'>
+      <a className='hover:text-purple-400  block text-[11px] text-blackunderline underline' href='eyeofophidia/tournaments'>
         View all upcoming Tournaments
         &nbsp;&nbsp;
         <FontAwesomeIcon icon={faChevronRight}/>

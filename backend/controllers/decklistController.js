@@ -82,7 +82,6 @@ const getDecklists = asyncHandler(async (req, res) => {
         "count": decklistsQuery[0].count[0]?.count ? decklistsQuery[0].count[0]?.count : 0
     }
 
-
     res.status(200)
     res.json(data)
 })
@@ -112,7 +111,7 @@ const getDecklistsByEvent = asyncHandler(async (req, res) => {
 })
 
 const getDecklist = asyncHandler(async (req, res) => {
-    const decklist = await Decklist.findById(req.params.decklistId)
+    const decklist = await Decklist.findById(req.params.decklistid)
     if(!decklist){
         res.status(400)
         throw new Error('decklist not found')
@@ -182,13 +181,15 @@ const updateDecklist = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('decklist with that id does not exist or has been deleted')
     }
+    
     req.body.event = await Event.findOne({name: req.body.event})
+    console.log(req.body.event)
     const decklist = await Decklist.findOneAndUpdate({_id: req.params.decklistid}, req.body, {runValidators: true, new: true})
     if(!await Name.exists({name: req.body.playerName})){Name.create({name: req.body.playerName})} 
 
     // player 1
     await Match.updateMany({
-        'event._id': decklist._id,
+        'event._id': decklist.event._id,
         player1name: decklist.playerName,
         format: decklist.format,
     },
@@ -199,7 +200,7 @@ const updateDecklist = asyncHandler(async (req, res) => {
 
     // player 2
     await Match.updateMany({
-        'event._id': decklist._id,
+        'event._id': decklist.event._id,
         player2name: decklist.playerName,
         format: decklist.format,
     },
@@ -213,16 +214,121 @@ const updateDecklist = asyncHandler(async (req, res) => {
 })
 
 const deleteDecklist = asyncHandler(async (req, res) => {
-    const decklist = await Decklist.deleteOne({_id: req.params.decklistid})
+    const decklist = await Decklist.findByIdAndDelete(req.params.decklistid)
+    
     if(!decklist){
         res.status(400)
         throw new Error('given decklist doesnt exist')
     }
+
+    // player 1
+    await Match.updateMany({
+        'event._id': decklist.event._id,
+        player1name: decklist.playerName,
+        format: decklist.format,
+    },
+    {
+        player1deck: ''
+    },
+    {runValidators: true, new: true})
+
+    // player 2
+    await Match.updateMany({
+        'event._id': decklist.event._id,
+        player2name: decklist.playerName,
+        format: decklist.format,
+    },
+    {
+        player2deck: ''
+    },
+    {runValidators: true, new: true})
+
     res.status(200)
     res.json(decklist)
 })
 
 //internal use only
+
+const replaceDecklistLinksWithDecklistDocumentIds = asyncHandler(async (req, res) => {
+    const matches = await Match.find({})
+    let arr = []
+
+    matches.map(match => {
+        if(match.player1deck){
+            arr.push({
+                playerName: match.player1name,
+                decklistLink: match.player1deck,
+                hero: match.player1hero,
+                event: match.event,
+                format: match.format
+            })
+        }
+
+        if(match.player2deck){
+            arr.push({
+                playerName: match.player2name,
+                decklistLink: match.player2deck,
+                hero: match.player2hero,
+                event: match.event,
+                format: match.format
+            })
+        }
+    })
+
+    arr.sort((a, b) => {
+        if (a.decklistLink < b.decklistLink) {
+            return -1
+        }
+        if (a.decklistLink > b.decklistLink) {
+            return 1
+        }
+        return 0
+    })
+
+    let arr2 = [arr[0]]
+
+    for(let i = 1; i < arr.length; i++){
+        if(arr[i].decklistLink !== arr2[arr2.length-1].decklistLink){
+            arr2.push(arr[i])
+        }
+    }
+
+    // let decklistOperations = []
+    // let matchOperations = []
+
+    arr2.map(async decklistElement => {
+        //decklistOperations.push({insertOne: decklist})
+        const decklist = await Decklist.create(decklistElement)
+
+        // player 1
+        await Match.updateMany({
+            'event._id': new ObjectId(decklist.event._id),
+            player1name: decklist.playerName,
+            format: decklist.format,
+        },
+        {
+            player1deck: new ObjectId(decklist._id)
+        },
+        {runValidators: true, new: true})
+
+        // player 2
+        await Match.updateMany({
+            'event._id': new ObjectId(decklist.event._id),
+            player2name: decklist.playerName,
+            format: decklist.format,
+        },
+        {
+            player2deck: new ObjectId(decklist._id)
+        },
+        {runValidators: true, new: true})
+
+        console.log(decklist._id + " - processed")
+
+    })
+
+    res.status(200)
+    res.json({message: 'check the console!'})
+})
 
 // const replaceDeckListLinks = async (decklistLink, format, decklistId) => {
 //     const {decklistLink, format} = formData
@@ -251,5 +357,6 @@ module.exports = {
     postDecklist,
     updateDecklist,
     deleteDecklist,
-    //internal use only, do not put in a route
+
+    replaceDecklistLinksWithDecklistDocumentIds
 }

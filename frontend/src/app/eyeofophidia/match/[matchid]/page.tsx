@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect, useContext } from "react"
 import { toast } from "react-toastify"
-import { errorSchema, matchSchema } from '@/app/schemas/schemas'
+import { errorSchema, matchSchema, deckSchema } from '@/app/schemas/schemas'
 import { matchSchemaType } from "@/app/types/types"
 import EventThumbnail from "../../helperComponents/EventThumbnail"
 import DeckThumbnail from "../../helperComponents/DeckThumbnail"
@@ -24,7 +24,6 @@ function Match({params}: {params: {matchid: string}}) {
     .then(data => {
       const validatedData = matchSchema.safeParse(data)
       const validatedRelatedMatches = z.array(matchSchema).safeParse(data.relatedMatches)
-      console.log(validatedRelatedMatches.data)
       const validatedError = errorSchema.safeParse(data)
       if(validatedData.success){
         setMatch(validatedData.data)
@@ -44,7 +43,6 @@ function Match({params}: {params: {matchid: string}}) {
     }).catch(err => {
       toast(err.message)
     })
-
   }, [params])
 
 
@@ -84,10 +82,10 @@ function Match({params}: {params: {matchid: string}}) {
               }
             </div>
 
-            <div className="text-[23px] font-bold">Decklists: </div>
 
-            <DeckThumbnail size="matchPage" />
-            <DeckThumbnail size="matchPage" />
+            {(match.player1deckData || match.player2deckData) && <div className="text-[23px] font-bold">Decklists: </div>}
+            {match.player1deckData && <DeckThumbnail size="matchPage" deck={match.player1deckData}/>}
+            {match.player2deckData && <DeckThumbnail size="matchPage" deck={match.player2deckData}/>}
 
             <div className="text-[23px] font-bold">More Matches: </div>
 
@@ -96,6 +94,8 @@ function Match({params}: {params: {matchid: string}}) {
                 {relatedMatches.map(match => <MatchThumbnail key={match._id} match={match} maxWidth={true} />)}
               </>
             }
+
+            {!(match.player1deckData || match.player2deckData) && <div className="text-[16px] text-gray-400">Decklists Unavailable </div>}
 
           </div>}
       </div>

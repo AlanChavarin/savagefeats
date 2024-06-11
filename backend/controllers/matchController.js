@@ -271,22 +271,6 @@ const updateMatch = asyncHandler(async (req, res) => {
         req.body.top8Round='None'
     }
 
-    //before updating a match lets grab decklists
-    const decklist1 = Decklist.findOne({
-        'event._id': eventData._id,
-        playerName: player1name,
-        format: format
-    })
-
-    const decklist2 = Decklist.findOne({
-        'event._id': eventData._id,
-        playerName: player2name,
-        format: format
-    })
-
-    req.body.player1deck = decklist1 ? decklist1._id : ''
-    req.body.player2deck = decklist2 ? decklist2._id : ''
-
     const match = await Match.findOneAndUpdate({_id: req.params.matchid, deleted: false}, req.body, {runValidators: true, new: true})
     //postMatchEdit(match, req.user._id)
     if(!await Name.exists({name: req.body.player1name})){Name.create({name: req.body.player1name})} 
@@ -298,12 +282,11 @@ const updateMatch = asyncHandler(async (req, res) => {
 })
 
 const deleteMatch = asyncHandler(async (req, res) => {
-    const match = await Match.findByIdAndUpdate(req.params.id, {deleted: true}, {new: true})
+    const match = await Match.findByIdAndDelete(req.params.id)
     if(!match){
         res.status(400)
         throw new Error('given match doesnt exist')
     }
-    //await Issue.deleteMany({target: req.params.id})
     res.status(200)
     res.json(match)
 })

@@ -1,13 +1,13 @@
 import SectionBackground from "@/components/swiperComponents/SectionBackground"
 import Image from "next/image"
 import ContentCreatorSectionCarousel from "./helpers/ContentCreatorSectionCarousel"
-import { getYoutubeIds } from "./helpers/getYoutubeIds"
-import { getChannelData } from "./helpers/getChannelData"
+// import { getYoutubeIds } from "./helpers/getYoutubeIds"
+// import { getChannelData } from "./helpers/getChannelData"
 
-async function ContentCreatorSectionBig({channelId}: {channelId: string}) {
+async function ContentCreatorSectionBig({channelData, youtubeIds}: {channelData: any, youtubeIds: string[] | undefined}) {
   //'UCI5yJdQ4y8r_3J9JCiyHIzQ'
-  const youtubeIds: string[] = await getYoutubeIds(channelId, 12)
-  const channelData = await getChannelData(channelId)
+  // const youtubeIds: string[] = await getYoutubeIds(channelId, 12)
+  // const channelData = await getChannelData(channelId)
 
   return (
     <div className='h-[320px] relative bg-red flex flex-col items-center mt-[32px]'>
@@ -22,10 +22,11 @@ async function ContentCreatorSectionBig({channelId}: {channelId: string}) {
           <div className='text-center lg:text-left'>{channelData.name}</div>
         </div>
 
-        <ContentCreatorSectionCarousel youtubeIds={youtubeIds} channelData={channelData} size="big"/>
+        {youtubeIds && <ContentCreatorSectionCarousel youtubeIds={youtubeIds} channelData={channelData} size="big"/>}
         
       </div>
     </div>
   )
 }
+
 export default ContentCreatorSectionBig
