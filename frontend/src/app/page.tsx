@@ -4,17 +4,18 @@ import UpcomingTournamentsSectionBig from "@/HomepageComponents/UpcomingTourname
 import UpcomingTournamentsSectionSmall from "@/HomepageComponents/UpcomingTournamentsSectionSmall"
 import WinningDecksSectionSmall from "@/HomepageComponents/WinningDecksSectionSmall"
 import WinningDecksSectionBig from "@/HomepageComponents/WinningDecksSectionBig"
-import ContentCreatorSectionSmall from "@/HomepageComponents/ContentCreatorSectionSmall"
-import ContentCreatorSectionBig from "@/HomepageComponents/ContentCreatorSectionBig"
+// import ContentCreatorSectionSmall from "@/HomepageComponents/ContentCreatorSectionSmall"
+// import ContentCreatorSectionBig from "@/HomepageComponents/ContentCreatorSectionBig"
 import YoutubeVideoCarousel from "@/HomepageComponents/YoutubeVideoCarousel"
 import { getYoutubeIds } from "@/HomepageComponents/helpers/getYoutubeIds"
 import { getChannelData } from "@/HomepageComponents/helpers/getChannelData"
 
 import { useEffect, useState } from "react"
-import { eventSchema, errorSchema, deckSchema } from "@/app/schemas/schemas"
-import { eventSchemaType, deckSchemaType } from "@/app/types/types"
+import { eventSchema, errorSchema, deckSchema, contentCreatorSchema } from "@/app/schemas/schemas"
+import { eventSchemaType, deckSchemaType, contentCreatorSchemaType } from "@/app/types/types"
 import { z } from "zod"
 import { toast } from "react-toastify"
+import ContentCreatorSection from "@/HomepageComponents/ContentCreatorSection"
 
 const responseEventSchema = z.object({
   count: z.number(),
@@ -30,8 +31,8 @@ export default function Home() {
 
   const [events, setEvents] = useState<eventSchemaType[] | undefined>(undefined)
   const [decks, setDecks] = useState<deckSchemaType[] | undefined>(undefined)
-  const [channelData, setChannelData] = useState<any>(undefined)
-  const [youtubeIds, setYoutubeIds] = useState<string[] | undefined>(undefined)
+  //const [channelData, setChannelData] = useState<any>(undefined)
+  const [creators, setCreators] = useState<contentCreatorSchemaType[] | undefined>(undefined)
 
   useEffect(() => {
 
@@ -79,17 +80,28 @@ export default function Home() {
       toast(err.message)
     })
 
-    // grab content creator info
-    const fetchContentInfo = async () => {
-      setYoutubeIds(await getYoutubeIds('UCI5yJdQ4y8r_3J9JCiyHIzQ', 12))
-      setChannelData(await getChannelData('UCI5yJdQ4y8r_3J9JCiyHIzQ'))
+    //grab creator data
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}contentcreators/?&featured=true`)
+    .then(r => r.json())
+    .then(data => {
+      const validatedData = z.array(contentCreatorSchema).safeParse(data)
+      const validatedError = errorSchema.safeParse(data)
+      if(validatedData.success){
+        setCreators(validatedData.data)
+        return
+      }
 
-      console.log(channelData)
-      console.log(youtubeIds)
-    }
+      if(validatedError.success){
+        throw new Error(validatedError.data.errorMessage)
+      }
 
-    fetchContentInfo()
-    
+      console.error(validatedData.error)
+      console.error(validatedError.error)
+      throw new Error('Unexpected data. Check console for further details')
+    }).catch(err => {
+      toast(err.message)
+    })
+
   }, [])
 
   return (
@@ -117,11 +129,22 @@ export default function Home() {
           </>
         }
 
-        { (youtubeIds && channelData) && <>
-          <div className='block lg:hidden'><ContentCreatorSectionSmall youtubeIds={youtubeIds} channelData={channelData}/></div>
-          <div className='hidden lg:block'><ContentCreatorSectionBig  youtubeIds={youtubeIds} channelData={channelData}/></div>
+        {creators?.map(creator => <ContentCreatorSection creator={creator}/>)}
+
+        {/* { (youtubeIds1) && <>
+          <div className='block lg:hidden'><ContentCreatorSectionSmall youtubeIds={youtubeIds1} channelName="Savage Lands News"/></div>
+          <div className='hidden lg:block'><ContentCreatorSectionBig  youtubeIds={youtubeIds1} channelName="Savage Lands News"/></div>
           </>
         }
+
+        { (youtubeIds2) && <>
+          <div className='block lg:hidden'><ContentCreatorSectionSmall youtubeIds={youtubeIds2} channelName="Mansant"/></div>
+          <div className='hidden lg:block'><ContentCreatorSectionBig  youtubeIds={youtubeIds2} channelName="Mansant"/></div>
+          </>
+        } */}
+
+        {/* <div className='block lg:hidden'><ContentCreatorSectionSmall channelId="UCI5yJdQ4y8r_3J9JCiyHIzQ"/></div>
+        <div className='hidden lg:block'><ContentCreatorSectionBig  channelId="UCI5yJdQ4y8r_3J9JCiyHIzQ"/></div> */}
         
       </div>
     </main>

@@ -6,9 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useState } from "react"
 import { splitIntoGroupsOfFour } from "./splitIntoGroupsOfFour"
-import { ChannelData } from "./getChannelData"
 
-function ContentCreatorSectionCarousel({youtubeIds, channelData, size}: {youtubeIds: string[], channelData: ChannelData, size: ('big' | 'small')}) {
+function ContentCreatorSectionCarousel({youtubeIds, channelName, size}: {youtubeIds: string[], channelName: string, size: ('big' | 'small')}) {
 
     const [youtubeIdsFours, setYoutubeIdsFours] = useState<string[][]>([])
 
@@ -64,7 +63,7 @@ function ContentCreatorSectionCarousel({youtubeIds, channelData, size}: {youtube
         
         <div className='flex flex-col items-center justify-center gap-[32px] translate-y-[32px]'>
 
-            <div className='foulfiend text-white text-[19px] text-shadow my-[16px]'>{channelData.name} latest content</div>
+            <div className='foulfiend text-white text-[19px] text-shadow my-[16px]'>{channelName} latest content</div>
 
             <div className="w-[680px] overflow-hidden" ref={emblaRef}>
               <div className="flex gap-[32px] mb-[8px]">

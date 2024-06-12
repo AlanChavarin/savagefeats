@@ -28,7 +28,7 @@ function UpcomingTournamentsSectionSmall({events}: {events: eventSchemaType[] | 
 
       <div className='flex justify-between lg:w-[900px] lg:my-[32px]'>
         <div className='text-[13px] md:text-[16px] lg:text-[19px] xl:text-[23px] text-white foulfiend text-shadow'>
-          Upcoming Tournaments
+          Latest Tournaments
         </div>
       </div>
 

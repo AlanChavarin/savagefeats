@@ -19,6 +19,8 @@ const contentCreatorSchema = mongoose.Schema({
     profilePictureMedium: String,
     profilePictureHigh: String,
     etag: String,
+    featured: Boolean,
+    backgroundImage: String,
 })
 
 contentCreatorSchema.index({

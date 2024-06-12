@@ -3,12 +3,15 @@ const Content = require('../models/contentModel')
 const ContentCreator = require('../models/contentCreatorModel')
 const ObjectId = require('mongodb').ObjectId
 //const parser = require('xml2json')
+const Parser = require("rss-parser")
+
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const getAllContent = asyncHandler(async (req, res) => {
     const content = await Content.find()
     res.status(200)
     res.json(content)
-})
+}) 
 
 const getContent = asyncHandler(async (req, res) => {
     const content = await Content.findById(new ObjectId(req.params.contentid))
@@ -23,13 +26,20 @@ const getContent = asyncHandler(async (req, res) => {
 })
 
 const getContentByContentCreator = asyncHandler(async (req, res) => {
-    const contentCreator = req.params.contentCreatorid
+    const contentCreator = new ObjectId(req.params.contentcreatorid)
     let content
     if(ObjectId.isValid(contentCreator) && !!(await ContentCreator.findById(contentCreator))){
-        content = await Content.find({parentContentCreatorid: contentCreator}).sort({publishedAt: -1})
+        content = await Content.find({parentContentCreatorid: contentCreator}).sort({publishedAt: -1}).limit(req.query.limit)
     } else {
         res.status(400)
         throw new Error('given id could be wrong or channel does not exist')
+    }
+
+    if(req.query.idonly === 'true'){
+        const data = content.map(content => content.videoid)
+        res.status(200)
+        res.json(data)
+        return
     }
     res.status(200)
     res.json(content)
@@ -88,73 +98,58 @@ const updateContentRelatedData = asyncHandler(async (req, res) => {
     res.json(content)
 })
 
-//what the f*ck did i write here
-//i aint even gonna test this just yet
+
 const updateContentByContentCreator = asyncHandler(async (req, res) => {
-    const contentCreator = await ContentCreator.findById(req.params.contentCreatorid)
+    const contentCreator = await ContentCreator.findById(req.params.contentcreatorid)
     if(!contentCreator){
         res.status(400)
         throw new Error('channel by that given id was not found')
     }
 
-    let maxResults
-    if(req.body.maxResults){
-        maxResults = parseInt(req.body.maxResults)
-    } else {
-        maxResults = 5
+    const parser = new Parser()
+
+    const feed = await parser.parseURL(`https://www.youtube.com/feeds/videos.xml?channel_id=${contentCreator.channelid}`)
+
+    //console.log(feed)
+
+    let youtubeIds = []
+
+    for(let i = 0; i < feed.items.length; i++){
+        const videoUrlParts = feed.items[i].link.split('?v=') 
+        youtubeIds.push(videoUrlParts[videoUrlParts.length - 1])
     }
 
-    let page
-    if(req.body.page){
-        page = parseInt(req.body.page)
-    } else {
-        page = 0
-    }
+    const content = await Content.find({parentContentCreatorid: req.params.contentcreatorid})
 
-    const response  = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${process.env.YOUTUBE_API_KEY}&channelId=${contentCreator.channelid}&part=snippet,id&order=date&maxResults=${maxResults}`)
+    const contentYoutubeIds = content.map(content => content.videoid)
 
-    const data = await response.json()
+    let youtubeVideoData = []
 
-    //console.log(data)
-
-    if(data.error){
-        console.log(data.error.errors)
-        res.status(400)
-        throw new Error('data error')
-    }
-
-    if(!Array.isArray(data.items)){
-        res.status(400)
-        throw new Error('missing items from data')
-    }
-
-    const asyncOperation = async (item) => {
-        if(!(await Content.exists({videoid: item.id.videoId}))){
-            let content = {
-                videoid: item.id.videoId,
-                publishedAt: item.snippet.publishedAt,
-                parentContentCreatorYoutubeChannelid: contentCreator.channelid,
-                parentContentCreatorid: contentCreator._id,
-                title: item.snippet.title,
-                description: item.snippet.description,
-                channelTitle: contentCreator.title,
-                etag: item.etag
-            }
-
-            return(content)
+    for(let i = 0; i < youtubeIds.length; i++){
+        if(!contentYoutubeIds.includes(youtubeIds[i])){
+            const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${youtubeIds[i]}&part=snippet,contentDetails&key=${process.env.YOUTUBE_API_KEY}`)
+            const data = await response.json()
+            youtubeVideoData.push(data.items[0])
+            await sleep(200)
         }
-        return {}
     }
 
-    Promise.all(data.items.map(item => asyncOperation(item)))
-    .then(results => {
-        const nonEmptyResults = results.filter(result => Object.keys(result).length > 0);
-        return Content.insertMany(nonEmptyResults)
+    youtubeVideoData.map(async (item) => {
+        const content = await Content.create({
+            videoid: item.id,
+            publishedAt: item.snippet.publishedAt,
+            parentContentCreatorYoutubeChannelid: item.snippet.channelId,
+            parentContentCreatorid: contentCreator ? contentCreator._id : null,
+            title: item.snippet.title,
+            description: item.snippet.description,
+            channelTitle: item.snippet.title,
+        })
+
+        console.log(content)
     })
-    .then(content => {
-        res.status(200)
-        res.json(content)
-    })
+
+    res.status(200)
+    res.json({"message": "success", "content posted": youtubeVideoData.length})
  
 })
 

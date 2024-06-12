@@ -6,7 +6,7 @@ function SectionBackground({image, size}: {image: string, size: ('small' | 'medi
     {
       (size==='small') && 
       <div className='text-white w-full h-[60vw] min-[370px]:h-[256px] lg:h-[384px] skew-y-[-3deg] lg:skew-y-[-2deg] absolute top-[0px] bottom-[0px] z-[-1]'>
-        <ParallaxBanner layers={[{image, translateY: [-30, 30], opacity: [.5, .5]}]} style={{willChange: 'transform'}}>
+        <ParallaxBanner layers={[{image, translateY: [-20, 20], opacity: [.5, .5]}]} style={{willChange: 'transform'}}>
           <div className='w-full bg-black h-[65vw] min-[360px]:h-[256px] lg:h-[384px]'></div>
         </ParallaxBanner>
       </div>
@@ -15,7 +15,7 @@ function SectionBackground({image, size}: {image: string, size: ('small' | 'medi
     {
       (size==='medium') && 
       <div className='text-white w-full h-[65vw] min-[455px]:h-[256px] min-[774px]:h-[400px] skew-y-[-3deg] lg:skew-y-[-2deg] absolute top-[0px] bottom-[0px] z-[-1]'>
-        <ParallaxBanner layers={[{image, translateY: [-30, 30], opacity: [.5, .5]}]} style={{willChange: 'transform'}}>
+        <ParallaxBanner layers={[{image, translateY: [-20, 20], opacity: [.5, .5]}]} style={{willChange: 'transform'}}>
           <div className='w-full bg-black h-[65vw] min-[455px]:h-[256px] min-[774px]:h-[400px] bg-top' style={{backgroundPosition: '0px -200px'}}></div>
         </ParallaxBanner>
       </div>
@@ -24,7 +24,7 @@ function SectionBackground({image, size}: {image: string, size: ('small' | 'medi
     {
       (size==='big') && 
       <div className='text-white w-full h-[65vw] min-[455px]:h-[256px] lg:h-[512px] skew-y-[-3deg] lg:skew-y-[-2deg] absolute top-[0px] bottom-[0px] z-[-1]'>
-        <ParallaxBanner layers={[{image, translateY: [-30, 30], opacity: [.5, .5]}]} style={{willChange: 'transform'}}>
+        <ParallaxBanner layers={[{image, translateY: [-20, 20], opacity: [.5, .5]}]} style={{willChange: 'transform'}}>
           <div className='w-full bg-black h-[65vw] min-[455px]:h-[256px] lg:h-[512px]'></div>
         </ParallaxBanner>
       </div>
@@ -33,7 +33,7 @@ function SectionBackground({image, size}: {image: string, size: ('small' | 'medi
     {
       (size==='veryBig') && 
       <div className='text-white w-full h-[80vw] min-[455px]:h-[256px] md:h-[512px] skew-y-[-3deg] lg:skew-y-[-2deg] absolute top-[0px] bottom-[0px] z-[-1]'>
-        <ParallaxBanner layers={[{image, translateY: [-30, 30], opacity: [.5, .5]}]} style={{willChange: 'transform'}}>
+        <ParallaxBanner layers={[{image, translateY: [-20, 20], opacity: [.5, .5]}]} style={{willChange: 'transform'}}>
           <div className='w-full bg-black h-[80vw] min-[455px]:h-[256px] md:h-[512px]'></div>
         </ParallaxBanner>
       </div>

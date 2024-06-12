@@ -55,9 +55,9 @@ function WinningDecksSectionSmall({decks}: {decks: deckSchemaType[] | undefined}
 
       <div className="flex gap-[16px] items-center">
         <FontAwesomeIcon onClick={() => prevOnClick()} icon={faChevronLeft} className='h-[24px] w-[24px] cursor-pointer'/>
-        {scrollSnaps.map((_, index) => (<div key={index}>
+        {scrollSnaps.map((_, index) => (<div key={index + 'dotbutton'}>
           <DotButton
-            key={index}
+            key={index + 'dotbutton2'}
             active={(selectedIndex === index)}
             onClick={() => onDotButtonClick(index)}
           />

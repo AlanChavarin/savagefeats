@@ -46,9 +46,9 @@ function UpcomingTournamentsSectionBig({events}: {events: eventSchemaType[] | un
               {events && <EventThumbnail size='featuredSlide' event={events[0]}/>}
             </div>
 
-            {events && chunkArray(events, 2).map(chunk => 
-              <div className='flex flex-col h-[430px] basis-[340px] grow-0 shrink-0 gap-[48px]'>
-                  {chunk.map(event => <EventThumbnail size='sideSlide' event={event}/>) }
+            {events && chunkArray(events, 2).map((chunk, i) => 
+              <div key={i + 'chunkArr'} className='flex flex-col h-[430px] basis-[340px] grow-0 shrink-0 gap-[48px]'>
+                {chunk.map(event => <EventThumbnail key={event._id} size='sideSlide' event={event}/>) }
               </div>
             )}
 

@@ -67,3 +67,19 @@ export const heroSchema = z.object({
     young: z.boolean().optional(),
 })
 
+export const contentCreatorSchema = z.object({
+    _id: z.string(),
+    channelid: z.string(),
+    title: z.string(),
+    customUrl: z.string(),
+    description: z.string().optional(),
+    publishedAt: z.string().optional(), //date
+    profilePictureDefault: z.string().optional(),
+    profilePictureMedium: z.string().optional(),
+    profilePictureHigh: z.string().optional(),
+    etag: z.string().optional(),
+    featured: z.boolean().optional(),
+    videoids: z.array(z.string()).optional(),
+    backgroundImage: z.string().optional()
+})
+
