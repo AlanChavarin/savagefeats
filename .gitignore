@@ -10,3 +10,5 @@ node_modules
 ./backend/node_modules/
 ./mongodump/
 mongodump
+./mongodump_old
+mongodump_old
