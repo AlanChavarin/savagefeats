@@ -5,7 +5,7 @@ import { contentCreatorSchemaType } from "../types/types"
 import { z } from "zod"
 import { toast } from "react-toastify"
 import ContentCreatorComponent from "./ContentCreatorComponent"
-import AddNewContentCreatorButton from "./AddNewLiveStreamButton"
+import AddNewContentCreatorButton from "./AddNewContentCreatorButton"
 
 function ContentCreatorSection() {
   const [contentCreators, setContentCreators] = useState<contentCreatorSchemaType[] | undefined>(undefined)

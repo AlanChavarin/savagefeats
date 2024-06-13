@@ -38,7 +38,7 @@ function LiveStreamSection() {
   return (
     <div className="flex flex-col gap-[8px]">
       <div className="font-bold">Live Stream:</div>
-      {links && links.map(id => <LiveStreamComponent id={id}/>)}
+      {links && links.map(id => <LiveStreamComponent id={id} key={id}/>)}
         
         <AddNewLiveStreamButton />
     </div>

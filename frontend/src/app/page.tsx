@@ -88,7 +88,7 @@ export default function Home() {
 
         <WinningDecksSection/>
 
-        {creators?.map(creator => <ContentCreatorSection creator={creator}/>)}
+        {creators?.map(creator => <ContentCreatorSection creator={creator} key={creator._id}/>)}
         
       </div>
     </main>
