@@ -34,19 +34,30 @@ function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featu
             <div className='h-full w-[80px]' style={{backgroundImage: `url('/heroes/${heroUrlHelper(deck.hero)}.jpg')`, backgroundSize: '180%', backgroundPosition: `center -10px`}}></div>
             <div className='flex flex-col h-full flex-1 p-[8px] justify-between gap-[2px] relative text-[13px]'>
 
-                <Link href={`/eyeofophidia/event/${deck.event._id}`} className="font-bold flex flex-row flex-wrap text-[16px] hover:text-purple-500 underline self-start">
-                    {deck.event.name}
-                </Link>
+                { deck.event ?
+                    <Link href={`/eyeofophidia/event/${deck.event._id}`} className="font-bold flex flex-row flex-wrap text-[16px] hover:text-purple-500 underline self-start">
+                        {deck.event.name}
+                    </Link>
+                    :
+                    <div className="font-bold flex flex-row flex-wrap text-[16px]  self-start">
+                        {deck.hero}
+                    </div>
+                }
+                
 
-                <div className='text-black flex flex-col gap-[4px] sm:gap-[0px] sm:flex-row justify-between'>
-                    {deck.hero}
-                </div>
+                { deck.event &&
+                    <div className='text-black flex flex-col gap-[4px] sm:gap-[0px] sm:flex-row justify-between'>
+                        {deck.hero}
+                    </div>
+                }
+                
 
-                <div className='text-gray-600 flex flex-col gap-[4px] sm:gap-[0px] sm:flex-row justify-between'>
+                <div className='text-gray-600 flex flex-col gap-[4px] sm:gap-[0px] sm:flex-row justify-start'>
                     {/* {deck.placement && <>{`${deckPlacementString(deck.placement)} Place - `}</>} */}
                     {deck.playerName && <>{`${deck.playerName}`}</>}
-                    {deck.event.startDate && <>{` - ${deck.event.startDate.slice(0, 10)}`}</>}
+                    {deck.event?.startDate && <>{` - ${deck.event.startDate.slice(0, 10)}`}</>}
                     {<> - {deck.format}</>}
+                    {deck.deckTech && <> -&nbsp;<a target="_blank" href={`https://www.youtube.com/watch?v=${deck.deckTech}`} className="hover:text-purple-500 underline">Deck Tech</a></>}
                 </div>
 
 
@@ -76,10 +87,10 @@ function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featu
 
 
     { (size === 'smallSlide') && 
-        <a href={deck.decklistLink} className='bg-white box-shadow w-full h-[64px] flex hover:bg-gray-50 cursor-pointer'>
+        <a href={deck.decklistLink} target="_blank" className='bg-white box-shadow w-full h-[64px] flex hover:bg-gray-50 cursor-pointer'>
             <div className='h-[64px] w-[64px]' style={{backgroundImage: `url('/heroes/${heroUrlHelper(deck.hero)}.jpg')`, backgroundSize: '150%', backgroundPosition: `center 0`}}></div>
             <div className='flex flex-col h-full flex-1 p-[8px] justify-around relative'>
-                <div className='text-[13px] font-bold'>{deck.event.name}</div>
+                <div className='text-[13px] font-bold'>{deck.event?.name}</div>
                 {/* <div className='text-[13px] text-gray-600'></div> */}
                 <div className='text-[13px]  flex flex-row justify-between'>{deck.playerName} - {deck.hero}</div>
 
@@ -89,9 +100,9 @@ function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featu
     }
 
     {(size === 'featuredSlide') &&
-        <a href={deck.decklistLink} className='bg-white box-shadow flex-1 flex hover:bg-gray-50 cursor-pointer flex-col relative'>
+        <a href={deck.decklistLink} target="_blank" className='bg-white box-shadow flex-1 flex hover:bg-gray-50 cursor-pointer flex-col relative'>
             <div className='h-[196px] w-full flex flex-col justify-end text-white text-shadow p-[16px]' style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.40)), url('/heroes/${heroUrlHelper(deck.hero)}.jpg')`, backgroundSize: '100%', backgroundPosition: `center -96px`}}>
-                <div className='text-[16px] font-bold'>{deck.event.name}</div>
+                <div className='text-[16px] font-bold'>{deck.event?.name}</div>
                 <div className='text-[19px] font-bold'>{deck.hero}</div>
             </div>
             <div className='flex flex-col h-full flex-1 p-[12px] justify-between relative text-[16px]'>
@@ -107,8 +118,7 @@ function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featu
                         <a href="">Deck Tech</a>
                     </div> */}
                     <div>{deck.format}</div>
-                    &nbsp;-&nbsp;
-                    <div>{deck.event.startDate?.slice(0, 10)}</div>
+                    {deck.event && <>&nbsp;-&nbsp; <div>{deck.event?.startDate?.slice(0, 10)}</div></>}
                 </div>
                 
             </div>

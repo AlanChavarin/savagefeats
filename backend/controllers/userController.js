@@ -91,10 +91,9 @@ const loginUser = asyncHandler(async (req, res) => {
 })
 
 const verifyUser = asyncHandler(async (req, res) => {
-    const user = await User.findByIdAndUpdate(new ObjectId(req.params.userid), {verified: req.body.verified}, {runValidators: true, new: true})
+    const user = await User.findOneAndUpdate({name: req.params.username}, {verified: req.body.verified}, {runValidators: true, new: true})
     res.status(200)
     res.json({
-        _id: user._id,
         name: user.name,
         privilege: user.privilege,
         verified: user.verified,
@@ -110,7 +109,9 @@ const getMe = asyncHandler(async (req, res) => {
 })
 
 const changePrivileges = asyncHandler(async (req, res) => {
-    let user = await User.findById(req.params.userid)
+    console.log(req.body)
+
+    let user = await User.findOne({name: req.params.username})
 
     if(req.user.privilege!=='admin'){
         if(user.privilege==='admin' || user.privilege==='moderator'){
@@ -123,10 +124,14 @@ const changePrivileges = asyncHandler(async (req, res) => {
         }
     }
 
-    user = await User.findOneAndUpdate({_id: req.params.userid}, {privilege: req.body.privilege}, {runValidators: true, new: true})
+    user = await User.findOneAndUpdate({name: req.params.username}, {privilege: req.body.privilege}, {runValidators: true, new: true})
     user.password = ''
     res.status(200)
-    res.json(user)
+    res.json({
+        name: user.name,
+        privilege: user.privilege,
+        verified: user.verified
+    })
 })
 
 const getUsers = asyncHandler(async (req, res) => {
@@ -165,8 +170,6 @@ const getUsers = asyncHandler(async (req, res) => {
     data.users.map(user => {
         delete user.password
     })
-
-    console.log(data.users)
 
     res.status(200)
     res.json(data)

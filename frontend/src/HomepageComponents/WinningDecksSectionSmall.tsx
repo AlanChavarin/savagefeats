@@ -10,7 +10,7 @@ import YoutubeEmbedContainer from "../components/swiperComponents/YoutubeEmbedCo
 import { deckSchemaType } from "@/app/types/types"
 import chunkArray from "./helpers/ChunkArray"
 
-function WinningDecksSectionSmall({decks}: {decks: deckSchemaType[] | undefined}) {
+function WinningDecksSectionSmall({decks, featuredDeck}: {decks: deckSchemaType[] | undefined, featuredDeck: deckSchemaType | undefined}) {
 
   const [emblaRef, emblaApi] = useEmblaCarousel()
 
@@ -40,7 +40,7 @@ function WinningDecksSectionSmall({decks}: {decks: deckSchemaType[] | undefined}
             <YoutubeEmbedContainer>
               <iframe className='w-full box-shadow' src={`https://www.youtube-nocookie.com/embed/ZKxA3LAZybw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
             </YoutubeEmbedContainer>
-            {decks && <DeckThumbnail size='smallSlide' deck={decks[0]}/>}
+            {featuredDeck && <DeckThumbnail size='smallSlide' deck={featuredDeck}/>}
           </div>
 
           {decks && chunkArray(decks, 3).map((chunk, i) => (<>

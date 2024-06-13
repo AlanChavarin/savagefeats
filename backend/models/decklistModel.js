@@ -28,19 +28,19 @@ const decklistSchema = mongoose.Schema({
     event: {
         _id: {
             type: ObjectId,
-            required: true
+            required: false
         },
         name: {
             type: String,
-            required: true,
+            required: false,
         },
         location: {
             type: String,
-            required: true
+            required: false
         },
         format: {
             type: [String],
-            required: true,
+            required: false,
             enum: formats
         },
         official: {
@@ -49,7 +49,9 @@ const decklistSchema = mongoose.Schema({
         },
         startDate: Date,
         tier: Number,
-    }
+    },
+
+    deckTech: String
 
 })
 

@@ -1,6 +1,10 @@
+'use client'
 import { eventSchemaType } from "@/app/types/types"
 import Link from "next/link"
 import EditButton from "./EditButton"
+import UserContext from "@/context/UserContext"
+import { useContext } from "react"
+//import { ParallaxBanner } from "react-scroll-parallax"
 
 const getImage = (str: string) => {
   const slicedHex = str.slice(str.length-2, str.length)
@@ -9,6 +13,8 @@ const getImage = (str: string) => {
 }
 
 function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastRound?: string | undefined, lastFormat?: string | undefined, lastTwitch?: string | undefined, event: eventSchemaType, size: ('normal' | 'eventPage' | 'matchPage' | 'smallSlide' | 'featuredSlide' | 'sideSlide')}) {
+
+  const {user} = useContext(UserContext)
 
   return (<>
 
@@ -28,11 +34,13 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
             <div>{event.location}</div>
         </div>
  
-        <div className="absolute flex flex-row gap-[8px] bottom-[12px] right-[12px]">
-          <EditButton text="Edit Event" link={`/eyeofophidia/postevent?eventid=${event._id}`} />
-          <EditButton text="Post Match" link={`/eyeofophidia/postmatch?eventname=${event.name}&lastRound=${lastRound}&lastFormat=${lastFormat}&lastTwitch=${lastTwitch}`} />
-          <EditButton text="Post Deck" link={`/eyeofophidia/postdeck?eventname=${event.name}`} />
-        </div>
+        {user && 
+          <div className="absolute flex flex-row gap-[8px] bottom-[12px] right-[12px]">
+            <EditButton text="Edit Event" link={`/eyeofophidia/postevent?eventid=${event._id}`} />
+            <EditButton text="Post Match" link={`/eyeofophidia/postmatch?eventname=${event.name}&lastRound=${lastRound}&lastFormat=${lastFormat}&lastTwitch=${lastTwitch}`} />
+            <EditButton text="Post Deck" link={`/eyeofophidia/postdeck?eventname=${event.name}`} />
+          </div>
+        }
         
       </div>
     }

@@ -4,7 +4,6 @@ const wordWrapper = require('../helpers/wordWrapper')
 const ObjectId = require('mongodb').ObjectId
 
 const getContentCreators = asyncHandler(async (req, res) => {
-
     let find = {}
 
     if(req.query.featured === 'true'){

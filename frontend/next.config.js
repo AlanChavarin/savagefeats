@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    unoptimized: true,
+    unoptimized: false,
+    domains: ['yt3.ggpht.com']
   },
+
   async rewrites() {
     return [
       {

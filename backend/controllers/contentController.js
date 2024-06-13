@@ -4,6 +4,10 @@ const ContentCreator = require('../models/contentCreatorModel')
 const ObjectId = require('mongodb').ObjectId
 //const parser = require('xml2json')
 const Parser = require("rss-parser")
+const Match = require('../models/matchModel')
+const Event = require('../models/eventModel')
+const {Decklist} = require('../models/decklistModel')
+
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -164,6 +168,35 @@ const deleteContent = asyncHandler(async (req, res) => {
     res.json(content)
 })
 
+const latestInFleshAndBlood = asyncHandler(async (req, res) => {
+    //grab match(nevermind)
+    //grab decklist
+    //grab latest mansant video
+    //grab latest savage lands news video
+    //grab latest 3 tournaments
+
+    const events = await Event.find({deleted: false}).sort({startDate: -1}).limit(1)
+
+    const contentCreators = await ContentCreator.find({featured: true})
+
+    let arr = []
+
+    await Promise.all(contentCreators.flatMap(async contentCreator => {
+        const contents = await Content.find({parentContentCreatorid: contentCreator._id}).sort({publishedAt: -1}).limit(2)
+        contents.map(content => arr.push(content))
+    }))
+
+    arr.sort((a, b) => a.publishedAt - b.publishedAt)
+
+    const contentVideoIds = arr.map(content => content.videoid)
+    
+    res.status(200)
+    res.json({
+        videoIds: contentVideoIds,
+        events: events,
+    })
+})
+
 module.exports = {
     getAllContent,
     getContent,
@@ -171,5 +204,6 @@ module.exports = {
     postContent,
     updateContentRelatedData,
     updateContentByContentCreator,
-    deleteContent
+    deleteContent,
+    latestInFleshAndBlood
 }

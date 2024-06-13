@@ -1,7 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const {getAllContent, getContent, getContentByContentCreator, updateContentRelatedData, updateContentByContentCreator, postContent, deleteContent} = require('../controllers/contentController')
+const {getAllContent, getContent, getContentByContentCreator, updateContentRelatedData, updateContentByContentCreator, postContent, deleteContent, latestInFleshAndBlood} = require('../controllers/contentController')
 const {protect, protectModerator} = require('../middleware/authMiddleware')
+
+router.get('/latestinfleshandblood', latestInFleshAndBlood)
 
 router.get('/', getAllContent)
 

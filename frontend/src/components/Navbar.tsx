@@ -78,12 +78,12 @@ function Navbar() {
                 <Link href="/eyeofophidia/decks" className="hover:text-custom-primary">
                     Decklists
                 </Link>
-                <Link href="/content" className="hover:text-custom-primary">
+                {/* <Link href="/content" className="hover:text-custom-primary">
                     Content
-                </Link>
-                <Link href="/shop" className="hover:text-custom-primary">
+                </Link> */}
+                {/* <Link href="/shop" className="hover:text-custom-primary">
                     Shop
-                </Link>
+                </Link> */}
                 
                 
                 <div className='relative'>

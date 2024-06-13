@@ -30,7 +30,6 @@ function Decks() {
       .then(data => {
         const validatedData = responseSchema.safeParse(data)
         const validatedError = errorSchema.safeParse(data)
-        console.log(validatedData)
         if(validatedData.success){
           setDecks(validatedData.data.decklists)
           setCount(validatedData.data.count)

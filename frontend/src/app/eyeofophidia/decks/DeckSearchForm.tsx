@@ -8,8 +8,8 @@ import { useRouter } from "next/navigation"
 import Select from '@/app/eyeofophidia/helperComponents/Select'
 import CustomRadio from "../helperComponents/CustomRadio"
 import HeroSelect from "../helperComponents/HeroSelect"
-
 import { zodResolver } from "@hookform/resolvers/zod"
+import { faCheck } from "@fortawesome/free-solid-svg-icons"
 
 const formSchema = z.object({
   text: z.string().optional(),
@@ -22,6 +22,7 @@ const formSchema = z.object({
   order: z.number().optional(),
   page: z.number().optional(),
   limit: z.number().optional(),
+  deckTech: z.boolean().optional()
 })
 
 type FormFields = z.infer<typeof formSchema>
@@ -37,7 +38,7 @@ function DeckSearchForm(){
     }
   })
 
-  const {register, handleSubmit, setValue, watch, reset, formState: {errors, isSubmitting}} = form
+  const {register, handleSubmit, setValue, watch, reset, getValues, formState: {errors, isSubmitting}} = form
   
   const handleOrder = () => {
     if(watch('order') !== undefined){
@@ -49,6 +50,10 @@ function DeckSearchForm(){
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     if(data.order === -1){
       delete data.order
+    }
+
+    if(!data.deckTech){
+      delete data.deckTech
     }
 
     const filteredData = Object.fromEntries(
@@ -88,6 +93,11 @@ function DeckSearchForm(){
       {/* dropdown parameters */}
       {settings && 
         <div className="relative font-bold flex flex-col gap-[16px] items-start md:items-center bg-white border-[1px] border-black w-[90%] px-[16px] md:px-[0px] pt-[16px] pb-[24px]" style={{boxShadow: "2px 2px black"}}>
+          {/* hero select */}
+          <div className="flex flex-col gap-[8px] w-[85%] md:justify-center md:flex-row">
+            <div className="whitespace-nowrap">Hero: </div>
+            <HeroSelect placeholder="Hero" name="hero" form={form} />
+          </div>
           
           {/* date range  */}
           <div className="flex flex-col gap-[8px] md:items-center md:flex-row">
@@ -97,15 +107,15 @@ function DeckSearchForm(){
             <div className="hidden md:block"> To </div>
             <input {...register('endDate')} type="date" className='flex flex-row items-center bg-white border-[1px] border-black px-[8px] py-[0px] focus:outline-none hover:cursor-text box-shadow-extra-small focus:border-[2px] text-custom-gray' />
           </div>
-          {/* select if official events or not */}
-          <div className="flex flex-col gap-[8px] w-[85%] md:items-center md:flex-row md:justify-center">
+          {/* select if official events or not disabled doesnt work right now */}
+          {/* <div className="flex flex-col gap-[8px] w-[85%] md:items-center md:flex-row md:justify-center">
             <div className="whitespace-nowrap">Official Events: </div>
             <CustomRadio options={{
               'Official': true,
               'Unofficial': false,
               'All': undefined
             }} form={form} name="official"/>
-          </div>
+          </div> */}
 
           {/* Select event tier */}
           <div className="flex flex-col gap-[8px] w-[85%] md:items-center md:flex-row md:justify-center" >
@@ -123,16 +133,10 @@ function DeckSearchForm(){
           <div className="flex flex-col gap-[8px] md:items-center md:flex-row">
             <div>Format: </div>
             {/* <input {...register('format')} type="text" placeholder="Format" className="max-w-[196px] flex flex-row items-center bg-white border-[1px] border-black px-[8px] py-[1px] focus:outline-none box-shadow-extra-small focus:border-[2px]"/> */}
-            <Select placeholder='Format' name='format' form={form} data={['Classic Constructed', 'Blitz', 'Living Legend', 'Draft', 'Sealed', 'Mixed', '']}/>
+            <Select placeholder='Format' name='format' form={form} data={['Classic Constructed', 'Blitz', 'Living Legend', '']}/>
           </div>
 
-          {/* hero select */}
-          <div className="flex flex-col gap-[8px] w-[85%] md:justify-center md:flex-row">
-            <div className="whitespace-nowrap">Hero: </div>
-            <HeroSelect placeholder="Hero" name="hero" form={form} />
-          </div>
-
-          {/* Sort by new/old rn this doesnt work  */}
+          {/* Sort by new/old  */}
           <div className="flex flex-col gap-[8px] w-[85%] md:items-center md:justify-center md:flex-row">
             <div>Sort By: </div>
             <div className="flex flex-row w-[85%] border-[1px] border-black max-w-[128px] cursor-pointer select-none" style={{boxShadow: "2px 2px black"}} onClick={() => handleOrder()}>
@@ -147,6 +151,13 @@ function DeckSearchForm(){
                 <div className="bg-custom-primary hover:bg-custom-primary-hover flex-1 text-center ">Old</div>
               </>}
               
+            </div>
+          </div>
+
+          <div className="flex flex-row items-center gap-[4px] cursor-pointer" onClick={() => {setValue('deckTech', !getValues('deckTech'))}}>
+            <label>Has Deck Tech: </label>
+            <div className={`${watch('deckTech') && 'bg-custom-primary'} box-shadow-extra-small w-[24px] h-[24px] flex justify-center items-center border-[1px] border-black  `}>
+              {watch('deckTech') && <FontAwesomeIcon icon={faCheck} />}
             </div>
           </div>
 

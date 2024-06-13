@@ -8,6 +8,7 @@ import { z } from "zod"
 import MatchThumbnail from "../../helperComponents/MatchThumbnail"
 import { useState, useEffect } from "react"
 import { calculateLastFormat, calculateLastRound, calculateLastTwitch } from "../../helpers/LastHelpers"
+import filter from "../../helpers/filterHelper"
 
 function Event({params}: {params: {eventid: string}}) {
   const [event, setEvent] = useState<eventSchemaType | undefined>(undefined)
@@ -93,16 +94,24 @@ function Event({params}: {params: {eventid: string}}) {
 
             {event.dayRoundArr && event.endDate ? 
                 <>
-                    {event.dayRoundArr.map((num, i, arr) => <>
+                    {event.dayRoundArr.map((_, i) => 
+                      <>
                         <div className="text-[30px] md:text-[39px] font-bold">Day {i+1}:</div>
                         <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
+
                         <div className="flex flex-row flex-wrap gap-[24px] justify-center">
                             {/* @ts-ignore */}
-                            {matches && matches.slice((arr[i-1] ? arr[i-1] : 0), num).map(match => 
+                            {/* {matches && matches.slice((arr[i-1] ? arr[i-1] : 0), num).map(match => 
                                 <MatchThumbnail match={match} key={match._id}/>
-                            )}
+                            )} */}
+
+                            {matches && matches.filter(match => filter(match, i, event))
+                                .map((match) => (<MatchThumbnail key={match._id} match={match}/>))}
+                            {matches && (matches.filter(match => filter(match, i, event)).length < 1) && <>No Vods Available :{'('}</>}
                         </div>
-                    </>)}
+                      </>
+                    )}
+
                     <div className="text-[30px] md:text-[39px] font-bold">Top Cut:</div>
                     <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
                     <div className="flex flex-row flex-wrap gap-[24px] justify-center">
@@ -119,10 +128,9 @@ function Event({params}: {params: {eventid: string}}) {
                 </div>
             }
 
-
             {decks && decks.length > 0 && <div className="text-[39px] font-bold">Decklists</div>} 
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 flex-wrap gap-[24px] justify-center w-[90%]">
+            <div className="grid grid-cols-1 lg:grid-cols-2 flex-wrap gap-[24px] w-[90%] md:w-fit">
                 {decks && <>
                     {decks.map(deck => 
                         <DeckThumbnail deck={deck} size={'normal'} key={deck._id}/>

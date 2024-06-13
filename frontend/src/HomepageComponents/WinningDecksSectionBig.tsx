@@ -10,7 +10,7 @@ import YoutubeEmbedContainer from "../components/swiperComponents/YoutubeEmbedCo
 import { deckSchemaType } from "@/app/types/types"
 import chunkArray from "./helpers/ChunkArray"
 
-function WinningDecksSectionBig({decks}: {decks: deckSchemaType[] | undefined}) {
+function WinningDecksSectionBig({decks, featuredDeck}: {decks: deckSchemaType[] | undefined, featuredDeck: deckSchemaType | undefined}) {
 
   const [emblaRef, emblaApi] = useEmblaCarousel()
 
@@ -46,9 +46,11 @@ function WinningDecksSectionBig({decks}: {decks: deckSchemaType[] | undefined}) 
       <div className='flex flex-row gap-[48px] w-[1032px]'>
         <div className="flex flex-col gap-[32px] flex-1">
 
-          <iframe className='box-shadow h-[279px]' src={`https://www.youtube-nocookie.com/embed/ZKxA3LAZybw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+          { featuredDeck?.deckTech && 
+            <iframe className='box-shadow h-[279px]' src={`https://www.youtube-nocookie.com/embed/${featuredDeck?.deckTech}?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+          }
 
-          {decks && <DeckThumbnail size='featuredSlide' deck={decks[0]}/>}
+          {featuredDeck && <DeckThumbnail size='featuredSlide' deck={featuredDeck}/>}
         </div>
         
         <div className='w-[512px] h-full flex flex-col justify-between pr-[8px] overflow-hidden' ref={emblaRef}>

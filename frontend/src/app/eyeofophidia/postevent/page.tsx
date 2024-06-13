@@ -29,7 +29,6 @@ const formSchema = z.object({
   top8Day: z.boolean(),
 })
 
-
 type FormFields = z.infer<typeof formSchema>
 
 function Postevent() {
@@ -233,6 +232,12 @@ function Postevent() {
     })
   }
 
+  useEffect(() => {
+    if(getValues('official') === false){
+      setValue('tier', undefined)
+    }
+  }, [watch('official')])
+
   return (
     <div className="flex-1 flex justify-center items-start my-[32px]">
       <form onSubmit={handleSubmit(onSubmit)} className="relative font-bold flex flex-col gap-[8px] items-start bg-white border-[1px] border-black w-[90%] px-[16px] pt-[16px] pb-[24px] box-shadow-extra-small max-w-[300px]">
@@ -270,6 +275,20 @@ function Postevent() {
           <label>Official LSS Event? <span className="text-red-500">*</span></label>
           <CustomRadio options={{'Official': true, 'Unofficial': false}} form={form} name="official"/>
         </div>
+
+        {/* Select event tier */}
+        { watch('official') && 
+          <div className="flex flex-col gap-[8px]" >
+            <div className="">Event Tier Level: </div>
+            <CustomRadio options={{
+              '1': 1,
+              '2': 2,
+              '3': 3,
+              '4': 4,
+              'None': undefined
+            }} form={form} name="tier"/>
+          </div>
+        }
 
         <div className="flex flex-row gap-[4px] cursor-pointer" onClick={() => {setMultiDayToggle(!multiDayToggle)}}>
           <label>Multi-Day Event?</label>

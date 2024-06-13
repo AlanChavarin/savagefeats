@@ -48,6 +48,10 @@ const getDecklists = asyncHandler(async (req, res) => {
         find["hero"] = req.query.hero
     }
 
+    if(req.query?.deckTech === 'true'){
+        find["deckTech"] = { "$ne": null }
+    }
+
     //date range filter
 
     const date1 = new Date(req.query?.startDate)
@@ -121,18 +125,23 @@ const getDecklist = asyncHandler(async (req, res) => {
 })
 
 const postDecklist = asyncHandler(async (req, res) => {
-    const {playerName, decklistLink, placement, placementRangeEnding, format, hero, event} = req.body
+    const {playerName, decklistLink, placement, placementRangeEnding, format, hero, event, deckTech} = req.body
+
+
 
     let eventData
-    if(ObjectId.isValid(event)){
-        eventData = await Event.findOne({_id: event})
-    } else {
-        eventData = await Event.findOne({name: event})
-    }
-    
-    if(!eventData){
-        res.status(400)
-        throw new Error('given event name or id not found')
+
+    if(event){
+        if(ObjectId.isValid(event)){
+            eventData = await Event.findOne({_id: event})
+        } else {
+            eventData = await Event.findOne({name: event})
+        }
+        
+        if(!eventData){
+            res.status(400)
+            throw new Error('given event name or id not found')
+        }
     }
 
     const decklist = await Decklist.create({
@@ -142,7 +151,8 @@ const postDecklist = asyncHandler(async (req, res) => {
         placementRangeEnding,
         hero,
         format,
-        event: eventData,
+        event: eventData && eventData,
+        deckTech
     })
 
     if(!await Name.exists({name: playerName})){Name.create({name: playerName})} 
@@ -150,27 +160,31 @@ const postDecklist = asyncHandler(async (req, res) => {
     //replace decklist links with decklist object id
     //replaceDeckListLinks(req.body.decklistLink, req.body.format, Decklist._id)
 
-    // player 1
-    await Match.updateMany({
-        'event._id': decklist.event._id,
-        player1name: decklist.playerName,
-        format: decklist.format,
-    },
-    {
-        player1deck: decklist._id
-    },
-    {runValidators: true, new: true})
+    if(decklist.event){
+        // player 1
+        await Match.updateMany({
+            'event._id': decklist.event._id,
+            player1name: decklist.playerName,
+            format: decklist.format,
+        },
+        {
+            player1deck: decklist._id
+        },
+        {runValidators: true, new: true})
 
-    // player 2
-    await Match.updateMany({
-        'event._id': decklist.event._id,
-        player2name: decklist.playerName,
-        format: decklist.format,
-    },
-    {
-        player2deck: decklist._id
-    },
-    {runValidators: true, new: true})
+        // player 2
+        await Match.updateMany({
+            'event._id': decklist.event._id,
+            player2name: decklist.playerName,
+            format: decklist.format,
+        },
+        {
+            player2deck: decklist._id
+        },
+        {runValidators: true, new: true})
+
+    }
+    
 
     res.status(200)
     res.json(decklist)

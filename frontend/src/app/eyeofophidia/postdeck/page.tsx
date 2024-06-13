@@ -12,15 +12,19 @@ import HeroSelect from "../helperComponents/HeroSelect"
 import { useSearchParams } from "next/navigation"
 import DeleteButton from "../helperComponents/DeleteButton"
 import NameSelect from "../helperComponents/NameSelect"
+import getYoutubeParams from "../helpers/YoutubeParams"
 
 const formSchema = z.object({
   playerName: z.string().min(1),
   hero: z.string().min(1),
-  event: z.string().min(3),
+  event: z.string().optional(),
   decklistLink: z.string().min(1),
   format: z.enum(['Classic Constructed', 'Blitz', 'Living Legend', 'Draft', 'Sealed', 'Mixed', '']),
   placement: z.coerce.number().optional(),
   placementRangeEnding: z.coerce.number().optional(),
+  deckTech: z.string().optional(),
+  //dummy fields that the backend doesnt actually accept
+  videoLink: z.string().optional(),
 })
 
 type FormFields = z.infer<typeof formSchema>
@@ -59,6 +63,8 @@ function Postmatch() {
         resetField('playerName')
         resetField('hero')
         resetField('decklistLink')
+        resetField('videoLink')
+        resetField('deckTech')
         return
       }
 
@@ -96,7 +102,7 @@ function Postmatch() {
         if(validatedData.success){
           const {event, format, playerName, placement, placementRangeEnding, hero, decklistLink} = validatedData.data
           reset({
-            event: event.name, 
+            event: event && event.name, 
             format, 
             playerName,
             hero,
@@ -174,6 +180,16 @@ function Postmatch() {
     })
   }
 
+  const videoLinkOnChange = () => {
+    const videoLink = getValues('videoLink')
+
+    if(videoLink){
+      const params = getYoutubeParams(videoLink)
+      setValue('deckTech', params.id)
+    }
+    
+  }
+
   return (
     <div className="flex-1 flex justify-center items-start my-[32px]">
       <form onSubmit={handleSubmit(onSubmit)} className="relative font-bold flex flex-col gap-[8px] items-start bg-white border-[1px] border-black w-[90%] px-[16px] pt-[16px] pb-[24px] box-shadow-extra-small max-w-[300px]">
@@ -197,7 +213,7 @@ function Postmatch() {
         <div className="text-[24px] self-center">{searchParams.get('deckid') ? 'Edit' : 'Post'} Deck</div>
 
         <div className="flex flex-col w-[100%]">
-          <label>Event Name: <span className="text-red-500">*</span></label>
+          <label>Event Name:</label>
           <Select placeholder='Event Name' name='event' form={form} data={eventNames}/>
         </div>
 
@@ -219,6 +235,9 @@ function Postmatch() {
 
         <BasicTextInput placeholder='' name='decklistLink' label='Decklist Link: ' register={register} required={true}/>
 
+        <BasicTextInput placeholder='' name='videoLink' label='Deck Tech Link: ' register={register} required={false} onChange={videoLinkOnChange}/>
+
+        <BasicTextInput placeholder='' name='deckTech' label="Tech Deck Video ID" register={register} required={true}/>
 
         <div className="flex flex-row">
           <label>Placement: &nbsp;</label>

@@ -31,9 +31,9 @@ function Sidebar({buttonClickEvent} : {buttonClickEvent: () => void}) {
         <Link href="/eyeofophidia/decks" className="hover:text-custom-primary">
           Decklists
         </Link>
-        <Link href="/content" className="hover:text-custom-primary">
+        {/* <Link href="/content" className="hover:text-custom-primary">
           Content
-        </Link>
+        </Link> */}
         
         <Link href="/services" className="hover:text-custom-primary">
           Production <br/> Services
@@ -41,9 +41,9 @@ function Sidebar({buttonClickEvent} : {buttonClickEvent: () => void}) {
         <Link href="/portfolio" className="hover:text-custom-primary">
           Portfolio
         </Link>
-        <Link href="/shop" className="hover:text-custom-primary">
+        {/* <Link href="/shop" className="hover:text-custom-primary">
           Shop
-        </Link>
+        </Link> */}
 
         { user && <>
           <Link href="/eyeofophidia/postevent" className="hover:text-custom-primary">

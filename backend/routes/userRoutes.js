@@ -13,8 +13,8 @@ router.post('/login', loginUser)
 
 router.get('/me', protect, getMe)
 
-router.put('/verify/:userid', protect, protectAdmin, verifyUser)
+router.put('/verify/:username', protect, protectAdmin, verifyUser)
 
-router.put('/changeprivileges/:userid', protect, protectModerator, changePrivileges)
+router.put('/changeprivileges/:username', protect, protectModerator, changePrivileges)
 
 module.exports = router

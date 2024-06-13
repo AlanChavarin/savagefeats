@@ -31,7 +31,8 @@ export const deckSchema = z.object({
     placement: z.number().optional(),
     hero: z.string(),
     placementRangeEnding: z.number().optional(),
-    event: eventSchema
+    event: eventSchema.optional(),
+    deckTech: z.string().optional()
 
 })
 
@@ -82,4 +83,11 @@ export const contentCreatorSchema = z.object({
     videoids: z.array(z.string()).optional(),
     backgroundImage: z.string().optional()
 })
+
+export const userSchema = z.object({
+    name: z.string(),
+    privilege: z.string(),
+    verified: z.boolean(),
+})
+
 

@@ -1,21 +1,12 @@
 'use client'
 import { createContext, useState, useEffect, ReactNode, useCallback} from 'react'
-import { z } from "zod"
-import { errorSchema } from '@/app/schemas/schemas'
+import { errorSchema, userSchema } from '@/app/schemas/schemas'
 import { toast } from 'react-toastify'
-
-//schema for incoming user data
-const userSchema = z.object({
-    name: z.string(),
-    privilege: z.string(),
-    verified: z.boolean(),
-})
-
-type User = z.infer<typeof userSchema>
+import { userSchemaType } from '@/app/types/types'
 
 // Define a type for the context value
 interface UserContextType {
-    user: User | null,
+    user: userSchemaType | null,
     logout: (() => void),
     initUser: (() => void) //scans local storage for token
 }
@@ -29,7 +20,7 @@ interface UserProviderProps {
 }
   
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-    const [user, setUser] = useState<User | null>(null)
+    const [user, setUser] = useState<userSchemaType | null>(null)
 
     const logout = useCallback(() => {
         localStorage.removeItem('token')
@@ -46,7 +37,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
                     'Content-Type': 'application/json'
                 }
             }).then(r => r.json())
-            .then((data: User) => {
+            .then((data: userSchemaType) => {
                 const validatedData = userSchema.safeParse(data)
                 const validatedError = errorSchema.safeParse(data)
                 

@@ -2,8 +2,8 @@
 import ContentCreatorSectionBig from "./ContentCreatorSectionBig"
 import ContentCreatorSectionSmall from "./ContentCreatorSectionSmall"
 import { useEffect, useState } from "react"
-import { eventSchema, errorSchema, deckSchema, contentCreatorSchema } from "@/app/schemas/schemas"
-import {contentCreatorSchemaType } from "@/app/types/types"
+import { errorSchema } from "@/app/schemas/schemas"
+import { contentCreatorSchemaType } from "@/app/types/types"
 import { z } from "zod"
 import { toast } from "react-toastify"
 
