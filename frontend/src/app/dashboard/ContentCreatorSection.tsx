@@ -5,13 +5,13 @@ import { contentCreatorSchemaType } from "../types/types"
 import { z } from "zod"
 import { toast } from "react-toastify"
 import ContentCreatorComponent from "./ContentCreatorComponent"
-import AddNewContentCreatorButton from "./AddNewContentCreatorButton"
+import AddNewContentCreatorButton from "./AddNewLiveStreamButton"
 
 function ContentCreatorSection() {
   const [contentCreators, setContentCreators] = useState<contentCreatorSchemaType[] | undefined>(undefined)
 
   const grabContentCreators = () => {
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}contentCreators`, {cache: 'no-store'})
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}contentCreators`, {cache: 'reload'})
     .then(r => r.json())
     .then(data => {
       const validatedData = z.array(contentCreatorSchema).safeParse(data)
@@ -35,13 +35,17 @@ function ContentCreatorSection() {
 
   useEffect(() => {
     grabContentCreators()
-  }, [])  
+  }, [])
+
+  useEffect(() => {
+    console.log(contentCreators)
+  }, [contentCreators])
 
   return (
     <div className="flex flex-col gap-[8px]">
       <div className="font-bold">Content Creators:</div>
       {contentCreators && contentCreators.map(contentCreator => (
-        <ContentCreatorComponent contentCreator={contentCreator} grabContentCreators={() => grabContentCreators} />
+        <ContentCreatorComponent key={contentCreator._id} contentCreator={contentCreator} grabContentCreators={async () => grabContentCreators} />
       ))}
       <AddNewContentCreatorButton grabContentCreators={() => grabContentCreators()}/>
     </div>

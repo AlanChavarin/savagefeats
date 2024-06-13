@@ -32,6 +32,11 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
             </div>
             <div>{event.startDate && event.startDate.slice(0,10)} {event.endDate && ' - ' + event.endDate.slice(0, 10)}</div>
             <div>{event.location}</div>
+            <div className='text-[11px] text-center *:underline'>
+              {event.officialDetails && <><a href={event.officialDetails}>Official Details</a>{' - '}</>}
+              {event.signUpLink && <><a href={event.signUpLink}>Signup Link</a>{' - '}</>}
+              {event.liveStream && <><a href={event.liveStream}>Live Stream</a></>}
+            </div>
         </div>
  
         {user && 
@@ -39,6 +44,7 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
             <EditButton text="Edit Event" link={`/eyeofophidia/postevent?eventid=${event._id}`} />
             <EditButton text="Post Match" link={`/eyeofophidia/postmatch?eventname=${event.name}&lastRound=${lastRound}&lastFormat=${lastFormat}&lastTwitch=${lastTwitch}`} />
             <EditButton text="Post Deck" link={`/eyeofophidia/postdeck?eventname=${event.name}`} />
+            <EditButton text="Post Draft" link={`/eyeofophidia/postdraft?eventname=${event.name}&lastRound=${lastRound}&lastFormat=${lastFormat}&lastTwitch=${lastTwitch}`} />
           </div>
         }
         
@@ -111,11 +117,11 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
             </div>
             <div className='z-[1]'>
               <div className='text-[11px] text-center *:underline'>
-                <a href="">Official Details</a>{' - '}
-                <a href="">Signup Link</a>{' - '}
-                <a href="">Live Stream</a>
+                {event.officialDetails && <><a href={event.officialDetails}>Official Details</a>{' - '}</>}
+                {event.signUpLink && <><a href={event.signUpLink}>Signup Link</a>{' - '}</>}
+                {event.liveStream && <><a href={event.liveStream}>Live Stream</a></>}
               </div>
-              {/* <div className='text-[7px] text-center'>Venue: The Baltimore Convention Center, 1 W Pratt St, Baltimore, MD 21201</div> */}
+              {event.venue && <div className='text-[7px] text-center'>{event.venue}</div> }
             </div>
           </div>
 
@@ -137,9 +143,9 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
             </div>
             <div className='flex flex-col gap-[8px]'>
               <div className='text-[13px] text-center *:underline'>
-                <a href="">Official Details</a>{' - '}
-                <a href="">Signup Link</a>{' - '}
-                <a href="">Live Stream</a>
+                {event.officialDetails && <><a href={event.officialDetails}>Official Details</a>{' - '}</>}
+                {event.signUpLink && <><a href={event.signUpLink}>Signup Link</a>{' - '}</>}
+                {event.liveStream && <><a href={event.liveStream}>Live Stream</a></>}
               </div>
               <div className='text-[9px] text-center'>{event.venue}</div>
             </div>

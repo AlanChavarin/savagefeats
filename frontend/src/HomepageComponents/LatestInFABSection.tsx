@@ -17,7 +17,7 @@ import { eventSchema } from "@/app/schemas/schemas"
 
 const responseLatestInFABSchema = z.object({
     videoIds: z.array(z.string()),
-    events: z.array(eventSchema)
+    events: z.array(eventSchema),
   })
 
 function LatestInFABSection({backgroundImage} : { backgroundImage: string}) {

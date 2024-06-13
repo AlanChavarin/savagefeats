@@ -1,7 +1,7 @@
 'use client'
 import { toast } from "react-toastify"
-import { errorSchema, matchSchema, eventSchema, deckSchema } from '@/app/schemas/schemas'
-import { matchSchemaType, eventSchemaType, deckSchemaType } from "@/app/types/types"
+import { errorSchema, matchSchema, eventSchema, deckSchema, draftSchema } from '@/app/schemas/schemas'
+import { matchSchemaType, eventSchemaType, deckSchemaType, draftSchemaType } from "@/app/types/types"
 import EventThumbnail from "../../helperComponents/EventThumbnail"
 import DeckThumbnail from "../../helperComponents/DeckThumbnail"
 import { z } from "zod"
@@ -9,11 +9,13 @@ import MatchThumbnail from "../../helperComponents/MatchThumbnail"
 import { useState, useEffect } from "react"
 import { calculateLastFormat, calculateLastRound, calculateLastTwitch } from "../../helpers/LastHelpers"
 import filter from "../../helpers/filterHelper"
+import DraftThumbnail from "../../helperComponents/DraftThumbnail"
 
 function Event({params}: {params: {eventid: string}}) {
   const [event, setEvent] = useState<eventSchemaType | undefined>(undefined)
   const [matches, setMatches] = useState<matchSchemaType[] | undefined>(undefined)
   const [decks, setDecks] = useState<deckSchemaType[] | undefined>(undefined)
+  const [drafts, setDrafts] = useState<draftSchemaType[] | undefined>(undefined)
   const { eventid } = params
  
   useEffect(() => {
@@ -54,6 +56,27 @@ function Event({params}: {params: {eventid: string}}) {
       }
 
       console.error(validatedMatchData.error.toString())
+      console.error(validatedError.error.toString())
+      throw new Error('Unexpected data. Check console for further details')
+    }).catch(err => {
+      toast(err.message)
+    })
+
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}drafts/byevent/${eventid}`)
+    .then(r => r.json())
+    .then(data => {
+      const validatedDraftData = z.array(draftSchema).safeParse(data)
+      const validatedError = errorSchema.safeParse(data)
+      if(validatedDraftData.success){
+        setDrafts(validatedDraftData.data)
+        return
+      }
+
+      if(validatedError.success){
+        throw new Error(validatedError.data.errorMessage)
+      }
+
+      console.error(validatedDraftData.error.toString())
       console.error(validatedError.error.toString())
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
@@ -137,6 +160,10 @@ function Event({params}: {params: {eventid: string}}) {
                     )}
                 </>}
             </div>
+
+            <div className="text-[39px] font-bold">{drafts && <>Draft</>}</div>
+            
+            {drafts && drafts.map(draft => <DraftThumbnail draft={draft}/>)}
 
         </>}
     </div>

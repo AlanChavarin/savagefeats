@@ -7,9 +7,10 @@ const Parser = require("rss-parser")
 const Match = require('../models/matchModel')
 const Event = require('../models/eventModel')
 const {Decklist} = require('../models/decklistModel')
+const LiveStream = require('../models/liveStreamModel')
 
 
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 const getAllContent = asyncHandler(async (req, res) => {
     const content = await Content.find()
@@ -174,6 +175,7 @@ const latestInFleshAndBlood = asyncHandler(async (req, res) => {
     //grab latest mansant video
     //grab latest savage lands news video
     //grab latest 3 tournaments
+    //grab live streams
 
     const events = await Event.find({deleted: false}).sort({startDate: -1}).limit(1)
 
@@ -188,7 +190,11 @@ const latestInFleshAndBlood = asyncHandler(async (req, res) => {
 
     arr.sort((a, b) => a.publishedAt - b.publishedAt)
 
-    const contentVideoIds = arr.map(content => content.videoid)
+    let contentVideoIds = arr.map(content => content.videoid)
+
+    const liveStreams = await LiveStream.find({})
+
+    liveStreams.map(liveStream => contentVideoIds.unshift(liveStream.link))
     
     res.status(200)
     res.json({

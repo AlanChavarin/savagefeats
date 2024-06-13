@@ -21,6 +21,9 @@ export const eventSchema = z.object({
     notATypicalTournamentStructure: z.boolean().optional(),
     dayRoundArr: z.union([z.array(z.number()), z.null(), z.array(z.null())]).optional(),
     top8Day: z.boolean().optional(),
+    signUpLink: z.string().optional(),
+    liveStream: z.string().optional(),
+    venue: z.string().optional(),
 })
 
 export const deckSchema = z.object({
@@ -88,6 +91,21 @@ export const userSchema = z.object({
     name: z.string(),
     privilege: z.string(),
     verified: z.boolean(),
+})
+
+export const liveStreamSchema = z.object({
+    link: z.string()
+})
+
+export const draftSchema = z.object({
+    _id: z.string(),
+    top8: z.boolean(),
+    swissRound: z.union([z.number(), z.null()]).optional(),
+    twitch: z.boolean().optional(),
+    twitchTimeStamp: z.union([z.string(), z.null(), z.undefined()]).optional(),
+    link: z.string(),
+    timeStamp: z.union([z.number(), z.null(), z.undefined()]).optional(),
+    event: eventSchema,
 })
 
 

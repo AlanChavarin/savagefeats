@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler')
 const Event = require('../models/eventModel')
 const Match = require('../models/matchModel')
 const wordWrapper = require('../helpers/wordWrapper')
+const { Decklist } = require('../models/draftModel')
 //const {postEventEdit} = require('./eventEditHistoryController')
 //const {handleImageFiles, handleImageDeletion} = require('./abstractions/cloudinaryHelper')
 
@@ -214,6 +215,7 @@ const updateEvent = asyncHandler(async (req, res) => {
 
     //update embedded events in match data
     await Match.updateMany({'event._id': event._id}, {event: event}, {runValidators: true, new: true})
+    await Decklist.updateMany({'event._id': event._id}, {event: event}, {runValidators: true, new: true})
 
     res.status(200)
     res.json(event)

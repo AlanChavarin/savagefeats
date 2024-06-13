@@ -31,6 +31,8 @@ app.use(express.urlencoded({extended: false}))
 app.use('/api/events', require('./routes/eventRoutes'))
 app.use('/api/matches', require('./routes/matchRoutes'))
 app.use('/api/decklists', require('./routes/decklistRoutes'))
+app.use('/api/drafts', require('./routes/draftRoutes'))
+
 
 app.use('/api/names', require('./routes/nameRoutes'))
 app.use('/api/heroes', require('./routes/heroRoutes'))
@@ -40,6 +42,8 @@ app.use('/api/content', require('./routes/contentRoutes'))
 app.use('/api/contentcreators', require('./routes/contentCreatorRoutes'))
 
 app.use('/api/reports', require('./routes/reportRoutes'))
+
+app.use('/api/livestreams', require('./routes/liveStreamRoutes'))
 
 app.use(errorHandler)
 

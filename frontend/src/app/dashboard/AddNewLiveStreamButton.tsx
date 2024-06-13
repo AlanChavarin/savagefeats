@@ -8,14 +8,16 @@ import { faX } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { contentCreatorSchema, errorSchema } from "../schemas/schemas"
 import { toast } from "react-toastify"
+import getYoutubeParams from "../eyeofophidia/helpers/YoutubeParams"
 
 const formSchema = z.object({
-    channelid: z.string()
+    videoLink: z.string(),
+    link: z.string()
 })
 
 type FormFields = z.infer<typeof formSchema>
 
-function AddNewContentCreatorButton({grabContentCreators}: {grabContentCreators: () => void}) {
+function AddNewLiveStreamButton() {
 
     const [editMode, setEditMode] = useState<boolean>(false)
 
@@ -25,7 +27,7 @@ function AddNewContentCreatorButton({grabContentCreators}: {grabContentCreators:
 
     const onSubmit: SubmitHandler<FormFields> = async (data) => { 
     
-        const url = `${process.env.NEXT_PUBLIC_BACKEND_API}contentcreators`
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_API}livestreams`
     
         await fetch(url, {
           method: 'POST',
@@ -41,8 +43,7 @@ function AddNewContentCreatorButton({grabContentCreators}: {grabContentCreators:
           const validatedError = errorSchema.safeParse(data)
           if(validatedData.success){
             console.log(validatedData.data)
-            toast(`Content creator edit success for: ${validatedData.data.title}`)
-            grabContentCreators()
+            toast(`live stream post success for: ${validatedData.data.title}`)
             return
           }
     
@@ -56,10 +57,18 @@ function AddNewContentCreatorButton({grabContentCreators}: {grabContentCreators:
         }).catch(err => {
           toast(err.message)
         })
-
-        //get new updated data
-        grabContentCreators()
     }
+
+    const videoLinkOnChange = () => {
+      const params = getYoutubeParams(getValues('videoLink'))
+      setValue('link', params.id)
+    }
+
+    useEffect(() => {
+      if(editMode){
+        reset()
+      }
+    }, [])
 
   return (
     <div className="flex flex-col gap-[8px]">
@@ -67,9 +76,11 @@ function AddNewContentCreatorButton({grabContentCreators}: {grabContentCreators:
     
         { editMode ?
             <form onSubmit={handleSubmit(onSubmit)} className=" bg-white border-[1px] border-black py-[8px] px-[16px] box-shadow-extra-small font-bold gap-[16px] flex flex-col relative">
-                <div className="text-center">Add New Content Creator Form</div>
+                <div className="text-center">Post Live Stream Form</div>
 
-                <BasicTextInput register={register} placeholder="youtube channel id" name="channelid" label="Youtube Channel Id:" required={true} />
+                <BasicTextInput register={register} placeholder="full link (not required)" name="videoLink" label="Youtube Channel Id:" required={true} onChange={videoLinkOnChange}/>
+
+                <BasicTextInput register={register} placeholder="youtube ID" name="link" label="Youtube Channel Id:" required={true} />
 
                 {/* absolute elements */}
                 <button type="button" onClick={() => setEditMode(false)} className="absolute top-[8px] right-[8px] border-[1px] border-black bg-gray-200 hover:bg-gray-400 w-[24px] h-[24px] text-[13px] box-shadow-extra-small ">
@@ -81,11 +92,11 @@ function AddNewContentCreatorButton({grabContentCreators}: {grabContentCreators:
                 </button>
             </form>
             :
-            <button onClick={() => setEditMode(!editMode)} type="button" className="bg-white hover:bg-gray-200 border-[1px] border-black w-fit flex flex-col justify-center items-center px-[8px] cursor-pointer mt-[8px]relative l gap-[4px]">+ Add new content creator</button>
+            <button onClick={() => setEditMode(!editMode)} type="button" className="bg-white hover:bg-gray-200 border-[1px] border-black w-fit flex flex-col justify-center items-center px-[8px] cursor-pointer mt-[8px]relative l gap-[4px]">+ Add live stream</button>
             
         }
 
     </div>
   )
 }
-export default AddNewContentCreatorButton
+export default AddNewLiveStreamButton

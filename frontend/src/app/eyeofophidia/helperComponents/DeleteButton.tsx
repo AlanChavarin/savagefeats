@@ -8,8 +8,6 @@ function DeleteButton({warningText, deleteAction}: {warningText: string, deleteA
 
     const [popup, setPopup] = useState<Boolean>(false)
 
-
-
   return (
     <div  className="box-shadow-extra-small bg-red-600 hover:bg-red-800 border-[1px] border-black cursor-pointer w-[24px] h-[24px] flex justify-center items-center relative">
         <FontAwesomeIcon icon={faTrash} className="text-white" onClick={() => setPopup(true)}/>

@@ -55,6 +55,9 @@ function Sidebar({buttonClickEvent} : {buttonClickEvent: () => void}) {
           <Link href="/eyeofophidia/postdeck" className="hover:text-custom-primary">
             Post Deck
           </Link>
+          <Link href="/eyeofophidia/postdeck" className="hover:text-custom-primary">
+            Post Draft
+          </Link>
           <Link href="/logout" className='text-white hover:text-custom-primary'>
             Logout
           </Link>

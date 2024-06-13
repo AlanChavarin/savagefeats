@@ -10,6 +10,7 @@ import { errorSchema, contentCreatorSchema } from "../schemas/schemas"
 import { toast } from "react-toastify"
 import BasicTextInput from "../eyeofophidia/helperComponents/BasicTextInput"
 import DeleteButton from "../eyeofophidia/helperComponents/DeleteButton"
+import sleep from './sleep'
 
 const formSchema = z.object({
     featured: z.boolean(),
@@ -37,9 +38,9 @@ function ContentCreatorComponent({contentCreator, grabContentCreators}: {content
     }, [editMode])
 
     const onSubmit: SubmitHandler<FormFields> = async (data) => { 
-        const url = `${process.env.NEXT_PUBLIC_BACKEND_API}contentcreator/updatecontentcreatornonyoutubedata/${contentCreator._id}`
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_API}contentcreators/updatecontentcreatornonyoutubedata/${contentCreator._id}`
     
-        fetch(url, {
+        await fetch(url, {
           method: 'PUT',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -52,9 +53,7 @@ function ContentCreatorComponent({contentCreator, grabContentCreators}: {content
           const validatedData = contentCreatorSchema.safeParse(data)
           const validatedError = errorSchema.safeParse(data)
           if(validatedData.success){
-            console.log(validatedData.data)
             toast(`Content creator edit success for: ${validatedData.data.title}`)
-            //get new updated data
             return
           }
     
@@ -65,19 +64,18 @@ function ContentCreatorComponent({contentCreator, grabContentCreators}: {content
           console.error(validatedData.error.toString())
           console.error(validatedError.error.toString())
           throw new Error('Unexpected data. Check console for further details')
-        })
-        .then(() => {
-          grabContentCreators()
         }).catch(err => {
           toast(err.message)
         })
 
-        
+        grabContentCreators()
     }
 
 
     const deleteAction = () => {
+
       const url = `${process.env.NEXT_PUBLIC_BACKEND_API}contentcreators/${contentCreator._id}`
+
       fetch(url, {
         method: 'DELETE',
         headers: {
@@ -87,12 +85,14 @@ function ContentCreatorComponent({contentCreator, grabContentCreators}: {content
       })
       .then(r => r.json())
       .then(data => {
-        console.log(data)
         const validatedData = contentCreatorSchema.safeParse(data)
         const validatedError = errorSchema.safeParse(data)
         if(validatedData.success){
+          grabContentCreators()
           console.log(validatedData.data.title + ' Successfully deleted')
           toast(validatedData.data.title + ' Successfully deleted')
+
+          return
         }
   
         if(validatedError.success){
@@ -102,9 +102,6 @@ function ContentCreatorComponent({contentCreator, grabContentCreators}: {content
         console.error(validatedData.error?.toString())
         console.error(validatedError.error.toString())
         throw new Error('Unexpected contentcreator data. Check console for further details')
-      })
-      .then(() => {
-        grabContentCreators()
       }).catch(err => {
         toast(err.message)
       })
