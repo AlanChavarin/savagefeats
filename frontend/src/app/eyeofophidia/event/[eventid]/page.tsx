@@ -161,7 +161,7 @@ function Event({params}: {params: {eventid: string}}) {
                 </>}
             </div>
 
-            <div className="text-[39px] font-bold">{drafts && <>Draft</>}</div>
+            <div className="text-[39px] font-bold">{drafts && drafts.length > 0 && <>Draft</>}</div>
             
             {drafts && drafts.map(draft => <DraftThumbnail draft={draft} key={draft._id}/>)}
 

@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler')
 const Event = require('../models/eventModel')
 const Match = require('../models/matchModel')
 const wordWrapper = require('../helpers/wordWrapper')
-const { Decklist } = require('../models/draftModel')
+const { Decklist } = require('../models/decklistModel')
 //const {postEventEdit} = require('./eventEditHistoryController')
 //const {handleImageFiles, handleImageDeletion} = require('./abstractions/cloudinaryHelper')
 
@@ -165,7 +165,6 @@ const postEvent = asyncHandler(async (req, res) => {
 
 const updateEvent = asyncHandler(async (req, res) => {
 
-    console.log(1)
 
     if(!req.body.backgroundPosition){
         delete req.body.backgroundPosition
