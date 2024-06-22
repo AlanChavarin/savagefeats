@@ -152,6 +152,7 @@ const postEvent = asyncHandler(async (req, res) => {
         dayRoundArr: req.body.dayRoundArr,
         description: req.body.description,
         notATypicalTournamentStructure: req.body.notATypicalTournamentStructure,
+        twitch: req.body.twitch,
         // image: req.body.image,
         // bigImage: req.body.bigImage,
         backgroundPosition: req.body.backgroundPosition,
@@ -254,14 +255,16 @@ const updateEvent = asyncHandler(async (req, res) => {
 const deleteEvent = asyncHandler(async (req, res) => {
     //const oldEvent = await Event.findById(req.params.eventid)
     //const deletionName = oldEvent.name + crypto.randomUUID()
-    const event = await Event.findByIdAndUpdate(
-        req.params.eventid,
-        {
-            deleted: true,
-            //name: deletionName,
-        },
-        { new: true },
-    )
+    // const event = await Event.findByIdAndUpdate(
+    //     req.params.eventid,
+    //     {
+    //         deleted: true,
+    //         //name: deletionName,
+    //     },
+    //     { new: true },
+    // )
+
+    const event = await Event.findByIdAndDelete(req.params.eventid)
 
     if(!event){
         res.status(400)
@@ -272,17 +275,17 @@ const deleteEvent = asyncHandler(async (req, res) => {
     res.json(event)
 })
 
-const restoreEvent = asyncHandler(async (req, res) => {
-    const event = await Event.findByIdAndUpdate(req.params.eventid, {deleted: false}, {new: true})
+// const restoreEvent = asyncHandler(async (req, res) => {
+//     const event = await Event.findByIdAndUpdate(req.params.eventid, {deleted: false}, {new: true})
 
-    if(!event){
-        res.status(400)
-        throw new Error('event not found')
-    }
+//     if(!event){
+//         res.status(400)
+//         throw new Error('event not found')
+//     }
 
-    res.status(200)
-    res.json(event)
-})
+//     res.status(200)
+//     res.json(event)
+// })
 
 // const deleteBackgroundImage = asyncHandler(async (req, res) => {
 //     await handleImageDeletion(req.body.image, req.body.bigImage)
@@ -299,7 +302,6 @@ module.exports = {
     postEvent,
     updateEvent,
     deleteEvent,
-    restoreEvent,
     getEventNames
     // editBackgroundPosition,
     // getAllBackgroundImageLinks,

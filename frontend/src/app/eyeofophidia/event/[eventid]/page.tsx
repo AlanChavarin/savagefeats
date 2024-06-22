@@ -33,8 +33,8 @@ function Event({params}: {params: {eventid: string}}) {
         throw new Error(validatedError.data.errorMessage)
       }
 
-      console.error(validatedEventData.error)
-      console.error(validatedError.error)
+      console.error(validatedEventData.error.toString())
+      console.error(validatedError.error.toString())
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
       toast(err.message)
@@ -43,7 +43,7 @@ function Event({params}: {params: {eventid: string}}) {
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}matches/byevent/${eventid}`)
     .then(r => r.json())
     .then(data => {
-        console.log(data)
+      //console.log(data)
       const validatedMatchData = z.array(matchSchema).safeParse(data)
       const validatedError = errorSchema.safeParse(data)
       if(validatedMatchData.success){
@@ -86,7 +86,7 @@ function Event({params}: {params: {eventid: string}}) {
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}decklists/byevent/${eventid}`)
     .then(r => r.json())
     .then(data => {
-        console.log(data)
+      //console.log(data)
       const validatedDecklistData = z.array(deckSchema).safeParse(data)
       const validatedError = errorSchema.safeParse(data)
       if(validatedDecklistData.success){
@@ -98,8 +98,8 @@ function Event({params}: {params: {eventid: string}}) {
         throw new Error(validatedError.data.errorMessage)
       }
 
-      console.error(validatedDecklistData.error)
-      console.error(validatedError.error)
+      console.error(validatedDecklistData.error.toString())
+      console.error(validatedError.error.toString())
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
       toast(err.message)
@@ -115,21 +115,35 @@ function Event({params}: {params: {eventid: string}}) {
 
             {/* <div className="text-[39px] font-bold">Matches:</div>  */}
 
+            {event.liveStream && (!matches || matches.length === 0) && !event.twitch &&
+              <div className="w-[660px] h-[360px]">
+                <div className="relative w-[100%] pb-[56.25%] h-[0%] box-shadow">
+                  <iframe className="absolute w-[100%] h-[100%]" src={`https://www.youtube-nocookie.com/embed/${event.liveStream}`} title="YouTube video player" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                </div>
+              </div>
+            }
+
+            {event.liveStream && (!matches || matches.length === 0) && event.twitch &&
+              <div className="w-[660px] h-[360px]">
+                <div className="relative w-[100%] pb-[56.25%] h-[0%] box-shadow">
+                  <iframe className="absolute w-[100%] h-[100%]" src={`https://player.twitch.tv/?video=${event.liveStream}&parent=${process.env.NODE_ENV==='production' ? 'www.eyeofophidia.net' : 'localhost'}`}></iframe>
+                </div>
+              </div>
+            }
+
+            
+
             {event.dayRoundArr && event.endDate ? 
                 <>
                     {event.dayRoundArr.map((_, i) => 
                       <>
                         <div className="text-[30px] md:text-[39px] font-bold">Day {i+1}:</div>
                         <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
-
                         <div className="flex flex-row flex-wrap gap-[24px] justify-center">
-                            {/* @ts-ignore */}
-                            {/* {matches && matches.slice((arr[i-1] ? arr[i-1] : 0), num).map(match => 
-                                <MatchThumbnail match={match} key={match._id}/>
-                            )} */}
-
                             {matches && matches.filter(match => filter(match, i, event))
-                                .map((match) => (<MatchThumbnail key={match._id} match={match}/>))}
+                                .map(match => (
+                                  <MatchThumbnail key={match._id} match={match}/>
+                                ))}
                             {matches && (matches.filter(match => filter(match, i, event)).length < 1) && <>No Vods Available :{'('}</>}
                         </div>
                       </>
@@ -144,14 +158,34 @@ function Event({params}: {params: {eventid: string}}) {
                     </div>
                 </>
                 :
-                <div className="flex flex-row flex-wrap gap-[24px] justify-center">
-                    {matches && matches.map(match => 
-                        <MatchThumbnail match={match} key={match._id}/>
-                    )}
-                </div>
+                <>
+                  {(matches && matches.filter(match => !match.top8).length > 0) && <>
+                    <div className="text-[30px] md:text-[39px] font-bold">Swiss</div>
+                    <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
+                  </>}
+                  <div className="flex flex-row flex-wrap gap-[24px] justify-center">
+                      {matches && matches.filter(match => !match.top8).map(match => 
+                          <MatchThumbnail match={match} key={match._id}/>
+                      )}
+                  </div>
+
+                  {(matches && matches.filter(match => match.top8).length > 0) && <>
+                    <div className="text-[30px] md:text-[39px] font-bold">Top Cut</div>
+                    <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
+                  </>}
+
+                  <div className="flex flex-row flex-wrap gap-[24px] justify-center">
+                      {matches && matches.filter(match => match.top8).map(match => 
+                          <MatchThumbnail match={match} key={match._id}/>
+                      )}
+                  </div>
+                </>
             }
 
-            {decks && decks.length > 0 && <div className="text-[39px] font-bold">Decklists</div>} 
+            {decks && decks.length > 0 && <>
+              <div className="text-[39px] font-bold text-center">Decklists</div>
+              <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
+            </>} 
 
             <div className="grid grid-cols-1 lg:grid-cols-2 flex-wrap gap-[24px] w-[90%] md:w-fit">
                 {decks && <>
@@ -161,9 +195,32 @@ function Event({params}: {params: {eventid: string}}) {
                 </>}
             </div>
 
-            <div className="text-[39px] font-bold">{drafts && drafts.length > 0 && <>Draft</>}</div>
+            
+            {(drafts && drafts.length > 0) && 
+              <>
+                <div className="text-[39px] font-bold text-center">Draft</div>
+                <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
+              </>
+            }
             
             {drafts && drafts.map(draft => <DraftThumbnail draft={draft} key={draft._id}/>)}
+
+            {decks && decks.length > 0 && <>
+              <div className="text-[39px] font-bold text-center">Related Content</div>
+              <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
+            </>} 
+
+            <div className={`grid grid-cols-1 lg:grid-cols-${decks?.filter(deck => deck.deckTech).length === 1 ? '1' : '2'} flex-wrap gap-[24px] w-[90%] md:w-fit`}>
+                {decks && <>
+                  {decks.filter(deck => deck.deckTech).map(deck => 
+                      <div className="w-[330px] h-[180px]">
+                        <div className="relative w-[100%] pb-[56.25%] h-[0%] box-shadow">
+                          <iframe className="absolute w-[100%] h-[100%]" src={`https://www.youtube-nocookie.com/embed/${deck.deckTech}`} title="YouTube video player" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                        </div>
+                      </div>
+                  )}
+                </>}
+            </div>
 
         </>}
     </div>

@@ -43,7 +43,7 @@ function Login() {
             if(validatedData.success){
                 localStorage.setItem('token', validatedData.data.token)
                 initUser()
-                toast('Login Successful!')
+                toast.success('Login Successful!')
                 return
             }
 
@@ -55,7 +55,7 @@ function Login() {
             console.error(validatedError.error)
             throw new Error('Unexpected data. Check console for further details')
         }).catch(err => {
-            toast(err.message)
+            toast.error(err.message)
             setError("root", {
                 message: err.message,
             })

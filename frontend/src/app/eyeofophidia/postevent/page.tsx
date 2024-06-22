@@ -15,6 +15,8 @@ import { toast } from "react-toastify"
 import { useRouter } from "next/navigation"
 import { useSearchParams } from "next/navigation"
 import DeleteButton from "../helperComponents/DeleteButton"
+import { getTwitchParams } from "../helpers/TwitchParams"
+import getYoutubeParams from "../helpers/YoutubeParams"
 
 const formSchema = z.object({
   name: z.string().min(3),
@@ -27,6 +29,13 @@ const formSchema = z.object({
   notATypicalTournamentStructure: z.boolean(),
   dayRoundArr: z.array(z.union([z.coerce.number().positive(), z.null(), z.undefined()])),
   top8Day: z.boolean(),
+  officialDetails: z.string().optional(),
+  liveStream: z.string().optional(),
+  twitch: z.boolean().optional(),
+
+  //dummy fields that the backend doesnt actually accept
+  videolink: z.string().optional(),
+
 })
 
 type FormFields = z.infer<typeof formSchema>
@@ -81,6 +90,8 @@ function Postevent() {
     
   }, [watch('startDate'), watch('endDate')])
 
+  // ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT  ONSUBMIT 
+
   const onSubmit: SubmitHandler<FormFields> = async (data) => { 
 
     const eventid = searchParams.get('eventid')
@@ -93,6 +104,10 @@ function Postevent() {
 
     if(getValues('notATypicalTournamentStructure')){
       data.dayRoundArr = []
+    }
+
+    if(getValues('twitch') === undefined){
+      data.liveStream = ''
     }
 
     const url = `${process.env.NEXT_PUBLIC_BACKEND_API}events/${eventid ? eventid : ''}`
@@ -111,7 +126,7 @@ function Postevent() {
       const validatedError = errorSchema.safeParse(data)
       if(validatedData.success){
         console.log(validatedData.data)
-        toast(`Post Event Success for ${validatedData.data._id}`)
+        toast.success(`Post Event Success for ${validatedData.data._id}`)
         router.push(`event/${validatedData.data._id}`)
         return
       }
@@ -124,7 +139,7 @@ function Postevent() {
       console.error(validatedError.error)
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
-      toast(err.message)
+      toast.success(err.message)
     })
 
   }
@@ -169,7 +184,7 @@ function Postevent() {
         const validatedData = eventSchema.safeParse(data)
         const validatedError = errorSchema.safeParse(data)
         if(validatedData.success){
-          const {name, location, format, tier, official, startDate, endDate, notATypicalTournamentStructure, dayRoundArr, top8Day} = validatedData.data
+          const {name, location, format, tier, official, startDate, endDate, notATypicalTournamentStructure, dayRoundArr, top8Day, twitch, liveStream, officialDetails} = validatedData.data
 
           if(endDate){
             setMultiDayToggle(true)
@@ -185,7 +200,10 @@ function Postevent() {
             endDate: endDate ? endDate.slice(0, 10) : undefined, 
             notATypicalTournamentStructure: notATypicalTournamentStructure ? notATypicalTournamentStructure : false, 
             dayRoundArr: dayRoundArr ? dayRoundArr : undefined, 
-            top8Day: top8Day ? top8Day : false
+            top8Day: top8Day ? top8Day : false,
+            twitch,
+            liveStream,
+            officialDetails
           })
 
           return
@@ -199,7 +217,7 @@ function Postevent() {
         console.error(validatedError.error.toString())
         throw new Error('Unexpected event name data. Check console for further details')
       }).catch(err => {
-        toast(err.message)
+        toast.error(err.message)
       })
     }
    }, [])
@@ -217,10 +235,12 @@ function Postevent() {
     .then(r => r.json())
     .then(data => {
       const validatedError = errorSchema.safeParse(data)
-      if(data.status.toString()[0] === '2'){
+      const validatedData = eventSchema.safeParse(data)
+      if(validatedData.success){
         console.log(eventid + ' Successfully deleted')
-        toast(eventid + ' Successfully deleted')
+        toast.success(eventid + ' Successfully deleted')
         router.push(`/eyeofophidia/events`)
+        return
       }
 
       if(validatedError.success){
@@ -237,6 +257,20 @@ function Postevent() {
       setValue('tier', undefined)
     }
   }, [watch('official')])
+
+  const videoLinkOnChange = () => {
+    if(getValues('twitch')){
+      //@ts-ignore
+      const params = getTwitchParams(getValues('videolink') ? getValues('videolink') : '')
+      setValue('liveStream', params.id)
+    } else {
+      //@ts-ignore
+      const params = getYoutubeParams(getValues('videolink') ? getValues('videolink') : '')
+      setValue('liveStream', params.id)
+    }
+  }
+
+  // JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX 
 
   return (
     <div className="flex-1 flex justify-center items-start my-[32px]">
@@ -351,6 +385,19 @@ function Postevent() {
         }
         
         {(watch('top8Day') && watch('startDate') && watch('endDate') && !watch('notATypicalTournamentStructure') && multiDayToggle) && <div>Reserved for top 8</div>}
+
+        <BasicTextInput label="Event Information/Signup link:" register={register} name='officialDetails' placeholder='' required={false}/>
+
+        <div className="flex flex-col">
+          <label>Livestream Platform:</label>
+          <CustomRadio options={{'Youtube': false, 'Twitch': true, 'None': undefined}} form={form} name="twitch"/>
+        </div>
+
+        { getValues('twitch') !== undefined && <>
+          <BasicTextInput placeholder='' name='videolink' label='Video Link: ' register={register} required={false} onChange={videoLinkOnChange}/>
+
+          <BasicTextInput placeholder='' name='liveStream' label={`${watch('twitch') ? 'twitch' : 'youtube'} id: `} register={register} required={true}/>
+        </>}
 
         <button disabled={isSubmitting} type="submit" className="bg-custom-primary hover:bg-custom-primaryHover py-[8px] px-[48px] mt-[16px] self-center border-[1px] border-black box-shadow-extra-small">
           {isSubmitting ? "Submitting..." : "Submit"}

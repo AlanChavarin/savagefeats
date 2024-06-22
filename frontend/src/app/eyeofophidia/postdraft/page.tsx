@@ -74,7 +74,7 @@ function Postdraft() {
       const validatedError = errorSchema.safeParse(data)
       if(validatedData.success){
         console.log(validatedData.data)
-        toast(`Post Draft Success for ${validatedData.data._id}`)
+        toast.success(`Post Draft Success for ${validatedData.data._id}`)
         if(actionAfterSubmit === 'RESET_FORM'){
           resetField('videolink')
           resetField('link')
@@ -97,7 +97,7 @@ function Postdraft() {
       console.error(validatedError.error.toString())
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
-      toast(err.message)
+      toast.error(err.message)
     })
 
   }
@@ -154,7 +154,7 @@ function Postdraft() {
         console.error(validatedError.error)
         throw new Error('Unexpected event name data. Check console for further details')
       }).catch(err => {
-        toast(err.message)
+        toast.error(err.message)
       })
     }
 
@@ -179,7 +179,7 @@ function Postdraft() {
       console.error(validatedError.error)
       throw new Error('Unexpected event name data. Check console for further details')
     }).catch(err => {
-      toast(err.message)
+      toast.error(err.message)
     })
   }, [])
 
@@ -211,7 +211,7 @@ function Postdraft() {
       const validatedError = errorSchema.safeParse(data)
       if(validatedData.success){
         console.log(draftid + ' Successfully deleted')
-        toast(draftid + ' Successfully deleted')
+        toast.success(draftid + ' Successfully deleted')
         router.push(`event/${validatedData.data.event._id}`)
       }
 

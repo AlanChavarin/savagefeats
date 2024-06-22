@@ -41,7 +41,7 @@ function Match({params}: {params: {matchid: string}}) {
       console.error(validatedError.error)
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
-      toast(err.message)
+      toast.error(err.message)
     })
   }, [params])
 
@@ -95,7 +95,31 @@ function Match({params}: {params: {matchid: string}}) {
               </>
             }
 
-            {!(match.player1deckData || match.player2deckData) && <div className="text-[16px] text-gray-400">Decklists Unavailable </div>}
+            <div className="text-[23px] font-bold">Related Content: </div>
+
+            {match.player1deckData?.deckTech && 
+              <>
+                {/* video container */}
+                <div className="flex-1 w-[100%]">
+                  <div className="relative w-[100%] pb-[56.25%] h-[0%] box-shadow">
+                    <iframe className="absolute w-[100%] h-[100%]" src={`https://www.youtube-nocookie.com/embed/${match.player1deckData.deckTech}`} title="YouTube video player" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                  </div>
+                </div>
+              </>
+            }
+
+            {match.player2deckData?.deckTech && 
+              <>
+                {/* video container */}
+                <div className="flex-1 w-[100%]">
+                  <div className="relative w-[100%] pb-[56.25%] h-[0%] box-shadow">
+                    <iframe className="absolute w-[100%] h-[100%]" src={`https://www.youtube-nocookie.com/embed/${match.player2deckData.deckTech}`} title="YouTube video player" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                  </div>
+                </div>
+              </>
+            }
+
+            {!(match.player1deckData || match.player2deckData) && <div className="text-[16px] text-gray-400">Decklists Unavailable</div>}
 
           </div>}
       </div>

@@ -53,7 +53,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
                 throw new Error('unexpected data error')
             })
             .catch(err => {
-                toast(err.message)
+                toast.error(err.message)
                 console.log(err.message)
             })
         }

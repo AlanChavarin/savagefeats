@@ -49,7 +49,7 @@ const getDecklists = asyncHandler(async (req, res) => {
     }
 
     if(req.query?.deckTech === 'true'){
-        find["deckTech"] = { "$ne": null }
+        find["deckTech"] = { "$nin": [null, ""] }
     }
 
     //date range filter

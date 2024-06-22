@@ -59,7 +59,7 @@ function Postmatch() {
       const validatedData = deckSchema.safeParse(data)
       const validatedError = errorSchema.safeParse(data)
       if(validatedData.success){
-        toast(`${deckid ? 'Update' : 'Post'} Deck Success for ${validatedData.data._id}`)
+        toast.success(`${deckid ? 'Update' : 'Post'} Deck Success for ${validatedData.data._id}`)
         resetField('playerName')
         resetField('hero')
         resetField('decklistLink')
@@ -76,7 +76,7 @@ function Postmatch() {
       console.error(validatedError.error.toString())
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
-      toast(err.message)
+      toast.error(err.message)
     })
 
   }
@@ -85,9 +85,16 @@ function Postmatch() {
 
     const deckid = searchParams.get('deckid')
     const eventName = searchParams.get('eventname')
+    const lastFormat = searchParams.get('lastFormat')
     
     if(eventName && !deckid){
       setValue('event', eventName)
+    }
+
+    if(lastFormat){
+      if(lastFormat === 'Classic Constructed' || lastFormat === 'Blitz' || lastFormat === 'Living Legend'){
+        setValue('format', lastFormat)
+      }
     }
 
     if(deckid){
@@ -100,7 +107,7 @@ function Postmatch() {
         const validatedData = deckSchema.safeParse(data)
         const validatedError = errorSchema.safeParse(data)
         if(validatedData.success){
-          const {event, format, playerName, placement, placementRangeEnding, hero, decklistLink} = validatedData.data
+          const {event, format, playerName, placement, placementRangeEnding, hero, decklistLink, deckTech} = validatedData.data
           reset({
             event: event && event.name, 
             format, 
@@ -108,7 +115,8 @@ function Postmatch() {
             hero,
             placement, 
             placementRangeEnding,
-            decklistLink
+            decklistLink,
+            deckTech
           })
           return
         }
@@ -121,7 +129,7 @@ function Postmatch() {
         console.error(validatedError.error)
         throw new Error('Unexpected event name data. Check console for further details')
       }).catch(err => {
-        toast(err.message)
+        toast.success(err.message)
       })
     }
 
@@ -146,7 +154,7 @@ function Postmatch() {
       console.error(validatedError.error)
       throw new Error('Unexpected event name data. Check console for further details')
     }).catch(err => {
-      toast(err.message)
+      toast.error(err.message)
     })
   }, [])
 
@@ -166,7 +174,7 @@ function Postmatch() {
       const validatedError = errorSchema.safeParse(data)
       if(validatedData.success){
         console.log(deckid + ' Successfully deleted')
-        toast(deckid + ' Successfully deleted')
+        toast.success(deckid + ' Successfully deleted')
         router.push(`/eyeofophidia/decks`)
       }
 
@@ -237,7 +245,7 @@ function Postmatch() {
 
         <BasicTextInput placeholder='' name='videoLink' label='Deck Tech Link: ' register={register} required={false} onChange={videoLinkOnChange}/>
 
-        <BasicTextInput placeholder='' name='deckTech' label="Tech Deck Video ID" register={register} required={true}/>
+        <BasicTextInput placeholder='' name='deckTech' label="Deck Tech Video ID" register={register} required={false}/>
 
         <div className="flex flex-row">
           <label>Placement: &nbsp;</label>

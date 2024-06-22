@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {getEvent, getEvents, postEvent, updateEvent, deleteEvent, restoreEvent, getEventNames} = require('../controllers/eventController')
+const {getEvent, getEvents, postEvent, updateEvent, deleteEvent, getEventNames} = require('../controllers/eventController')
 const {protect, protectModerator} = require('../middleware/authMiddleware')
 // const asyncHandler = require('express-async-handler')
 // const multer = require('multer')
@@ -42,6 +42,6 @@ router.put('/:eventid', protect, protectModerator, updateEvent)
 
 router.delete('/:eventid', protect, protectModerator, deleteEvent)
 
-router.put('/:eventid', protect, protectModerator, restoreEvent)
+//router.put('/:eventid', protect, protectModerator, restoreEvent)
 
 module.exports = router

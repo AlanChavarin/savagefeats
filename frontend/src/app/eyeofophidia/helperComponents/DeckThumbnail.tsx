@@ -74,13 +74,19 @@ function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featu
     }
 
     { (size === 'matchPage') && 
-        <a href={deck.decklistLink} target="_blank" className='bg-white box-shadow w-full h-[64px] flex hover:bg-gray-50 cursor-pointer'>
+        <a href={deck.decklistLink} target="_blank" className='relative bg-white box-shadow w-full h-[64px] flex hover:bg-gray-50 cursor-pointer'>
             <div className='h-[64px] w-[64px]' style={{backgroundImage: `url('/heroes/${heroUrlHelper(deck.hero)}.jpg')`, backgroundSize: '180%', backgroundPosition: `center -10px`}}></div>
             <div className='flex flex-col h-full flex-1 p-[8px] justify-around relative'>
                 <div className='text-[13px] font-bold'>{deck?.hero}</div>
-                <div className='text-[13px] text-gray-600 flex flex-row justify-between'>{deck?.playerName}</div>
+                <div className='text-[13px] text-gray-600'>
+                    {deck?.playerName}
+                    {deck.deckTech && <> -&nbsp;<a target="_blank" href={`https://www.youtube.com/watch?v=${deck.deckTech}`} className="hover:text-purple-500 underline">Deck Tech</a></>}
+                </div>
 
                 <FontAwesomeIcon icon={faSquareArrowUpRight} className='absolute top-[8px] right-[8px]'/>
+            </div>
+            <div className="absolute bottom-[8px] right-[8px]">
+                {user && <EditButton text='' tiny={true} link={`/eyeofophidia/postdeck?deckid=${deck._id}`} />}
             </div>
         </a>
     }

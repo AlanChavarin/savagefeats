@@ -29,6 +29,7 @@ const eventSchema = mongoose.Schema({
     officialDetails: String,
     signUpLink: String,
     liveStream: String,
+    twitch: Boolean,
     startDate: Date,
     endDate: Date,
     //for tournaments that don't follow a typical tournament structure, for example leagues that are 1 game a week
@@ -36,7 +37,7 @@ const eventSchema = mongoose.Schema({
     dayRoundArr: [Number],
     top8Day: Boolean,
     backgroundPosition: Number,
-    deleted: Boolean,
+    deleted: Boolean
 
     //description: String,
     //image: String,

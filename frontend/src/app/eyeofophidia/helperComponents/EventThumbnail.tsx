@@ -17,13 +17,13 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
   const {user} = useContext(UserContext)
 
   return (<>
-
     {(size==='eventPage') && 
-      <div className={`relative h-[200px] md:h-[280px] w-[100%] flex flex-col justify-start items-center box-shadow text-white text-shadow-small hover:cursor-pointer`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `center 0px`}}>
+    <>
+      <div className={`relative h-[200px] md:h-[280px] w-[100%] flex flex-col justify-start items-center box-shadow text-white text-shadow-small`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `center 0px`}}>
 
         <div className='bg-black bg-opacity-60 w-full font-bold p-[8px] text-[24px] md:text-[40px] flex justify-center items-center'>{event.name}</div>
 
-        <div className='flex flex-col gap-[8px] font-bold text-[16px] md:text-[19px] self-start p-[8px] w-[100%] items-center'>
+        <div className='flex flex-col gap-[8px] font-bold text-[16px] md:text-[19px] self-start p-[8px] w-[100%] h-[100%] items-center'>
             <div className="flex flex-row">{
               event.format.map((format, i) => <div key={i}>
                 {i>0 && <>&nbsp;+ </>}
@@ -32,23 +32,39 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
             </div>
             <div>{event.startDate && event.startDate.slice(0,10)} {event.endDate && ' - ' + event.endDate.slice(0, 10)}</div>
             <div>{event.location}</div>
-            <div className='text-[11px] text-center *:underline'>
-              {event.officialDetails && <><a href={event.officialDetails}>Official Details</a>{' - '}</>}
-              {event.signUpLink && <><a href={event.signUpLink}>Signup Link</a>{' - '}</>}
-              {event.liveStream && <><a href={event.liveStream}>Live Stream</a></>}
+            <div className='text-center *:underline text-[16px] md:text-[19px] justify-self-end'>
+              {event.officialDetails && <><a href={event.officialDetails} target="_blank" className="hover:text-purple-500">Official Details</a></>}
+
+              {event.officialDetails && event.signUpLink && <>{' - '}</>}
+
+              {event.signUpLink && <><a href={event.signUpLink} target="_blank" className="hover:text-purple-500">Signup Link</a></>}
+
+              {event.signUpLink && event.liveStream && <>{' - '}</>}
+
+              {event.liveStream && <><a href={event.twitch ? `https://www.twitch.com/${event.liveStream}` : `https://www.youtube.com/watch?v=${event.liveStream}`} target="_blank" className="hover:text-purple-500">Live Stream</a></>}
+
             </div>
         </div>
  
         {user && 
-          <div className="absolute flex flex-row gap-[8px] bottom-[12px] right-[12px]">
+          <div className="hidden absolute sm:flex flex-row gap-[8px] bottom-[12px] right-[12px]">
             <EditButton text="Edit Event" link={`/eyeofophidia/postevent?eventid=${event._id}`} />
             <EditButton text="Post Match" link={`/eyeofophidia/postmatch?eventname=${event.name}&lastRound=${lastRound}&lastFormat=${lastFormat}&lastTwitch=${lastTwitch}`} />
-            <EditButton text="Post Deck" link={`/eyeofophidia/postdeck?eventname=${event.name}`} />
+            <EditButton text="Post Deck" link={`/eyeofophidia/postdeck?eventname=${event.name}&lastFormat=${lastFormat}`} />
             <EditButton text="Post Draft" link={`/eyeofophidia/postdraft?eventname=${event.name}&lastRound=${lastRound}&lastFormat=${lastFormat}&lastTwitch=${lastTwitch}`} />
           </div>
         }
         
       </div>
+      {user && 
+        <div className="sm:hidden grid grid-cols-2 gap-[8px]">
+          <EditButton text="Edit Event" link={`/eyeofophidia/postevent?eventid=${event._id}`} />
+          <EditButton text="Post Match" link={`/eyeofophidia/postmatch?eventname=${event.name}&lastRound=${lastRound}&lastFormat=${lastFormat}&lastTwitch=${lastTwitch}`} />
+          <EditButton text="Post Deck" link={`/eyeofophidia/postdeck?eventname=${event.name}`} />
+          <EditButton text="Post Draft" link={`/eyeofophidia/postdraft?eventname=${event.name}&lastRound=${lastRound}&lastFormat=${lastFormat}&lastTwitch=${lastTwitch}`} />
+        </div>
+      }
+    </>
     }
 
     {(size==='normal' || size==='matchPage') && 
@@ -74,7 +90,6 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
         </div>
       </Link>
     }
-
 
     {(size==='smallSlide') && 
       <Link href={`/eyeofophidia/event/${event._id}`} className='flex flex-col justify-start items-center h-full w-full box-shadow text-white text-shadow-small cursor-pointer' style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `center`}}>

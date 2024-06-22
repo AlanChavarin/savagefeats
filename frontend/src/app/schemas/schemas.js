@@ -23,6 +23,7 @@ export const eventSchema = z.object({
     top8Day: z.boolean().optional(),
     signUpLink: z.string().optional(),
     liveStream: z.string().optional(),
+    twitch: z.boolean().optional(),
     venue: z.string().optional(),
 })
 
