@@ -134,6 +134,25 @@ const postEvent = asyncHandler(async (req, res) => {
         req.body.format = JSON.parse("[" + req.body.format + "]")
     }
 
+    const date = new Date()
+    const currentDate = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()))
+    let happeningNow = false
+
+    if(req.body.startDate && req.body.endDate){
+        const startDate = new Date(req.body.startDate)
+        const endDate = new Date(req.body.endDate)
+
+        if(startDate <= currentDate && endDate >= currentDate){
+            happeningNow = true
+        }
+    } else if(req.body.startDate){
+        const startDate = new Date(req.body.startDate)
+        if(startDate.toString() === currentDate.toString()){
+            happeningNow = true
+        }
+    }
+
+
     const event = await Event.create({
         name: req.body.name,
         location: req.body.location,
@@ -157,6 +176,7 @@ const postEvent = asyncHandler(async (req, res) => {
         // bigImage: req.body.bigImage,
         backgroundPosition: req.body.backgroundPosition,
         deleted: false,
+        happeningNow
     })
 
     //postEventEdit(event, req.user._id)
@@ -166,7 +186,6 @@ const postEvent = asyncHandler(async (req, res) => {
 
 const updateEvent = asyncHandler(async (req, res) => {
 
-
     if(!req.body.backgroundPosition){
         delete req.body.backgroundPosition
     }
@@ -174,8 +193,6 @@ const updateEvent = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('Event with that id does not exist or has been deleted')
     }
-
-    
 
     // if(req.files?.image && req.files?.bigImage && req.body.resetImage !== 'true'){
     //     //call cloudinary helper function that takes the files, handles upload, and returns the image links
@@ -191,6 +208,25 @@ const updateEvent = asyncHandler(async (req, res) => {
     //     delete req.body.image
     //     delete req.body.bigImage
     // }
+
+    const date = new Date()
+    const currentDate = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()))
+    req.body.happeningNow = false
+
+    if(req.body.startDate && req.body.endDate){
+        const startDate = new Date(req.body.startDate)
+        const endDate = new Date(req.body.endDate)
+
+        if(startDate <= currentDate && endDate >= currentDate){
+            req.body.happeningNow = true
+        }
+    } else if(req.body.startDate){
+        const startDate = new Date(req.body.startDate)
+        if(startDate.toString() === currentDate.toString()){
+            console.log(1)
+            req.body.happeningNow = true
+        }
+    }
 
     if(typeof(req.body.dayRoundArr)==='string'){
         req.body.dayRoundArr = JSON.parse("[" + req.body.dayRoundArr + "]")
@@ -296,13 +332,61 @@ const deleteEvent = asyncHandler(async (req, res) => {
 //     res.json({message: 'images deleted'})
 // })
 
+const checkIfHappeningNow = asyncHandler(async (req, res) => {
+    const date = new Date()
+    const currentDate = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()))
+
+    const eventsHappeningNow = await Event.updateMany(
+        {"$or": [
+            {startDate: {'$lte': currentDate}, endDate: {'$gte': currentDate}},
+            {startDate: currentDate}
+        ]}, 
+        {
+            happeningNow: true
+        },
+        {
+            runValidators: true, 
+            new: true
+        }
+    )
+
+    const eventsNotHappeningAnymore = await Event.updateMany(
+        {
+            happeningNow: true,
+            "$or": [
+                {startDate: {'$gte': currentDate}, endDate: {'$lte': currentDate}},
+                {startDate: {'$ne': currentDate}}
+            ]
+        },
+        {
+            happeningNow: false
+        },
+        {
+            runValidators: true, 
+            new: true
+        }
+    )
+    
+    //.limit(10).sort({startDate: -1})
+
+    res.status(200)
+    res.json({
+        eventsHappeningNow,
+        eventsNotHappeningAnymore
+    })
+
+    // const startOfDay = new Date(currentDate.setHours(0, 0, 0, 0))
+    // const endOfDay = new Date(currentDate.setHours(23, 59, 59, 999))
+})
+
 module.exports = {
     getEvent,
     getEvents,
     postEvent,
     updateEvent,
     deleteEvent,
-    getEventNames
+    getEventNames,
+    checkIfHappeningNow
     // editBackgroundPosition,
     // getAllBackgroundImageLinks,
     // deleteBackgroundImage

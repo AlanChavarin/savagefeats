@@ -37,7 +37,8 @@ const eventSchema = mongoose.Schema({
     dayRoundArr: [Number],
     top8Day: Boolean,
     backgroundPosition: Number,
-    deleted: Boolean
+    deleted: Boolean,
+    happeningNow: Boolean,
 
     //description: String,
     //image: String,

@@ -28,7 +28,8 @@ const config: Config = {
           dark: '#0F0F0F',
           whiteHover: '#e8e8e8',
           gray: '#A1A1A1',
-          grayHover: '#8c8c8c'
+          grayHover: '#8c8c8c',
+          red: '#FF0000'
         },
       },
       fontFamily: {

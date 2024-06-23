@@ -21,14 +21,12 @@ const responseEventSchema = z.object({
 export default function Home() {
 
   const [events, setEvents] = useState<eventSchemaType[] | undefined>(undefined)
-  const [decks, setDecks] = useState<deckSchemaType[] | undefined>(undefined)
-  //const [channelData, setChannelData] = useState<any>(undefined)
   const [creators, setCreators] = useState<contentCreatorSchemaType[] | undefined>(undefined)
 
   useEffect(() => {
 
     //grab latest events
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events`)
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events?&limit=9`)
     .then(r => r.json())
     .then(data => {
       const validatedData = responseEventSchema.safeParse(data)

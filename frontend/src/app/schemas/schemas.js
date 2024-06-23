@@ -25,6 +25,7 @@ export const eventSchema = z.object({
     liveStream: z.string().optional(),
     twitch: z.boolean().optional(),
     venue: z.string().optional(),
+    happeningNow: z.boolean().optional(),
 })
 
 export const deckSchema = z.object({

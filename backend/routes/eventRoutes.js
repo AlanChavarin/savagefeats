@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {getEvent, getEvents, postEvent, updateEvent, deleteEvent, getEventNames} = require('../controllers/eventController')
+const {getEvent, getEvents, postEvent, updateEvent, deleteEvent, getEventNames, checkIfHappeningNow} = require('../controllers/eventController')
 const {protect, protectModerator} = require('../middleware/authMiddleware')
 // const asyncHandler = require('express-async-handler')
 // const multer = require('multer')
@@ -25,6 +25,8 @@ const {protect, protectModerator} = require('../middleware/authMiddleware')
 // router.delete('/deletebackgroundimage', protect, protectModerator, deleteBackgroundImage)
 
 // router.get('/getallbackgroundimagelinks', getAllBackgroundImageLinks)
+
+router.get('/checkifhappeningnow', checkIfHappeningNow)
 
 router.get('/', getEvents)
 
