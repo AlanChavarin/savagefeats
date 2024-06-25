@@ -127,8 +127,6 @@ const getDecklist = asyncHandler(async (req, res) => {
 const postDecklist = asyncHandler(async (req, res) => {
     const {playerName, decklistLink, placement, placementRangeEnding, format, hero, event, deckTech} = req.body
 
-
-
     let eventData
 
     if(event){
@@ -183,6 +181,10 @@ const postDecklist = asyncHandler(async (req, res) => {
         },
         {runValidators: true, new: true})
 
+    }
+
+    if(eventData.emptyEvent){
+        eventData = await Event.findByIdAndUpdate(eventData._id, {emptyEvent: false}, {runValidators: true, new: true})
     }
     
 

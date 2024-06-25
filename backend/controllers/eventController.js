@@ -3,16 +3,22 @@ const Event = require('../models/eventModel')
 const Match = require('../models/matchModel')
 const wordWrapper = require('../helpers/wordWrapper')
 const { Decklist } = require('../models/decklistModel')
+const getTodaysDate = require('../helpers/getTodaysDate')
 //const {postEventEdit} = require('./eventEditHistoryController')
 //const {handleImageFiles, handleImageDeletion} = require('./abstractions/cloudinaryHelper')
 
 const getEvent = asyncHandler(async (req, res) => {
     if(!req.recyclebin){req.recyclebin = false}
-    const event = await Event.findOne({_id: req.params.eventid, deleted: req.recyclebin})
+    let event = await Event.findOne({_id: req.params.eventid, deleted: req.recyclebin})
     if(!event){
         res.status(400)
         throw new Error('Event with that id not found')
     }
+
+    const date = getTodaysDate()
+
+    event.todaysDate = date
+
     res.status(200)
     res.json(event)
 })
@@ -79,6 +85,10 @@ const getEvents = asyncHandler(async (req, res) => {
         find["official"] = req.query.official === 'true'
     }
 
+    if(req.query?.streamed){
+        find["streamed"] = req.query.streamed === 'true'
+    }
+
     if(req.query?.tier){
         find["tier"] = Number(req.query.tier)
     }
@@ -99,10 +109,16 @@ const getEvents = asyncHandler(async (req, res) => {
 
     const eventsQuery = await Event.aggregate(pipeline)
 
-    const data = {
+    const date = getTodaysDate()
+
+    let data = {
         "events": eventsQuery[0].events,
         "count": eventsQuery[0].count[0]?.count ? eventsQuery[0].count[0]?.count : 0
     }
+
+    data.events.map(event => {
+        event.todaysDate = date
+    })
 
     res.status(200)
     res.json(data)
@@ -134,23 +150,23 @@ const postEvent = asyncHandler(async (req, res) => {
         req.body.format = JSON.parse("[" + req.body.format + "]")
     }
 
-    const date = new Date()
-    const currentDate = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()))
-    let happeningNow = false
+    //const date = new Date()
+    ///const currentDate = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()))
+    //let happeningNow = false
 
-    if(req.body.startDate && req.body.endDate){
-        const startDate = new Date(req.body.startDate)
-        const endDate = new Date(req.body.endDate)
+    // if(req.body.startDate && req.body.endDate){
+    //     const startDate = new Date(req.body.startDate)
+    //     const endDate = new Date(req.body.endDate)
 
-        if(startDate <= currentDate && endDate >= currentDate){
-            happeningNow = true
-        }
-    } else if(req.body.startDate){
-        const startDate = new Date(req.body.startDate)
-        if(startDate.toString() === currentDate.toString()){
-            happeningNow = true
-        }
-    }
+    //     if(startDate <= currentDate && endDate >= currentDate){
+    //         happeningNow = true
+    //     }
+    // } else if(req.body.startDate){
+    //     const startDate = new Date(req.body.startDate)
+    //     if(startDate.toString() === currentDate.toString()){
+    //         happeningNow = true
+    //     }
+    // }
 
 
     const event = await Event.create({
@@ -176,7 +192,8 @@ const postEvent = asyncHandler(async (req, res) => {
         // bigImage: req.body.bigImage,
         backgroundPosition: req.body.backgroundPosition,
         deleted: false,
-        happeningNow
+        //happeningNow,
+        streamed: req.body.streamed
     })
 
     //postEventEdit(event, req.user._id)
@@ -209,24 +226,24 @@ const updateEvent = asyncHandler(async (req, res) => {
     //     delete req.body.bigImage
     // }
 
-    const date = new Date()
-    const currentDate = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()))
-    req.body.happeningNow = false
+    // const date = new Date()
+    // const currentDate = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()))
+    // req.body.happeningNow = false
 
-    if(req.body.startDate && req.body.endDate){
-        const startDate = new Date(req.body.startDate)
-        const endDate = new Date(req.body.endDate)
+    // if(req.body.startDate && req.body.endDate){
+    //     const startDate = new Date(req.body.startDate)
+    //     const endDate = new Date(req.body.endDate)
 
-        if(startDate <= currentDate && endDate >= currentDate){
-            req.body.happeningNow = true
-        }
-    } else if(req.body.startDate){
-        const startDate = new Date(req.body.startDate)
-        if(startDate.toString() === currentDate.toString()){
-            console.log(1)
-            req.body.happeningNow = true
-        }
-    }
+    //     if(startDate <= currentDate && endDate >= currentDate){
+    //         req.body.happeningNow = true
+    //     }
+    // } else if(req.body.startDate){
+    //     const startDate = new Date(req.body.startDate)
+    //     if(startDate.toString() === currentDate.toString()){
+    //         console.log(1)
+    //         req.body.happeningNow = true
+    //     }
+    // }
 
     if(typeof(req.body.dayRoundArr)==='string'){
         req.body.dayRoundArr = JSON.parse("[" + req.body.dayRoundArr + "]")
@@ -332,52 +349,52 @@ const deleteEvent = asyncHandler(async (req, res) => {
 //     res.json({message: 'images deleted'})
 // })
 
-const checkIfHappeningNow = asyncHandler(async (req, res) => {
-    const date = new Date()
-    const currentDate = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()))
+// const checkIfHappeningNow = asyncHandler(async (req, res) => {
+//     const date = new Date()
+//     const currentDate = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()))
 
-    const eventsHappeningNow = await Event.updateMany(
-        {"$or": [
-            {startDate: {'$lte': currentDate}, endDate: {'$gte': currentDate}},
-            {startDate: currentDate}
-        ]}, 
-        {
-            happeningNow: true
-        },
-        {
-            runValidators: true, 
-            new: true
-        }
-    )
+//     const eventsHappeningNow = await Event.updateMany(
+//         {"$or": [
+//             {startDate: {'$lte': currentDate}, endDate: {'$gte': currentDate}},
+//             {startDate: currentDate}
+//         ]}, 
+//         {
+//             happeningNow: true
+//         },
+//         {
+//             runValidators: true, 
+//             new: true
+//         }
+//     )
 
-    const eventsNotHappeningAnymore = await Event.updateMany(
-        {
-            happeningNow: true,
-            "$or": [
-                {startDate: {'$gte': currentDate}, endDate: {'$lte': currentDate}},
-                {startDate: {'$ne': currentDate}}
-            ]
-        },
-        {
-            happeningNow: false
-        },
-        {
-            runValidators: true, 
-            new: true
-        }
-    )
+//     const eventsNotHappeningAnymore = await Event.updateMany(
+//         {
+//             happeningNow: true,
+//             "$or": [
+//                 {startDate: {'$gte': currentDate}, endDate: {'$lte': currentDate}},
+//                 {startDate: {'$ne': currentDate}}
+//             ]
+//         },
+//         {
+//             happeningNow: false
+//         },
+//         {
+//             runValidators: true, 
+//             new: true
+//         }
+//     )
     
-    //.limit(10).sort({startDate: -1})
+//     //.limit(10).sort({startDate: -1})
 
-    res.status(200)
-    res.json({
-        eventsHappeningNow,
-        eventsNotHappeningAnymore
-    })
+//     res.status(200)
+//     res.json({
+//         eventsHappeningNow,
+//         eventsNotHappeningAnymore
+//     })
 
-    // const startOfDay = new Date(currentDate.setHours(0, 0, 0, 0))
-    // const endOfDay = new Date(currentDate.setHours(23, 59, 59, 999))
-})
+//     // const startOfDay = new Date(currentDate.setHours(0, 0, 0, 0))
+//     // const endOfDay = new Date(currentDate.setHours(23, 59, 59, 999))
+// })
 
 module.exports = {
     getEvent,
@@ -386,7 +403,7 @@ module.exports = {
     updateEvent,
     deleteEvent,
     getEventNames,
-    checkIfHappeningNow
+    //checkIfHappeningNow
     // editBackgroundPosition,
     // getAllBackgroundImageLinks,
     // deleteBackgroundImage

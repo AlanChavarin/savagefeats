@@ -24,6 +24,7 @@ const formSchema = z.object({
   format: z.array(z.enum(['Classic Constructed', 'Blitz', 'Draft', 'Sealed', 'Living Legend', 'Mixed'])).min(1),
   tier: z.number().optional(),
   official: z.boolean(),
+  streamed: z.boolean(),
   startDate: z.string().min(1),
   endDate: z.string().optional(),
   notATypicalTournamentStructure: z.boolean(),
@@ -56,6 +57,7 @@ function Postevent() {
       dayRoundArr: [],
       top8Day: false,
       notATypicalTournamentStructure: false,
+      streamed: false,
     }
   })
 
@@ -184,7 +186,7 @@ function Postevent() {
         const validatedData = eventSchema.safeParse(data)
         const validatedError = errorSchema.safeParse(data)
         if(validatedData.success){
-          const {name, location, format, tier, official, startDate, endDate, notATypicalTournamentStructure, dayRoundArr, top8Day, twitch, liveStream, officialDetails} = validatedData.data
+          const {name, location, format, tier, official, startDate, endDate, notATypicalTournamentStructure, dayRoundArr, top8Day, twitch, liveStream, officialDetails, streamed} = validatedData.data
 
           if(endDate){
             setMultiDayToggle(true)
@@ -203,7 +205,8 @@ function Postevent() {
             top8Day: top8Day ? top8Day : false,
             twitch,
             liveStream,
-            officialDetails
+            officialDetails,
+            streamed
           })
 
           return
@@ -310,6 +313,11 @@ function Postevent() {
           <CustomRadio options={{'Official': true, 'Unofficial': false}} form={form} name="official"/>
         </div>
 
+        <div className="flex flex-col">
+          <label>Streamed/Recorded? <span className="text-red-500">*</span></label>
+          <CustomRadio options={{'Yes': true, 'No': false}} form={form} name="streamed"/>
+        </div>
+
         {/* Select event tier */}
         { watch('official') && 
           <div className="flex flex-col gap-[8px]" >
@@ -388,12 +396,16 @@ function Postevent() {
 
         <BasicTextInput label="Event Information/Signup link:" register={register} name='officialDetails' placeholder='' required={false}/>
 
-        <div className="flex flex-col">
-          <label>Livestream Platform:</label>
-          <CustomRadio options={{'Youtube': false, 'Twitch': true, 'None': undefined}} form={form} name="twitch"/>
-        </div>
+        {watch('streamed') && 
+          <div className="flex flex-col">
+            <label>Livestream Platform:</label>
+            <CustomRadio options={{'Youtube': false, 'Twitch': true, 'None': undefined}} form={form} name="twitch"/>
+          </div>
+        }
 
-        { getValues('twitch') !== undefined && <>
+        
+
+        { getValues('twitch') !== undefined && getValues('streamed') === true && <>
           <BasicTextInput placeholder='' name='videolink' label='Video Link: ' register={register} required={false} onChange={videoLinkOnChange}/>
 
           <BasicTextInput placeholder='' name='liveStream' label={`${watch('twitch') ? 'twitch' : 'youtube'} id: `} register={register} required={true}/>

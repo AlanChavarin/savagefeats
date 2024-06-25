@@ -9,6 +9,9 @@ import { eventSchema, errorSchema } from "@/app/schemas/schemas"
 import { z } from "zod"
 import Pagination from "../helperComponents/Pagination"
 import EventThumbnail from "../helperComponents/EventThumbnail"
+import { checkIfHappeningNow, checkIfFuture, checkIfPast } from "../helpers/checkIfHappeningNow"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons"
 
 const responseSchema = z.object({
   count: z.number(),
@@ -22,6 +25,11 @@ function Events() {
   const [events, setEvents] = useState<eventSchemaType[] | undefined>()
   const [count, setCount] = useState<number | undefined>()
   const searchParams = useSearchParams()
+
+  const [pastEventsDropdown, setPastEventsDropdown] = useState<boolean>(true)
+  const [futureEventsDropdown, setFutureEventsDropdown] = useState<boolean>(true)
+  const [currentEventsDropdown, setCurrentEventsDropdown] = useState<boolean>(true)
+
 
   useEffect(() => {
     if(searchParams.get('query') === 'true'){
@@ -61,14 +69,76 @@ function Events() {
       <Title subheader="Events"/>
       <EventSearchForm />
 
-      {/* event thumbnail container */}
-      <div className="flex flex-row flex-wrap gap-[24px] justify-center">
-        {events && events.map(event => <div key={event._id}>
-            <EventThumbnail event={event} size={"normal"}/>
-          </div>
-        )}
-        {(count===0) && <div>No Events Found :{'('}</div>}
-      </div>
+      {/* event thumbnail container for past events */}
+      {events &&
+        <div className="flex flex-col gap-[32px] items-center">
+          {/* current events */}
+          {!searchParams.get('pastEventsOnly') && events.filter(event => checkIfHappeningNow(event)).length > 0 && <>
+            <div className="flex flex-col gap-[16px] items-center cursor-pointer" onClick={() => setCurrentEventsDropdown(!currentEventsDropdown)}>
+              <div className="text-[39px] font-bold text-center flex flex-row gap-[16px] items-center select-none">
+                Happening Now 
+                <FontAwesomeIcon icon={currentEventsDropdown ? faCaretDown : faCaretUp}/>
+              </div>
+              <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
+            </div>
+            { currentEventsDropdown && 
+              <div className="flex flex-row flex-wrap gap-[24px] justify-center">
+                {events.filter(event => checkIfHappeningNow(event)).map(event => <div key={event._id}>
+                    <EventThumbnail event={event} size={"normal"}/>
+                  </div>
+                )}
+              </div>
+            }
+            
+          </>}
+          
+
+          {/* future events */}
+          {!searchParams.get('pastEventsOnly') && events.filter(event => checkIfFuture(event)).length > 0 && <>
+            <div className="flex flex-col gap-[16px] items-center cursor-pointer" onClick={() => setFutureEventsDropdown(!futureEventsDropdown)}>
+              <div className="text-[39px] font-bold text-center flex flex-row gap-[16px] items-center select-none">
+                Future Events
+                <FontAwesomeIcon icon={futureEventsDropdown ? faCaretDown : faCaretUp}/>
+              </div>
+              <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
+            </div>
+            {futureEventsDropdown &&
+              <div className="flex flex-row flex-wrap gap-[24px] justify-center">
+                {events.filter(event => checkIfFuture(event)).map(event => <div key={event._id}>
+                    <EventThumbnail event={event} size={"normal"}/>
+                  </div>
+                )}
+              </div>
+            }
+          </>
+          }
+          
+
+          {/* past events */}
+          {events.filter(event => checkIfPast(event)).length > 0 && <>
+            <div className="flex flex-col gap-[16px] items-center cursor-pointer" onClick={() => setPastEventsDropdown(!pastEventsDropdown)}>
+              <div className="text-[39px] font-bold text-center flex flex-row gap-[16px] items-center select-none">
+                Past Events
+                <FontAwesomeIcon icon={pastEventsDropdown ? faCaretDown : faCaretUp}/>
+              </div>
+              <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
+            </div>
+            {pastEventsDropdown && 
+              <div className="flex flex-row flex-wrap gap-[24px] justify-center">
+                {events.filter(event => checkIfPast(event)).map(event => <div key={event._id}>
+                    <EventThumbnail event={event} size={"normal"}/>
+                  </div>
+                )}
+              </div>
+            }
+          </>
+            
+          }
+
+          {(count===0) && <div>No Events Found :{'('}</div>}
+          
+        </div>
+      }
 
       <Pagination count={count} limit={limit}/>
     </div>

@@ -200,7 +200,7 @@ const postMatch = asyncHandler(async (req, res) => {
         player2name, player2hero, player2deck,
         format, event, twitch, twitchTimeStamp, link, timeStamp, description, top8, swissRound, top8Round, date
     } = req.body
-    const eventData = await Event.findOne({name: event})
+    let eventData = await Event.findOne({name: event})
     if(top8 === 'true' || top8){
         delete req.body.swissRound
     } else {
@@ -243,6 +243,14 @@ const postMatch = asyncHandler(async (req, res) => {
         date: date,
         deleted: false
     })
+
+    if(!eventData.streamed){
+        eventData = await Event.findByIdAndUpdate(eventData._id, {streamed: true}, {runValidators: true, new: true})
+    }
+
+    if(eventData.emptyEvent){
+        eventData = await Event.findByIdAndUpdate(eventData._id, {emptyEvent: false}, {runValidators: true, new: true})
+    }
 
     //postMatchEdit(match, req.user._id)
 

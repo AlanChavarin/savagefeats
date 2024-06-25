@@ -39,6 +39,12 @@ const eventSchema = mongoose.Schema({
     backgroundPosition: Number,
     deleted: Boolean,
     happeningNow: Boolean,
+    streamed: Boolean,
+    todaysDate: Date,
+    emptyEvent: {
+        type: Boolean,
+        default: true
+    }
 
     //description: String,
     //image: String,

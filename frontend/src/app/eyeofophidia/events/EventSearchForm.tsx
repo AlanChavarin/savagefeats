@@ -1,6 +1,6 @@
 'use client'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faMagnifyingGlass, faGear } from "@fortawesome/free-solid-svg-icons"
+import { faMagnifyingGlass, faGear, faCheck } from "@fortawesome/free-solid-svg-icons"
 import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from "zod"
@@ -16,10 +16,12 @@ const formSchema = z.object({
   endDate: z.string().optional(),
   format: z.enum(['Classic Constructed', 'Blitz', 'Living Legend', 'Draft', 'Sealed', 'Mixed', '']).optional(),
   tier: z.number().optional(),
+  streamed: z.boolean().optional(),
   official: z.boolean().optional(),
   order: z.number().optional(),
   page: z.number().optional(),
   limit: z.number().optional(),
+  pastEventsOnly: z.boolean().optional()
 })
 
 type FormFields = z.infer<typeof formSchema>
@@ -47,6 +49,10 @@ function EventSearchForm(){
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     if(data.order === -1){
       delete data.order
+    }
+
+    if(data.pastEventsOnly === false){
+      delete data.pastEventsOnly
     }
 
     const filteredData = Object.fromEntries(
@@ -85,7 +91,7 @@ function EventSearchForm(){
 
       {/* dropdown parameters */}
       {settings && 
-        <div className="relative font-bold flex flex-col gap-[16px] items-start md:items-center bg-white border-[1px] border-black w-[90%] px-[16px] md:px-[0px] pt-[16px] pb-[24px]" style={{boxShadow: "2px 2px black"}}>
+        <div className="relative font-bold flex flex-col gap-[16px] items-start md:items-center bg-white border-[1px] border-black w-[91%] px-[16px] md:px-[0px] pt-[16px] pb-[24px]" style={{boxShadow: "2px 2px black"}}>
           {/* date range  */}
           <div className="flex flex-col gap-[8px] md:items-center md:flex-row">
             <div>Date Range: </div>
@@ -121,6 +127,24 @@ function EventSearchForm(){
           <div className="flex flex-col gap-[8px] md:items-center md:flex-row">
             <div>Format: </div>
             <Select placeholder='Format' name='format' form={form} data={['Classic Constructed', 'Blitz', 'Living Legend', 'Draft', 'Sealed', 'Mixed', '']}/>
+          </div>
+
+          {/* select if event was streamed or not */}
+          <div className="flex flex-col gap-[8px] w-[85%] md:items-center md:flex-row md:justify-center">
+            <div className="whitespace-nowrap">Streamed: </div>
+            <CustomRadio options={{
+              'Yes': true,
+              'No': false,
+              'All': undefined
+            }} form={form} name="streamed"/>
+          </div>
+
+          {/* select if past events only */}
+          <div className="flex flex-row gap-[4px] cursor-pointer" onClick={() => {setValue('pastEventsOnly', !watch('pastEventsOnly'))}}>
+            <label>Past Events Only?</label>
+            <div className={`${watch('pastEventsOnly') && 'bg-custom-primary'} box-shadow-extra-small w-[24px] h-[24px] flex justify-center items-center border-[1px] border-black  `}>
+              {watch('pastEventsOnly') && <FontAwesomeIcon icon={faCheck} />}
+            </div>
           </div>
 
           {/* Sort by new/old  */}
