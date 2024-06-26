@@ -8,7 +8,7 @@ import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons
 import EventThumbnail from "@/app/eyeofophidia/helperComponents/EventThumbnail"
 import { eventSchemaType } from "@/app/types/types"
 
-function UpcomingTournamentsSectionSmall({events}: {events: eventSchemaType[] | undefined}) {
+function EventsSectionSmall({events, header}: {events: eventSchemaType[] | undefined, header: string}) {
 
   const [emblaRef, emblaApi] = useEmblaCarousel({startIndex: 1})
 
@@ -28,7 +28,7 @@ function UpcomingTournamentsSectionSmall({events}: {events: eventSchemaType[] | 
 
       <div className='flex justify-between lg:w-[900px] lg:my-[32px]'>
         <div className='text-[13px] md:text-[16px] lg:text-[19px] xl:text-[23px] text-white foulfiend text-shadow'>
-          Latest Tournaments
+          {header}
         </div>
       </div>
 
@@ -37,31 +37,18 @@ function UpcomingTournamentsSectionSmall({events}: {events: eventSchemaType[] | 
 
         <div className="flex gap-[32px]">
 
-          <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
-            {events && <EventThumbnail size='smallSlide' event={events[5]}/>}
-          </div>
-
-          <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
-            {events && <EventThumbnail size='smallSlide' event={events[2]}/>}
-          </div>
-
-          <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
-            {events && <EventThumbnail size='smallSlide' event={events[0]}/>}
-          </div>
-
-          <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
-            {events && <EventThumbnail size='smallSlide' event={events[2]}/>}
-          </div>
-
-          <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
-            {events && <EventThumbnail size='smallSlide' event={events[4]}/>}
-          </div>
+          { events && 
+              events.slice(0, 5).map(event => <>
+                <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
+                  <EventThumbnail size='smallSlide' event={event}/>
+                </div>
+              </>)
+          }
 
         </div>
 
       </div>
       
-
       <div className="flex gap-[16px] items-center">
         <FontAwesomeIcon onClick={() => prevOnClick()} icon={faChevronLeft} className='h-[24px] w-[24px] cursor-pointer'/>
         {scrollSnaps.map((_, index) => (<div key={index}>
@@ -84,4 +71,4 @@ function UpcomingTournamentsSectionSmall({events}: {events: eventSchemaType[] | 
     </div>
   )
 }
-export default UpcomingTournamentsSectionSmall
+export default EventsSectionSmall

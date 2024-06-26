@@ -89,6 +89,14 @@ const getEvents = asyncHandler(async (req, res) => {
         find["streamed"] = req.query.streamed === 'true'
     }
 
+    if(req.query?.emptyEvent === 'true'){
+        find["emptyEvent"] = req.query.emptyEvent === 'true'
+    }
+
+    if(req.query?.emptyEvent === 'false'){
+        find["emptyEvent"] = false
+    }
+
     if(req.query?.tier){
         find["tier"] = Number(req.query.tier)
     }
@@ -122,6 +130,24 @@ const getEvents = asyncHandler(async (req, res) => {
 
     res.status(200)
     res.json(data)
+})
+
+const getCurrentAndFutureEvents = asyncHandler(async (req, res) => {
+    const date = getTodaysDate()
+    const events = await Event.find({
+        '$or': [
+            {
+                "startDate": {"$lte": date},
+                "endDate": {"$gte": date}
+            },
+            {
+                "startDate": {"$gte": date}
+            }
+        ]
+    })
+
+    res.status(200)
+    res.json(events)
 })
 
 const postEvent = asyncHandler(async (req, res) => { 
@@ -403,6 +429,7 @@ module.exports = {
     updateEvent,
     deleteEvent,
     getEventNames,
+    getCurrentAndFutureEvents
     //checkIfHappeningNow
     // editBackgroundPosition,
     // getAllBackgroundImageLinks,

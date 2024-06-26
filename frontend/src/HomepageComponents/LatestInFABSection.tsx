@@ -50,7 +50,6 @@ function LatestInFABSection({backgroundImage} : { backgroundImage: string}) {
         })
     }, [])
 
-
     const [emblaRef, emblaApi] = useEmblaCarousel({
         startIndex: 2
     })

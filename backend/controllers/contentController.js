@@ -9,7 +9,6 @@ const Event = require('../models/eventModel')
 const {Decklist} = require('../models/decklistModel')
 const LiveStream = require('../models/liveStreamModel')
 
-
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 const getAllContent = asyncHandler(async (req, res) => {
@@ -177,6 +176,10 @@ const latestInFleshAndBlood = asyncHandler(async (req, res) => {
     //grab latest 3 tournaments
     //grab live streams
 
+    const decklist = await Decklist.find({deckTech: { "$nin": [null, ""] }}).limit(1).sort({"event.startDate": -1})
+
+    console.log(decklist)
+
     const events = await Event.find({deleted: false}).sort({startDate: -1}).limit(1)
 
     const contentCreators = await ContentCreator.find({featured: true})
@@ -191,6 +194,8 @@ const latestInFleshAndBlood = asyncHandler(async (req, res) => {
     arr.sort((a, b) => a.publishedAt - b.publishedAt)
 
     let contentVideoIds = arr.map(content => content.videoid)
+
+    contentVideoIds.unshift(decklist[0].deckTech)
 
     const liveStreams = await LiveStream.find({})
 

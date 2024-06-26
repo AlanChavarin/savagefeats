@@ -1,7 +1,7 @@
 'use client'
 import HomepageHero from "@/HomepageComponents/HomepageHero"
-import UpcomingTournamentsSectionBig from "@/HomepageComponents/UpcomingTournamentsSectionBig"
-import UpcomingTournamentsSectionSmall from "@/HomepageComponents/UpcomingTournamentsSectionSmall"
+import LatestTournamentSection from "@/HomepageComponents/LatestTournamentSection"
+import UpcomingTournamentSection from "@/HomepageComponents/UpcomingTournamentSection"
 import WinningDecksSection from "@/HomepageComponents/WinningDecksSection"
 
 import { useEffect, useState } from "react"
@@ -17,7 +17,6 @@ const responseEventSchema = z.object({
   events: z.array(eventSchema),
 })
 
-
 export default function Home() {
 
   const [events, setEvents] = useState<eventSchemaType[] | undefined>(undefined)
@@ -26,7 +25,7 @@ export default function Home() {
   useEffect(() => {
 
     //grab latest events
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events?&limit=9`)
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events?&limit=9&emptyEvent=false`)
     .then(r => r.json())
     .then(data => {
       const validatedData = responseEventSchema.safeParse(data)
@@ -77,12 +76,10 @@ export default function Home() {
       {/* section container */}
       <div className='flex flex-col gap-[196px] min-[480px]:gap-[280px] lg:gap-[384px] justify-between py-[64px] md:py-[128px] lg:py-[256px]'>
         <LatestInFABSection backgroundImage={'hvy.PNG'} />
-        {
-          events && <>
-            <div className='block lg:hidden'><UpcomingTournamentsSectionSmall events={events}/></div>
-            <div className='hidden lg:block'><UpcomingTournamentsSectionBig events={events}/></div>
-          </>
-        }
+
+        <UpcomingTournamentSection/>
+        
+        <LatestTournamentSection/>
 
         <WinningDecksSection/>
 

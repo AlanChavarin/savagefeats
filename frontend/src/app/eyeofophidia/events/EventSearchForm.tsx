@@ -33,7 +33,8 @@ function EventSearchForm(){
   const form = useForm<FormFields>({
     resolver: zodResolver(formSchema),
     defaultValues:{
-      order: -1
+      order: -1,
+      streamed: true
     }
   })
 
@@ -62,7 +63,7 @@ function EventSearchForm(){
     // @ts-ignore
     const params = new URLSearchParams(filteredData).toString()
     router.push('events?query=true&' + params)
-}
+  }
 
   return (
     <form className="w-[100%] flex flex-col items-center gap-[0px] text-[18px] max-w-[700px]" onSubmit={handleSubmit(onSubmit)}>

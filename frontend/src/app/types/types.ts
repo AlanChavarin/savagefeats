@@ -1,4 +1,4 @@
-import {errorSchema, eventSchema, matchSchema, heroSchema, deckSchema, contentCreatorSchema, userSchema, draftSchema} from '@/app/schemas/schemas'
+import {errorSchema, eventSchema, matchSchema, heroSchema, deckSchema, contentCreatorSchema, userSchema, draftSchema, reportSchema} from '@/app/schemas/schemas'
 import { z } from 'zod'
 
 export type errorSchemaType = z.infer<typeof errorSchema>
@@ -9,3 +9,4 @@ export type deckSchemaType = z.infer<typeof deckSchema>
 export type userSchemaType = z.infer<typeof userSchema>
 export type contentCreatorSchemaType = z.infer<typeof contentCreatorSchema>
 export type draftSchemaType = z.infer<typeof draftSchema>
+export type reportSchemaType = z.infer<typeof reportSchema>

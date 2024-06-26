@@ -8,7 +8,7 @@ import EventThumbnail from "@/app/eyeofophidia/helperComponents/EventThumbnail"
 import { eventSchemaType } from "@/app/types/types"
 import chunkArray from "./helpers/ChunkArray"
 
-function UpcomingTournamentsSectionBig({events}: {events: eventSchemaType[] | undefined}) {
+function EventsSectionBig({events, header}: {events: eventSchemaType[] | undefined, header: string}) {
 
   const [emblaRef, emblaApi] = useEmblaCarousel({startIndex: 1})
 
@@ -28,7 +28,7 @@ function UpcomingTournamentsSectionBig({events}: {events: eventSchemaType[] | un
 
       <div className='flex justify-between lg:w-[1000px] lg:my-[32px]'>
         <div className='text-[23px]  text-white foulfiend text-shadow'>
-          Latest Tournaments
+          {header}
         </div>
         <a className='hover:text-purple-400  hidden text-[16px] lg:block text-white text-shadow underline' href='eyeofophidia/events'>
           View all Events
@@ -71,7 +71,7 @@ function UpcomingTournamentsSectionBig({events}: {events: eventSchemaType[] | un
     </div>
   )
 }
-export default UpcomingTournamentsSectionBig
+export default EventsSectionBig
 
 
 

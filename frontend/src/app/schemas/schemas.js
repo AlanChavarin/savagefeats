@@ -27,6 +27,7 @@ export const eventSchema = z.object({
     venue: z.string().optional(),
     streamed: z.boolean().optional(),
     todaysDate: z.string().optional(),
+    emptyEvent: z.boolean().optional()
 })
 
 export const deckSchema = z.object({
@@ -110,5 +111,13 @@ export const draftSchema = z.object({
     timeStamp: z.union([z.number(), z.null(), z.undefined()]).optional(),
     event: eventSchema,
 })
+
+export const reportSchema = z.object({
+    _id: z.string(),
+    subject: z.string(),
+    body: z.string(),
+    status: z.string()
+})
+
 
 

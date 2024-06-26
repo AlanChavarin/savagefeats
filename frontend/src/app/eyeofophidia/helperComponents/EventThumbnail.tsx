@@ -43,7 +43,7 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
             <div className='text-center *:underline text-[16px] md:text-[19px] justify-self-end'>
               {event.officialDetails && <><a href={event.officialDetails} target="_blank" className="hover:text-purple-500">Official Details</a></>}
 
-              {event.officialDetails && event.signUpLink && <>{' - '}</>}
+              {event.officialDetails && (event.signUpLink || event.officialDetails) && <>{' - '}</>}
 
               {event.signUpLink && <><a href={event.signUpLink} target="_blank" className="hover:text-purple-500">Signup Link</a></>}
 
@@ -105,7 +105,7 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
     }
 
     {(size==='smallSlide') && 
-      <Link href={`/eyeofophidia/event/${event._id}`} className='flex flex-col justify-start items-center h-full w-full box-shadow text-white text-shadow-small cursor-pointer' style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `center`}}>
+      <Link href={`/eyeofophidia/event/${event._id}`} className={`flex flex-col justify-start items-center h-full w-full box-shadow text-white text-shadow-small cursor-pointer`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `center`}}>
 
           <div className="flex w-full z-[1] pointer-events-none">
             <div className='bg-black bg-opacity-60 min-h-[32px] min-[400px]:min-h-[48px] w-full font-bold text-[16px] min-[400px]:text-[19px] flex justify-center items-center z-[1] text-center'>{event.name}</div>
@@ -134,7 +134,7 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
     }
 
     {(size==='sideSlide') && 
-      <Link href={`/eyeofophidia/event/${event._id}`} className='flex flex-col justify-start items-center h-full w-full box-shadow text-white text-shadow-small cursor-pointer relative' style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `0 0px `}}>
+      <Link href={`/eyeofophidia/event/${event._id}`} className={`flex flex-col justify-start items-center h-full w-full box-shadow text-white text-shadow-small cursor-pointer relative`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `0 0px `}}>
 
           <div className="flex w-full z-[1] pointer-events-none">
             <div className='bg-black bg-opacity-60 min-h-[42px] w-full font-bold text-[19px] flex justify-center items-center text-center'>{event.name}</div>
@@ -157,8 +157,8 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
             </div>
             <div className='z-[1] pointer-events-none'>
               <div className='text-[11px] text-center *:underline'>
-                {event.officialDetails && <><a href={event.officialDetails}>Official Details</a>{' - '}</>}
-                {event.signUpLink && <><a href={event.signUpLink}>Signup Link</a>{' - '}</>}
+                {event.officialDetails && <><a href={event.officialDetails}>Official Details</a></>}
+                {event.signUpLink && <><a href={event.signUpLink}>Signup Link</a></>}
                 {event.liveStream && <><a href={event.liveStream}>Live Stream</a></>}
               </div>
               {event.venue && <div className='text-[7px] text-center'>{event.venue}</div> }
@@ -171,7 +171,7 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
     }
 
     {(size==='featuredSlide') && 
-      <Link href={`/eyeofophidia/event/${event._id}`} className='flex flex-col justify-start h-full w-full box-shadow text-white text-shadow-small cursor-pointer' style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `center`}}>
+      <Link href={`/eyeofophidia/event/${event._id}`} className={`flex flex-col justify-start h-full w-full box-shadow text-white text-shadow-small cursor-pointer`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `center`}}>
 
         <div className="flex w-full z-[1] pointer-events-none">
           <div className='bg-black bg-opacity-60 min-h-[48px] w-full font-bold text-[23px] flex justify-center items-center text-center'>
@@ -189,17 +189,17 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
               <div>{event.streamed && 'Streamed'}</div>
             </div>
             <div className='flex flex-col gap-[8px] z-[1]'>
-              <div className='text-[13px] text-center *:underline'>
-                {event.officialDetails && <><a href={event.officialDetails}>Official Details</a>{' - '}</>}
-                {event.signUpLink && <><a href={event.signUpLink}>Signup Link</a>{' - '}</>}
-                {event.liveStream && <><a href={event.liveStream}>Live Stream</a></>}
+              <div className='text-[16px] text-center *:underline'>
+                {event.officialDetails && <><a className="hover:text-purple-500" href={event.officialDetails}>Official Details</a>{' - '}</>}
+                {event.signUpLink && <><a className="hover:text-purple-500" href={event.signUpLink}>Signup Link</a>{' - '}</>}
+                {event.liveStream && <><a className="hover:text-purple-500" href={event.liveStream}>Live Stream</a></>}
               </div>
               <div className='text-[9px] text-center'>{event.venue}</div>
             </div>
           </div>
 
           {/* absolute positioned elements */}
-          <div className="absolute w-[100%] h-[100%] bg-black opacity-[0%] hover:opacity-[20%]"></div>
+          <div className={`absolute w-[100%] h-[100%] bg-black opacity-[0%] hover:opacity-[20%]`}></div>
 
           
       </Link>
