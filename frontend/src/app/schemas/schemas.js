@@ -116,7 +116,9 @@ export const reportSchema = z.object({
     _id: z.string(),
     subject: z.string(),
     body: z.string(),
-    status: z.string()
+    status: z.string(),
+    createdDate: z.string(),
+    updatedAt: z.string(),
 })
 
 

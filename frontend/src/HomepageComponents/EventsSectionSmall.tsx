@@ -1,11 +1,10 @@
 'use client'
-
 import SectionBackground from "@/components/swiperComponents/SectionBackground"
 import useEmblaCarousel from 'embla-carousel-react'
 import { DotButton, useDotButton } from '../components/swiperComponents/EmblaCarouselDotButton'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
-import EventThumbnail from "@/app/eyeofophidia/helperComponents/EventThumbnail"
+import EventThumbnailSmallSlide from "@/app/eyeofophidia/helperComponents/eventThumbnail/EventThumbnailSmallSlide"
 import { eventSchemaType } from "@/app/types/types"
 
 function EventsSectionSmall({events, header}: {events: eventSchemaType[] | undefined, header: string}) {
@@ -40,7 +39,7 @@ function EventsSectionSmall({events, header}: {events: eventSchemaType[] | undef
           { events && 
               events.slice(0, 5).map(event => <>
                 <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
-                  <EventThumbnail size='smallSlide' event={event}/>
+                  <EventThumbnailSmallSlide event={event}/>
                 </div>
               </>)
           }

@@ -1,8 +1,9 @@
 'use client'
+import { Providers } from '@/app/Providers'
 import { ParallaxBanner } from 'react-scroll-parallax'
 
 function SectionBackground({image, size}: {image: string, size: ('small' | 'medium' | 'big' | 'veryBig')}) {
-  return (<>
+  return (<Providers>
     {
       (size==='small') && 
       <div className='text-white w-full h-[60vw] min-[370px]:h-[256px] lg:h-[384px] skew-y-[-3deg] lg:skew-y-[-2deg] absolute top-[0px] bottom-[0px] z-[-1]'>
@@ -38,7 +39,7 @@ function SectionBackground({image, size}: {image: string, size: ('small' | 'medi
         </ParallaxBanner>
       </div>
     }
-  </>)
+  </Providers>)
 }
 export default SectionBackground
 

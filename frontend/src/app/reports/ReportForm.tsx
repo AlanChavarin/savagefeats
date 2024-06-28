@@ -2,12 +2,11 @@
 import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useState, useEffect} from "react"
 import { toast } from "react-toastify"
-import { useRouter } from "next/navigation"
 import BasicTextInput from "../eyeofophidia/helperComponents/BasicTextInput"
 import { errorSchema, reportSchema } from "../schemas/schemas"
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
+
 
 const formSchema = z.object({
     subject: z.string().min(1),
@@ -17,14 +16,13 @@ const formSchema = z.object({
 type FormFields = z.infer<typeof formSchema>
 
 
-function report() {
+function ReportForm() {
 
     const form = useForm<FormFields>({resolver: zodResolver(formSchema),})
 
     const { register, handleSubmit, setValue, getValues, reset, resetField, formState: {errors, isSubmitting}} = form
 
     const { executeRecaptcha } = useGoogleReCaptcha()
-
 
 
     const onSubmit: SubmitHandler<FormFields> = async (data) => { 
@@ -74,39 +72,43 @@ function report() {
     }
 
   return (
-    <div className="flex-1 flex justify-center items-start my-[32px]">
-        <form onSubmit={handleSubmit(onSubmit)} className="relative font-bold flex flex-col gap-[8px] items-start bg-white border-[1px] border-black w-[90%] px-[16px] pt-[16px] pb-[24px] box-shadow-extra-small max-w-[450px]">
+      <div className="flex-1 flex justify-center items-start my-[32px]">
+          <form onSubmit={handleSubmit(onSubmit)} className="relative font-bold flex flex-col gap-[8px] items-start bg-white border-[1px] border-black w-[90%] px-[16px] pt-[16px] pb-[24px] box-shadow-extra-small max-w-[450px]">
 
-            {Object.keys(errors).map((key) => {
-            // @ts-ignore
-            const error = errors[key as keyof FormData] 
-            return (
-                <div key={key} className="text-red-500">
-                {key}: {error?.message}
-                </div>
-            )
-            })}
+              {Object.keys(errors).map((key) => {
+              // @ts-ignore
+              const error = errors[key as keyof FormData] 
+              return (
+                  <div key={key} className="text-red-500">
+                  {key}: {error?.message}
+                  </div>
+              )
+              })}
 
-            <BasicTextInput placeholder='' name='subject' label='Subject: ' register={register} required={true}/>
+              <div>
+                Please let us know if there is an error in our site's data or a missing event you would like us to catalouge. Add any information you would like us to add/fix. We really appreciate your contributions to savagefeats.com!
+              </div>
+
+              <BasicTextInput placeholder='' name='subject' label='Subject: ' register={register} required={true}/>
 
 
-            <div className="flex flex-col w-[100%]">
-                <label>Body: <span className="text-red-500">*</span></label>
-                <textarea rows={8} {...register('body')} className=" flex flex-row items-center bg-white border-[1px] border-black px-[8px] py-[0px] focus:outline-none hover:cursor-text box-shadow-extra-small focus:border-[2px]" placeholder={'Body Text'}/>
-            </div>
+              <div className="flex flex-col w-[100%]">
+                  <label>Body: <span className="text-red-500">*</span></label>
+                  <textarea rows={8} {...register('body')} className=" flex flex-row items-center bg-white border-[1px] border-black px-[8px] py-[0px] focus:outline-none hover:cursor-text box-shadow-extra-small focus:border-[2px]" placeholder={'Body Text'}/>
+              </div>
 
-            
+              
 
-            <button disabled={isSubmitting} type="submit" className="bg-custom-primary hover:bg-custom-primaryHover py-[8px] px-[48px] mt-[16px] self-center border-[1px] border-black box-shadow-extra-small">
-                {isSubmitting ? "Submitting..." : "Submit"}
-            </button>
+              <button disabled={isSubmitting} type="submit" className="bg-custom-primary hover:bg-custom-primaryHover py-[8px] px-[48px] mt-[16px] self-center border-[1px] border-black box-shadow-extra-small">
+                  {isSubmitting ? "Submitting..." : "Submit"}
+              </button>
 
-            <button disabled={isSubmitting} type="reset" onClick={() => reset()} className="bg-custom-gray hover:bg-custom-grayHover py-[4px] px-[12px] mt-[16px] border-[1px] text-[14px] border-black box-shadow-extra-small">
-                Reset Form
-            </button>
+              <button disabled={isSubmitting} type="reset" onClick={() => reset()} className="bg-custom-gray hover:bg-custom-grayHover py-[4px] px-[12px] mt-[16px] border-[1px] text-[14px] border-black box-shadow-extra-small">
+                  Reset Form
+              </button>
 
-            </form>
-    </div>
+              </form>
+      </div>
   )
 }
-export default report
+export default ReportForm

@@ -4,7 +4,8 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { DotButton, useDotButton } from '../components/swiperComponents/EmblaCarouselDotButton'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
-import EventThumbnail from "@/app/eyeofophidia/helperComponents/EventThumbnail"
+import EventThumbnailFeaturedSlide from "@/app/eyeofophidia/helperComponents/eventThumbnail/EventThumbnailFeaturedSlide"
+import EventThumbnailSideSlide from "@/app/eyeofophidia/helperComponents/eventThumbnail/EventThumbnailSideSlide"
 import { eventSchemaType } from "@/app/types/types"
 import chunkArray from "./helpers/ChunkArray"
 
@@ -43,12 +44,12 @@ function EventsSectionBig({events, header}: {events: eventSchemaType[] | undefin
           <div className="flex gap-[48px]">
 
             <div className="h-[430px] basis-[430px] grow-0 shrink-0">
-              {events && <EventThumbnail size='featuredSlide' event={events[0]}/>}
+              {events && <EventThumbnailFeaturedSlide event={events[0]}/>}
             </div>
 
             {events && chunkArray(events.slice(1), 2).map((chunk, i) => 
               <div key={i + 'chunkArr'} className='flex flex-col h-[430px] basis-[340px] grow-0 shrink-0 gap-[48px]'>
-                {chunk.map(event => <EventThumbnail key={event._id} size='sideSlide' event={event}/>) }
+                {chunk.map(event => <EventThumbnailSideSlide key={event._id} event={event}/>) }
               </div>
             )}
 

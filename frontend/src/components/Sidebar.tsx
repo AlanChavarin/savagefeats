@@ -31,6 +31,9 @@ function Sidebar({buttonClickEvent} : {buttonClickEvent: () => void}) {
         <Link href="/eyeofophidia/decks" className="hover:text-custom-primary">
           Decklists
         </Link>
+        <Link href="/reports/" className="hover:text-custom-primary">
+          Reports
+        </Link>
         {/* <Link href="/content" className="hover:text-custom-primary">
           Content
         </Link> */}

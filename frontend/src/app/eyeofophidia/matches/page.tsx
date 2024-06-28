@@ -21,11 +21,13 @@ function Matches() {
   const [matches, setMatches] = useState<matchSchemaType[] | undefined>()
   const [count, setCount] = useState<number | undefined>()
   const searchParams = useSearchParams()
+  
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
+    setLoading(true)
     if(searchParams.get('query') === 'true'){
       const url = `${process.env.NEXT_PUBLIC_BACKEND_API}matches?` + new URLSearchParams(searchParams.toString() + `&limit=${limit}` ).toString()
-      console.log(url)
       fetch(url)
       .then(r => r.json())
       .then(data => {
@@ -49,7 +51,9 @@ function Matches() {
       })
     }
 
+    setLoading(false)
   }, [searchParams])
+
 
   return (
     <div className="flex-1 overflow-hidden pb-[128px] flex flex-col justify-start items-center w-[100%] p-[16px] gap-[48px] pt-[32px]">
@@ -58,15 +62,18 @@ function Matches() {
       <Title subheader="Matches" />
 
       <MatchSearchForm/>
+
+      {loading && <div>Loading....</div>}
       
       {/* matches container */}
 
-      <div className="flex flex-row flex-wrap gap-[24px] justify-center">
+
+      {!loading && <div className="flex flex-row flex-wrap gap-[24px] justify-center">
         {matches && matches.map(match => 
           <MatchThumbnail match={match} key={match._id}/>
         )}
         {(count===0) && <div>No Matches Found :{'('}</div>}
-      </div>
+      </div>}
 
       {/* pagination */}
 

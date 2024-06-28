@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react"
 import { toast } from "react-toastify"
 import { errorSchema, matchSchema, draftSchema } from '@/app/schemas/schemas'
 import { draftSchemaType, matchSchemaType } from "@/app/types/types"
-import EventThumbnail from "../../helperComponents/EventThumbnail"
+import EventThumbnail from "../../helperComponents/eventThumbnail/EventThumbnail"
 import { z } from "zod"
 import MatchThumbnail from "../../helperComponents/MatchThumbnail"
 import UserContext from "@/context/UserContext"

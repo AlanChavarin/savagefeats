@@ -11,20 +11,44 @@ const responseDeckSchema = z.object({
     decklists: z.array(deckSchema),
   })
 
-function WinningDecksSection() {
+let decks: deckSchemaType[]
+let featuredDeck: deckSchemaType
 
-    const [decks, setDecks] = useState<deckSchemaType[] | undefined>(undefined)
-    const [featuredDeck, setFeaturedDeck] = useState<deckSchemaType | undefined>(undefined)
+async function WinningDecksSection() {
 
-    useEffect(() => {
-        //grab latest decks
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}decklists?&limit=20`,)
-        .then(r => r.json())
-        .then(data => {
+
+    //grab latest decks
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}decklists?&limit=20`)
+    .then(r => r.json())
+    .then(data => {
+    const validatedData = responseDeckSchema.safeParse(data)
+    const validatedError = errorSchema.safeParse(data)
+    if(validatedData.success){
+        decks = validatedData.data.decklists
+        return
+    }
+
+    if(validatedError.success){
+        throw new Error(validatedError.data.errorMessage)
+    }
+
+    console.error(validatedData.error)
+    console.error(validatedError.error)
+    throw new Error('Unexpected data. Check console for further details')
+    }).catch(err => {
+        toast.error(err.message)
+    })
+
+    //grab latest deck with decktech 
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}decklists?&deckTech=true&limit=1`)
+    .then(r => r.json())
+    .then(data => {
         const validatedData = responseDeckSchema.safeParse(data)
         const validatedError = errorSchema.safeParse(data)
+
+        console.log(data.decklists[0])
         if(validatedData.success){
-            setDecks(validatedData.data.decklists)
+            featuredDeck = validatedData.data.decklists[0]
             return
         }
 
@@ -32,41 +56,12 @@ function WinningDecksSection() {
             throw new Error(validatedError.data.errorMessage)
         }
 
-        console.error(validatedData.error)
-        console.error(validatedError.error)
+        console.error(validatedData.error.toString())
+        console.error(validatedError.error.toString())
         throw new Error('Unexpected data. Check console for further details')
-        }).catch(err => {
-            toast.error(err.message)
-        })
-
-        //grab latest deck with decktech 
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}decklists?&deckTech=true&limit=1`)
-        .then(r => r.json())
-        .then(data => {
-            const validatedData = responseDeckSchema.safeParse(data)
-            const validatedError = errorSchema.safeParse(data)
-
-            console.log(data.decklists[0])
-            if(validatedData.success){
-                setFeaturedDeck(validatedData.data.decklists[0])
-                console.log(featuredDeck)
-                return
-            }
-
-            if(validatedError.success){
-                throw new Error(validatedError.data.errorMessage)
-            }
-
-            console.error(validatedData.error.toString())
-            console.error(validatedError.error.toString())
-            throw new Error('Unexpected data. Check console for further details')
-        }).catch(err => {
-            toast.error(err.message)
-        })
-
-
-    }, [])
-
+    }).catch(err => {
+        toast.error(err.message)
+    })
 
 
   return (<>

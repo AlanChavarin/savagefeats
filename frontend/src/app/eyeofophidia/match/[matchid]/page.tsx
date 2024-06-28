@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react"
 import { toast } from "react-toastify"
 import { errorSchema, matchSchema, deckSchema } from '@/app/schemas/schemas'
 import { matchSchemaType } from "@/app/types/types"
-import EventThumbnail from "../../helperComponents/EventThumbnail"
+import EventThumbnailNormal from "../../helperComponents/eventThumbnail/EventThumbnailNormal"
 import DeckThumbnail from "../../helperComponents/DeckThumbnail"
 import { z } from "zod"
 import MatchThumbnail from "../../helperComponents/MatchThumbnail"
@@ -65,7 +65,7 @@ function Match({params}: {params: {matchid: string}}) {
         {/* details container */}
         {match && <div className="w-[90%] flex flex-col gap-[32px] max-w-[400px]">
 
-            <EventThumbnail event={match.event} size={"matchPage"} />
+            <EventThumbnailNormal event={match.event} size={"matchPage"} />
 
             { user &&
               <div className="flex flex-row items-center gap-[12px]">

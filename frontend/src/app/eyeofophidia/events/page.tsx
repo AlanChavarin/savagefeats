@@ -8,7 +8,7 @@ import { toast } from "react-toastify"
 import { eventSchema, errorSchema } from "@/app/schemas/schemas"
 import { z } from "zod"
 import Pagination from "../helperComponents/Pagination"
-import EventThumbnail from "../helperComponents/EventThumbnail"
+import EventThumbnailNormal from "../helperComponents/eventThumbnail/EventThumbnailNormal"
 import { checkIfHappeningNow, checkIfFuture, checkIfPast } from "../helpers/checkIfHappeningNow"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons"
@@ -59,11 +59,6 @@ function Events() {
 
   }, [searchParams])
 
-  // useEffect(() => {
-  //   console.log(events)
-  //   console.log(count)
-  // }, [events, count])
-
   return (
     <div className="flex-1 overflow-hidden pb-[128px] flex flex-col justify-start items-center w-[100%] p-[16px] gap-[48px] pt-[32px]">
       <Title subheader="Events"/>
@@ -84,7 +79,7 @@ function Events() {
             { currentEventsDropdown && 
               <div className="flex flex-row flex-wrap gap-[24px] justify-center">
                 {events.filter(event => checkIfHappeningNow(event)).map(event => <div key={event._id}>
-                    <EventThumbnail event={event} size={"normal"}/>
+                    <EventThumbnailNormal event={event} size={"normal"}/>
                   </div>
                 )}
               </div>
@@ -105,7 +100,7 @@ function Events() {
             {futureEventsDropdown &&
               <div className="flex flex-row flex-wrap gap-[24px] justify-center">
                 {events.filter(event => checkIfFuture(event)).map(event => <div key={event._id}>
-                    <EventThumbnail event={event} size={"normal"}/>
+                    <EventThumbnailNormal event={event} size={"normal"}/>
                   </div>
                 )}
               </div>
@@ -126,7 +121,7 @@ function Events() {
             {pastEventsDropdown && 
               <div className="flex flex-row flex-wrap gap-[24px] justify-center">
                 {events.filter(event => checkIfPast(event)).map(event => <div key={event._id}>
-                    <EventThumbnail event={event} size={"normal"}/>
+                    <EventThumbnailNormal event={event} size={"normal"}/>
                   </div>
                 )}
               </div>

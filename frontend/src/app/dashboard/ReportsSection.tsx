@@ -4,6 +4,9 @@ import { toast } from "react-toastify"
 import { reportSchemaType } from "../types/types"
 import { reportSchema, errorSchema } from "../schemas/schemas"
 import { z } from 'zod'
+import Report from './Report'
+import Pagination from "../eyeofophidia/helperComponents/Pagination"
+import { useSearchParams } from "next/navigation"
 
 const responseSchema = z.object({
     count: z.number(),
@@ -11,18 +14,23 @@ const responseSchema = z.object({
   })
 
 
+
 function ReportsSection() {
 
     const [reports, setReports] = useState<reportSchemaType[] | undefined>(undefined)
+    const [page, setPage] = useState<number>(0)
+    const [count, setCount] = useState<undefined | number>(undefined)
+
+    const searchParams = useSearchParams()
 
     useEffect(() => {
-        const url = `${process.env.NEXT_PUBLIC_BACKEND_API}reports/`
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_API}reports/?${new URLSearchParams(searchParams.toString())}`
 
         fetch(url, {
         cache: 'no-store',
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}?&page=${page}`,
             'Content-Type': 'application/json'
         }})
         .then(r => r.json())
@@ -32,6 +40,7 @@ function ReportsSection() {
             const validatedError = errorSchema.safeParse(data)
             if(validatedData.success){
                 setReports(validatedData.data.reports)
+                setCount(validatedData.data.count)
                 return
             }
 
@@ -45,26 +54,16 @@ function ReportsSection() {
         }).catch(err => {
             toast.error(err.message)
         })
-    }, [])
+    }, [searchParams])
 
   return (
 
     <div className="flex flex-col gap-[8px]">
         <div className="font-bold">Reports Section: </div>
         <div className="flex flex-col gap-[16px]">
-            {reports && reports.map(report => 
-                <div key={report._id} className="bg-gray-100 border-[1px] border-black box-shadow-extra-small p-[4px] gap-[8px] flex flex-col">
-                    <div className="flex flex-col">
-                        <label>Subject Line: </label>
-                        <div className="font-bold bg-white border-[1px] border-black p-[8px]">{report.subject}</div>
-                    </div>
-                    <div className="flex flex-col">
-                        <label>Body: </label>
-                        <div className="font-bold bg-white border-[1px] border-black p-[8px]">{report.body}</div>
-                    </div>
-                </div>
-            )}
+            {reports && reports.map(report => <Report key={report._id} report={report} />)}
         </div>
+        <Pagination count={count} limit={10}/>
     </div>
     
   )

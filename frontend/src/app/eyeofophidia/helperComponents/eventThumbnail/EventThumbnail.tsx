@@ -1,22 +1,14 @@
 'use client'
 import { eventSchemaType } from "@/app/types/types"
 import Link from "next/link"
-import EditButton from "./EditButton"
+import EditButton from "../EditButton"
 import UserContext from "@/context/UserContext"
 import { useContext } from "react"
-//import { ParallaxBanner } from "react-scroll-parallax"
-import HappeningNow from "./HappeningNow"
-import { checkIfHappeningNow, checkIfPast } from "../helpers/checkIfHappeningNow"
+import HappeningNow from "../HappeningNow"
+import { checkIfHappeningNow } from "../../helpers/checkIfHappeningNow"
+import getDateString from "./getDateString"
+import getImage from "./getImage"
 
-const getImage = (str: string) => {
-  const slicedHex = str.slice(str.length-2, str.length)
-  const decimalValue = parseInt(slicedHex, 16)
-  return `${Math.round(decimalValue / 12)}.jpg`
-}
-
-const getDateString = (str: string) => {
-  return new Date(str).toLocaleDateString('en-us', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })
-}
 
 function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastRound?: string | undefined, lastFormat?: string | undefined, lastTwitch?: string | undefined, event: eventSchemaType, size: ('normal' | 'eventPage' | 'matchPage' | 'smallSlide' | 'featuredSlide' | 'sideSlide')}) {
 

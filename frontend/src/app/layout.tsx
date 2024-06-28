@@ -1,31 +1,36 @@
+
 import type { Metadata } from 'next'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import { Providers } from './Providers'
-import { UserProvider } from '../context/UserContext'
+//import { Providers } from './Providers'
+//import { UserProvider } from '../context/UserContext'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import GoogleCaptchaWrapper from '@/context/GoogleCaptchaWrapper'
 
+// The following import prevents a Font Awesome icon server-side rendering bug,
+// where the icons flash from a very large icon down to a properly sized one:
+import '@fortawesome/fontawesome-svg-core/styles.css';
+// Prevent fontawesome from adding its CSS since we did it manually above:
+import { config } from '@fortawesome/fontawesome-svg-core';
+config.autoAddCss = false; /* eslint-disable import/first */
 
 export const metadata: Metadata = {
   title: 'Savage Feats',
   description: 'Savage Feats',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <UserProvider>
       <html lang="en">
+        {/* <UserProvider> */}
           <body className="flex flex-col min-h-screen bg-[#ECECEC]">
-            <GoogleCaptchaWrapper>
               <Navbar />
-                <Providers>
+              {/* <Providers> */}
                 <ToastContainer
                   position="top-right"
                   autoClose={5000}
@@ -38,13 +43,10 @@ export default function RootLayout({
                   pauseOnHover
                   theme="colored"/>
                 {children}
-              </Providers>
+              {/* </Providers> */}
               <Footer />
-              
-            </GoogleCaptchaWrapper>
-            
           </body>
+        {/* </UserProvider>   */}
       </html>
-    </UserProvider>
   )
 }
