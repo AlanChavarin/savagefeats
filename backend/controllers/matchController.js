@@ -305,6 +305,23 @@ const restoreMatch = asyncHandler(async (req, res) => {
     res.json(match)
 })
 
+const getNameHeroPairsbyEvent = asyncHandler(async (req, res) => {
+    const matches = await Match.find({'event.name': req.query.event, 'format': req.query.format, deleted: false})
+    
+    let pairs = {}
+    matches.map(match => {
+        if(match.player1deck){
+            pairs[match.player1name] = match.player1hero
+        }
+        if(match.player2deck){
+            pairs[match.player2name] = match.player2hero
+        }
+    })
+
+    res.status(200)
+    res.json(pairs)
+})
+
 //internal use only
 
 // const turnDecklistLinksIntoDocuments = async (formData) => {
@@ -385,4 +402,5 @@ module.exports = {
     updateMatch,
     deleteMatch,
     restoreMatch,
+    getNameHeroPairsbyEvent
 }

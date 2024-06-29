@@ -12,6 +12,8 @@ import EventThumbnailNormal from "../helperComponents/eventThumbnail/EventThumbn
 import { checkIfHappeningNow, checkIfFuture, checkIfPast } from "../helpers/checkIfHappeningNow"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons"
+import { Hourglass } from 'react-loader-spinner'
+import Info from "../helperComponents/Info"
 
 const responseSchema = z.object({
   count: z.number(),
@@ -25,6 +27,8 @@ function Events() {
   const [events, setEvents] = useState<eventSchemaType[] | undefined>()
   const [count, setCount] = useState<number | undefined>()
   const searchParams = useSearchParams()
+  const [loading, setLoading] = useState(false)
+
 
   const [pastEventsDropdown, setPastEventsDropdown] = useState<boolean>(true)
   const [futureEventsDropdown, setFutureEventsDropdown] = useState<boolean>(true)
@@ -33,7 +37,9 @@ function Events() {
 
   useEffect(() => {
     if(searchParams.get('query') === 'true'){
+      
       const url = `${process.env.NEXT_PUBLIC_BACKEND_API}events?` + new URLSearchParams(searchParams.toString() + `&limit=${limit}` ).toString()
+      setLoading(true)
       fetch(url)
       .then(r => r.json())
       .then(data => {
@@ -42,6 +48,7 @@ function Events() {
         if(validatedData.success){
           setEvents(validatedData.data.events)
           setCount(validatedData.data.count)
+          setLoading(false)
           return
         }
   
@@ -53,6 +60,7 @@ function Events() {
         console.error(validatedError.error)
         throw new Error('Unexpected data. Check console for further details')
       }).catch(err => {
+        setLoading(false)
         toast(err.message)
       })
     }
@@ -65,7 +73,7 @@ function Events() {
       <EventSearchForm />
 
       {/* event thumbnail container for past events */}
-      {events &&
+      {!loading ? <>{events &&
         <div className="flex flex-col gap-[32px] items-center">
           {/* current events */}
           {!searchParams.get('pastEventsOnly') && events.filter(event => checkIfHappeningNow(event)).length > 0 && <>
@@ -132,8 +140,20 @@ function Events() {
 
           {(count===0) && <div>No Events Found :{'('}</div>}
           
-        </div>
+        </div>}</>
+        :
+        <Hourglass
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="hourglass-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          colors={['Black', 'Black']}
+        />
       }
+
+      {!events && <Info />}
 
       <Pagination count={count} limit={limit}/>
     </div>

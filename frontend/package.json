@@ -22,6 +22,7 @@
     "react-dom": "^18",
     "react-google-recaptcha-v3": "^1.10.1",
     "react-hook-form": "^7.51.4",
+    "react-loader-spinner": "^6.1.6",
     "react-scroll-parallax": "^3.4.5",
     "react-slick": "^0.29.0",
     "react-toastify": "^10.0.5",

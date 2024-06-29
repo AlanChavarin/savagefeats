@@ -5,12 +5,14 @@ import { UseFormReturn } from "react-hook-form"
 function Select({placeholder, name, form, data}: {placeholder: string | undefined, name: string, form: UseFormReturn<any>, data: string[] | undefined}) {
   const {register, setValue} = form
   const [dropdown, setDropdown] = useState<boolean>(false)
-  var a = document.getElementsByClassName(name)
+  var a = process.browser && document.getElementsByClassName(name)
 
   const onFilter = (e: SyntheticEvent) => {
     // @ts-ignore
     var filter1 = e.target.value.toUpperCase()
+    // @ts-ignore
     for (var i = 0; i < a.length; i++) {
+      // @ts-ignore
       var txtValue = a[i].textContent;
       if (txtValue && txtValue.toUpperCase().indexOf(filter1) > -1) {
         // @ts-ignore

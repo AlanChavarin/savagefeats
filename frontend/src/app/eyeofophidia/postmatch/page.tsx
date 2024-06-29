@@ -49,6 +49,7 @@ function Postmatch() {
   const searchParams = useSearchParams()
 
   const [eventNames, setEventNames] = useState<string[] | undefined>(undefined)
+  const [nameHeroPairs, setNameHeroPairs] = useState<{[key: string]: string} | undefined>(undefined)
 
   const [actionAfterSubmit, setActionAfterSubmit] = useState<'TO_MATCH' | 'RESET_FORM' | undefined>(undefined)
 
@@ -223,7 +224,49 @@ function Postmatch() {
     }).catch(err => {
       toast(err.message)
     })
+
   }, [])
+
+  useEffect(() => {
+    //grab namelink pairs
+    if(getValues('event') && getValues('format')){
+      const url = `${process.env.NEXT_PUBLIC_BACKEND_API}matches/getnameheropairsbyevent?event=${getValues('event')}&format=${getValues('format')}`
+
+      fetch(url)
+      .then(r => r.json())
+      .then(data => {
+        const validatedData = z.record(z.string()).safeParse(data)
+        const validatedError = errorSchema.safeParse(data)
+        if(validatedData.success){
+          setNameHeroPairs(validatedData.data)
+          return
+        }
+
+        if(validatedError.success){
+          throw new Error(validatedError.data.errorMessage)
+        }
+
+        console.error(validatedData.error)
+        console.error(validatedError.error)
+        throw new Error('Unexpected event name data. Check console for further details')
+      }).catch(err => {
+        toast(err.message)
+      })
+    }
+
+  }, [watch('event'), watch('format')])
+
+  useEffect(() => {
+    if(nameHeroPairs && nameHeroPairs[getValues('player1name')]){
+      setValue('player1hero', nameHeroPairs[getValues('player1name')])
+    }
+  }, [watch('player1name')])
+
+  useEffect(() => {
+    if(nameHeroPairs && nameHeroPairs[getValues('player2name')]){
+      setValue('player2hero', nameHeroPairs[getValues('player2name')])
+    }
+  }, [watch('player2name')])
 
   const videoLinkOnChange = () => {
     if(getValues('twitch')){
@@ -344,21 +387,14 @@ function Postmatch() {
 
         }
         
-
-        <div className="flex flex-col">
-          <label>Player 1 Hero: <span className="text-red-500">*</span>&nbsp;</label>
-          <HeroSelect placeholder="" name="player1hero" form={form}/>
-        </div>
-        {/* <BasicTextInput placeholder='' name='player1name' label='Player 1 Full Name: ' register={register} required={true}/> */}
-
         <div className="flex flex-col">
           <label>Player 1 Full Name: <span className="text-red-500">*</span>&nbsp;</label>
           <NameSelect placeholder='' name='player1name' form={form}/>
         </div>
 
         <div className="flex flex-col">
-          <label>Player 2 Hero: <span className="text-red-500">*</span>&nbsp;</label>
-          <HeroSelect placeholder="" name="player2hero" form={form}/>
+          <label>Player 1 Hero: <span className="text-red-500">*</span>&nbsp;</label>
+          <HeroSelect placeholder="" name="player1hero" form={form}/>
         </div>
 
         <div className="flex flex-col">
@@ -366,6 +402,10 @@ function Postmatch() {
           <NameSelect placeholder='' name='player2name' form={form}/>
         </div>
 
+        <div className="flex flex-col">
+          <label>Player 2 Hero: <span className="text-red-500">*</span>&nbsp;</label>
+          <HeroSelect placeholder="" name="player2hero" form={form}/>
+        </div>
 
         <button onClick={() => setActionAfterSubmit('TO_MATCH')} disabled={isSubmitting} type="submit" className="bg-custom-primary hover:bg-custom-primaryHover py-[8px] w-[80%] mt-[16px] self-center border-[1px] border-black box-shadow-extra-small">
           {isSubmitting ? "Submitting..." : "Submit & go to match"}

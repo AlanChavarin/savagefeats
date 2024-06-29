@@ -12,6 +12,7 @@ import { toast } from "react-toastify"
 import ContentCreatorSection from "@/HomepageComponents/ContentCreatorSection"
 import LatestInFABSection from "@/HomepageComponents/LatestInFABSection"
 
+
 let creators: contentCreatorSchemaType[]
 
 export default async function Home() {
@@ -45,11 +46,12 @@ export default async function Home() {
       <HomepageHero />
 
       <div className='flex flex-col gap-[196px] min-[480px]:gap-[280px] lg:gap-[384px] justify-between py-[64px] md:py-[128px] lg:py-[256px]'>
-        <LatestInFABSection backgroundImage={'hvy.PNG'} />
 
-        <UpcomingTournamentSection/>
+        <LatestInFABSection backgroundImage={'hvy.PNG'} />
         
         <LatestTournamentSection/>
+
+        <UpcomingTournamentSection/>
 
         <WinningDecksSection/>
 

@@ -9,11 +9,14 @@ import { z } from "zod"
 import MatchThumbnail from "../../helperComponents/MatchThumbnail"
 import UserContext from "@/context/UserContext"
 import EditButton from "../../helperComponents/EditButton"
+import { Hourglass } from 'react-loader-spinner'
+
 
 function Match({params}: {params: {matchid: string}}) {
   const [match, setMatch] = useState<matchSchemaType | undefined>(undefined)
   const [relatedMatches, setRelatedMatches] = useState<matchSchemaType[] | undefined>(undefined)
   const { matchid } = params
+  const [loading, setLoading] = useState(true)
 
   const {user} = useContext(UserContext)
  
@@ -30,6 +33,7 @@ function Match({params}: {params: {matchid: string}}) {
         if(validatedRelatedMatches.success){
           setRelatedMatches(validatedRelatedMatches.data)
         }
+        setLoading(false)
         return
       }
 
@@ -41,13 +45,26 @@ function Match({params}: {params: {matchid: string}}) {
       console.error(validatedError.error)
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
+      setLoading(false)
       toast.error(err.message)
     })
   }, [params])
 
 
   return (
-    <div className="w-[100%] justify-center flex flex-1">
+    <div className="w-[100%] justify-center flex flex-1 relative">
+
+      {loading && <div className="absolute top-[25%]"><Hourglass
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="hourglass-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          colors={['Black', 'Black']}
+        /></div>}
+
+
       <div className="flex-1 flex flex-col lg:flex-row items-center lg:items-start lg:justify-self-center gap-[24px] md:p-[24px] max-w-[1800px] mb-[128px]">
         {/* video container */}
         <div className="flex-1 w-[100%]">
@@ -61,6 +78,8 @@ function Match({params}: {params: {matchid: string}}) {
             }
           </div>
         </div>
+
+        
         
         {/* details container */}
         {match && <div className="w-[90%] flex flex-col gap-[32px] max-w-[400px]">
@@ -74,13 +93,17 @@ function Match({params}: {params: {matchid: string}}) {
               </div>
             }
 
-            <div className="text-[23px] font-bold flex flex-row justify-center">
+            {/* <div className="text-[23px] font-bold flex flex-row justify-center">
               {match.top8 ?
                 <>{match.top8Round}</>
                 :
                 <>Round: {match.swissRound}</>
               }
-            </div>
+            </div> */}
+
+            <div className="text-[23px] font-bold">Current Match: </div>
+
+            <MatchThumbnail key={match._id} match={match} maxWidth={true} />
 
 
             {(match.player1deckData || match.player2deckData) && <div className="text-[23px] font-bold">Decklists: </div>}

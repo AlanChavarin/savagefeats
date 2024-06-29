@@ -37,8 +37,8 @@ async function UpcomingTournamentSection() {
   return ( <>
         {
             events && events.length > 0 && <>
-                <div className='block lg:hidden'><EventsSectionSmall events={events} header="Upcoming Tournaments"/></div>
-                <div className='hidden lg:block'><EventsSectionBig events={events} header="Upcoming Tournaments"/></div>
+                <div className='block lg:hidden'><EventsSectionSmall events={events} header="Upcoming Tournaments" backgroundImage="tomasz-jedrusz.png"/></div>
+                <div className='hidden lg:block'><EventsSectionBig events={events} header="Upcoming Tournaments" backgroundImage="tomasz-jedrusz.png"/></div>
             </>
         }
       </>

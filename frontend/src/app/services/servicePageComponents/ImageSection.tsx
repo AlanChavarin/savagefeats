@@ -9,7 +9,7 @@ import { ReactNode } from "react"
 
 //{children}: {children: ReactNode}
 
-function StreamServiceSection({images, backgroundImage, children, imageSize} : {images: string[], backgroundImage: string, children: ReactNode, imageSize: ('normal' | 'square')}) {
+function StreamServiceSection({images, backgroundImage, children, imageSize, descriptions} : {images: string[], backgroundImage: string, children: ReactNode, imageSize: ('normal' | 'square'), descriptions: string[]}) {
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     startIndex: 1
@@ -39,7 +39,7 @@ function StreamServiceSection({images, backgroundImage, children, imageSize} : {
               {images.map((image, i) => 
                 <div key={i} className='w-full items-center justify-center relative grow-0 shrink-0 flex flex-col gap-[8px]'>
                   <Image width={471} height={266} src={`/servicePagePics/${image}`} alt='BH Orlando' className='box-shadow'/>
-                  <p className='text-[13px] md:text-[19px] text-gray-700'>Battle Hardened Orlando</p>
+                  <p className='text-[13px] md:text-[19px] text-gray-700'>{descriptions[i]}</p>
                 </div>
               )}
             </div>
@@ -52,7 +52,7 @@ function StreamServiceSection({images, backgroundImage, children, imageSize} : {
               {images.map((image, i) => 
                 <div key={i} className='w-full items-center justify-center relative grow-0 shrink-0 flex flex-col gap-[8px]'>
                   <Image width={266} height={266} src={`/servicePagePics/${image}`} alt='BH Orlando' className='box-shadow'/>
-                  <p className='text-[13px] md:text-[19px] text-gray-700'>Battle Hardened Orlando</p>
+                  <p className='text-[13px] md:text-[19px] text-gray-700'>{descriptions[i]}</p>
                 </div>
               )}
             </div>

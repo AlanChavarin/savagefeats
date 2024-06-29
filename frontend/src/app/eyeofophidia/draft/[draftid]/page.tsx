@@ -8,11 +8,15 @@ import { z } from "zod"
 import MatchThumbnail from "../../helperComponents/MatchThumbnail"
 import UserContext from "@/context/UserContext"
 import EditButton from "../../helperComponents/EditButton"
+import { Hourglass } from 'react-loader-spinner'
+
 
 function Draft({params}: {params: {draftid: string}}) {
   const [draft, setDraft] = useState<draftSchemaType | undefined>(undefined)
   const [relatedMatches, setRelatedMatches] = useState<matchSchemaType[] | undefined>(undefined)
   const { draftid } = params
+  const [loading, setLoading] = useState(true)
+
 
   const {user} = useContext(UserContext)
  
@@ -46,7 +50,18 @@ function Draft({params}: {params: {draftid: string}}) {
 
 
   return (
-    <div className="w-[100%] justify-center flex flex-1">
+    <div className="w-[100%] justify-center flex flex-1 relative">
+
+        {loading && <div className="absolute top-[25%]"><Hourglass
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="hourglass-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          colors={['Black', 'Black']}
+        /></div>}
+
       <div className="flex-1 flex flex-col lg:flex-row items-center lg:items-start lg:justify-self-center gap-[24px] md:p-[24px] max-w-[1800px] mb-[128px]">
         {/* video container */}
         <div className="flex-1 w-[100%]">

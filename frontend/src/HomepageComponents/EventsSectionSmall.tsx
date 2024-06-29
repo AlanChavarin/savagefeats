@@ -7,7 +7,7 @@ import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons
 import EventThumbnailSmallSlide from "@/app/eyeofophidia/helperComponents/eventThumbnail/EventThumbnailSmallSlide"
 import { eventSchemaType } from "@/app/types/types"
 
-function EventsSectionSmall({events, header}: {events: eventSchemaType[] | undefined, header: string}) {
+function EventsSectionSmall({events, header, backgroundImage}: {events: eventSchemaType[] | undefined, header: string, backgroundImage: string}) {
 
   const [emblaRef, emblaApi] = useEmblaCarousel({startIndex: 1})
 
@@ -23,14 +23,13 @@ function EventsSectionSmall({events, header}: {events: eventSchemaType[] | undef
 
   return (
     <div className='h-[65vw] min-[360px]:h-[256px] relative bg-red flex flex-col items-center py-[32px] gap-[24px]'>
-      <SectionBackground image={'wildride.jpg'} size={'big'}/>
+      <SectionBackground image={backgroundImage} size={'big'}/>
 
       <div className='flex justify-between lg:w-[900px] lg:my-[32px]'>
         <div className='text-[13px] md:text-[16px] lg:text-[19px] xl:text-[23px] text-white foulfiend text-shadow'>
           {header}
         </div>
       </div>
-
 
       <div className="w-[90vw] min-[390px]:w-[360px]" ref={emblaRef}>
 
@@ -60,10 +59,9 @@ function EventsSectionSmall({events, header}: {events: eventSchemaType[] | undef
         <FontAwesomeIcon onClick={() => nextOnClick()} icon={faChevronRight} className='h-[24px] w-[24px] cursor-pointer'/>
       </div>
 
-      <a className='hover:text-purple-400  block text-[11px] text-blackunderline underline' href='eyeofophidia/tournaments'>
+      <a className='hover:text-purple-400  block text-[11px] text-blackunderline underline' href='eyeofophidia/events?query=true'>
         View all upcoming Tournaments
         &nbsp;&nbsp;
-        <FontAwesomeIcon icon={faChevronRight}/>
         <FontAwesomeIcon icon={faChevronRight}/>
       </a>
 

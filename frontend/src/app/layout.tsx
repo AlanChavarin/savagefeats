@@ -4,7 +4,7 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 //import { Providers } from './Providers'
-//import { UserProvider } from '../context/UserContext'
+import { UserProvider } from '../context/UserContext'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -27,10 +27,9 @@ export default async function RootLayout({
 }) {
   return (
       <html lang="en">
-        {/* <UserProvider> */}
+        <UserProvider>
           <body className="flex flex-col min-h-screen bg-[#ECECEC]">
               <Navbar />
-              {/* <Providers> */}
                 <ToastContainer
                   position="top-right"
                   autoClose={5000}
@@ -43,10 +42,9 @@ export default async function RootLayout({
                   pauseOnHover
                   theme="colored"/>
                 {children}
-              {/* </Providers> */}
               <Footer />
           </body>
-        {/* </UserProvider>   */}
+        </UserProvider>  
       </html>
   )
 }

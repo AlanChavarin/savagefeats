@@ -81,12 +81,6 @@ function Navbar() {
                 <Link href="/reports" className="hover:text-custom-primary">
                     Reports
                 </Link>
-                {/* <Link href="/content" className="hover:text-custom-primary">
-                    Content
-                </Link> */}
-                {/* <Link href="/shop" className="hover:text-custom-primary">
-                    Shop
-                </Link> */}
                 
                 
                 <div className='relative'>

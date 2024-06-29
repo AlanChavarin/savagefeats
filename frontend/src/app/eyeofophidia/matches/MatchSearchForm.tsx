@@ -7,7 +7,6 @@ import { z } from "zod"
 import { useRouter } from "next/navigation"
 import HeroSelect from "../helperComponents/HeroSelect"
 import Select from '@/app/eyeofophidia/helperComponents/Select'
-//schemas
 import { zodResolver } from "@hookform/resolvers/zod"
 
 const formSchema = z.object({

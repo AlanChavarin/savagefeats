@@ -2,19 +2,19 @@ const express = require('express')
 const router = express.Router()
 const {getEvent, getEvents, postEvent, updateEvent, deleteEvent, getEventNames, getCurrentAndFutureEvents} = require('../controllers/eventController')
 const {protect, protectModerator} = require('../middleware/authMiddleware')
-// const asyncHandler = require('express-async-handler')
-// const multer = require('multer')
+const asyncHandler = require('express-async-handler')
+const multer = require('multer')
 
 // const recycleBin = asyncHandler(async (req, res, next) => {
 //     req.recyclebin = true
 //     next()
 // })
 
-// const storage = new multer.memoryStorage()
-// const upload = multer({
-//     storage,
-//     limits: {fileSize: 1000000}
-// })
+const storage = new multer.memoryStorage()
+const upload = multer({
+    storage,
+    limits: {fileSize: 1000000}
+})
 
 // router.get('/recyclebin', protect, protectModerator, recycleBin, getEvents)
 

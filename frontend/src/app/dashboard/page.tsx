@@ -6,13 +6,14 @@ import UserSection from "./UserSection"
 import ContentCreatorSection from "./ContentCreatorSection"
 import LiveStreamSection from "./LiveStreamSection"
 import ReportsSection from "./ReportsSection"
+import PortfolioSection from "./PortfolioSection"
 
-const sections: ('users' | 'contents' | 'liveStreams' | 'reports')[] = ['users', 'contents', 'liveStreams', 'reports']
+const sections: ('users' | 'contents' | 'liveStreams' | 'reports' | 'portfolio')[] = ['users', 'contents', 'liveStreams', 'reports', 'portfolio']
 
 function Dashboard() {
     const {user} = useContext(UserContext)
 
-    const [section, setSection] = useState<'users' | 'contents' | 'liveStreams' | 'reports'>('users')
+    const [section, setSection] = useState<'users' | 'contents' | 'liveStreams' | 'reports' | 'portfolio'>('users')
 
   return (
     <>
@@ -37,6 +38,7 @@ function Dashboard() {
                     {section==='contents' && <ContentCreatorSection />}
                     {section==='liveStreams' && <LiveStreamSection/>}
                     {section==='reports' && <ReportsSection/>}
+                    {section==='portfolio' && <PortfolioSection/>}
                 </div>
             </div>
             :

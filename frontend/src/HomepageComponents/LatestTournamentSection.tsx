@@ -18,22 +18,22 @@ async function LatestTournamentSection() {
     await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events?&limit=9&emptyEvent=false`)
     .then(r => r.json())
     .then(data => {
-    const validatedData = responseEventSchema.safeParse(data)
-    const validatedError = errorSchema.safeParse(data)
-    if(validatedData.success){
-        events = validatedData.data.events
-        return
-    }
+        const validatedData = responseEventSchema.safeParse(data)
+        const validatedError = errorSchema.safeParse(data)
+        if(validatedData.success){
+            events = validatedData.data.events
+            return
+        }
 
-    if(validatedError.success){
-        throw new Error(validatedError.data.errorMessage)
-    }
+        if(validatedError.success){
+            throw new Error(validatedError.data.errorMessage)
+        }
 
-    console.error(validatedData.error)
-    console.error(validatedError.error)
-    throw new Error('Unexpected data. Check console for further details')
+        console.error(validatedData.error)
+        console.error(validatedError.error)
+        throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
-    toast.error(err.message)
+        toast.error(err.message)
     })
 
     
@@ -41,8 +41,8 @@ async function LatestTournamentSection() {
   return ( <>
         {
             events && <>
-                <div className='block lg:hidden'><EventsSectionSmall events={events} header="Latest Tournaments"/></div>
-                <div className='hidden lg:block'><EventsSectionBig events={events} header="Latest Tournaments"/></div>
+                <div className='block lg:hidden'><EventsSectionSmall events={events} header="Latest Tournaments" backgroundImage="wildride.jpg"/></div>
+                <div className='hidden lg:block'><EventsSectionBig events={events} header="Latest Tournaments" backgroundImage="wildride.jpg"/></div>
             </>
         }
       </>

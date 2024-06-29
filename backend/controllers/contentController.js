@@ -84,6 +84,30 @@ const postContent = asyncHandler(async (req, res) => {
 
 })
 
+const postPortfolioContent = asyncHandler(async (req, res) => {
+    const {videoid} = req.body
+
+    if(!videoid){
+        res.status(400)
+        throw new Error('empty videoid field')
+    }
+
+    if(!!(await Content.findOne({videoid}))){
+        res.status(400)
+        throw new Error('video of that id already in database')
+    }
+
+    const content = await Content.create({videoid, type: 'portfolio'})
+    res.status(200)
+    res.json(content)
+})
+
+const getPortfolioContent = asyncHandler(async (req, res) => {
+    const content = await Content.find({type: 'portfolio'})
+    res.status(200)
+    res.json(content)
+})
+
 //data that isn't grabbed from youtube api, only type, relatedEventid, relatedMatchid, relatedDecklistid
 const updateContentRelatedData = asyncHandler(async (req, res) => {
     //req.params.contentid
@@ -168,6 +192,17 @@ const deleteContent = asyncHandler(async (req, res) => {
     res.json(content)
 })
 
+const deleteContentVideoId = asyncHandler(async (req, res) => {
+    const content = await Content.findOneAndDelete({videoid: req.params.videoid})
+    if(!content){
+        res.status(200)
+        throw new Error('content id not found')
+    }
+    
+    res.status(200)
+    res.json(content)
+})
+
 const latestInFleshAndBlood = asyncHandler(async (req, res) => {
     //grab match(nevermind)
     //grab decklist
@@ -216,5 +251,8 @@ module.exports = {
     updateContentRelatedData,
     updateContentByContentCreator,
     deleteContent,
-    latestInFleshAndBlood
+    latestInFleshAndBlood,
+    postPortfolioContent,
+    getPortfolioContent,
+    deleteContentVideoId
 }

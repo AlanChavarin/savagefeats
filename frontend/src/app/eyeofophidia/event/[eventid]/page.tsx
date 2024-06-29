@@ -10,6 +10,8 @@ import { useState, useEffect } from "react"
 import { calculateLastFormat, calculateLastRound, calculateLastTwitch } from "../../helpers/LastHelpers"
 import filter from "../../helpers/filterHelper"
 import DraftThumbnail from "../../helperComponents/DraftThumbnail"
+import { Hourglass } from 'react-loader-spinner'
+
 
 function Event({params}: {params: {eventid: string}}) {
   const [event, setEvent] = useState<eventSchemaType | undefined>(undefined)
@@ -17,6 +19,13 @@ function Event({params}: {params: {eventid: string}}) {
   const [decks, setDecks] = useState<deckSchemaType[] | undefined>(undefined)
   const [drafts, setDrafts] = useState<draftSchemaType[] | undefined>(undefined)
   const { eventid } = params
+
+  const [loading, setLoading] = useState({
+    event: true,
+    matches: true,
+    drafts: true,
+    decks: true,
+  })
  
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events/${eventid}`)
@@ -26,6 +35,7 @@ function Event({params}: {params: {eventid: string}}) {
       const validatedError = errorSchema.safeParse(data)
       if(validatedEventData.success){
         setEvent(validatedEventData.data)
+        setLoading(prev => ({...prev, event: false}))
         return
       }
 
@@ -37,6 +47,7 @@ function Event({params}: {params: {eventid: string}}) {
       console.error(validatedError.error.toString())
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
+      setLoading(prev => ({...prev, event: false}))
       toast(err.message)
     })
 
@@ -48,6 +59,7 @@ function Event({params}: {params: {eventid: string}}) {
       const validatedError = errorSchema.safeParse(data)
       if(validatedMatchData.success){
         setMatches(validatedMatchData.data)
+        setLoading(prev => ({...prev, matches: false}))
         return
       }
 
@@ -59,6 +71,7 @@ function Event({params}: {params: {eventid: string}}) {
       console.error(validatedError.error.toString())
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
+      setLoading(prev => ({...prev, matches: false}))
       toast(err.message)
     })
 
@@ -69,6 +82,7 @@ function Event({params}: {params: {eventid: string}}) {
       const validatedError = errorSchema.safeParse(data)
       if(validatedDraftData.success){
         setDrafts(validatedDraftData.data)
+        setLoading(prev => ({...prev, drafts: false}))
         return
       }
 
@@ -80,6 +94,7 @@ function Event({params}: {params: {eventid: string}}) {
       console.error(validatedError.error.toString())
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
+      setLoading(prev => ({...prev, drafts: false}))
       toast(err.message)
     })
 
@@ -91,6 +106,7 @@ function Event({params}: {params: {eventid: string}}) {
       const validatedError = errorSchema.safeParse(data)
       if(validatedDecklistData.success){
         setDecks(validatedDecklistData.data)
+        setLoading(prev => ({...prev, decks: false}))
         return
       }
 
@@ -102,6 +118,7 @@ function Event({params}: {params: {eventid: string}}) {
       console.error(validatedError.error.toString())
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
+      setLoading(prev => ({...prev, decks: false}))
       toast(err.message)
     })
 
@@ -109,7 +126,19 @@ function Event({params}: {params: {eventid: string}}) {
 
   return (
     <div className="justify-start items-center flex flex-1 flex-col gap-[32px] pb-[64px]">
+
+        {loading.event && <Hourglass
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="hourglass-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          colors={['Black', 'Black']}
+        />}
+
         {event && <>
+
 
             <EventThumbnail size="eventPage" event={event} lastRound={calculateLastRound(matches)} lastFormat={calculateLastFormat(matches)} lastTwitch={calculateLastTwitch(matches)}/>
 
@@ -131,22 +160,31 @@ function Event({params}: {params: {eventid: string}}) {
               </div>
             }
 
-            
+
+          {loading.matches && <Hourglass
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="hourglass-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            colors={['Black', 'Black']}
+          />}
 
             {event.dayRoundArr && event.endDate ? 
                 <>
-                    {event.dayRoundArr.map((_, i) => 
-                      <>
-                        <div className="text-[30px] md:text-[39px] font-bold">Day {i+1}:</div>
+                    {event.dayRoundArr.map((day, i) => 
+                      <div className="flex flex-col items-center gap-[24px]" key={day}>
+                        <div className="text-[30px] md:text-[39px] font-bold" >Day {i+1}:</div>
                         <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
-                        <div className="flex flex-row flex-wrap gap-[24px] justify-center">
+                        <div className="flex flex-row flex-wrap gap-[24px] justify-center" >
                             {matches && matches.filter(match => filter(match, i, event))
                                 .map(match => (
                                   <MatchThumbnail key={match._id} match={match}/>
                                 ))}
                             {matches && (matches.filter(match => filter(match, i, event)).length < 1) && <>No Vods Available :{'('}</>}
                         </div>
-                      </>
+                      </div>
                     )}
 
                     <div className="text-[30px] md:text-[39px] font-bold">Top Cut:</div>
@@ -182,6 +220,17 @@ function Event({params}: {params: {eventid: string}}) {
                 </>
             }
 
+
+            {loading.decks && <Hourglass
+              visible={true}
+              height="80"
+              width="80"
+              ariaLabel="hourglass-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+              colors={['Black', 'Black']}
+            />}
+
             {decks && decks.length > 0 && <>
               <div className="text-[39px] font-bold text-center">Decklists</div>
               <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
@@ -205,7 +254,7 @@ function Event({params}: {params: {eventid: string}}) {
             
             {drafts && drafts.map(draft => <DraftThumbnail draft={draft} key={draft._id}/>)}
 
-            {decks && decks.length > 0 && <>
+            {decks && decks.length > 0 && decks?.filter(deck => deck.deckTech).length > 0 && <>
               <div className="text-[39px] font-bold text-center">Related Content</div>
               <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
             </>} 

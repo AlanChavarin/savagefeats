@@ -27,7 +27,10 @@ export const eventSchema = z.object({
     venue: z.string().optional(),
     streamed: z.boolean().optional(),
     todaysDate: z.string().optional(),
-    emptyEvent: z.boolean().optional()
+    emptyEvent: z.boolean().optional(),
+    image: z.string().optional(),
+    bigImage: z.string().optional(),
+    backgroundPosition: z.number().optional()
 })
 
 export const deckSchema = z.object({

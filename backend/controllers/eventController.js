@@ -5,7 +5,7 @@ const wordWrapper = require('../helpers/wordWrapper')
 const { Decklist } = require('../models/decklistModel')
 const getTodaysDate = require('../helpers/getTodaysDate')
 //const {postEventEdit} = require('./eventEditHistoryController')
-//const {handleImageFiles, handleImageDeletion} = require('./abstractions/cloudinaryHelper')
+const {handleImageFiles, handleImageDeletion} = require('../helpers/cloudinaryHelper')
 
 const getEvent = asyncHandler(async (req, res) => {
     if(!req.recyclebin){req.recyclebin = false}
@@ -151,15 +151,15 @@ const getCurrentAndFutureEvents = asyncHandler(async (req, res) => {
 })
 
 const postEvent = asyncHandler(async (req, res) => { 
-    // if(req.files?.image && req.files?.bigImage && req.body.resetImage !== 'true'){
-    //     //call cloudinary helper function that takes the files, handles upload, and returns the image links
-    //     const imageObject = await handleImageFiles(req.files.image, req.files.bigImage)
-    //     req.body.image = imageObject.image
-    //     req.body.bigImage = imageObject.bigImage
-    // } else if(!req.body.image.startsWith('http') && !req.body.bigImage.startsWith('http')){
-    //     delete req.body.image
-    //     delete req.body.bigImage
-    // }
+    if(req.files?.image && req.files?.bigImage && req.body.resetImage !== 'true'){
+        //call cloudinary helper function that takes the files, handles upload, and returns the image links
+        const imageObject = await handleImageFiles(req.files.image, req.files.bigImage)
+        req.body.image = imageObject.image
+        req.body.bigImage = imageObject.bigImage
+    } else if(!req.body.image.startsWith('http') && !req.body.bigImage.startsWith('http')){
+        delete req.body.image
+        delete req.body.bigImage
+    }
 
     if(!req.body.backgroundPosition){
         delete req.body.backgroundPosition
@@ -175,24 +175,6 @@ const postEvent = asyncHandler(async (req, res) => {
     if(typeof(req.body.format)==='string'){
         req.body.format = JSON.parse("[" + req.body.format + "]")
     }
-
-    //const date = new Date()
-    ///const currentDate = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()))
-    //let happeningNow = false
-
-    // if(req.body.startDate && req.body.endDate){
-    //     const startDate = new Date(req.body.startDate)
-    //     const endDate = new Date(req.body.endDate)
-
-    //     if(startDate <= currentDate && endDate >= currentDate){
-    //         happeningNow = true
-    //     }
-    // } else if(req.body.startDate){
-    //     const startDate = new Date(req.body.startDate)
-    //     if(startDate.toString() === currentDate.toString()){
-    //         happeningNow = true
-    //     }
-    // }
 
 
     const event = await Event.create({

@@ -1,4 +1,3 @@
-'use client'
 import ServicesHero from "./servicePageComponents/ServicesHero"
 import ImageSection from "./servicePageComponents/ImageSection"
 import GetInTouchButton from "./servicePageComponents/GetInTouchButton"
@@ -7,14 +6,46 @@ import YoutubeVideoCarousel from "@/HomepageComponents/YoutubeVideoCarousel"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons"
 import ContactUsSection from "./servicePageComponents/ContactUsSection"
+import { z } from "zod"
+import { errorSchema } from "../schemas/schemas"
 
-function page() {
+const responseSchema = z.array(z.object({
+  videoid: z.string(),
+}))
+
+let youtubeIDs: string[]
+
+async function page() {
+
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_API}content/portfoliocontent`
+  await fetch(url, {cache: 'no-store'})
+  .then(r => r.json())
+  .then(data => {
+    const validatedData = responseSchema.safeParse(data)
+    const validatedError = errorSchema.safeParse(data)
+    if(validatedData.success){
+      youtubeIDs = (validatedData.data.map(content => content.videoid))
+      return
+    }
+
+    if(validatedError.success){
+      throw new Error(validatedError.data.errorMessage)
+    }
+
+    console.error(validatedData.error)
+    console.error(validatedError.error)
+    throw new Error('Unexpected data. Check console for further details')
+  }).catch(err => {
+    console.error(err.message)
+  })
+
+
   return (
     <main className='flex-1 gap-[280px] md:gap-[512px] flex flex-col items-start pb-[512px] overflow-hidden'>
 
       <ServicesHero />
 
-      <ImageSection imageSize={'normal'} backgroundImage="servicePagePics/Capture1212131.PNG" images={['123234345.PNG', 'Captu32423535re.PNG', 'Capture1212131.PNG']}> 
+      <ImageSection imageSize={'normal'} backgroundImage="servicePagePics/Capture1212131.PNG" images={['battlehardenedmontreal.PNG', 'battlehardenedPhiladelphia.PNG', 'Capture1212131.PNG']} descriptions={['Battle Hardened: Montreal', 'Battle Hardened: Philadelphia', 'Battle Hardened: Orlando']}> 
         <div className='flex flex-col w-[90vw] md:w-[540px] gap-[8px]'>
           <div className='text-[23px] sm:text-[33px] md:text-[48px] font-bold text-white text-shadow self-center md:self-start'>
             Live Streaming Services
@@ -25,7 +56,7 @@ function page() {
         </div>
       </ImageSection>
 
-      <ImageSection imageSize={'normal'} backgroundImage="servicePagePics/dacrew.PNG" images={['wrtedrtyu.PNG', 'F1BJ5X9aIAAtQXU.jpg', 'dacrew.PNG']}> 
+      <ImageSection imageSize={'normal'} backgroundImage="servicePagePics/dacrew.PNG" images={['shawnandfrank.PNG', 'naibandyuanji.PNG', 'dacrew.PNG']} descriptions={['Battle Hardened: Montreal', 'Battle Hardened: Philadelphia', 'Battle Hardened: Portland']}> 
         <div className='flex flex-row gap-[16px] md:gap-[32px] items-center w-[90vw] md:w-[800px] '>
 
           <div className='flex flex-col gap-[8px]'>
@@ -44,7 +75,7 @@ function page() {
         </div>
       </ImageSection>
 
-      <ImageSection imageSize={'square'} backgroundImage="servicePagePics/bRyAk0h.jpg" images={['channels4_profile (1).jpg', 'download (1).jpg', 'download.jpg', 'z_zrnyMK_400x400.jpg']}> 
+      <ImageSection imageSize={'square'} backgroundImage="servicePagePics/bRyAk0h.jpg" images={['channels4_profile (1).jpg', 'download (1).jpg', 'download.jpg', 'z_zrnyMK_400x400.jpg']} descriptions={['Fresh and Buds', 'Fab Foundary', 'Kayfabe Cards', 'Team Ascent']}> 
         <div className='flex flex-row gap-[16px] md:gap-[32px] items-center justify-center w-[90vw] md:w-[800px] '>
 
           <div className='hidden md:block'>
@@ -65,7 +96,7 @@ function page() {
 
       <TestimonialSection backgroundImage="servicePagePics/bRyAk0h.jpg" />
 
-      <YoutubeVideoCarousel youtubeIDs={['7YnrqxZ8euk', 'yB4Oqze8xaE', 'PjCEux4qspo', 'zMzUgoT7b4Y', '9Dmwn-rxdcc']} backgroundImage='servicePagePics/123234345.PNG'>
+      <YoutubeVideoCarousel youtubeIDs={youtubeIDs.slice(0, 5)} backgroundImage='servicePagePics/123234345.PNG'>
         <div className='flex flex-col gap-[16px]'>
           <div className='text-[27px] sm:text-[39px] md:text-[48px] text-white text-shadow font-bold'>
             Our Latest Events
@@ -101,3 +132,6 @@ export default page
 // 16
 // 13
 // 11
+
+
+//['7YnrqxZ8euk', 'yB4Oqze8xaE', 'PjCEux4qspo', 'zMzUgoT7b4Y', '9Dmwn-rxdcc']

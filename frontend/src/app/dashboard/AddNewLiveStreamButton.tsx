@@ -78,9 +78,9 @@ function AddNewLiveStreamButton() {
             <form onSubmit={handleSubmit(onSubmit)} className=" bg-white border-[1px] border-black py-[8px] px-[16px] box-shadow-extra-small font-bold gap-[16px] flex flex-col relative">
                 <div className="text-center">Post Live Stream Form</div>
 
-                <BasicTextInput register={register} placeholder="full link (not required)" name="videoLink" label="Youtube Channel Id:" required={true} onChange={videoLinkOnChange}/>
+                <BasicTextInput register={register} placeholder="full link (not required)" name="videoLink" label="video link:" required={true} onChange={videoLinkOnChange}/>
 
-                <BasicTextInput register={register} placeholder="youtube ID" name="link" label="Youtube Channel Id:" required={true} />
+                <BasicTextInput register={register} placeholder="youtube ID" name="link" label="video id:" required={true} />
 
                 {/* absolute elements */}
                 <button type="button" onClick={() => setEditMode(false)} className="absolute top-[8px] right-[8px] border-[1px] border-black bg-gray-200 hover:bg-gray-400 w-[24px] h-[24px] text-[13px] box-shadow-extra-small ">
