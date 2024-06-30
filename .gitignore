@@ -12,6 +12,3 @@ node_modules
 mongodump
 ./mongodump_old
 mongodump_old
-
-package-lock.json
-./backend/package-lock.json
