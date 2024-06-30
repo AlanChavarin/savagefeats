@@ -17,7 +17,7 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
   return (<>
     {(size==='eventPage') && 
     <>
-      <div className={`relative h-[200px] md:h-[280px] w-[100%] flex flex-col justify-start items-center box-shadow text-white text-shadow-small`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `center 0px`}}>
+      <div className={`relative h-[200px] md:h-[280px] w-[100%] flex flex-col justify-start items-center box-shadow text-white text-shadow-small`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('${getImage(event)}')`, backgroundSize: 'cover', backgroundPosition: `center 0px`}}>
 
         <div className='bg-black bg-opacity-60 w-full font-bold p-[8px] text-[24px] md:text-[40px] flex justify-center items-center'>{event.name}</div>
 
@@ -68,7 +68,7 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
     }
 
     {(size==='normal' || size==='matchPage') && 
-      <Link href={`/eyeofophidia/event/${event._id}`} className={`${size==='normal' && 'w-[90vw] md:w-[400px] h-[220px]'} ${size==='matchPage' && 'w-[100%] h-[200px] lg:h-[250px]'} flex flex-col justify-start items-center   box-shadow text-white text-shadow-small cursor-pointer relative`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `center 0px`}}>
+      <Link href={`/eyeofophidia/event/${event._id}`} className={`${size==='normal' && 'w-[90vw] md:w-[400px] h-[220px]'} ${size==='matchPage' && 'w-[100%] h-[200px] lg:h-[250px]'} flex flex-col justify-start items-center   box-shadow text-white text-shadow-small cursor-pointer relative`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('${getImage(event)}')`, backgroundSize: 'cover', backgroundPosition: `center 0px`}}>
 
         <div className="flex w-full z-[1] pointer-events-none">
           <div className='bg-black bg-opacity-60 w-full font-bold p-[8px] text-[20px] flex justify-center items-center pointer-events-none	'>{event.name}</div>
@@ -97,7 +97,7 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
     }
 
     {(size==='smallSlide') && 
-      <Link href={`/eyeofophidia/event/${event._id}`} className={`flex flex-col justify-start items-center h-full w-full box-shadow text-white text-shadow-small cursor-pointer`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `center`}}>
+      <Link href={`/eyeofophidia/event/${event._id}`} className={`flex flex-col justify-start items-center h-full w-full box-shadow text-white text-shadow-small cursor-pointer`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('${getImage(event)}')`, backgroundSize: 'cover', backgroundPosition: `center`}}>
 
           <div className="flex w-full z-[1] pointer-events-none">
             <div className='bg-black bg-opacity-60 min-h-[32px] min-[400px]:min-h-[48px] w-full font-bold text-[16px] min-[400px]:text-[19px] flex justify-center items-center z-[1] text-center'>{event.name}</div>
@@ -126,7 +126,7 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
     }
 
     {(size==='sideSlide') && 
-      <Link href={`/eyeofophidia/event/${event._id}`} className={`flex flex-col justify-start items-center h-full w-full box-shadow text-white text-shadow-small cursor-pointer relative`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `0 0px `}}>
+      <Link href={`/eyeofophidia/event/${event._id}`} className={`flex flex-col justify-start items-center h-full w-full box-shadow text-white text-shadow-small cursor-pointer relative`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('${getImage(event)}')`, backgroundSize: 'cover', backgroundPosition: `0 0px `}}>
 
           <div className="flex w-full z-[1] pointer-events-none">
             <div className='bg-black bg-opacity-60 min-h-[42px] w-full font-bold text-[19px] flex justify-center items-center text-center'>{event.name}</div>
@@ -163,7 +163,7 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
     }
 
     {(size==='featuredSlide') && 
-      <Link href={`/eyeofophidia/event/${event._id}`} className={`flex flex-col justify-start h-full w-full box-shadow text-white text-shadow-small cursor-pointer`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `center`}}>
+      <Link href={`/eyeofophidia/event/${event._id}`} className={`flex flex-col justify-start h-full w-full box-shadow text-white text-shadow-small cursor-pointer`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('${getImage(event)}')`, backgroundSize: 'cover', backgroundPosition: `center`}}>
 
         <div className="flex w-full z-[1] pointer-events-none">
           <div className='bg-black bg-opacity-60 min-h-[48px] w-full font-bold text-[23px] flex justify-center items-center text-center'>

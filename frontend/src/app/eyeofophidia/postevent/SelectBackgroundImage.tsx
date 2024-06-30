@@ -101,7 +101,7 @@ function SelectBackgroundImage({form, setChooseBackgroundImageToggle}: {form: Us
             </div>
             
             {backgroundImages && backgroundImages.map(item => 
-                <div onClick={() => onClick(item.image, item.bigImage)} className="relative w-[90%] h-[150px] md:w-[300px] md:h-[200px] cursor-pointer box-shadow-small hover:box-shadow" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('${item.image}')`, backgroundSize: 'cover', backgroundPosition: `center 0px`}}>
+                <div key={item.bigImage} onClick={() => onClick(item.image, item.bigImage)} className="relative w-[90%] h-[150px] md:w-[300px] md:h-[200px] cursor-pointer box-shadow-small hover:box-shadow" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('${item.image}')`, backgroundSize: 'cover', backgroundPosition: `center 0px`}}>
                     <div className="absolute top-[2px] right-[2px]">
                         <DeleteButton warningText="Are you sure you want to remove this background image from all events?" deleteAction={() => deleteAction(item.image, item.bigImage)}/>
                     </div>

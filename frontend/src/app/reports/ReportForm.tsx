@@ -86,7 +86,7 @@ function ReportForm() {
               })}
 
               <div>
-                Please let us know if there is an error in our site's data or a missing event you would like us to catalouge. Add any information you would like us to add/fix. We really appreciate your contributions to savagefeats.com!
+                Please let us know if there is an error in our site&apos;s data or a missing event you would like us to catalouge. Add any information you would like us to add/fix. We really appreciate your contributions to savagefeats.com!
               </div>
 
               <BasicTextInput placeholder='' name='subject' label='Subject: ' register={register} required={true}/>

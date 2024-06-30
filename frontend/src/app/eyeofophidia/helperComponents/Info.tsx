@@ -38,7 +38,7 @@ function Info() {
                     <div>
                         <p>Search For <b>Decklists</b></p>
                         <br />
-                        <p>Search from decklists from throughout fab's OP history easily, and even find respective <b>deck techs</b> from decklists that featured one.</p>
+                        <p>Search from decklists from throughout fab&apos;s OP history easily, and even find respective <b>deck techs</b> from decklists that featured one.</p>
                     </div>
                 </div>
 

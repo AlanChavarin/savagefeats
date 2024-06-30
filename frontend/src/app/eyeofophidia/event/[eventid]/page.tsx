@@ -262,7 +262,7 @@ function Event({params}: {params: {eventid: string}}) {
             <div className={`grid grid-cols-1 lg:grid-cols-${decks?.filter(deck => deck.deckTech).length === 1 ? '1' : '2'} flex-wrap gap-[24px] w-[90%] md:w-fit`}>
                 {decks && <>
                   {decks.filter(deck => deck.deckTech).map(deck => 
-                      <div className="w-[330px] h-[180px]">
+                      <div className="w-[330px] h-[180px]" key={deck._id}>
                         <div className="relative w-[100%] pb-[56.25%] h-[0%] box-shadow">
                           <iframe className="absolute w-[100%] h-[100%]" src={`https://www.youtube-nocookie.com/embed/${deck.deckTech}`} title="YouTube video player" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                         </div>
