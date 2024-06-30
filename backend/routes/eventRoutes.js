@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {getEvent, getEvents, postEvent, updateEvent, deleteEvent, getEventNames, getCurrentAndFutureEvents} = require('../controllers/eventController')
+const {getEvent, getEvents, postEvent, updateEvent, deleteEvent, getEventNames, getCurrentAndFutureEvents, getAllBackgroundImageLinks, deleteBackgroundImage} = require('../controllers/eventController')
 const {protect, protectModerator} = require('../middleware/authMiddleware')
 const asyncHandler = require('express-async-handler')
 const multer = require('multer')
@@ -22,9 +22,9 @@ const upload = multer({
 
 // router.put('/recyclebin/:eventid', protect, protectModerator, restoreEvent)
 
-// router.delete('/deletebackgroundimage', protect, protectModerator, deleteBackgroundImage)
+router.delete('/deletebackgroundimage', protect, protectModerator, deleteBackgroundImage)
 
-// router.get('/getallbackgroundimagelinks', getAllBackgroundImageLinks)
+router.get('/getallbackgroundimagelinks', getAllBackgroundImageLinks)
 
 //router.get('/checkifhappeningnow', checkIfHappeningNow)
 
@@ -36,13 +36,13 @@ router.get('/names', getEventNames)
 
 router.get('/:eventid', getEvent)
 
-// router.post('/', protect, protectModerator, upload.fields([{name: 'image'}, {name: 'bigImage'}]), postEvent)
+router.post('/', protect, protectModerator, upload.fields([{name: 'image'}, {name: 'bigImage'}]), postEvent)
 
-router.post('/', protect, protectModerator, postEvent)
+// router.post('/', protect, protectModerator, postEvent)
 
-//router.put('/:eventid', protect, protectModerator, upload.fields([{name: 'image'}, {name: 'bigImage'}]), updateEvent)
+router.put('/:eventid', protect, protectModerator, upload.fields([{name: 'image'}, {name: 'bigImage'}]), updateEvent)
 
-router.put('/:eventid', protect, protectModerator, updateEvent)
+//router.put('/:eventid', protect, protectModerator, updateEvent)
 
 router.delete('/:eventid', protect, protectModerator, deleteEvent)
 

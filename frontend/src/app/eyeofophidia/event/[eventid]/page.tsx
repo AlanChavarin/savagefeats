@@ -2,7 +2,6 @@
 import { toast } from "react-toastify"
 import { errorSchema, matchSchema, eventSchema, deckSchema, draftSchema } from '@/app/schemas/schemas'
 import { matchSchemaType, eventSchemaType, deckSchemaType, draftSchemaType } from "@/app/types/types"
-import EventThumbnail from "../../helperComponents/eventThumbnail/EventThumbnail"
 import DeckThumbnail from "../../helperComponents/DeckThumbnail"
 import { z } from "zod"
 import MatchThumbnail from "../../helperComponents/MatchThumbnail"
@@ -11,6 +10,7 @@ import { calculateLastFormat, calculateLastRound, calculateLastTwitch } from "..
 import filter from "../../helpers/filterHelper"
 import DraftThumbnail from "../../helperComponents/DraftThumbnail"
 import { Hourglass } from 'react-loader-spinner'
+import EventThumbnailEventPage from "../../helperComponents/eventThumbnail/EventThumbnailEventPage"
 
 
 function Event({params}: {params: {eventid: string}}) {
@@ -140,7 +140,7 @@ function Event({params}: {params: {eventid: string}}) {
         {event && <>
 
 
-            <EventThumbnail size="eventPage" event={event} lastRound={calculateLastRound(matches)} lastFormat={calculateLastFormat(matches)} lastTwitch={calculateLastTwitch(matches)}/>
+            <EventThumbnailEventPage event={event} lastRound={calculateLastRound(matches)} lastFormat={calculateLastFormat(matches)} lastTwitch={calculateLastTwitch(matches)}/>
 
             {/* <div className="text-[39px] font-bold">Matches:</div>  */}
 

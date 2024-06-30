@@ -8,7 +8,7 @@ import getImage from "./getImage"
 function EventThumbnailNormal({event, size}: {event: eventSchemaType, size: ('normal' | 'eventPage' | 'matchPage')}) {
 
 return (
-  <div className={`${size==='normal' && 'w-[90vw] md:w-[400px] h-[220px]'} ${size==='matchPage' && 'w-[100%] h-[200px] lg:h-[250px]'} flex flex-col justify-start items-center   box-shadow text-white text-shadow-small cursor-pointer relative`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `center 0px`}}>
+  <div className={`${size==='normal' && 'w-[90vw] md:w-[400px] h-[220px]'} ${size==='matchPage' && 'w-[100%] h-[200px] lg:h-[250px]'} flex flex-col justify-start items-center   box-shadow text-white text-shadow-small cursor-pointer relative`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('${getImage(event)}')`, backgroundSize: 'cover', backgroundPosition: `center 0px`}}>
 
     <Link href={`/eyeofophidia/event/${event._id}`} className="w-full h-full relative">
       <div className="flex w-full pointer-events-none">

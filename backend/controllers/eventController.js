@@ -151,6 +151,7 @@ const getCurrentAndFutureEvents = asyncHandler(async (req, res) => {
 })
 
 const postEvent = asyncHandler(async (req, res) => { 
+
     if(req.files?.image && req.files?.bigImage && req.body.resetImage !== 'true'){
         //call cloudinary helper function that takes the files, handles upload, and returns the image links
         const imageObject = await handleImageFiles(req.files.image, req.files.bigImage)
@@ -167,15 +168,17 @@ const postEvent = asyncHandler(async (req, res) => {
 
     //needed to process arrays from req.body
     if(typeof(req.body.dayRoundArr)==='string'){
-        req.body.dayRoundArr = JSON.parse("[" + req.body.dayRoundArr + "]")
+        //req.body.dayRoundArr = JSON.parse("[" + req.body.dayRoundArr + "]")
+        req.body.dayRoundArr = req.body.dayRoundArr.split(',')
     }
     if(typeof(req.body.coincidingEvents)==='string'){
-        req.body.coincidingEvents = JSON.parse("[" + req.body.coincidingEvents + "]")
+        //req.body.coincidingEvents = JSON.parse("[" + req.body.coincidingEvents + "]")
+        req.body.coincidingEvents = req.body.coincidingEvents.split(',')
     }
     if(typeof(req.body.format)==='string'){
-        req.body.format = JSON.parse("[" + req.body.format + "]")
+        //req.body.format = JSON.parse("[" + req.body.format + "]")
+        req.body.format = req.body.format.split(',')
     }
-
 
     const event = await Event.create({
         name: req.body.name,
@@ -196,8 +199,8 @@ const postEvent = asyncHandler(async (req, res) => {
         description: req.body.description,
         notATypicalTournamentStructure: req.body.notATypicalTournamentStructure,
         twitch: req.body.twitch,
-        // image: req.body.image,
-        // bigImage: req.body.bigImage,
+        image: req.body.image,
+        bigImage: req.body.bigImage,
         backgroundPosition: req.body.backgroundPosition,
         deleted: false,
         //happeningNow,
@@ -207,6 +210,9 @@ const postEvent = asyncHandler(async (req, res) => {
     //postEventEdit(event, req.user._id)
     res.status(200)
     res.json(event)
+
+    // res.status(200)
+    // res.json({message: 'wtf'})
 })
 
 const updateEvent = asyncHandler(async (req, res) => {
@@ -219,58 +225,42 @@ const updateEvent = asyncHandler(async (req, res) => {
         throw new Error('Event with that id does not exist or has been deleted')
     }
 
-    // if(req.files?.image && req.files?.bigImage && req.body.resetImage !== 'true'){
-    //     //call cloudinary helper function that takes the files, handles upload, and returns the image links
-    //     const imageObject = await handleImageFiles(req.files.image, req.files.bigImage)
-    //     req.body.image = imageObject.image
-    //     req.body.bigImage = imageObject.bigImage
-    // }
+    if(req.files?.image && req.files?.bigImage && req.body.resetImage !== 'true'){
+        //call cloudinary helper function that takes the files, handles upload, and returns the image links
+        const imageObject = await handleImageFiles(req.files.image, req.files.bigImage)
+        req.body.image = imageObject.image
+        req.body.bigImage = imageObject.bigImage
+    }
 
-    // if(req.body.resetImage === 'true'){
-    //     req.body.image = null
-    //     req.body.bigImage = null
-    // } else if (req.body.resetImage !== 'false' && !req.body.image){
-    //     delete req.body.image
-    //     delete req.body.bigImage
-    // }
+    if(req.body.resetImage === 'true'){
+        req.body.image = null
+        req.body.bigImage = null
+    } else if (req.body.resetImage !== 'false' && !req.body.image){
+        delete req.body.image
+        delete req.body.bigImage
+    }
 
-    // const date = new Date()
-    // const currentDate = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()))
-    // req.body.happeningNow = false
-
-    // if(req.body.startDate && req.body.endDate){
-    //     const startDate = new Date(req.body.startDate)
-    //     const endDate = new Date(req.body.endDate)
-
-    //     if(startDate <= currentDate && endDate >= currentDate){
-    //         req.body.happeningNow = true
-    //     }
-    // } else if(req.body.startDate){
-    //     const startDate = new Date(req.body.startDate)
-    //     if(startDate.toString() === currentDate.toString()){
-    //         console.log(1)
-    //         req.body.happeningNow = true
-    //     }
-    // }
 
     if(typeof(req.body.dayRoundArr)==='string'){
-        req.body.dayRoundArr = JSON.parse("[" + req.body.dayRoundArr + "]")
+        //req.body.dayRoundArr = JSON.parse("[" + req.body.dayRoundArr + "]")
+        req.body.dayRoundArr = req.body.dayRoundArr.split(',')
     }
     if(typeof(req.body.coincidingEvents)==='string'){
-        req.body.coincidingEvents = JSON.parse("[" + req.body.coincidingEvents + "]")
+        //req.body.coincidingEvents = JSON.parse("[" + req.body.coincidingEvents + "]")
+        req.body.coincidingEvents = req.body.coincidingEvents.split(',')
     }
-
     if(typeof(req.body.format)==='string'){
-        req.body.dayRoundArr = JSON.parse("[" + req.body.format + "]")
+        //req.body.dayRoundArr = JSON.parse("[" + req.body.format + "]")
+        req.body.format = req.body.format.split(',')
     }
 
-    //const oldEvent = await Event.findById(req.params.eventid)
+    const oldEvent = await Event.findById(req.params.eventid)
     const event = await Event.findOneAndUpdate({_id: req.params.eventid, deleted: false}, req.body, {runValidators: true, new: true})
     
 
-    // if(oldEvent.image && (oldEvent.image !== event.image || oldEvent.bigImage !== event.bigImage) && !(await Event.findOne({image: oldEvent.image, bigImage: oldEvent.bigImage, deleted: false}))){
-    //     await handleImageDeletion(oldEvent.image, oldEvent.bigImage)
-    // }
+    if(oldEvent.image && (oldEvent.image !== event.image || oldEvent.bigImage !== event.bigImage) && !(await Event.findOne({image: oldEvent.image, bigImage: oldEvent.bigImage, deleted: false}))){
+        await handleImageDeletion(oldEvent.image, oldEvent.bigImage)
+    }
 
     //postEventEdit(event, req.user._id)
 
@@ -294,24 +284,24 @@ const updateEvent = asyncHandler(async (req, res) => {
 //     res.status(200).json(event)
 // })
 
-// const getAllBackgroundImageLinks = asyncHandler(async (req, res) => {
-//     const pipeline = ([
-//         {"$group": {"_id": {image: '$image', bigImage: '$bigImage'}}}
-//     ])
+const getAllBackgroundImageLinks = asyncHandler(async (req, res) => {
+    const pipeline = ([
+        {"$group": {"_id": {image: '$image', bigImage: '$bigImage'}}}
+    ])
 
-//     const eventQuery = await Event.aggregate(pipeline)
+    const eventQuery = await Event.aggregate(pipeline)
 
-//     let data = []
+    let data = []
 
-//     eventQuery.map(entry => {
-//         if(entry._id.image){
-//             data.push(entry._id)
-//         }
-//     })
+    eventQuery.map(entry => {
+        if(entry._id.image){
+            data.push(entry._id)
+        }
+    })
 
-//     res.status(200)
-//     res.json(data)
-// })
+    res.status(200)
+    res.json(data)
+})
 
 const deleteEvent = asyncHandler(async (req, res) => {
     //const oldEvent = await Event.findById(req.params.eventid)
@@ -348,14 +338,20 @@ const deleteEvent = asyncHandler(async (req, res) => {
 //     res.json(event)
 // })
 
-// const deleteBackgroundImage = asyncHandler(async (req, res) => {
-//     await handleImageDeletion(req.body.image, req.body.bigImage)
+const deleteBackgroundImage = asyncHandler(async (req, res) => {
 
-//     await Event.updateMany({image: req.body.image}, {image: null, bigImage: null})
+    if(!req.body.image || !req.body.bigImage){
+        res.status(400)
+        throw new Error('You need to pass in image and bigImage links to be deleted')
+    }
+
+    await handleImageDeletion(req.body.image, req.body.bigImage)
+
+    await Event.updateMany({image: req.body.image}, {image: null, bigImage: null})
     
-//     res.status(200)
-//     res.json({message: 'images deleted'})
-// })
+    res.status(200)
+    res.json({message: 'images deleted'})
+})
 
 // const checkIfHappeningNow = asyncHandler(async (req, res) => {
 //     const date = new Date()
@@ -411,9 +407,9 @@ module.exports = {
     updateEvent,
     deleteEvent,
     getEventNames,
-    getCurrentAndFutureEvents
+    getCurrentAndFutureEvents,
+    getAllBackgroundImageLinks,
+    deleteBackgroundImage
     //checkIfHappeningNow
-    // editBackgroundPosition,
-    // getAllBackgroundImageLinks,
-    // deleteBackgroundImage
+    //editBackgroundPosition,
 }

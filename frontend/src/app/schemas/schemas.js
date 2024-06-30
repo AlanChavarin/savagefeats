@@ -28,8 +28,8 @@ export const eventSchema = z.object({
     streamed: z.boolean().optional(),
     todaysDate: z.string().optional(),
     emptyEvent: z.boolean().optional(),
-    image: z.string().optional(),
-    bigImage: z.string().optional(),
+    image: z.any().optional(),
+    bigImage: z.any().optional(),
     backgroundPosition: z.number().optional()
 })
 

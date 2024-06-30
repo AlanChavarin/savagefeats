@@ -17,6 +17,9 @@ import { useSearchParams } from "next/navigation"
 import DeleteButton from "../helperComponents/DeleteButton"
 import { getTwitchParams } from "../helpers/TwitchParams"
 import getYoutubeParams from "../helpers/YoutubeParams"
+import useImageCompression from './useImageCompression'
+import EventThumbnailEventPage from "../helperComponents/eventThumbnail/EventThumbnailEventPage"
+import SelectBackgroundImage from "./SelectBackgroundImage"
 
 const formSchema = z.object({
   name: z.string().min(3),
@@ -33,15 +36,26 @@ const formSchema = z.object({
   officialDetails: z.string().optional(),
   liveStream: z.string().optional(),
   twitch: z.boolean().optional(),
+  backgroundPosition: z.coerce.number().optional(),
 
   //dummy fields that the backend doesnt actually accept
   videolink: z.string().optional(),
+
+  //small image
+  image: z.any().optional(),
+
+  //big image, displayed in event page
+  bigImage: z.any().optional(),
 
 })
 
 type FormFields = z.infer<typeof formSchema>
 
 function Postevent() {
+
+  const [chooseBackgroundImageToggle, setChooseBackgroundImageToggle] = useState(false)
+
+  const {smallImageCompression, bigImageCompression, progress} = useImageCompression()
 
   const searchParams = useSearchParams()
 
@@ -112,15 +126,27 @@ function Postevent() {
       data.liveStream = ''
     }
 
+    const formDataObject = new FormData()
+    Object.keys(data).forEach((key, i) => {
+        //@ts-ignore
+        if(data[key]){
+          //@ts-ignore
+          formDataObject.append(key, data[key])
+        }
+        
+    })
+
+    formDataObject.set('enctype', "multipart/form-data")
+
     const url = `${process.env.NEXT_PUBLIC_BACKEND_API}events/${eventid ? eventid : ''}`
 
     fetch(url, {
       method: eventid ? 'PUT' : 'POST',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
+        //'Content-type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: formDataObject
     })
     .then(r => r.json())
     .then(data => {
@@ -141,7 +167,7 @@ function Postevent() {
       console.error(validatedError.error)
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
-      toast.success(err.message)
+      toast.error(err.message)
     })
 
   }
@@ -186,7 +212,7 @@ function Postevent() {
         const validatedData = eventSchema.safeParse(data)
         const validatedError = errorSchema.safeParse(data)
         if(validatedData.success){
-          const {name, location, format, tier, official, startDate, endDate, notATypicalTournamentStructure, dayRoundArr, top8Day, twitch, liveStream, officialDetails, streamed} = validatedData.data
+          const {name, location, format, tier, official, startDate, endDate, notATypicalTournamentStructure, dayRoundArr, top8Day, twitch, liveStream, officialDetails, streamed, backgroundPosition, image, bigImage} = validatedData.data
 
           if(endDate){
             setMultiDayToggle(true)
@@ -206,7 +232,10 @@ function Postevent() {
             twitch,
             liveStream,
             officialDetails,
-            streamed
+            streamed,
+            backgroundPosition,
+            image, 
+            bigImage,
           })
 
           return
@@ -273,11 +302,22 @@ function Postevent() {
     }
   }
 
+  const onChangeImage = async (e: any) => {
+    const imageFile = e.target.files[0]
+    const smallCompressedImage = await smallImageCompression(imageFile)
+    const bigCompressedImage = await bigImageCompression(imageFile)
+    setValue('image', smallCompressedImage)
+    setValue('bigImage', bigCompressedImage)
+
+    console.log(getValues('image'))
+    console.log(getValues('bigImage'))
+  }
+
   // JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX 
 
   return (
-    <div className="flex-1 flex justify-center items-start my-[32px]">
-      <form onSubmit={handleSubmit(onSubmit)} className="relative font-bold flex flex-col gap-[8px] items-start bg-white border-[1px] border-black w-[90%] px-[16px] pt-[16px] pb-[24px] box-shadow-extra-small max-w-[300px]">
+    <div className="flex-1 flex flex-col justify-start gap-[16px] items-center my-[32px] relative">
+      <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data" className="relative font-bold flex flex-col gap-[8px] items-start bg-white border-[1px] border-black w-[90%] px-[16px] pt-[16px] pb-[24px] box-shadow-extra-small max-w-[300px]">
 
         {Object.keys(errors).map((key) => {
           // @ts-ignore
@@ -403,13 +443,40 @@ function Postevent() {
           </div>
         }
 
-        
-
         { getValues('twitch') !== undefined && getValues('streamed') === true && <>
           <BasicTextInput placeholder='' name='videolink' label='Video Link: ' register={register} required={false} onChange={videoLinkOnChange}/>
 
           <BasicTextInput placeholder='' name='liveStream' label={`${watch('twitch') ? 'twitch' : 'youtube'} id: `} register={register} required={true}/>
         </>}
+
+        <div>
+          <button type="button" onClick={() => setChooseBackgroundImageToggle(true)} className="cursor-pointer h-[32px] px-[6px] border-[1px] border-black bg-white hover:bg-gray-300 box-shadow-extra-small flex items-center justify-center m-[8px]">Choose Image</button>
+        </div>
+
+        <div className="flex flex-col">
+          <label>Background Image: {progress && <span> - Compressing: {progress}%</span>}</label>
+          <input type="file" onChange={onChangeImage} className="text-[13px] text-wrap"/>
+        </div>
+
+        <div className="flex flex-row gap-[4px]">
+          <label>Background Position: </label>
+          <input min={1} type="number" className="border-black border-[1px] w-[48px]" {...register('backgroundPosition')}/>
+        </div>
+
+        <label>Preview: </label>
+        <div className="w-[90vw] self-center">
+          <EventThumbnailEventPage event={{
+            // @ts-ignore
+            _id: searchParams.get('eventid') ? searchParams.get('eventid') : '6680a3fc2e0a397e54525ee8',
+            name: watch('name'),
+            location: watch('location'),
+            format: watch('format'),
+            image: watch('image'),
+            bigImage: watch('bigImage'),
+            backgroundPosition: watch('backgroundPosition')
+          }}/>
+          
+        </div>
 
         <button disabled={isSubmitting} type="submit" className="bg-custom-primary hover:bg-custom-primaryHover py-[8px] px-[48px] mt-[16px] self-center border-[1px] border-black box-shadow-extra-small">
           {isSubmitting ? "Submitting..." : "Submit"}
@@ -420,6 +487,9 @@ function Postevent() {
         </button>
 
       </form>
+
+      {chooseBackgroundImageToggle && <SelectBackgroundImage form={form} setChooseBackgroundImageToggle={setChooseBackgroundImageToggle}/>}
+      
     </div>
   )
 }

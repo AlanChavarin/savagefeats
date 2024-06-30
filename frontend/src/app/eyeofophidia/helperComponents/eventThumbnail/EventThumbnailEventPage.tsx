@@ -5,13 +5,13 @@ import { useContext } from "react"
 import getDateString from "./getDateString"
 import getImage from "./getImage"
 
-function EventThumbnailEventPage({event, lastRound, lastFormat, lastTwitch}: {lastRound: string | undefined, lastFormat: string | undefined, lastTwitch: string | undefined, event: eventSchemaType}) {
+function EventThumbnailEventPage({event, lastRound, lastFormat, lastTwitch}: {lastRound?: string | undefined, lastFormat?: string | undefined, lastTwitch?: string | undefined, event: eventSchemaType}) {
 
   const {user} = useContext(UserContext)
 
   return (
     <>
-      <div className={`relative h-[200px] md:h-[280px] w-[100%] flex flex-col justify-start items-center box-shadow text-white text-shadow-small`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('/backgroundimages/${getImage(event._id)}')`, backgroundSize: 'cover', backgroundPosition: `center 0px`}}>
+      <div className={`relative h-[200px] md:h-[280px] w-[100%] flex flex-col justify-start items-center box-shadow text-white text-shadow-small`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('${getImage(event)}')`, backgroundSize: 'cover', backgroundPosition: `center ${event.backgroundPosition ? event.backgroundPosition : 40}%`}}>
 
         <div className='bg-black bg-opacity-60 w-full font-bold p-[8px] text-[24px] md:text-[40px] flex justify-center items-center'>{event.name}</div>
 

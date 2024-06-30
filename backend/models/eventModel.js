@@ -44,11 +44,11 @@ const eventSchema = mongoose.Schema({
     emptyEvent: {
         type: Boolean,
         default: true
-    }
+    },
 
     //description: String,
-    //image: String,
-    //bigImage: String,
+    image: String,
+    bigImage: String,
 })
 
 eventSchema.index({
