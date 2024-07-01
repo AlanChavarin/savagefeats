@@ -46,7 +46,7 @@ async function WinningDecksSection() {
         const validatedData = responseDeckSchema.safeParse(data)
         const validatedError = errorSchema.safeParse(data)
 
-        console.log(data.decklists[0])
+        //console.log(data.decklists[0])
         if(validatedData.success){
             featuredDeck = validatedData.data.decklists[0]
             return
