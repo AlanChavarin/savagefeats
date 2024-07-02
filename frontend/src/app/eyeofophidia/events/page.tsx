@@ -36,7 +36,7 @@ function Events() {
 
 
   useEffect(() => {
-    if(searchParams.get('query') === 'true'){
+    if(searchParams && searchParams.get('query') === 'true'){
       
       const url = `${process.env.NEXT_PUBLIC_BACKEND_API}events?` + new URLSearchParams(searchParams.toString() + `&limit=${limit}` ).toString()
       setLoading(true)
@@ -76,7 +76,7 @@ function Events() {
       {!loading ? <>{events &&
         <div className="flex flex-col gap-[32px] items-center">
           {/* current events */}
-          {!searchParams.get('pastEventsOnly') && events.filter(event => checkIfHappeningNow(event)).length > 0 && <>
+          {!searchParams?.get('pastEventsOnly') && events.filter(event => checkIfHappeningNow(event)).length > 0 && <>
             <div className="flex flex-col gap-[16px] items-center cursor-pointer" onClick={() => setCurrentEventsDropdown(!currentEventsDropdown)}>
               <div className="text-[39px] font-bold text-center flex flex-row gap-[16px] items-center select-none">
                 Happening Now 
@@ -97,7 +97,7 @@ function Events() {
           
 
           {/* future events */}
-          {!searchParams.get('pastEventsOnly') && events.filter(event => checkIfFuture(event)).length > 0 && <>
+          {!searchParams?.get('pastEventsOnly') && events.filter(event => checkIfFuture(event)).length > 0 && <>
             <div className="flex flex-col gap-[16px] items-center cursor-pointer" onClick={() => setFutureEventsDropdown(!futureEventsDropdown)}>
               <div className="text-[39px] font-bold text-center flex flex-row gap-[16px] items-center select-none">
                 Future Events

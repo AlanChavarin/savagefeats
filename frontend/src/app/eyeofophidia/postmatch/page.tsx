@@ -65,7 +65,7 @@ function Postmatch() {
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => { 
 
-    const matchid = searchParams.get('matchid')
+    const matchid = searchParams?.get('matchid')
 
     const url = `${process.env.NEXT_PUBLIC_BACKEND_API}matches/${matchid ? matchid : ''}`
 
@@ -119,11 +119,11 @@ function Postmatch() {
   useEffect(() => {
     // get match data if we are editing a match
 
-    const matchid = searchParams.get('matchid')
-    const eventName = searchParams.get('eventname')
-    const lastRound = searchParams.get('lastRound')
-    const lastFormat = searchParams.get('lastFormat')
-    const lastTwitch = searchParams.get('lastTwitch')
+    const matchid = searchParams?.get('matchid')
+    const eventName = searchParams?.get('eventname')
+    const lastRound = searchParams?.get('lastRound')
+    const lastFormat = searchParams?.get('lastFormat')
+    const lastTwitch = searchParams?.get('lastTwitch')
 
     if(eventName && !matchid){
       setValue('event', eventName)
@@ -281,7 +281,7 @@ function Postmatch() {
   }
 
   const deleteAction = () => {
-    const matchid = searchParams.get('matchid')
+    const matchid = searchParams?.get('matchid')
     const url = `${process.env.NEXT_PUBLIC_BACKEND_API}matches/${matchid}`
     fetch(url, {
       method: 'DELETE',
@@ -324,7 +324,7 @@ function Postmatch() {
           )
         })}
 
-        { searchParams.get('matchid') &&
+        { searchParams?.get('matchid') &&
           <div className="absolute top-[8px] right-[8px]">
             <DeleteButton warningText="Are you sure you want to delete this match? It cannot be restored" deleteAction={deleteAction}/>
           </div>
@@ -332,7 +332,7 @@ function Postmatch() {
 
         
 
-        <div className="text-[24px] self-center">{searchParams.get('matchid') ? 'Edit' : 'Post'} Match</div>
+        <div className="text-[24px] self-center">{searchParams?.get('matchid') ? 'Edit' : 'Post'} Match</div>
 
         <div className="flex flex-col w-[100%]">
           <label>Event Name: <span className="text-red-500">*</span></label>

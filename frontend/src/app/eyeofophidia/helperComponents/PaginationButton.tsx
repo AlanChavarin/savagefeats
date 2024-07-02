@@ -5,7 +5,7 @@ function PaginationButton({page}: {page: number}) {
     const searchParams = useSearchParams()
     const router = useRouter()
     const pathname = usePathname()
-    let params = new URLSearchParams(searchParams.toString())
+    let params = searchParams ? new URLSearchParams(searchParams.toString()) : new URLSearchParams()
 
     const handleClick = () => {
       params.set('page', page.toString())

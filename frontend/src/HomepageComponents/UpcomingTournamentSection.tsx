@@ -13,7 +13,7 @@ let events: eventSchemaType[]
 async function UpcomingTournamentSection() {
 
     //grab current and future events
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events/getcurrentandfutureevents`)
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events/getcurrentandfutureevents`, {cache: 'no-cache'})
     .then(r => r.json())
     .then(data => {
         const validatedData = z.array(eventSchema).safeParse(data)

@@ -39,7 +39,7 @@ function LatestInFABSectionCarousel({backgroundImage, youtubeIDs, events} : { ba
       <div className="w-[90vw] md:w-[564px]" ref={emblaRef}>
         <div className="flex">
 
-            {youtubeIDs.map(id =>
+            {youtubeIDs && youtubeIDs.map(id =>
               <div key={id} className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
                 <YoutubeEmbedContainer>
                     <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/${id}?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
@@ -48,7 +48,7 @@ function LatestInFABSectionCarousel({backgroundImage, youtubeIDs, events} : { ba
               )}
 
             
-            {events && events.map(event =>
+            {events && events.length > 0 && events.map(event =>
               <div key={event._id} className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
                 <div className="h-[50vw] w-[85vw] md:w-[500px] md:h-[282px]">
                   <div className="hidden md:block w-[100%] h-[100%]">

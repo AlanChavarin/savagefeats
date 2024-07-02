@@ -20,7 +20,7 @@ export default async function Home() {
   //const [creators, setCreators] = useState<contentCreatorSchemaType[] | undefined>(undefined)
 
   //grab creator data
-  await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}contentcreators/?&featured=true`)
+  await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}contentcreators/?&featured=true`, {cache: "no-store"})
   .then(r => r.json())
   .then(data => {
     const validatedData = z.array(contentCreatorSchema).safeParse(data)

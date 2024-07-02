@@ -110,7 +110,7 @@ function Postevent() {
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => { 
 
-    const eventid = searchParams.get('eventid')
+    const eventid = searchParams?.get('eventid')
 
     if(!multiDayToggle){
       data.dayRoundArr = []
@@ -200,7 +200,7 @@ function Postevent() {
    useEffect(() => {
     // get match data if we are editing a match
 
-    const eventid = searchParams.get('eventid')
+    const eventid = searchParams?.get('eventid')
 
     if(eventid){
       const url = `${process.env.NEXT_PUBLIC_BACKEND_API}events/${eventid}`
@@ -255,7 +255,7 @@ function Postevent() {
    }, [])
 
    const deleteAction = () => {
-    const eventid = searchParams.get('eventid')
+    const eventid = searchParams?.get('eventid')
     const url = `${process.env.NEXT_PUBLIC_BACKEND_API}events/${eventid}`
     fetch(url, {
       method: 'DELETE',
@@ -329,7 +329,7 @@ function Postevent() {
           )
         })}
 
-        { searchParams.get('eventid') &&
+        { searchParams?.get('eventid') &&
           <div className="absolute top-[8px] right-[8px]">
             <DeleteButton warningText="Are you sure you want to delete this deck? It cannot be restored" deleteAction={deleteAction}/>
           </div>

@@ -18,19 +18,19 @@ const responseSchema = z.object({
 function ReportsSection() {
 
     const [reports, setReports] = useState<reportSchemaType[] | undefined>(undefined)
-    const [page, setPage] = useState<number>(0)
+    //const [page, setPage] = useState<number>(0)
     const [count, setCount] = useState<undefined | number>(undefined)
 
     const searchParams = useSearchParams()
 
     useEffect(() => {
-        const url = `${process.env.NEXT_PUBLIC_BACKEND_API}reports/?${new URLSearchParams(searchParams.toString())}`
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_API}reports/?${searchParams && new URLSearchParams(searchParams.toString())}`
 
         fetch(url, {
         cache: 'no-store',
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}?&page=${page}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'Content-Type': 'application/json'
         }})
         .then(r => r.json())

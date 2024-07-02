@@ -15,7 +15,7 @@ let events: eventSchemaType[]
 async function LatestTournamentSection() {
 
     //grab latest events
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events?&limit=9&emptyEvent=false`)
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events?&limit=9&emptyEvent=false`, {cache: 'no-store'})
     .then(r => r.json())
     .then(data => {
         const validatedData = responseEventSchema.safeParse(data)
@@ -35,8 +35,6 @@ async function LatestTournamentSection() {
     }).catch(err => {
         toast.error(err.message)
     })
-
-    
 
   return ( <>
         {

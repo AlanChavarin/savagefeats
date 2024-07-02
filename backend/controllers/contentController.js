@@ -172,8 +172,6 @@ const updateContentByContentCreator = asyncHandler(async (req, res) => {
             description: item.snippet.description,
             channelTitle: item.snippet.title,
         })
-
-        console.log(content)
     })
 
     res.status(200)
@@ -212,8 +210,6 @@ const latestInFleshAndBlood = asyncHandler(async (req, res) => {
     //grab live streams
 
     const decklist = await Decklist.find({deckTech: { "$nin": [null, ""] }}).limit(1).sort({"event.startDate": -1})
-
-    console.log(decklist)
 
     const events = await Event.find({deleted: false}).sort({startDate: -1}).limit(1)
 

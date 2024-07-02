@@ -41,7 +41,7 @@ function Postmatch() {
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => { 
 
-    const deckid = searchParams.get('deckid')
+    const deckid = searchParams?.get('deckid')
 
     const url = `${process.env.NEXT_PUBLIC_BACKEND_API}decklists/${deckid ? deckid : ''}`
 
@@ -83,9 +83,9 @@ function Postmatch() {
 
   useEffect(() => {
 
-    const deckid = searchParams.get('deckid')
-    const eventName = searchParams.get('eventname')
-    const lastFormat = searchParams.get('lastFormat')
+    const deckid = searchParams?.get('deckid')
+    const eventName = searchParams?.get('eventname')
+    const lastFormat = searchParams?.get('lastFormat')
     
     if(eventName && !deckid){
       setValue('event', eventName)
@@ -159,7 +159,7 @@ function Postmatch() {
   }, [])
 
   const deleteAction = () => {
-    const deckid = searchParams.get('deckid')
+    const deckid = searchParams?.get('deckid')
     const url = `${process.env.NEXT_PUBLIC_BACKEND_API}decklists/${deckid ? deckid : ''}`
     fetch(url, {
       method: 'DELETE',
@@ -212,13 +212,13 @@ function Postmatch() {
           )
         })}
 
-        { searchParams.get('deckid') &&
+        { searchParams?.get('deckid') &&
           <div className="absolute top-[8px] right-[8px]">
             <DeleteButton warningText="Are you sure you want to delete this deck? It cannot be restored" deleteAction={deleteAction}/>
           </div>
         }
 
-        <div className="text-[24px] self-center">{searchParams.get('deckid') ? 'Edit' : 'Post'} Deck</div>
+        <div className="text-[24px] self-center">{searchParams?.get('deckid') ? 'Edit' : 'Post'} Deck</div>
 
         <div className="flex flex-col w-[100%]">
           <label>Event Name:</label>

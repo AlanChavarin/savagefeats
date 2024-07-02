@@ -1,5 +1,3 @@
-
-
 import { eventSchemaType } from "@/app/types/types"
 import { toast } from "react-toastify"
 import { errorSchema } from "@/app/schemas/schemas"
@@ -19,7 +17,7 @@ let events: eventSchemaType[]
 async function LatestInFABSection({backgroundImage} : { backgroundImage: string}) {
 
   //grab latest in fab data
-  await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}content/latestinfleshandblood`)
+  await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}content/latestinfleshandblood`, {cache: "no-store"})
   .then(r => r.json())
   .then(data => {
     const validatedData = responseLatestInFABSchema.safeParse(data)

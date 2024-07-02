@@ -18,7 +18,7 @@ async function WinningDecksSection() {
 
 
     //grab latest decks
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}decklists?&limit=20`)
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}decklists?&limit=20`, {cache: "no-store"})
     .then(r => r.json())
     .then(data => {
     const validatedData = responseDeckSchema.safeParse(data)
@@ -40,7 +40,7 @@ async function WinningDecksSection() {
     })
 
     //grab latest deck with decktech 
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}decklists?&deckTech=true&limit=1`)
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}decklists?&deckTech=true&limit=1`, {cache: "no-store"})
     .then(r => r.json())
     .then(data => {
         const validatedData = responseDeckSchema.safeParse(data)

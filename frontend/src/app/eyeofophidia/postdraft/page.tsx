@@ -51,7 +51,7 @@ function Postdraft() {
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => { 
 
-    const draftid = searchParams.get('draftid')
+    const draftid = searchParams?.get('draftid')
 
     const url = `${process.env.NEXT_PUBLIC_BACKEND_API}drafts/${draftid ? draftid : ''}`
 
@@ -105,10 +105,10 @@ function Postdraft() {
   useEffect(() => {
     // get draft data if we are editing a draft
 
-    const draftid = searchParams.get('draftid')
-    const eventName = searchParams.get('eventname')
-    const lastRound = searchParams.get('lastRound')
-    const lastTwitch = searchParams.get('lastTwitch')
+    const draftid = searchParams?.get('draftid')
+    const eventName = searchParams?.get('eventname')
+    const lastRound = searchParams?.get('lastRound')
+    const lastTwitch = searchParams?.get('lastTwitch')
 
     if(eventName && !draftid){
       setValue('event', eventName)
@@ -196,7 +196,7 @@ function Postdraft() {
   }
 
   const deleteAction = () => {
-    const draftid = searchParams.get('draftid')
+    const draftid = searchParams?.get('draftid')
     const url = `${process.env.NEXT_PUBLIC_BACKEND_API}drafts/${draftid}`
     fetch(url, {
       method: 'DELETE',
@@ -239,13 +239,13 @@ function Postdraft() {
           )
         })}
 
-        { searchParams.get('draftid') &&
+        { searchParams?.get('draftid') &&
           <div className="absolute top-[8px] right-[8px]">
             <DeleteButton warningText="Are you sure you want to delete this draft? It cannot be restored" deleteAction={deleteAction}/>
           </div>
         }
 
-        <div className="text-[24px] self-center">{searchParams.get('draftid') ? 'Edit' : 'Post'} Draft</div>
+        <div className="text-[24px] self-center">{searchParams?.get('draftid') ? 'Edit' : 'Post'} Draft</div>
 
         <div className="flex flex-col w-[100%]">
           <label>Event Name: <span className="text-red-500">*</span></label>

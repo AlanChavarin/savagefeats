@@ -157,7 +157,7 @@ const postEvent = asyncHandler(async (req, res) => {
         const imageObject = await handleImageFiles(req.files.image, req.files.bigImage)
         req.body.image = imageObject.image
         req.body.bigImage = imageObject.bigImage
-    } else if(!req.body.image.startsWith('http') && !req.body.bigImage.startsWith('http')){
+    } else if(!req.body?.image?.startsWith('http') && !req.body?.bigImage?.startsWith('http')){
         delete req.body.image
         delete req.body.bigImage
     }
