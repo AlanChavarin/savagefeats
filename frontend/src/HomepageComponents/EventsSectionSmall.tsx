@@ -37,7 +37,7 @@ function EventsSectionSmall({events, header, backgroundImage}: {events: eventSch
 
           { events && 
               events.slice(0, 5).map(event => <>
-                <div className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
+                <div key={event._id} className="h-[50vw] basis-[90vw] min-[390px]:h-[202px] min-[390px]:basis-[360px] grow-0 shrink-0 ">
                   <EventThumbnailSmallSlide event={event}/>
                 </div>
               </>)

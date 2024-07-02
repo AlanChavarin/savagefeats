@@ -5,7 +5,10 @@ import { Providers } from '@/app/Providers'
 function HomepageHeroBackground() {
   return (
     <Providers>
-      <ParallaxBanner layers={[{image: '/mulch.jpg', translateY:[-25, 25]}]} style={{willChange: 'transform'}} className="h-full" />
+      <ParallaxBanner 
+      layers={
+        [{image: '/mulch.jpg', translateY: ((typeof window !== "undefined" && window.innerWidth < 600) ? [0, 0] : [-25, 25])}]
+      } className="h-full" />
     </Providers>
   )
 }

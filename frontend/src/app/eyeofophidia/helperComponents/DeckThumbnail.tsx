@@ -99,7 +99,7 @@ function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featu
     { (size === 'smallSlide') && 
         <a href={deck.decklistLink} target="_blank" className='bg-white box-shadow w-full h-[64px] flex hover:bg-gray-50 cursor-pointer'>
             <div className='h-[64px] w-[64px]' style={{backgroundImage: `url('/heroes/${heroUrlHelper(deck.hero)}.jpg')`, backgroundSize: '150%', backgroundPosition: `center 0`}}></div>
-            <div className='flex flex-col h-full flex-1 p-[8px] justify-around relative'>
+            <div className='flex flex-col h-full flex-1 p-[4px] justify-center relative'>
                 <div className='text-[13px] font-bold'>{deck.event?.name}</div>
                 {/* <div className='text-[13px] text-gray-600'></div> */}
                 <div className='text-[13px]  flex flex-row justify-between'>{deck.playerName} - {deck.hero}</div>
