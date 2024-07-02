@@ -177,8 +177,14 @@ function Event({params}: {params: {eventid: string}}) {
                       <div className="flex flex-col items-center gap-[24px]" key={day}>
                         <div className="text-[30px] md:text-[39px] font-bold" >Day {i+1}:</div>
                         <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
+
+                        <div className="flex flex-row flex-wrap gap-[24px] justify-center">
+                          {drafts && drafts.filter(draft => !draft.top8 && draft.swissRound && day && draft.swissRound <= day).map(draft => <DraftThumbnail draft={draft} />)}
+                        </div>
+
+
                         <div className="flex flex-row flex-wrap gap-[24px] justify-center" >
-                            {drafts && drafts.filter(draft => !draft.top8 && draft.swissRound && day && draft.swissRound <= day).map(draft => <DraftThumbnail draft={draft} />)}
+                            
                             {matches && matches.filter(match => filter(match, i, event)).map(match => (<MatchThumbnail key={match._id} match={match}/>))}
                             {matches && (matches.filter(match => filter(match, i, event)).length < 1) && <>No Vods Available :{'('}</>}
                         </div>
@@ -187,7 +193,9 @@ function Event({params}: {params: {eventid: string}}) {
 
                     <div className="text-[30px] md:text-[39px] font-bold">Top Cut:</div>
                     <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
-                    {drafts && drafts.filter(draft => draft.top8).map(draft => <DraftThumbnail draft={draft} key={draft._id}/>)}
+                    <div className="flex flex-row flex-wrap gap-[24px] justify-center">
+                      {drafts && drafts.filter(draft => draft.top8).map(draft => <DraftThumbnail draft={draft} key={draft._id}/>)}
+                    </div>
                     <div className="flex flex-row flex-wrap gap-[24px] justify-center">
                         {matches && matches.filter(match => (match.top8===true)).map(match => 
                             <MatchThumbnail match={match} key={match._id}/>
