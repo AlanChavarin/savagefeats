@@ -30,36 +30,34 @@ function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featu
 
   return (<>
     { (size === 'normal') && 
-        <div className="relative w-[100%] sm:w-[496px] min-h-[80px] bg-white hover:bg-gray-200">
+        <div className="relative min-w-[296px] ssm:w-[396px] sm:w-[496px] min-h-[80px] bg-white hover:bg-gray-200">
             <a href={deck.decklistLink} target="_blank" className='w-full h-full cursor-pointer z-[1] absolute'></a>
             <div className="absolute top-0 w-full h-full flex box-shadow">
                 <div className='h-full w-[80px]' style={{backgroundImage: `url('/heroes/${heroUrlHelper(deck.hero)}.jpg')`, backgroundSize: '180%', backgroundPosition: `center -10px`}}></div>
-                <div className='flex flex-col flex-1 p-[8px] justify-end gap-[2px] relative text-[13px]'>  
+                <div className='flex flex-col flex-1 p-[8px] justify-between gap-[2px] relative text-[13px]'>  
 
                     { deck.event ?
                         <Link href={`/eyeofophidia/event/${deck.event._id}`} className="z-[1] font-bold flex flex-row flex-wrap text-[16px] hover:text-purple-500 underline self-start">
                             {deck.event.name}
                         </Link>
                         :
-                        <div className="font-bold flex flex-row flex-wrap text-[16px] self-start">
+                        <div className="flex font-bold flex-row flex-wrap text-[16px] self-start">
                             {deck.hero}
                         </div>
                     }
 
-                    { deck.event &&
-                        <div className='text-black flex flex-col gap-[4px] sm:gap-[0px] sm:flex-row justify-between'>
-                            {deck.hero}
-                        </div>
-                    }
-                    
+                    <div className='hidden text-black ssm:flex flex-col gap-[4px] sm:gap-[0px] sm:flex-row justify-between'>
+                        {deck.hero}
+                    </div>
+                
 
-                    <div className='text-gray-600 flex flex-col gap-[4px] sm:gap-[0px] sm:flex-row justify-start'>
+                    <p className='text-gray-600 gap-[4px] sm:gap-[0px] sm:flex-row'>
                         {/* {deck.placement && <>{`${deckPlacementString(deck.placement)} Place - `}</>} */}
                         {deck.playerName && <>{`${deck.playerName}`}</>}
                         {deck.event?.startDate && <>{` - ${deck.event.startDate.slice(0, 10)}`}</>}
                         {<> - {deck.format}</>}
-                        {deck.deckTech && <> -&nbsp;<a target="_blank" href={`https://www.youtube.com/watch?v=${deck.deckTech}`} className="hover:text-purple-500 underline z-[1]">Deck Tech</a></>}
-                    </div>
+                        {deck.deckTech && <> -&nbsp;<a target="_blank" href={`https://www.youtube.com/watch?v=${deck.deckTech}`} className="hover:text-purple-500 underline">Deck Tech</a></>}
+                    </p>
 
 
                     <div className="absolute top-[4px] right-[4px]">
@@ -99,7 +97,7 @@ function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featu
     { (size === 'smallSlide') && 
         <a href={deck.decklistLink} target="_blank" className='bg-white box-shadow w-full h-[64px] flex hover:bg-gray-50 cursor-pointer'>
             <div className='h-[64px] w-[64px]' style={{backgroundImage: `url('/heroes/${heroUrlHelper(deck.hero)}.jpg')`, backgroundSize: '150%', backgroundPosition: `center 0`}}></div>
-            <div className='flex flex-col h-full flex-1 p-[4px] justify-center relative'>
+            <div className='flex flex-col h-full flex-1 p-[4px] relative justify-center'>
                 <div className='text-[13px] font-bold'>{deck.event?.name}</div>
                 {/* <div className='text-[13px] text-gray-600'></div> */}
                 <div className='text-[13px]  flex flex-row justify-between'>{deck.playerName} - {deck.hero}</div>
