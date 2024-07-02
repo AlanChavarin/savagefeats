@@ -24,6 +24,7 @@ const formSchema = z.object({
   twitchTimeStamp: z.string().optional(),
   link: z.string(),
   timeStamp: z.coerce.number().optional(),
+  playerName: z.string().optional(),
 
   //dummy fields that the backend doesnt actually accept
   videolink: z.string(),
@@ -132,7 +133,7 @@ function Postdraft() {
         const validatedData = draftSchema.safeParse(data)
         const validatedError = errorSchema.safeParse(data)
         if(validatedData.success){
-          const {event, top8, swissRound, twitch, twitchTimeStamp, link, timeStamp
+          const {event, top8, swissRound, twitch, twitchTimeStamp, link, timeStamp, playerName
           } = validatedData.data
           reset({
             event: event.name, 
@@ -142,6 +143,7 @@ function Postdraft() {
             twitchTimeStamp: twitchTimeStamp ? twitchTimeStamp : undefined, 
             link, 
             timeStamp: timeStamp ? timeStamp : undefined, 
+            playerName,
           })
           return
         }
@@ -278,17 +280,21 @@ function Postdraft() {
         <BasicTextInput placeholder='' name='link' label={`${watch('twitch') ? 'twitch' : 'youtube'} id: `} register={register} required={true}/>
 
         { watch('twitch') ? 
-        <div className="flex flex-col"> 
-          <label>Twitch Time Stamp: <span className="text-red-500">*</span>&nbsp;</label>
-          <input type="text" {...register('twitchTimeStamp')} className="border-black border-[1px] w-[128px] box-shadow-extra-small" />
-        </div>
-        :
-        <div className="flex flex-col"> 
-          <label>Youtube Time Stamp: <span className="text-red-500">*</span>&nbsp;</label>
-          <input min={'0'} type="number" {...register('timeStamp')} className="border-black border-[1px] w-[128px] box-shadow-extra-small" />
-        </div>
-
+          <div className="flex flex-col"> 
+            <label>Twitch Time Stamp: <span className="text-red-500">*</span>&nbsp;</label>
+            <input type="text" {...register('twitchTimeStamp')} className="border-black border-[1px] w-[128px] box-shadow-extra-small" />
+          </div>
+          :
+          <div className="flex flex-col"> 
+            <label>Youtube Time Stamp: <span className="text-red-500">*</span>&nbsp;</label>
+            <input min={'0'} type="number" {...register('timeStamp')} className="border-black border-[1px] w-[128px] box-shadow-extra-small" />
+          </div>
         }
+
+        <div className="flex flex-col">
+          <label>Player Full Name:</label>
+          <NameSelect placeholder='' name='playerName' form={form}/>
+        </div>
         
         <button onClick={() => setActionAfterSubmit('TO_EVENT')} disabled={isSubmitting} type="submit" className="bg-custom-primary hover:bg-custom-primaryHover py-[8px] w-[80%] mt-[16px] self-center border-[1px] border-black box-shadow-extra-small">
           {isSubmitting ? "Submitting..." : "Submit & go to event"}

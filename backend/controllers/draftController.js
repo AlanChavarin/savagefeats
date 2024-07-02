@@ -86,7 +86,7 @@ const getDraft = asyncHandler(async (req, res) => {
 
 const postDraft = asyncHandler(async (req, res) => {
     const {
-     event, twitch, twitchTimeStamp, link, timeStamp, top8, swissRound
+     event, twitch, twitchTimeStamp, link, timeStamp, top8, swissRound, playerName
     } = req.body
     const eventData = await Event.findOne({name: event})
 
@@ -98,6 +98,7 @@ const postDraft = asyncHandler(async (req, res) => {
         twitchTimeStamp: twitchTimeStamp,
         link: link,
         timeStamp: timeStamp,
+        playerName: playerName,
     })
 
 

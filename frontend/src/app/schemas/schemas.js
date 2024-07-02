@@ -113,6 +113,7 @@ export const draftSchema = z.object({
     link: z.string(),
     timeStamp: z.union([z.number(), z.null(), z.undefined()]).optional(),
     event: eventSchema,
+    playerName: z.string().optional()
 })
 
 export const reportSchema = z.object({

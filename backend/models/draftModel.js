@@ -12,6 +12,7 @@ const draftSchema = mongoose.Schema({
     top8: {type: Boolean, required: true},
     swissRound: Number,
     relatedMatches: [Schema.Types.Mixed],
+    playerName: String,
 
     event: {
         _id: {
