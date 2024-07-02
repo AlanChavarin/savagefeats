@@ -179,7 +179,7 @@ function Event({params}: {params: {eventid: string}}) {
                         <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
 
                         <div className="flex flex-row flex-wrap gap-[24px] justify-center">
-                          {drafts && drafts.filter(draft => !draft.top8 && draft.swissRound && day && draft.swissRound <= day).map(draft => <DraftThumbnail draft={draft} />)}
+                          {drafts && drafts.filter(draft => !draft.top8 && draft.swissRound && day && draft.swissRound <= day).map(draft => <DraftThumbnail draft={draft} key={draft._id}/>)}
                         </div>
 
 
@@ -210,7 +210,7 @@ function Event({params}: {params: {eventid: string}}) {
                   </>}
                   <div className="flex flex-row flex-wrap gap-[24px] justify-center">
                     {drafts && drafts.filter(draft => !draft.top8).map(draft => 
-                    <DraftThumbnail draft={draft} />)}
+                    <DraftThumbnail draft={draft} key={draft._id}/>)}
                   </div>
                   <div className="flex flex-row flex-wrap gap-[24px] justify-center">
                       {matches && matches.filter(match => !match.top8).map(match => 
@@ -225,7 +225,7 @@ function Event({params}: {params: {eventid: string}}) {
 
                   <div className="flex flex-row flex-wrap gap-[24px] justify-center">
                     {drafts && drafts.filter(draft => draft.top8).map(draft => 
-                    <DraftThumbnail draft={draft} />)}
+                    <DraftThumbnail draft={draft} key={draft._id}/>)}
                   </div>
 
                   <div className="flex flex-row flex-wrap gap-[24px] justify-center">
