@@ -155,7 +155,7 @@ function Event({params}: {params: {eventid: string}}) {
             {event.liveStream && (!matches || matches.length === 0) && event.twitch &&
               <div className="w-[660px] h-[360px]">
                 <div className="relative w-[100%] pb-[56.25%] h-[0%] box-shadow">
-                  <iframe className="absolute w-[100%] h-[100%]" src={`https://player.twitch.tv/?video=${event.liveStream}&parent=${process.env.NODE_ENV==='production' ? 'www.eyeofophidia.net' : 'localhost'}`}></iframe>
+                  <iframe className="absolute w-[100%] h-[100%]" src={`https://player.twitch.tv/?video=${event.liveStream}&parent=${process.env.NODE_ENV==='production' ? 'savagefeats-production.up.railway.app' : 'localhost'}`}></iframe>
                 </div>
               </div>
             }
