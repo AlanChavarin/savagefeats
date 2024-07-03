@@ -56,18 +56,18 @@ const getDraft = asyncHandler(async (req, res) => {
         if(2 < matchesByEvent.length){
 
             if(draft.top8){
-                relatedMatches[0] = matchesByEvent[matchesByEvent.length-2]
-                relatedMatches[1] = matchesByEvent[matchesByEvent.length-1]
+                relatedMatches[0] = matchesByEvent[matchesByEvent.length-3]
+                relatedMatches[1] = matchesByEvent[matchesByEvent.length-2]
             }
 
             for(let i = 0; i < matchesByEvent.length; i++){
                 if(!draft.top8 && matchesByEvent[i].swissRound === draft.swissRound){
                     if(i < matchesByEvent.length-2){
-                        relatedMatches[0] = matchesByEvent[i+1]
-                        relatedMatches[1] = matchesByEvent[i+2]
+                        relatedMatches[0] = matchesByEvent[i]
+                        relatedMatches[1] = matchesByEvent[i+1]
                     } else if(i < matchesByEvent.length-1){
-                        relatedMatches[0] = matchesByEvent[i+1]
-                        relatedMatches[1] = matchesByEvent[i-1]
+                        relatedMatches[0] = matchesByEvent[i]
+                        relatedMatches[1] = matchesByEvent[i-2]
                     } else {
                         relatedMatches[0] = matchesByEvent[i-1]
                         relatedMatches[1] = matchesByEvent[i-2]
