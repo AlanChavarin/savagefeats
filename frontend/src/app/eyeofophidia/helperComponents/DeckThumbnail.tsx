@@ -9,20 +9,39 @@ import EditButton from "./EditButton"
 import UserContext from "@/context/UserContext"
 import { useContext } from "react"
 
-// const deckPlacementString = (placement: number | undefined) => {
-//     switch(placement){
-//         case undefined:
-//             return ''
-//         case 1:
-//             return '1st'
-//         case 2:
-//             return '2nd'
-//         case 3:
-//             return '3rd'
-//         default:
-//             return `${placement}th`
-//     }
-// }
+const deckPlacementString = (placement: number | undefined, placementRangeEnding: number | undefined) => {
+
+    if(placementRangeEnding){
+        switch(placementRangeEnding){
+            case undefined:
+                return ''
+            case 1:
+                return `1st`
+            case 2:
+                return '1-2nd'
+            case 3:
+                return `${placement}-3rd`
+            default:
+                return `${placement}-${placementRangeEnding}th`
+        }
+
+    } else {
+        switch(placement){
+            case undefined:
+                return ''
+            case 1:
+                return '1st'
+            case 2:
+                return '2nd'
+            case 3:
+                return '3rd'
+            default:
+                return `${placement}th`
+        }
+    }
+
+    
+}
 
 function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featuredSlide' | 'sideSlide' | 'normal'), deck: deckSchemaType}) {
 
@@ -52,22 +71,23 @@ function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featu
                 
 
                     <p className='text-gray-600 gap-[4px] sm:gap-[0px] sm:flex-row'>
-                        {/* {deck.placement && <>{`${deckPlacementString(deck.placement)} Place - `}</>} */}
+                        {deck.placement && <>{`${deckPlacementString(deck.placement, deck.placementRangeEnding)} Place - `}</>}
                         {deck.playerName && <>{`${deck.playerName}`}</>}
                         {deck.event?.startDate && <>{` - ${deck.event.startDate.slice(0, 10)}`}</>}
                         {<> - {deck.format}</>}
-                        {deck.deckTech && <> -&nbsp;<a target="_blank" href={`https://www.youtube.com/watch?v=${deck.deckTech}`} className="hover:text-purple-500 underline">Deck Tech</a></>}
-                    </p>
 
+                    </p>
 
                     <div className="absolute top-[4px] right-[4px]">
                         <FontAwesomeIcon icon={faSquareArrowUpRight}/>
                     </div>
 
-                    <div className="absolute bottom-[4px] right-[4px] z-[1]">
-                        {user && <EditButton text='' tiny={true} link={`/eyeofophidia/postdeck?deckid=${deck._id}`} />}
-                    </div>
                 </div>
+            </div>
+            {deck.deckTech && <a target="_blank" href={`https://www.youtube.com/watch?v=${deck.deckTech}`} className="hover:text-purple-500 underline bottom-[6px] ssm:bottom-[24px] right-[4px] absolute text-[13px] text-gray-600 z-[3]">Deck Tech</a>}
+
+            <div className="absolute left-[4px] bottom-[4px] z-[1]">
+                {user && <EditButton text='' tiny={true} link={`/eyeofophidia/postdeck?deckid=${deck._id}`} />}
             </div>
         </div>
     }
