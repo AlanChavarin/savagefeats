@@ -48,7 +48,7 @@ function EventsSectionBig({events, header, backgroundImage}: {events: eventSchem
           </div>
 
           {events && chunkArray(events.slice(1), 2).map((chunk, i) => 
-            <div key={i + 'chunkArr'} className='flex flex-col h-[430px] basis-[340px] grow-0 shrink-0 gap-[48px]'>
+            <div key={i + 'chunkArr'} className='flex flex-col h-[430px] basis-[340px] grow-0 shrink-0 gap-[48px] justify-start'>
               {chunk.map(event => <EventThumbnailSideSlide key={event._id} event={event}/>) }
             </div>
           )}

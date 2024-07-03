@@ -9,7 +9,7 @@ import getImage from "./getImage"
 function EventThumbnailSideSlide({event}: {event: eventSchemaType}) {
 
   return (
-      <div  className={`flex flex-col justify-start items-center h-full w-full box-shadow text-white text-shadow-small cursor-pointer relative`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('${getImage(event)}')`, backgroundSize: 'cover', backgroundPosition: `0 0px `}}>
+      <div  className={`flex flex-col justify-start items-center h-full w-full max-h-[190px] box-shadow text-white text-shadow-small cursor-pointer relative`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('${getImage(event)}')`, backgroundSize: 'cover', backgroundPosition: `0 0px `}}>
 
         <Link href={`/eyeofophidia/event/${event._id}`} className="w-full h-full relative">
           <div className="flex w-full z-[1] pointer-events-none">
