@@ -27,7 +27,7 @@ return (
           </div>
           <div>{event.startDate && getDateString(event.startDate)} {event.endDate && ' - ' + getDateString(event.endDate)}</div>
           <div>{event.location}</div>
-          <div>{event.streamed && 'Streamed'}</div>
+          <div>{event.streamed ? 'Streamed' : <span className="text-red-500">Unstreamed</span>}</div>
         </div>
           
       </div>

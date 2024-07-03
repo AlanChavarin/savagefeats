@@ -24,7 +24,7 @@ function EventThumbnailEventPage({event, lastRound, lastFormat, lastTwitch}: {la
             </div>
             <div>{event.startDate && getDateString(event.startDate)} {event.endDate && ' - ' + getDateString(event.endDate)}</div>
             <div>{event.location}</div>
-            <div>{event.streamed && 'Streamed'}</div>
+            <div>{event.streamed ? 'Streamed' : <span className="text-red-500">Unstreamed</span>}</div>
             <div className='text-center *:underline text-[16px] md:text-[19px] justify-self-end'>
               {event.officialDetails && <><a href={event.officialDetails} target="_blank" className="hover:text-purple-500">Official Details</a></>}
 

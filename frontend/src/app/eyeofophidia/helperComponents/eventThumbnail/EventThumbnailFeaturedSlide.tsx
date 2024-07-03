@@ -29,7 +29,7 @@ function EventThumbnail({event}: {event: eventSchemaType}) {
               </div>
               <div>{event.startDate && getDateString(event.startDate)}</div>
               <div>{event.location}</div>
-              <div>{event.streamed && 'Streamed'}</div>
+              <div>{event.streamed ? 'Streamed' : <span className="text-red-500">Unstreamed</span>}</div>
             </div>
           </div>
 

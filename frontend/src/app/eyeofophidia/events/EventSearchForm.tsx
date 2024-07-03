@@ -33,8 +33,7 @@ function EventSearchForm(){
   const form = useForm<FormFields>({
     resolver: zodResolver(formSchema),
     defaultValues:{
-      order: -1,
-      streamed: true
+      order: -1
     }
   })
 

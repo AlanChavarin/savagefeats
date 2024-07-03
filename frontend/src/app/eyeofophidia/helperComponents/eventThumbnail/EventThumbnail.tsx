@@ -31,7 +31,7 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
             {/* <div>{event.startDate && event.startDate.slice(0,10)} {event.endDate && ' - ' + event.endDate.slice(0, 10)}</div> */}
             <div>{event.startDate && getDateString(event.startDate)} {event.endDate && ' - ' + getDateString(event.endDate)}</div>
             <div>{event.location}</div>
-            <div>{event.streamed && 'Streamed'}</div>
+            <div>{event.streamed ? 'Streamed' : <span className="text-red-500">Unstreamed</span>}</div>
             <div className='text-center *:underline text-[16px] md:text-[19px] justify-self-end'>
               {event.officialDetails && <><a href={event.officialDetails} target="_blank" className="hover:text-purple-500">Official Details</a></>}
 
@@ -86,7 +86,7 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
             {/* <div>{event.startDate && event.startDate.slice(0,10)} {event.endDate && ' - ' + event.endDate.slice(0, 10)}</div> */}
             <div>{event.startDate && getDateString(event.startDate)} {event.endDate && ' - ' + getDateString(event.endDate)}</div>
             <div>{event.location}</div>
-            <div>{event.streamed && 'Streamed'}</div>
+            <div>{event.streamed ? 'Streamed' : <span className="text-red-500">Unstreamed</span>}</div>
         </div>
 
         {/* absolute positioned elements */}
@@ -117,7 +117,7 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
               {/* <div>{event.startDate?.slice(0, 10)}{event.endDate && ` - ${event.endDate.slice(0, 10)}`}</div> */}
               <div>{event.startDate && getDateString(event.startDate)} {event.endDate && ' - ' + getDateString(event.endDate)}</div>
               <div>{event.location}</div>
-              <div>{event.streamed && 'Streamed'}</div>
+              <div>{event.streamed ? 'Streamed' : <span className="text-red-500">Unstreamed</span>}</div>
           </div>
 
           {/* absolute positioned elements */}
@@ -145,7 +145,7 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
               {/* <div>{event.startDate?.slice(0, 10)}{event.endDate && ` - ${event.endDate.slice(0, 10)}`}</div> */}
               <div>{event.startDate && getDateString(event.startDate)} {event.endDate && ' - ' + getDateString(event.endDate)}</div>
               <div>{event.location}</div>
-              <div>{event.streamed && 'Streamed'}</div>
+              <div>{event.streamed ? 'Streamed' : <span className="text-red-500">Unstreamed</span>}</div>
             </div>
             <div className='z-[1] pointer-events-none'>
               <div className='text-[11px] text-center *:underline'>
@@ -178,7 +178,7 @@ function EventThumbnail({event, size, lastRound, lastFormat, lastTwitch}: {lastR
               {/* <div>{event.startDate?.slice(0, 10)}{event.endDate && ` - ${event.endDate.slice(0, 10)}`}</div> */}
               <div>{event.startDate && getDateString(event.startDate)}</div>
               <div>{event.location}</div>
-              <div>{event.streamed && 'Streamed'}</div>
+              <div>{event.streamed ? 'Streamed' : <span className="text-red-500">Unstreamed</span>}</div>
             </div>
             <div className='flex flex-col gap-[8px] z-[1]'>
               <div className='text-[16px] text-center *:underline'>
