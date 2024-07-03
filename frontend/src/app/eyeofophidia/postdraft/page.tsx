@@ -11,7 +11,6 @@ import { toast } from "react-toastify"
 import { useRouter } from "next/navigation"
 import getYoutubeParams from '../helpers/YoutubeParams'
 import { getTwitchParams } from "../helpers/TwitchParams"
-import HeroSelect from "../helperComponents/HeroSelect"
 import { useSearchParams } from "next/navigation"
 import NameSelect from "../helperComponents/NameSelect"
 import DeleteButton from "../helperComponents/DeleteButton"

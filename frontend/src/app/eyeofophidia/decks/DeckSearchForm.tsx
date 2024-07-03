@@ -96,7 +96,7 @@ function DeckSearchForm(){
           {/* hero select */}
           <div className="flex flex-col gap-[8px] w-[85%] md:justify-center md:flex-row">
             <div className="whitespace-nowrap">Hero: </div>
-            <HeroSelect placeholder="Hero" name="hero" form={form} />
+            <HeroSelect placeholder="Hero" name="hero" form={form} type={'both'}/>
           </div>
           
           {/* date range  */}

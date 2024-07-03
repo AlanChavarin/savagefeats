@@ -13,6 +13,7 @@ import { useSearchParams } from "next/navigation"
 import DeleteButton from "../helperComponents/DeleteButton"
 import NameSelect from "../helperComponents/NameSelect"
 import getYoutubeParams from "../helpers/YoutubeParams"
+import typeCalculator from "../postmatch/typeCalculator"
 
 const formSchema = z.object({
   playerName: z.string().min(1),
@@ -37,7 +38,7 @@ function Postmatch() {
 
   const form = useForm<FormFields>({resolver: zodResolver(formSchema),})
 
-  const { register, handleSubmit, setValue, getValues, reset, resetField, formState: {errors, isSubmitting}} = form
+  const { register, handleSubmit, setValue, getValues, reset, watch, resetField, formState: {errors, isSubmitting}} = form
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => { 
 
@@ -233,7 +234,7 @@ function Postmatch() {
 
         <div className="flex flex-col">
           <label>Hero <span className="text-red-500">*</span>&nbsp;</label>
-          <HeroSelect placeholder="" name="hero" form={form}/>
+          <HeroSelect placeholder="" name="hero" form={form} type={typeCalculator(watch('format'))}/>
         </div>
 
         <div className="flex flex-col">

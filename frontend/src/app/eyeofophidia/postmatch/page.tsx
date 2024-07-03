@@ -15,6 +15,7 @@ import HeroSelect from "../helperComponents/HeroSelect"
 import { useSearchParams } from "next/navigation"
 import NameSelect from "../helperComponents/NameSelect"
 import DeleteButton from "../helperComponents/DeleteButton"
+import typeCalculator from "./typeCalculator"
 
 const formSchema = z.object({
   event: z.string().min(3),
@@ -41,18 +42,6 @@ const formSchema = z.object({
   videolink: z.string(),
 
 })
-
-const typeCalculator = (format: string) => {
-  if(format === 'Classic Constructed' || format === 'Living Legend'){
-    return 'adult'
-  }
-
-  if(format === 'Blitz' || format === 'Draft' || format === 'Sealed'){
-    return 'young'
-  }
-
-  return 'both'
-}
 
 type FormFields = z.infer<typeof formSchema>
 
