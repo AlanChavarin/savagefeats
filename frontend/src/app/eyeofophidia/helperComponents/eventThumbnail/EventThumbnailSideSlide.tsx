@@ -30,14 +30,6 @@ function EventThumbnailSideSlide({event}: {event: eventSchemaType}) {
               <div>{event.location}</div>
               <div>{event.streamed ? 'Streamed' : <span className="text-red-500">Unstreamed</span>}</div>
             </div>
-            <div className='pointer-events-none'>
-              <div className='text-[11px] text-center *:underline z-[1]'>
-                {event.officialDetails && <><a href={event.officialDetails}>Official Details</a></>}
-                {event.signUpLink && <><a href={event.signUpLink}>Signup Link</a></>}
-                {event.liveStream && <><a href={event.liveStream}>Live Stream</a></>}
-              </div>
-              {event.venue && <div className='text-[7px] text-center'>{event.venue}</div> }
-            </div>
           </div>
 
           {/* absolute positioned elements */}
@@ -49,7 +41,7 @@ function EventThumbnailSideSlide({event}: {event: eventSchemaType}) {
           <div className='text-[16px] w-full text-center *:underline *:text-nowrap flex flex-row gap-[16px] justify-center'>
             {event.officialDetails && <a className="hover:text-purple-500" target="_blank" href={event.officialDetails}>Official Details</a>}
             {event.signUpLink && <a className="hover:text-purple-500" target="_blank" href={event.signUpLink}>Signup Link</a>}
-            {event.liveStream && <a className="hover:text-purple-500" target="_blank" href={`https://www.youtube.com/watch?v=${event.liveStream}`}><span>Live Stream</span></a>}
+            {event.liveStream && <a className="hover:text-purple-500" target="_blank" href={`https://www.youtube.com/watch?v=${event.liveStream}`}>Live Stream</a>}
           </div>
           <div className='text-[9px] text-center'>{event.venue}</div>
         </div>
