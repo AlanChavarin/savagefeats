@@ -42,9 +42,23 @@ const formSchema = z.object({
 
 })
 
+const typeCalculator = (format: string) => {
+  if(format === 'Classic Constructed' || format === 'Living Legend'){
+    return 'adult'
+  }
+
+  if(format === 'Blitz' || format === 'Draft' || format === 'Sealed'){
+    return 'young'
+  }
+
+  return 'both'
+}
+
 type FormFields = z.infer<typeof formSchema>
 
 function Postmatch() {
+  
+
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -64,6 +78,10 @@ function Postmatch() {
   const { register, handleSubmit, setValue, getValues, reset, resetField, watch, formState: {errors, isSubmitting}} = form
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => { 
+
+    if(getValues('top8')){
+      delete data.swissRound
+    }
 
     const matchid = searchParams?.get('matchid')
 
@@ -94,6 +112,9 @@ function Postmatch() {
           resetField('player2name')
           resetField('timeStamp')
           resetField('twitchTimeStamp')
+
+          grabEventNames()
+          grabNameHeroPairs()
         }
 
         if(actionAfterSubmit === 'TO_MATCH'){
@@ -201,6 +222,11 @@ function Postmatch() {
       })
     }
 
+    grabEventNames()
+
+  }, [])
+
+  const grabEventNames = () => {
     // grab event names
     const url = `${process.env.NEXT_PUBLIC_BACKEND_API}events/names`
 
@@ -224,13 +250,12 @@ function Postmatch() {
     }).catch(err => {
       toast(err.message)
     })
+  }
 
-  }, [])
-
-  useEffect(() => {
-    //grab namelink pairs
+  const grabNameHeroPairs = () => {
+    //grab name-hero pairs
     if(getValues('event') && getValues('format')){
-      const url = `${process.env.NEXT_PUBLIC_BACKEND_API}matches/getnameheropairsbyevent?event=${getValues('event')}&format=${getValues('format')}`
+      const url = `${process.env.NEXT_PUBLIC_BACKEND_API}matches/getnameheropairsbyevent/?&event=${getValues('event')}&format=${getValues('format')}`
 
       fetch(url)
       .then(r => r.json())
@@ -253,7 +278,10 @@ function Postmatch() {
         toast(err.message)
       })
     }
+  }
 
+  useEffect(() => {
+    grabNameHeroPairs()
   }, [watch('event'), watch('format')])
 
   useEffect(() => {
@@ -394,17 +422,17 @@ function Postmatch() {
 
         <div className="flex flex-col">
           <label>Player 1 Hero: <span className="text-red-500">*</span>&nbsp;</label>
-          <HeroSelect placeholder="" name="player1hero" form={form}/>
+          <HeroSelect placeholder="" name="player1hero" form={form} type={typeCalculator(watch('format'))}/>
         </div>
 
         <div className="flex flex-col">
           <label>Player 2 Full Name: <span className="text-red-500">*</span>&nbsp;</label>
-          <NameSelect placeholder='' name='player2name' form={form}/>
+          <NameSelect placeholder='' name='player2name' form={form} />
         </div>
 
         <div className="flex flex-col">
           <label>Player 2 Hero: <span className="text-red-500">*</span>&nbsp;</label>
-          <HeroSelect placeholder="" name="player2hero" form={form}/>
+          <HeroSelect placeholder="" name="player2hero" form={form} type={typeCalculator(watch('format'))}/>
         </div>
 
         <button onClick={() => setActionAfterSubmit('TO_MATCH')} disabled={isSubmitting} type="submit" className="bg-custom-primary hover:bg-custom-primaryHover py-[8px] w-[80%] mt-[16px] self-center border-[1px] border-black box-shadow-extra-small">

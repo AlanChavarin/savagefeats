@@ -8,11 +8,11 @@ import Select from '@/app/eyeofophidia/helperComponents/Select'
 
 const responseSchema = z.array(heroSchema)
 
-function HeroSelect({placeholder, name, form}: {placeholder: string, name: string, form: UseFormReturn<any>}) {
+function HeroSelect({placeholder, name, form, type}: {placeholder: string, name: string, form: UseFormReturn<any>, type: ('adult' | 'young' | 'both')}) {
   const [heroes, setHeroes] = useState<string[] | undefined>()
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}heroes/`)
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}heroes/${type === 'adult' ? '?&adult=true' : ''}${type==='young' ? '?&adult=false' : ''}`, {cache: 'no-store'})
     .then(r => r.json())
     .then(data => {
       const validatedHeroData = responseSchema.safeParse(data)
@@ -33,7 +33,7 @@ function HeroSelect({placeholder, name, form}: {placeholder: string, name: strin
     }).catch(err => {
       toast(err.message)
     })
-  }, [])
+  }, [type])
 
   return (
     <>

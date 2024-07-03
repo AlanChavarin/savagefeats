@@ -306,14 +306,15 @@ const restoreMatch = asyncHandler(async (req, res) => {
 })
 
 const getNameHeroPairsbyEvent = asyncHandler(async (req, res) => {
+
     const matches = await Match.find({'event.name': req.query.event, 'format': req.query.format, deleted: false})
     
     let pairs = {}
     matches.map(match => {
-        if(match.player1deck){
+        if(match.player1name){
             pairs[match.player1name] = match.player1hero
         }
-        if(match.player2deck){
+        if(match.player2name){
             pairs[match.player2name] = match.player2hero
         }
     })
