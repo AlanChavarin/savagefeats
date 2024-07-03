@@ -204,7 +204,7 @@ const postEvent = asyncHandler(async (req, res) => {
         backgroundPosition: req.body.backgroundPosition,
         deleted: false,
         //happeningNow,
-        streamed: req.body.streamed
+        streamed: req.body.streamed ? true : false
     })
 
     //postEventEdit(event, req.user._id)
