@@ -11,6 +11,7 @@ import filter from "../../helpers/filterHelper"
 import DraftThumbnail from "../../helperComponents/DraftThumbnail"
 import { Hourglass } from 'react-loader-spinner'
 import EventThumbnailEventPage from "../../helperComponents/eventThumbnail/EventThumbnailEventPage"
+import { draftFilterSwiss } from "./draftFilter"
 
 
 function Event({params}: {params: {eventid: string}}) {
@@ -138,8 +139,6 @@ function Event({params}: {params: {eventid: string}}) {
         />}
 
         {event && <>
-
-
             <EventThumbnailEventPage event={event} lastRound={calculateLastRound(matches)} lastFormat={calculateLastFormat(matches)} lastTwitch={calculateLastTwitch(matches)}/>
 
             {/* <div className="text-[39px] font-bold">Matches:</div>  */}
@@ -179,9 +178,10 @@ function Event({params}: {params: {eventid: string}}) {
                         <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
 
                         <div className="flex flex-row flex-wrap gap-[24px] justify-center">
-                          {drafts && drafts.filter(draft => !draft.top8 && draft.swissRound && day && draft.swissRound <= day).map(draft => <DraftThumbnail draft={draft} key={draft._id}/>)}
+                          {/* 
+                            // @ts-ignore */}
+                          {drafts && drafts.filter(draft => day && event.dayRoundArr && draftFilterSwiss(draft, day, i, event.dayRoundArr)).map(draft => <DraftThumbnail draft={draft} key={draft._id}/>)}
                         </div>
-
 
                         <div className="flex flex-row flex-wrap gap-[24px] justify-center" >
                             
