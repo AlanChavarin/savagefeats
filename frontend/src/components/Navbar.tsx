@@ -120,7 +120,7 @@ function Navbar() {
                             <Link data-dropdown={true} href="/eyeofophidia/postmatch" className='text-white hover:text-custom-primary'>
                                 Post Match
                             </Link>
-                            <Link data-dropdown={true} href="/eyeofophidia/postdraft" className='text-white hover:text-custom-primary'>
+                            <Link data-dropdown={true} href="/eyeofophidia/postdeck" className='text-white hover:text-custom-primary'>
                                 Post Deck
                             </Link>
                             <Link data-dropdown={true} href="/eyeofophidia/postdraft" className='text-white hover:text-custom-primary'>
