@@ -17,7 +17,7 @@ config.autoAddCss = false; /* eslint-disable import/first */
 
 export const metadata: Metadata = {
   title: 'Savage Feats',
-  description: 'Savage Feats',
+  description: 'Savage Feats Official Site | Flesh and Blood Tournament Hub!',
   icons: {
     icon: ['favicon.ico?v=4']
   }
