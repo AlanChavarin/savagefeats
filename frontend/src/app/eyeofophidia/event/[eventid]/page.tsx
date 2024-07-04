@@ -144,7 +144,7 @@ function Event({params}: {params: {eventid: string}}) {
             {/* <div className="text-[39px] font-bold">Matches:</div>  */}
 
             {event.liveStream && (!matches || matches.length === 0) && !event.liveStream.startsWith('http') && !event.twitch &&
-              <div className="w-[660px] h-[360px]">
+              <div className="flex-1 w-[100%] max-w-[700px]">
                 <div className="relative w-[100%] pb-[56.25%] h-[0%] box-shadow">
                   <iframe className="absolute w-[100%] h-[100%]" src={`https://www.youtube-nocookie.com/embed/${event.liveStream}`} title="YouTube video player" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                 </div>
@@ -157,7 +157,7 @@ function Event({params}: {params: {eventid: string}}) {
 
 
             {event.liveStream && (!matches || matches.length === 0) && event.twitch &&
-              <div className="w-[660px] h-[360px]">
+              <div className="flex-1 w-[100%]">
                 <div className="relative w-[100%] pb-[56.25%] h-[0%] box-shadow">
                   <iframe className="absolute w-[100%] h-[100%]" src={`https://player.twitch.tv/?channel=${event.liveStream}&parent=${process.env.NODE_ENV==='production' ? 'savagefeats-production.up.railway.app' : 'localhost'}`}></iframe>
                 </div>

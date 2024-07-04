@@ -35,8 +35,8 @@ function EventThumbnail({event}: {event: eventSchemaType}) {
         
         </Link>
 
-        <div className='flex flex-col gap-[8px] absolute bottom-[18%] left-[50%] translate-x-[-50%] flex-0 h-[0px]'>
-          <div className='text-[16px] w-full text-center *:underline *:text-nowrap flex flex-row gap-[16px] justify-center'>
+        {/* <div className='flex flex-col gap-[8px] absolute bottom-[18%] left-[50%] translate-x-[-50%] flex-0 h-[0px]'>
+          <div className='text-[16px] w-full text-center *:underline flex flex-row gap-[16px] justify-center'>
             {event.officialDetails && <a className="hover:text-purple-500" target="_blank" href={event.officialDetails}>Official Details</a>}
             {event.signUpLink && <a className="hover:text-purple-500" target="_blank" href={event.signUpLink}>Signup Link</a>}
             {event.liveStream && !event.liveStream.startsWith('http') && <a className="hover:text-purple-500" target="_blank" href={`https://www.youtube.com/watch?v=${event.liveStream}`}><span>Live Stream</span></a>}
@@ -44,7 +44,7 @@ function EventThumbnail({event}: {event: eventSchemaType}) {
             
           </div>
           <div className='text-[9px] text-center'>{event.venue}</div>
-        </div>
+        </div> */}
           
       </div>
   )
