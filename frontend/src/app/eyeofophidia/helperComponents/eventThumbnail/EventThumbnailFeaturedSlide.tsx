@@ -40,7 +40,8 @@ function EventThumbnail({event}: {event: eventSchemaType}) {
           <div className='text-[16px] text-center *:underline flex flex-row gap-[16px] justify-center'>
             {event.officialDetails && <a className="hover:text-purple-500" target="_blank" href={event.officialDetails}>Official Details</a>}
             {event.signUpLink && <a className="hover:text-purple-500" target="_blank" href={event.signUpLink}>Signup Link</a>}
-            {event.liveStream && <a className="hover:text-purple-500" target="_blank" href={`https://www.youtube.com/watch?v=${event.liveStream}`}><span>Live Stream</span></a>}
+            {event.liveStream && !event.liveStream.startsWith('http') && <a className="hover:text-purple-500" target="_blank" href={`https://www.youtube.com/watch?v=${event.liveStream}`}><span>Live Stream</span></a>}
+            {event.liveStream && event.liveStream.startsWith('http') && <a className="hover:text-purple-500" target="_blank" href={event.liveStream}><span>Live Stream</span></a>}
           </div>
           <div className='text-[9px] text-center'>{event.venue}</div>
         </div>

@@ -15,7 +15,7 @@ import { toast } from "react-toastify"
 import { useRouter } from "next/navigation"
 import { useSearchParams } from "next/navigation"
 import DeleteButton from "../helperComponents/DeleteButton"
-import { getTwitchParams } from "../helpers/TwitchParams"
+import { getTwitchChannelName, getTwitchParams } from "../helpers/TwitchParams"
 import getYoutubeParams from "../helpers/YoutubeParams"
 import useImageCompression from './useImageCompression'
 import EventThumbnailEventPage from "../helperComponents/eventThumbnail/EventThumbnailEventPage"
@@ -293,8 +293,8 @@ function Postevent() {
   const videoLinkOnChange = () => {
     if(getValues('twitch')){
       //@ts-ignore
-      const params = getTwitchParams(getValues('videolink') ? getValues('videolink') : '')
-      setValue('liveStream', params.id)
+      const name = getTwitchChannelName(getValues('videolink') ? getValues('videolink') : '')
+      setValue('liveStream', name)
     } else {
       //@ts-ignore
       const params = getYoutubeParams(getValues('videolink') ? getValues('videolink') : '')
@@ -446,7 +446,7 @@ function Postevent() {
         { getValues('twitch') !== undefined && getValues('streamed') === true && <>
           <BasicTextInput placeholder='' name='videolink' label='Video Link: ' register={register} required={false} onChange={videoLinkOnChange}/>
 
-          <BasicTextInput placeholder='' name='liveStream' label={`${watch('twitch') ? 'twitch' : 'youtube'} id: `} register={register} required={true}/>
+          <BasicTextInput placeholder='' name='liveStream' label={`${watch('twitch') ? 'twitch' : 'youtube'} id: (or paste full link here if stream cannot be embedded)`} register={register} required={true}/>
         </>}
 
         <div>

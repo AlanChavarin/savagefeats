@@ -34,7 +34,9 @@ function EventThumbnailEventPage({event, lastRound, lastFormat, lastTwitch}: {la
 
               {event.signUpLink && event.liveStream && <>{' - '}</>}
 
-              {event.liveStream && <><a href={event.twitch ? `https://www.twitch.com/${event.liveStream}` : `https://www.youtube.com/watch?v=${event.liveStream}`} target="_blank" className="hover:text-purple-500">Live Stream</a></>}
+              {event.liveStream && !event.liveStream.startsWith('http') && <><a href={event.twitch ? `https://www.twitch.com/${event.liveStream}` : `https://www.youtube.com/watch?v=${event.liveStream}`} target="_blank" className="hover:text-purple-500">Live Stream</a></>}
+
+              {event.liveStream && event.liveStream.startsWith('http') && <a className="hover:text-purple-500" target="_blank" href={event.liveStream}><span>Live Stream</span></a>}
 
             </div>
         </div>
