@@ -56,7 +56,7 @@ function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featu
                 <div className='flex flex-col flex-1 p-[8px] justify-between gap-[2px] relative text-[13px]'>  
 
                     { deck.event ?
-                        <Link href={`/eyeofophidia/event/${deck.event._id}`} className="z-[1] font-bold flex flex-row flex-wrap text-[16px] hover:text-purple-500 underline self-start">
+                        <Link href={`/eyeofophidia/event/${deck.event._id}`} className="z-[1] font-bold flex flex-row flex-wrap text-[13px] md:text-[16px] hover:text-purple-500 underline self-start">
                             {deck.event.name}
                         </Link>
                         :
