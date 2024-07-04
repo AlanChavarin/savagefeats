@@ -136,10 +136,10 @@ const postDecklist = asyncHandler(async (req, res) => {
             eventData = await Event.findOne({name: event})
         }
         
-        if(!eventData){
-            res.status(400)
-            throw new Error('given event name or id not found')
-        }
+        // if(!eventData){
+        //     res.status(400)
+        //     throw new Error('given event name or id not found')
+        // }
     }
 
     const decklist = await Decklist.create({
