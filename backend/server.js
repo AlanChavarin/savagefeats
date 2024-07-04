@@ -5,6 +5,8 @@ const {errorHandler} = require('./middleware/errorMiddleware')
 const {sanitate} = require('./middleware/sanitateMiddleware')
 require('dotenv').config()
 const cors = require('cors')
+const cron = require('node-cron')
+const {updateContentForAllCreators_AbtractedOutLogic} = require('./controllers/contentController')
 
 //const cors = require('cors')
 //const dotenv = require('dotenv').config()
@@ -23,6 +25,8 @@ app.listen(process.env.PORT, () => {
 mongoose.connect(process.env.MONGO_URI, {
     dbName: 'eyeofophidia'
 })
+
+
 
 app.use(sanitate)
 app.use(express.json()) 
@@ -46,6 +50,14 @@ app.use('/api/reports', require('./routes/reportRoutes'))
 app.use('/api/livestreams', require('./routes/liveStreamRoutes'))
 
 app.use(errorHandler)
+
+// cron jobs
+
+cron.schedule('*/10 * * * *', () => {
+    console.log('cron job fired: running updateContentForAllCreators_AbtractedOutLogic()' + ' At date: ' + new Date())
+    updateContentForAllCreators_AbtractedOutLogic()
+})
+
 
 //app.use('/api/issues', require('./routes/issueRoutes'))
 //app.use('/api/admin', require('./routes/adminRoutes'))  

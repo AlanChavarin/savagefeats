@@ -128,55 +128,29 @@ const updateContentRelatedData = asyncHandler(async (req, res) => {
 
 
 const updateContentByContentCreator = asyncHandler(async (req, res) => {
-    const contentCreator = await ContentCreator.findById(req.params.contentcreatorid)
-    if(!contentCreator){
+
+    try{
+        await updateContentByContentCreator_AbtractedOutLogic(req.params.contentcreatorid)
+    } catch(error) {
         res.status(400)
-        throw new Error('channel by that given id was not found')
+        throw new Error(error)
     }
-
-    const parser = new Parser()
-
-    const feed = await parser.parseURL(`https://www.youtube.com/feeds/videos.xml?channel_id=${contentCreator.channelid}`)
-
-    //console.log(feed)
-
-    let youtubeIds = []
-
-    for(let i = 0; i < feed.items.length; i++){
-        const videoUrlParts = feed.items[i].link.split('?v=') 
-        youtubeIds.push(videoUrlParts[videoUrlParts.length - 1])
-    }
-
-    const content = await Content.find({parentContentCreatorid: req.params.contentcreatorid})
-
-    const contentYoutubeIds = content.map(content => content.videoid)
-
-    let youtubeVideoData = []
-
-    for(let i = 0; i < youtubeIds.length; i++){
-        if(!contentYoutubeIds.includes(youtubeIds[i])){
-            const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${youtubeIds[i]}&part=snippet,contentDetails&key=${process.env.YOUTUBE_API_KEY}`)
-            const data = await response.json()
-            youtubeVideoData.push(data.items[0])
-            await sleep(200)
-        }
-    }
-
-    youtubeVideoData.map(async (item) => {
-        const content = await Content.create({
-            videoid: item.id,
-            publishedAt: item.snippet.publishedAt,
-            parentContentCreatorYoutubeChannelid: item.snippet.channelId,
-            parentContentCreatorid: contentCreator ? contentCreator._id : null,
-            title: item.snippet.title,
-            description: item.snippet.description,
-            channelTitle: item.snippet.title,
-        })
-    })
 
     res.status(200)
-    res.json({"message": "success", "content posted": youtubeVideoData.length})
+    res.json({"message": "success"})
  
+})
+
+const updateContentForAllCreators = asyncHandler(async (req, res) => {
+    try{
+        updateContentForAllCreators_AbtractedOutLogic()
+    } catch(error) {
+        res.status(400)
+        throw new Error(error)
+    }
+
+    res.status(200)
+    res.json({message: "success"})
 })
 
 const deleteContent = asyncHandler(async (req, res) => {
@@ -239,6 +213,68 @@ const latestInFleshAndBlood = asyncHandler(async (req, res) => {
     })
 })
 
+// abtracted out functions
+
+const updateContentByContentCreator_AbtractedOutLogic = async (contentCreatorId) => {
+    const contentCreator = await ContentCreator.findById(contentCreatorId)
+    if(!contentCreator){
+        //res.status(400)
+        throw new Error('channel by that given id was not found')
+    }
+
+    const parser = new Parser()
+
+    const feed = await parser.parseURL(`https://www.youtube.com/feeds/videos.xml?channel_id=${contentCreator.channelid}`)
+
+    let youtubeIds = []
+
+    for(let i = 0; i < feed.items.length; i++){
+        const videoUrlParts = feed.items[i].link.split('?v=') 
+        youtubeIds.push(videoUrlParts[videoUrlParts.length - 1])
+    }
+
+    const content = await Content.find({parentContentCreatorid: contentCreatorId})
+
+    const contentYoutubeIds = content.map(content => content.videoid)
+
+    let youtubeVideoData = []
+
+    for(let i = 0; i < youtubeIds.length; i++){
+        if(!contentYoutubeIds.includes(youtubeIds[i])){
+            const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${youtubeIds[i]}&part=snippet,contentDetails&key=${process.env.YOUTUBE_API_KEY}`)
+            const data = await response.json()
+            youtubeVideoData.push(data.items[0])
+            await sleep(200)
+        }
+    }
+
+    youtubeVideoData.map(async (item) => {
+        const content = await Content.create({
+            videoid: item.id,
+            publishedAt: item.snippet.publishedAt,
+            parentContentCreatorYoutubeChannelid: item.snippet.channelId,
+            parentContentCreatorid: contentCreator ? contentCreator._id : null,
+            title: item.snippet.title,
+            description: item.snippet.description,
+            channelTitle: item.snippet.title,
+        })
+
+        console.log("Content posted, title:" + content.title + ", id:" + content.videoid)
+    })
+
+    
+}
+
+const updateContentForAllCreators_AbtractedOutLogic = async () => {
+    console.log("running updateContentForAllCreators_AbtractedOutLogic()")
+    const creators = await ContentCreator.find({})        
+        
+    await creators.map(async (creator) => {
+        console.log("Updating content for " + creator.title)
+        await updateContentByContentCreator_AbtractedOutLogic(creator._id)
+    })
+}
+
 module.exports = {
     getAllContent,
     getContent,
@@ -250,5 +286,7 @@ module.exports = {
     latestInFleshAndBlood,
     postPortfolioContent,
     getPortfolioContent,
-    deleteContentVideoId
+    deleteContentVideoId,
+    updateContentForAllCreators,
+    updateContentForAllCreators_AbtractedOutLogic
 }
