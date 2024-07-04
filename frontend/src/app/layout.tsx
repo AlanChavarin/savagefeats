@@ -18,6 +18,9 @@ config.autoAddCss = false; /* eslint-disable import/first */
 export const metadata: Metadata = {
   title: 'Savage Feats',
   description: 'Savage Feats',
+  icons: {
+    icon: ['favicon.ico?v=4']
+  }
 }
 
 export default async function RootLayout({
