@@ -224,11 +224,11 @@ function Event({params}: {params: {eventid: string}}) {
                   </div>
 
                   {(matches && matches.filter(match => match.top8).length > 0) && <>
-                    <div className="text-[30px] md:text-[39px] font-bold">Top Cut</div>
+                    <div className="text-[30px] md:text-[39px] font-bold">Top Cut: </div>
                     <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
                   </>}
 
-                  <div className="flex flex-row flex-wrap gap-[24px] justify-center">
+                  <div className="flex flex-row flex-wrap gap-[24px] justify-center w-full">
                     {drafts && drafts.filter(draft => draft.top8).map(draft => 
                     <DraftThumbnail draft={draft} key={draft._id}/>)}
                   </div>
