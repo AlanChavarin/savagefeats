@@ -46,10 +46,10 @@ const deckPlacementString = (placement: number | undefined, placementRangeEnding
 function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featuredSlide' | 'sideSlide' | 'normal'), deck: deckSchemaType}) {
 
     const {user} = useContext(UserContext)
-
+// ssm:w-[396px] 
   return (<>
     { (size === 'normal') && 
-        <div className="relative min-w-[296px] ssm:w-[396px] sm:w-[496px] min-h-[80px] bg-white hover:bg-gray-200">
+        <div className="relative min-w-[296px] w-[100%] max-w-[496px] min-h-[80px] bg-white hover:bg-gray-200">
             <a href={deck.decklistLink} target="_blank" className='w-full h-full cursor-pointer z-[1] absolute'></a>
             <div className="absolute top-0 w-full h-full flex box-shadow">
                 <div className='h-full w-[80px]' style={{backgroundImage: `url('/heroes/${heroUrlHelper(deck.hero)}.jpg')`, backgroundSize: '180%', backgroundPosition: `center -10px`}}></div>

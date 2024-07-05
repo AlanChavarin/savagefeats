@@ -65,7 +65,7 @@ function Decks() {
 
       {/* decklist thumbnail container */}
       { !loading ? 
-      <div className="grid grid-cols-1 lg:grid-cols-2 flex-wrap gap-[24px] justify-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 flex-wrap gap-[24px] justify-center justify-items-center w-[100%] max-w-[1060px]">
         {decks && decks.map(deck => 
           <DeckThumbnail key={deck._id} deck={deck} size={"normal"}/>
         )}
