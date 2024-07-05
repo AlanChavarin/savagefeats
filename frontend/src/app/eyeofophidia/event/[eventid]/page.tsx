@@ -257,7 +257,7 @@ function Event({params}: {params: {eventid: string}}) {
               <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
             </>} 
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 flex-wrap gap-[24px] w-[90%] md:w-fit">
+            <div className="grid grid-cols-1 lg:grid-cols-2 flex-wrap gap-[24px] w-[90%] justify-items-center max-w-[1050px]">
                 {decks && <>
                     {decks.map(deck => 
                         <DeckThumbnail deck={deck} size={'normal'} key={deck._id}/>
