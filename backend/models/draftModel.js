@@ -38,6 +38,7 @@ const draftSchema = mongoose.Schema({
         },
         startDate: Date,
         tier: Number,
+        streamed: Boolean
     }
 
 })

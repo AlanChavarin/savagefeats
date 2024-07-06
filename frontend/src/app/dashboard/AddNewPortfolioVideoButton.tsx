@@ -13,7 +13,8 @@ import getYoutubeParams from "../eyeofophidia/helpers/YoutubeParams"
 const formSchema = z.object({
     // dummy field
     videolink: z.string(),
-    videoid: z.string()
+    videoid: z.string(),
+    type: z.string(),
 })
 
 const responseSchema = z.object({
@@ -26,13 +27,13 @@ function AddNewPortfolioVideoButton() {
 
     const [editMode, setEditMode] = useState<boolean>(false)
 
-    const form = useForm<FormFields>({resolver: zodResolver(formSchema)})
+    const form = useForm<FormFields>({resolver: zodResolver(formSchema), defaultValues: {type: 'portfolio'}})
 
     const {register, handleSubmit, setValue, getValues, reset, watch, formState: {errors, isSubmitting}} = form
 
     const onSubmit: SubmitHandler<FormFields> = async (data) => { 
     
-        const url = `${process.env.NEXT_PUBLIC_BACKEND_API}content/portfoliocontent`
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_API}content/`
     
         await fetch(url, {
           method: 'POST',

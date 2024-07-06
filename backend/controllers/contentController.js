@@ -76,13 +76,15 @@ const postContent = asyncHandler(async (req, res) => {
         type,
         relatedEventid,
         relatedMatchid,
-        relatedDecklistid
+        relatedDecklistid,
     })
 
     res.status(200)
     res.json(content)
 
 })
+
+
 
 const postPortfolioContent = asyncHandler(async (req, res) => {
     const {videoid} = req.body
@@ -103,7 +105,7 @@ const postPortfolioContent = asyncHandler(async (req, res) => {
 })
 
 const getPortfolioContent = asyncHandler(async (req, res) => {
-    const content = await Content.find({type: 'portfolio'})
+    const content = await Content.find({type: 'portfolio'}).sort({publishedAt: -1})
     res.status(200)
     res.json(content)
 })

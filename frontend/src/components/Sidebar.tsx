@@ -15,13 +15,19 @@ function Sidebar({buttonClickEvent} : {buttonClickEvent: () => void}) {
 
   const {user} = useContext(UserContext)
 
-
   return (
     <div className="h-full bg-black w-[256px] md:w-[256px] absolute top-0 right-0 text-white z-[10]">
       <div className="text-[27px] flex flex-col text-white m-[16px] gap-[16px] *:font-bold *:cursor-pointer *:flex *:place-items-center">
         <Link href="/" className="cursor-pointer hover:bg-color">
           <Image src={'/SVGWHITE.png'} width={96} height={32} alt='savage feats'/>
         </Link>
+        <Link href="/services" className="hover:text-custom-primary">
+          Production <br/> Services
+        </Link>
+        <Link href="/portfolio" className="hover:text-custom-primary">
+          Portfolio
+        </Link>
+
         <Link href="/eyeofophidia/matches" className="hover:text-custom-primary">
           Matches
         </Link>
@@ -31,19 +37,14 @@ function Sidebar({buttonClickEvent} : {buttonClickEvent: () => void}) {
         <Link href="/eyeofophidia/decks" className="hover:text-custom-primary">
           Decklists
         </Link>
-        <Link href="/reports/" className="hover:text-custom-primary">
+        {/* <Link href="/reports/" className="hover:text-custom-primary">
           Reports
-        </Link>
+        </Link> */}
         {/* <Link href="/content" className="hover:text-custom-primary">
           Content
         </Link> */}
         
-        <Link href="/services" className="hover:text-custom-primary">
-          Production <br/> Services
-        </Link>
-        <Link href="/portfolio" className="hover:text-custom-primary">
-          Portfolio
-        </Link>
+        
         {/* <Link href="/shop" className="hover:text-custom-primary">
           Shop
         </Link> */}
