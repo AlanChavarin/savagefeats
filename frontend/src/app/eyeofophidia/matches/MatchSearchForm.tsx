@@ -36,6 +36,9 @@ function MatchSearchForm(){
   })
 
   const {register, handleSubmit, setValue, watch, reset, formState: {errors, isSubmitting}} = form
+
+  const {onBlur} = register('text')
+
   
   const handleOrder = () => {
     if(watch('order') !== undefined){
@@ -45,6 +48,9 @@ function MatchSearchForm(){
   }
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
+
+    document.getElementById('input')?.blur()
+
     if(data.order === -1){
       delete data.order
     }
@@ -76,7 +82,7 @@ function MatchSearchForm(){
         </button>
 
         {/* text input */}
-        <input {...register("text")} type="text" placeholder="Search For Matches" className="pl-[16px] pr-[16px] flex-1 focus:outline-none"/>
+        <input {...register("text")} type="text" placeholder="Search For Matches" id="input" className="pl-[16px] pr-[16px] flex-1 focus:outline-none"/>
 
         <button type="button" className="w-[32px] h-[32px] flex items-center justify-center border-l-[1px] border-black hover:bg-custom-whiteHover" onClick={() => setSettings(!settings)}>
           <FontAwesomeIcon icon={faGear}/>

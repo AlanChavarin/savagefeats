@@ -48,6 +48,9 @@ function DeckSearchForm(){
   }
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
+
+    document.getElementById('input')?.blur()
+
     if(data.order === -1){
       delete data.order
     }
@@ -83,7 +86,7 @@ function DeckSearchForm(){
         </button>
 
         {/* text input */}
-        <input {...register("text")} type="text" placeholder="Search DeckLists" className="pl-[16px] pr-[16px] flex-1 focus:outline-none"/>
+        <input {...register("text")} type="text" id="input" placeholder="Search DeckLists" className="pl-[16px] pr-[16px] flex-1 focus:outline-none"/>
 
         <button type="button" className="w-[32px] h-[32px] flex items-center justify-center border-l-[1px] border-black hover:bg-custom-whiteHover" onClick={() => setSettings(!settings)}>
           <FontAwesomeIcon icon={faGear}/>
