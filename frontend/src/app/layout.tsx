@@ -7,6 +7,7 @@ import Footer from '@/components/Footer'
 import { UserProvider } from '../context/UserContext'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Script from 'next/script'
 
 // The following import prevents a Font Awesome icon server-side rendering bug,
 // where the icons flash from a very large icon down to a properly sized one:
@@ -30,6 +31,19 @@ export default async function RootLayout({
 }) {
   return (
       <html lang="en">
+      <head>
+      {/* <!-- Google tag (gtag.js) --> */}
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-MFM12RXLK3"></Script>
+      <Script id="google-analytics">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date())
+  
+          gtag('config', 'G-MFM12RXLK3');
+        `}
+      </Script>
+      </head>
         <UserProvider>
           <body className="flex flex-col min-h-screen bg-[#ECECEC]">
               <Navbar />
