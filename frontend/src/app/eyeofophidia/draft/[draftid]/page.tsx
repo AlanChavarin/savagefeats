@@ -71,7 +71,7 @@ function Draft({params}: {params: {draftid: string}}) {
             }
 
             {(draft && draft.twitch) && 
-              <iframe className="absolute w-[100%] h-[100%]" src={`https://player.twitch.tv/?video=${draft.link}&time=${draft.twitchTimeStamp ? draft.twitchTimeStamp : '1s'}&parent=${process.env.NODE_ENV==='production' ? 'savagefeats-production.up.railway.app' : 'localhost'}`}></iframe>
+              <iframe className="absolute w-[100%] h-[100%]" src={`https://player.twitch.tv/?video=${draft.link}&time=${draft.twitchTimeStamp ? draft.twitchTimeStamp : '1s'}&parent=${process.env.NODE_ENV==='production' ? 'www.savagefeats.com' : 'localhost'}`}></iframe>
             }
           </div>
         </div>

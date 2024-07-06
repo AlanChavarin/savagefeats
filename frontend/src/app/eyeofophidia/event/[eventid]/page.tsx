@@ -159,7 +159,7 @@ function Event({params}: {params: {eventid: string}}) {
             {event.liveStream && (!matches || matches.length === 0) && event.twitch &&
               <div className="flex-1 w-[100%]">
                 <div className="relative w-[100%] pb-[56.25%] h-[0%] box-shadow">
-                  <iframe className="absolute w-[100%] h-[100%]" src={`https://player.twitch.tv/?channel=${event.liveStream}&parent=${process.env.NODE_ENV==='production' ? 'savagefeats-production.up.railway.app' : 'localhost'}`}></iframe>
+                  <iframe className="absolute w-[100%] h-[100%]" src={`https://player.twitch.tv/?channel=${event.liveStream}&parent=${process.env.NODE_ENV==='production' ? 'www.savagefeats.com' : 'localhost'}`}></iframe>
                 </div>
               </div>
             }

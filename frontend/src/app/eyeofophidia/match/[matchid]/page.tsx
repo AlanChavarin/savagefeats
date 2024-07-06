@@ -74,7 +74,7 @@ function Match({params}: {params: {matchid: string}}) {
             }
 
             {(match && match.twitch) && 
-              <iframe className="absolute w-[100%] h-[100%]" src={`https://player.twitch.tv/?video=${match.link}&time=${match.twitchTimeStamp ? match.twitchTimeStamp : '1s'}&parent=${process.env.NODE_ENV==='production' ? 'savagefeats-production.up.railway.app' : 'localhost'}`}></iframe>
+              <iframe className="absolute w-[100%] h-[100%]" src={`https://player.twitch.tv/?video=${match.link}&time=${match.twitchTimeStamp ? match.twitchTimeStamp : '1s'}&parent=${process.env.NODE_ENV==='production' ? 'www.savagefeats.com' : 'localhost'}`}></iframe>
             }
           </div>
         </div>
