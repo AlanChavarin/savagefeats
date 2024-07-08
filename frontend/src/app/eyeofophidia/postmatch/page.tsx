@@ -72,6 +72,10 @@ function Postmatch() {
       delete data.swissRound
     }
 
+    if(!getValues('top8')){
+      delete data.top8Round
+    }
+
     const matchid = searchParams?.get('matchid')
 
     const url = `${process.env.NEXT_PUBLIC_BACKEND_API}matches/${matchid ? matchid : ''}`

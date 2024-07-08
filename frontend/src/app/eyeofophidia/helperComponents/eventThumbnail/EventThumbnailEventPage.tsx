@@ -19,7 +19,7 @@ function EventThumbnailEventPage({event, lastRound, lastFormat, lastTwitch}: {la
             <div className="flex flex-row">{
               event.format.map((format, i) => <div key={i}>
                 {i>0 && <>&nbsp;+ </>}
-                {format}
+                {format} 
               </div>)}
             </div>
             <div>{event.startDate && getDateString(event.startDate)} {event.endDate && ' - ' + getDateString(event.endDate)}</div>

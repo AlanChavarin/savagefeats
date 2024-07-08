@@ -182,7 +182,7 @@ function Event({params}: {params: {eventid: string}}) {
                         <div className="text-[30px] md:text-[39px] font-bold" >Day {i+1}:</div>
                         <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
 
-                        <div className="flex flex-row flex-wrap gap-[24px] justify-center">
+                        <div className="flex flex-row flex-wrap gap-[24px] justify-center w-full">
                           {/* 
                             // @ts-ignore */}
                           {drafts && drafts.filter(draft => day && event.dayRoundArr && draftFilterSwiss(draft, day, i, event.dayRoundArr)).map(draft => <DraftThumbnail draft={draft} key={draft._id}/>)}
@@ -198,7 +198,7 @@ function Event({params}: {params: {eventid: string}}) {
 
                     <div className="text-[30px] md:text-[39px] font-bold">Top Cut:</div>
                     <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
-                    <div className="flex flex-row flex-wrap gap-[24px] justify-center">
+                    <div className="flex flex-row flex-wrap gap-[24px] justify-center w-full">
                       {drafts && drafts.filter(draft => draft.top8).map(draft => <DraftThumbnail draft={draft} key={draft._id}/>)}
                     </div>
                     <div className="flex flex-row flex-wrap gap-[24px] justify-center">
@@ -213,7 +213,7 @@ function Event({params}: {params: {eventid: string}}) {
                     <div className="text-[30px] md:text-[39px] font-bold">Swiss</div>
                     <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
                   </>}
-                  <div className="flex flex-row flex-wrap gap-[24px] justify-center">
+                  <div className="flex flex-row flex-wrap gap-[24px] justify-center w-full">
                     {drafts && drafts.filter(draft => !draft.top8).map(draft => 
                     <DraftThumbnail draft={draft} key={draft._id}/>)}
                   </div>
