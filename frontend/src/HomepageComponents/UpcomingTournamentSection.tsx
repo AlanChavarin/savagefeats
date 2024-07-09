@@ -1,8 +1,7 @@
 import { errorSchema, eventSchema } from "@/app/schemas/schemas"
 import { eventSchemaType } from "@/app/types/types"
 import { z } from "zod"
-import EventsSectionSmall from "./EventsSectionSmall"
-import EventsSectionBig from "./EventsSectionBig"
+import EventsSectionCarousel from "./EventsSectionCarousel"
 import { toast } from "react-toastify"
 
 
@@ -35,12 +34,7 @@ async function UpcomingTournamentSection() {
     })
 
   return ( <>
-        {
-            events && events.length > 0 && <>
-                <div className='block lg:hidden'><EventsSectionSmall events={events} header="Upcoming Tournaments" backgroundImage="tomasz-jedrusz.png"/></div>
-                <div className='hidden lg:block'><EventsSectionBig events={events} header="Upcoming Tournaments" backgroundImage="tomasz-jedrusz.png"/></div>
-            </>
-        }
+        { events && events.length > 0 && <EventsSectionCarousel events={events} header="Upcoming Tournaments" backgroundImage="tomasz-jedrusz.png"/>}
       </>
   )
 }

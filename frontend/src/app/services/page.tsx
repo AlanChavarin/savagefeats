@@ -45,7 +45,7 @@ async function page() {
 
       <ServicesHero />
 
-      <ImageSection imageSize={'normal'} backgroundImage="servicePagePics/Capture1212131.PNG" images={['battlehardenedmontreal.PNG', 'battlehardenedPhiladelphia.PNG', 'Capture1212131.PNG']} descriptions={['Battle Hardened: Montreal', 'Battle Hardened: Philadelphia', 'Battle Hardened: Orlando']}> 
+      <ImageSection imageSize={'normal'} backgroundImage="servicePagePics/Capture1212131.jpg" images={['battlehardenedmontreal.jpg', 'battlehardenedPhiladelphia.jpg', 'Capture1212131.jpg']} descriptions={['Battle Hardened: Montreal', 'Battle Hardened: Philadelphia', 'Battle Hardened: Orlando']}> 
         <div className='flex flex-col w-[90vw] md:w-[540px] gap-[8px]'>
           <div className='text-[23px] sm:text-[33px] md:text-[48px] font-bold text-white text-shadow self-center md:self-start'>
             Live Streaming Services
@@ -56,7 +56,7 @@ async function page() {
         </div>
       </ImageSection>
 
-      <ImageSection imageSize={'normal'} backgroundImage="servicePagePics/dacrew.PNG" images={['shawnandfrank.PNG', 'naibandyuanji.PNG', 'dacrew.PNG']} descriptions={['Battle Hardened: Montreal', 'Battle Hardened: Philadelphia', 'Battle Hardened: Portland']}> 
+      <ImageSection imageSize={'normal'} backgroundImage="servicePagePics/dacrew.jpg" images={['shawnandfrank.jpg', 'naibandyuanji.jpg', 'dacrew.jpg']} descriptions={['Battle Hardened: Montreal', 'Battle Hardened: Philadelphia', 'Battle Hardened: Portland']}> 
         <div className='flex flex-row gap-[16px] md:gap-[32px] items-center w-[90vw] md:w-[800px] '>
 
           <div className='flex flex-col gap-[8px]'>
@@ -96,7 +96,7 @@ async function page() {
 
       <TestimonialSection backgroundImage="servicePagePics/bRyAk0h.jpg" />
 
-      <YoutubeVideoCarousel youtubeIDs={youtubeIDs.slice(0, 5)} backgroundImage='servicePagePics/123234345.PNG'>
+      <YoutubeVideoCarousel youtubeIDs={youtubeIDs.slice(0, 5)} backgroundImage='servicePagePics/123234345.jpg'>
         <div className='flex flex-col gap-[16px]'>
           <div className='text-[27px] sm:text-[39px] md:text-[48px] text-white text-shadow font-bold'>
             Our Latest Events

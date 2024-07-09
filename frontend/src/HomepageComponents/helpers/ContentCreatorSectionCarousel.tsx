@@ -34,7 +34,7 @@ function ContentCreatorSectionCarousel({youtubeIds, channelName, size}: {youtube
         {size==='small' && <>
           <div className="w-[90vw] min-[500px]:w-[500px] min-[500px]:h-[253px] mb-[24px]" ref={emblaRef}>
             <div className="flex">
-              {youtubeIds.map(id => 
+              {youtubeIds.slice(0, 4).map(id => 
                 <div key={id} className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[253px] flex items-center justify-center relative grow-0 shrink-0'>
                   <YoutubeEmbedContainer>
                     <iframe className='h-[50vw] w-[85vw] min-[500px]:w-[450px] min-[500px]:h-[253px] box-shadow' src={`https://www.youtube-nocookie.com/embed/${id}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
@@ -99,63 +99,3 @@ function ContentCreatorSectionCarousel({youtubeIds, channelName, size}: {youtube
 
 
 export default ContentCreatorSectionCarousel
-
-
-
-
-{/* <div className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[253px] flex items-center justify-center relative grow-0 shrink-0'>
-    <YoutubeEmbedContainer>
-      <iframe className='h-[50vw] w-[85vw] min-[500px]:w-[450px] min-[500px]:h-[253px] box-shadow' src={`https://www.youtube-nocookie.com/embed/IjG3XpmLWCs?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-    </YoutubeEmbedContainer>
-  </div>
-
-  <div className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[253px] flex items-center justify-center relative grow-0 shrink-0'>
-    <YoutubeEmbedContainer>
-      <iframe className='h-[50vw] w-[85vw] min-[500px]:w-[450px] min-[500px]:h-[253px] box-shadow' src={`https://www.youtube-nocookie.com/embed/R2p1qSTQOck?start=8503`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-    </YoutubeEmbedContainer>
-  </div>
-
-  <div className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[253px] flex items-center justify-center relative grow-0 shrink-0'>
-    <YoutubeEmbedContainer>
-      <iframe className='h-[50vw] w-[85vw] min-[500px]:w-[450px] min-[500px]:h-[253px] box-shadow' src={`https://www.youtube-nocookie.com/embed/zxCaHNrpHLE?start=4834`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-    </YoutubeEmbedContainer>
-  </div>
-
-  <div className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
-    <YoutubeEmbedContainer>
-      <iframe className='h-[50vw] w-[85vw] min-[500px]:w-[450px] min-[500px]:h-[253px] box-shadow' src={`https://www.youtube-nocookie.com/embed/G_Pp41Enahw?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-    </YoutubeEmbedContainer>
-  </div> */}
-
-
-
-
-
-  {/* small version of this carousel */}
-
-//   <div className="block lg:hidden w-[90vw] min-[500px]:w-[500px] min-[500px]:h-[253px] mb-[24px]" ref={emblaRef}>
-//   <div className="flex">
-
-//     {youtubeIds.map(id => 
-//       <div className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[253px] flex items-center justify-center relative grow-0 shrink-0'>
-//         <YoutubeEmbedContainer>
-//           <iframe className='h-[50vw] w-[85vw] min-[500px]:w-[450px] min-[500px]:h-[253px] box-shadow' src={`https://www.youtube-nocookie.com/embed/${id}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-//         </YoutubeEmbedContainer>
-//       </div>
-      
-//       )}
-
-//   </div>
-// </div>
-
-// <div className="flex lg:hidden gap-[16px] items-center">
-// <FontAwesomeIcon onClick={() => prevOnClick()} icon={faChevronLeft} className='h-[24px] w-[24px] cursor-pointer'/>
-// {scrollSnaps.map((_, index) => (<>
-//   <DotButton
-//     key={index}
-//     active={(selectedIndex === index)}
-//     onClick={() => onDotButtonClick(index)}
-//   />
-// </>))}
-// <FontAwesomeIcon onClick={() => nextOnClick()} icon={faChevronRight} className='h-[24px] w-[24px] cursor-pointer'/>
-// </div>

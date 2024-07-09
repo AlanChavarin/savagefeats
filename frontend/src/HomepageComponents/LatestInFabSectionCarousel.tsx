@@ -29,7 +29,7 @@ function LatestInFABSectionCarousel({backgroundImage, youtubeIDs, events} : { ba
 
 
   return (
-    <div className='h-[65vw] min-[490px]:h-[256px] lg:h-[360px] relative bg-red flex flex-col items-center py-[32px] gap-[24px] w-full'>
+    <div className='h-[65vw] min-[490px]:h-[256px] lg:h-[360px] relative flex flex-col items-center pt-[32px] gap-[24px] w-full'>
       <SectionBackground image={backgroundImage} size={'small'}/>
 
       <div className='text-[11px] md:text-[16px] lg:text-[19px] lg:my-[32px] xl:text-[27px] text-white foulfiend text-shadow'>
@@ -42,7 +42,7 @@ function LatestInFABSectionCarousel({backgroundImage, youtubeIDs, events} : { ba
             {youtubeIDs && youtubeIDs.map(id =>
               <div key={id} className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
                 <YoutubeEmbedContainer>
-                    <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/${id}?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+                  <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/${id}?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
                 </YoutubeEmbedContainer>
               </div>
               )}

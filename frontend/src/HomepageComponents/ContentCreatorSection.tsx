@@ -1,6 +1,6 @@
 'use client'
 import ContentCreatorSectionBig from "./ContentCreatorSectionBig"
-import ContentCreatorSectionSmall from "./ContentCreatorSectionSmall"
+import ContentCreatorSectionContainer from "./ContentCreatorSectionContainer"
 import { useEffect, useState } from "react"
 import { errorSchema } from "@/app/schemas/schemas"
 import { contentCreatorSchemaType } from "@/app/types/types"
@@ -35,11 +35,9 @@ function ContentCreatorSection({creator}: {creator: contentCreatorSchemaType}) {
         })
     }, [])
 
-  return (
-    <>
-        <div className='block lg:hidden'><ContentCreatorSectionSmall youtubeIds={youtubeIds} channelData={creator}/></div>
-        <div className='hidden lg:block'><ContentCreatorSectionBig  youtubeIds={youtubeIds} channelData={creator}/></div>
-    </>
-  )
+  return (<ContentCreatorSectionContainer youtubeIds={youtubeIds} channelData={creator}/>)
 }
+
 export default ContentCreatorSection
+
+{/* <ContentCreatorSectionBig  youtubeIds={youtubeIds} channelData={creator}/> */}

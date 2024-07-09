@@ -1,8 +1,8 @@
 import { errorSchema, eventSchema } from "@/app/schemas/schemas"
 import { eventSchemaType } from "@/app/types/types"
 import { z } from "zod"
-import EventsSectionSmall from "./EventsSectionSmall"
-import EventsSectionBig from "./EventsSectionBig"
+import EventsSectionCarousel from "./EventsSectionCarousel"
+// import EventsSectionBig from "./EventsSectionBig"
 import { toast } from "react-toastify"
 
 const responseEventSchema = z.object({
@@ -37,13 +37,10 @@ async function LatestTournamentSection() {
     })
 
   return ( <>
-        {
-            events && <>
-                <div className='block lg:hidden'><EventsSectionSmall events={events} header="Latest Tournaments" backgroundImage="wildride.jpg"/></div>
-                <div className='hidden lg:block'><EventsSectionBig events={events} header="Latest Tournaments" backgroundImage="wildride.jpg"/></div>
-            </>
-        }
+        {events && <EventsSectionCarousel events={events} header="Latest Tournaments" backgroundImage="wildride.jpg"/>}
       </>
   )
 }
 export default LatestTournamentSection
+
+{/* <div className='block'><EventsSectionBig events={events} header="Latest Tournaments" backgroundImage="wildride.jpg"/></div> */}
