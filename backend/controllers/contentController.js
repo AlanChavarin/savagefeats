@@ -84,8 +84,6 @@ const postContent = asyncHandler(async (req, res) => {
 
 })
 
-
-
 const postPortfolioContent = asyncHandler(async (req, res) => {
     const {videoid} = req.body
 
@@ -259,6 +257,7 @@ const updateContentByContentCreator_AbtractedOutLogic = async (contentCreatorId)
             title: item.snippet.title,
             description: item.snippet.description,
             channelTitle: item.snippet.title,
+            thumbnail: item.snippet?.thumbnails?.medium?.url
         })
 
         console.log("Content posted, title:" + content.title + ", id:" + content.videoid)
@@ -277,6 +276,46 @@ const updateContentForAllCreators_AbtractedOutLogic = async () => {
     })
 }
 
+// temp routes for one time updates of content!
+
+const oneTimeUpdateForThumbnails = asyncHandler(async (req, res) => {
+    //get all content
+    const content = await Content.find({})
+
+    //get its full data using its youtubeid and update its thumbnail field
+    const contentYoutubeIds = content.map(content => content.videoid)
+
+    console.log(contentYoutubeIds)
+
+    let youtubeVideoData = []
+
+    for(let i = 0; i < contentYoutubeIds.length; i++){
+        const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${contentYoutubeIds[i]}&part=snippet,contentDetails&key=${process.env.YOUTUBE_API_KEY}`)
+        const data = await response.json()
+        youtubeVideoData.push(data.items[0])
+        console.log(data.items[0].snippet?.thumbnails?.medium?.url)
+        await sleep(500)
+    }
+
+    youtubeVideoData.map(async (item) => {
+        const content = await Content.updateOne(
+            {
+                videoid: item.id
+            }
+            ,
+            {
+                thumbnail: item.snippet?.thumbnails?.medium?.url //we are only updating the thumbnail here
+            }
+        )
+
+        console.log("Content thumbnail updated, title:" + content.title + ", id:" + content.videoid + ", thumbnail Link: " + content.thumbnail)
+    })
+
+    res.status(200)
+    res.json({message: "Success! (Hopefully)"})
+})
+
+
 module.exports = {
     getAllContent,
     getContent,
@@ -290,5 +329,6 @@ module.exports = {
     getPortfolioContent,
     deleteContentVideoId,
     updateContentForAllCreators,
-    updateContentForAllCreators_AbtractedOutLogic
+    updateContentForAllCreators_AbtractedOutLogic,
+    oneTimeUpdateForThumbnails
 }

@@ -1,7 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const {getAllContent, getContent, getContentByContentCreator, updateContentRelatedData, updateContentByContentCreator, postContent, deleteContent, latestInFleshAndBlood, postPortfolioContent, getPortfolioContent, deleteContentVideoId, updateContentForAllCreators} = require('../controllers/contentController')
+const {getAllContent, getContent, getContentByContentCreator, updateContentRelatedData, updateContentByContentCreator, postContent, deleteContent, latestInFleshAndBlood, postPortfolioContent, getPortfolioContent, deleteContentVideoId, updateContentForAllCreators, oneTimeUpdateForThumbnails} = require('../controllers/contentController')
 const {protect, protectModerator} = require('../middleware/authMiddleware')
+
+router.put('/onetimeupdateforthumbnails', protect, protectModerator, oneTimeUpdateForThumbnails)
 
 router.get('/latestinfleshandblood', latestInFleshAndBlood)
 
@@ -27,6 +29,5 @@ router.delete('/videoid/:videoid', protect, protectModerator, deleteContentVideo
 
 router.delete('/:contentid', protect, protectModerator, deleteContent)
 
-//insert route here for latest assorted content (needs to be figured out)
 
 module.exports = router

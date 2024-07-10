@@ -19,6 +19,7 @@ const contentSchema = mongoose.Schema({
     relatedEventid: [ObjectId],
     relatedMatchid: [ObjectId],
     relatedDecklistid: ObjectId,
+    thumbnail: String
 })
 
 contentSchema.index({
