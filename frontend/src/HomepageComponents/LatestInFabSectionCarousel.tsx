@@ -5,11 +5,11 @@ import { DotButton, useDotButton } from '../components/swiperComponents/EmblaCar
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import YoutubeEmbedContainer from "../components/swiperComponents/YoutubeEmbedContainer"
-import { eventSchemaType } from "@/app/types/types"
+import { contentSchemaType, eventSchemaType } from "@/app/types/types"
 import EventThumbnailFeaturedSlide from "@/app/eyeofophidia/helperComponents/eventThumbnail/EventThumbnailFeaturedSlide"
 import EventThumbnailSmallSlide from "@/app/eyeofophidia/helperComponents/eventThumbnail/EventThumbnailSmallSlide"
 
-function LatestInFABSectionCarousel({backgroundImage, youtubeIDs, events} : { backgroundImage: string, youtubeIDs: string[], events: eventSchemaType[]}) {
+function LatestInFABSectionCarousel({backgroundImage, contents, events} : { backgroundImage: string, contents: contentSchemaType[], events?: eventSchemaType[]}) {
 
 
     const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -39,11 +39,12 @@ function LatestInFABSectionCarousel({backgroundImage, youtubeIDs, events} : { ba
       <div className="w-[90vw] md:w-[564px]" ref={emblaRef}>
         <div className="flex">
 
-            {youtubeIDs && youtubeIDs.map(id =>
-              <div key={id} className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
-                <YoutubeEmbedContainer>
-                  <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/${id}?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-                </YoutubeEmbedContainer>
+            {contents && contents.map(content =>
+              <div key={content.videoid} className='h-[50vw] basis-[90vw] md:basis-[564px] md:h-[282px] flex items-center justify-center relative grow-0 shrink-0'>
+                <div className="h-[50vw] w-[85vw] md:w-[500px] md:h-[282px]">
+                  <YoutubeEmbedContainer content={content} />
+                </div>
+                
               </div>
               )}
 

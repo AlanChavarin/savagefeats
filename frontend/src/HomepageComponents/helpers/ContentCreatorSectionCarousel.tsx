@@ -6,13 +6,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useState } from "react"
 import { splitIntoGroupsOfFour } from "./splitIntoGroupsOfFour"
+import { contentSchemaType } from "@/app/types/types"
 
-function ContentCreatorSectionCarousel({youtubeIds, channelName, size}: {youtubeIds: string[], channelName: string, size: ('big' | 'small')}) {
+function ContentCreatorSectionCarousel({contents, channelName, size}: {contents: contentSchemaType[], channelName: string, size: ('big' | 'small')}) {
 
-    const [youtubeIdsFours, setYoutubeIdsFours] = useState<string[][]>([])
+    const [contentFours, setContentFours] = useState<contentSchemaType[][]>([])
 
     useEffect(() => {
-      setYoutubeIdsFours(splitIntoGroupsOfFour(youtubeIds))
+      setContentFours(splitIntoGroupsOfFour(contents))
     }, [])
 
     const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -34,11 +35,11 @@ function ContentCreatorSectionCarousel({youtubeIds, channelName, size}: {youtube
         {size==='small' && <>
           <div className="w-[90vw] min-[500px]:w-[500px] min-[500px]:h-[253px] mb-[24px]" ref={emblaRef}>
             <div className="flex">
-              {youtubeIds.slice(0, 4).map(id => 
-                <div key={id} className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[253px] flex items-center justify-center relative grow-0 shrink-0'>
-                  <YoutubeEmbedContainer>
-                    <iframe className='h-[50vw] w-[85vw] min-[500px]:w-[450px] min-[500px]:h-[253px] box-shadow' src={`https://www.youtube-nocookie.com/embed/${id}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-                  </YoutubeEmbedContainer>
+              {contents.slice(0, 4).map(content => 
+                <div key={content._id} className='h-[50vw] basis-[90vw] min-[500px]:basis-[500px] min-[500px]:h-[253px] flex items-center justify-center relative grow-0 shrink-0'>
+                  <div className="h-[50vw] w-[85vw] min-[500px]:w-[450px] min-[500px]:h-[253px]">
+                    <YoutubeEmbedContainer content={content} />
+                  </div>
                 </div>
               )}
             </div>
@@ -68,16 +69,14 @@ function ContentCreatorSectionCarousel({youtubeIds, channelName, size}: {youtube
             <div className="w-[680px] overflow-hidden" ref={emblaRef}>
               <div className="flex gap-[32px] mb-[8px]">
 
-                {youtubeIdsFours && youtubeIdsFours.map(idArray =>
+                {contentFours && contentFours.map(contentArray =>
                 
-                  <div key={idArray[0]} className='grid grid-cols-2 gap-[32px] relative grow-0 shrink-0 pr-[8px]'>
-                    {idArray.map(id => <div key={id}>
-                    
-                      <YoutubeEmbedContainer>
-                        <iframe key={id} className='w-[320px] h-[180px] box-shadow' src={`https://www.youtube-nocookie.com/embed/${id}?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-                      </YoutubeEmbedContainer>
-
-                    </div>)}
+                  <div key={contentArray[0]._id} className='grid grid-cols-2 gap-[32px] relative grow-0 shrink-0 pr-[8px]'>
+                    {contentArray.map(content => 
+                      <div key={content._id} className="w-[320px] h-[180px]">
+                        <YoutubeEmbedContainer content={content} />
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

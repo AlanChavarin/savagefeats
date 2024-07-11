@@ -176,41 +176,47 @@ const deleteContentVideoId = asyncHandler(async (req, res) => {
 })
 
 const latestInFleshAndBlood = asyncHandler(async (req, res) => {
-    //grab match(nevermind)
-    //grab decklist
-    //grab latest mansant video
-    //grab latest savage lands news video
-    //grab latest 3 tournaments
-    //grab live streams
+    //const decklist = await Decklist.find({deckTech: { "$nin": [null, ""] }}).limit(1).sort({"event.startDate": -1})
 
-    const decklist = await Decklist.find({deckTech: { "$nin": [null, ""] }}).limit(1).sort({"event.startDate": -1})
-
-    const events = await Event.find({deleted: false}).sort({startDate: -1}).limit(1)
+    //const events = await Event.find({deleted: false}).sort({startDate: -1}).limit(1)
 
     const contentCreators = await ContentCreator.find({featured: true})
 
     let arr = []
 
     await Promise.all(contentCreators.flatMap(async contentCreator => {
-        const contents = await Content.find({parentContentCreatorid: contentCreator._id}).sort({publishedAt: -1}).limit(2)
+        const contents = await Content.find({parentContentCreatorid: contentCreator._id}).sort({publishedAt: -1}).limit(3)
         contents.map(content => arr.push(content))
     }))
 
     arr.sort((a, b) => a.publishedAt - b.publishedAt)
 
-    let contentVideoIds = arr.map(content => content.videoid)
+    //let contentVideoIdsAndThumbnails = arr.map(content => {return {"videoid": content.videoid, "thumbnail": content.thumbnail}})
 
-    contentVideoIds.unshift(decklist[0].deckTech)
+    //contentVideoIds.unshift(decklist[0].deckTech)
 
-    const liveStreams = await LiveStream.find({})
+    //const liveStreams = await LiveStream.find({})
 
-    liveStreams.map(liveStream => contentVideoIds.unshift(liveStream.link))
+    //liveStreams.map(liveStream => contentVideoIdsAndThumbnails.unshift({"videoid": liveStream.link, "thumbnail": null}))
     
     res.status(200)
-    res.json({
-        videoIds: contentVideoIds,
-        events: events,
-    })
+    res.json(arr)
+})
+
+const getFeaturedContentCreatorsAndTheirLatest8Videos = asyncHandler(async (req, res) => {
+    const contentCreators = await ContentCreator.find({featured: true})
+    let arr = []
+    await Promise.all(contentCreators.map(async contentCreator => {
+        const contents = await Content.find({parentContentCreatorid: contentCreator._id}).sort({publishedAt: -1}).limit(8)
+        //contents.map(content => arr.push(content))
+        arr.push({
+            contentCreator,
+            contents
+        })
+    }))
+
+    res.status(200)
+    res.json(arr)
 })
 
 // abtracted out functions
@@ -257,7 +263,8 @@ const updateContentByContentCreator_AbtractedOutLogic = async (contentCreatorId)
             title: item.snippet.title,
             description: item.snippet.description,
             channelTitle: item.snippet.title,
-            thumbnail: item.snippet?.thumbnails?.medium?.url
+            thumbnail: item.snippet?.thumbnails?.medium?.url,
+            profilepicture: contentCreator ? contentCreator.profilePictureDefault : null
         })
 
         console.log("Content posted, title:" + content.title + ", id:" + content.videoid)
@@ -303,7 +310,7 @@ const oneTimeUpdateForThumbnails = asyncHandler(async (req, res) => {
                 videoid: item.id
             }
             ,
-            {
+            {   
                 thumbnail: item.snippet?.thumbnails?.medium?.url //we are only updating the thumbnail here
             }
         )
@@ -330,5 +337,6 @@ module.exports = {
     deleteContentVideoId,
     updateContentForAllCreators,
     updateContentForAllCreators_AbtractedOutLogic,
-    oneTimeUpdateForThumbnails
+    oneTimeUpdateForThumbnails,
+    getFeaturedContentCreatorsAndTheirLatest8Videos
 }

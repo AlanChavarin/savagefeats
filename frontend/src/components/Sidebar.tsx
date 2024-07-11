@@ -2,6 +2,7 @@
 //nextjs
 import Link from "next/link"
 import Image from "next/image"
+import { usePathname } from 'next/navigation'
 
 //font awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -14,13 +15,29 @@ import UserContext from "@/context/UserContext"
 function Sidebar({buttonClickEvent} : {buttonClickEvent: () => void}) {
 
   const {user} = useContext(UserContext)
+  const pathname = usePathname()
+
 
   return (
     <div className="h-full bg-black w-[256px] md:w-[256px] absolute top-0 right-0 text-white z-[10]">
       <div className="text-[27px] flex flex-col text-white m-[16px] gap-[16px] *:font-bold *:cursor-pointer *:flex *:place-items-center">
+
         <Link href="/" className="cursor-pointer hover:bg-color">
           <Image src={'/SVGWHITE.png'} width={96} height={32} alt='savage feats'/>
         </Link>
+
+        { pathname?.startsWith('/eyeofophidia') && <>
+          <Link href="/eyeofophidia/matches" className="hover:text-custom-primary">
+          Matches
+          </Link>
+          <Link href="/eyeofophidia/events" className="hover:text-custom-primary">
+            Events
+          </Link>
+          <Link href="/eyeofophidia/decks" className="hover:text-custom-primary">
+            Decklists
+          </Link>
+        </>}
+
         <Link href="/services" className="hover:text-custom-primary">
           Production <br/> Services
         </Link>
@@ -28,26 +45,19 @@ function Sidebar({buttonClickEvent} : {buttonClickEvent: () => void}) {
           Portfolio
         </Link>
 
-        <Link href="/eyeofophidia/matches" className="hover:text-custom-primary">
-          Matches
-        </Link>
-        <Link href="/eyeofophidia/events" className="hover:text-custom-primary">
-          Events
-        </Link>
-        <Link href="/eyeofophidia/decks" className="hover:text-custom-primary">
-          Decklists
-        </Link>
-        {/* <Link href="/reports/" className="hover:text-custom-primary">
-          Reports
-        </Link> */}
-        {/* <Link href="/content" className="hover:text-custom-primary">
-          Content
-        </Link> */}
+        { !pathname?.startsWith('/eyeofophidia') && <>
+          <Link href="/eyeofophidia/matches" className="hover:text-custom-primary">
+            Matches
+          </Link>
+          <Link href="/eyeofophidia/events" className="hover:text-custom-primary">
+            Events
+          </Link>
+          <Link href="/eyeofophidia/decks" className="hover:text-custom-primary">
+            Decklists
+          </Link>
+        </>}
+
         
-        
-        {/* <Link href="/shop" className="hover:text-custom-primary">
-          Shop
-        </Link> */}
 
         { user && <>
           <Link href="/eyeofophidia/postevent" className="hover:text-custom-primary">

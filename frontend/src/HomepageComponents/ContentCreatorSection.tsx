@@ -1,41 +1,46 @@
-'use client'
-import ContentCreatorSectionBig from "./ContentCreatorSectionBig"
+//import ContentCreatorSectionBig from "./ContentCreatorSectionBig"
 import ContentCreatorSectionContainer from "./ContentCreatorSectionContainer"
 import { useEffect, useState } from "react"
-import { errorSchema } from "@/app/schemas/schemas"
-import { contentCreatorSchemaType } from "@/app/types/types"
+import { contentCreatorSchema, contentSchema, errorSchema } from "@/app/schemas/schemas"
+import { contentCreatorSchemaType, contentSchemaType } from "@/app/types/types"
 import { z } from "zod"
 import { toast } from "react-toastify"
 
-function ContentCreatorSection({creator}: {creator: contentCreatorSchemaType}) {
+const responseSchema = z.array(z.object({
+    contentCreator: contentCreatorSchema,
+    contents: z.array(contentSchema)
+}))
 
-    const [youtubeIds, setYoutubeIds] = useState<string[] | undefined>(undefined)
+type responseSchemaType = z.infer<typeof responseSchema>
 
-    useEffect(() => {
-        //grab creator data
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}content/bycontentcreator/${creator._id}?&idonly=true&limit=8`)
-        .then(r => r.json())
-        .then(data => {
-        const validatedData = z.array(z.string()).safeParse(data)
-        const validatedError = errorSchema.safeParse(data)
-        if(validatedData.success){
-            setYoutubeIds(validatedData.data)
-            return
-        }
+let responseData: responseSchemaType
 
-        if(validatedError.success){
-            throw new Error(validatedError.data.errorMessage)
-        }
+async function ContentCreatorSection() {
 
-        console.error(validatedData.error)
-        console.error(validatedError.error)
-        throw new Error('Unexpected data. Check console for further details')
-        }).catch(err => {
-            toast.error(err.message)
-        })
-    }, [])
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}content/getfeaturedcontentcreatorsandtheirlatest8videos`)
+    .then(r => r.json())
+    .then(data => {
+    const validatedData = responseSchema.safeParse(data)
+    const validatedError = errorSchema.safeParse(data)
+    if(validatedData.success){
+        responseData = validatedData.data
+        return
+    }
 
-  return (<ContentCreatorSectionContainer youtubeIds={youtubeIds} channelData={creator}/>)
+    if(validatedError.success){
+        throw new Error(validatedError.data.errorMessage)
+    }
+
+    console.error(validatedData.error)
+    console.error(validatedError.error)
+    throw new Error('Unexpected data. Check console for further details')
+    }).catch(err => {
+        toast.error(err.message)
+    })
+
+  return (<>
+    {responseData.map(data => <ContentCreatorSectionContainer contents={data.contents} contentCreator={data.contentCreator}/>)}
+  </>)
 }
 
 export default ContentCreatorSection

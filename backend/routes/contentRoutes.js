@@ -1,7 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const {getAllContent, getContent, getContentByContentCreator, updateContentRelatedData, updateContentByContentCreator, postContent, deleteContent, latestInFleshAndBlood, postPortfolioContent, getPortfolioContent, deleteContentVideoId, updateContentForAllCreators, oneTimeUpdateForThumbnails} = require('../controllers/contentController')
+const {getAllContent, getContent, getContentByContentCreator, updateContentRelatedData, updateContentByContentCreator, postContent, deleteContent, latestInFleshAndBlood, postPortfolioContent, getPortfolioContent, deleteContentVideoId, updateContentForAllCreators, oneTimeUpdateForThumbnails, getFeaturedContentCreatorsAndTheirLatest8Videos} = require('../controllers/contentController')
 const {protect, protectModerator} = require('../middleware/authMiddleware')
+
+router.get('/getfeaturedcontentcreatorsandtheirlatest8videos', getFeaturedContentCreatorsAndTheirLatest8Videos)
 
 router.put('/onetimeupdateforthumbnails', protect, protectModerator, oneTimeUpdateForThumbnails)
 

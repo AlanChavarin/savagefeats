@@ -7,7 +7,7 @@ function HomepageHeroBackground() {
     <Providers>
       <ParallaxBanner 
       layers={
-        [{image: '/mulch.jpg', translateY: ((typeof window !== "undefined" && window.innerWidth < 600) ? [0, 0] : [-25, 25])}]
+        [{image: '/mulch.jpg', translateY: ((typeof window !== "undefined" && window.innerWidth < 600) ? [0, 0] : [-30, 30])}]
       } className="h-full" />
     </Providers>
   )

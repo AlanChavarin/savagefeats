@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import { deckSchema, errorSchema } from "@/app/schemas/schemas"
 import { deckSchemaType } from "@/app/types/types"
 import { toast } from "react-toastify"

@@ -37,9 +37,7 @@ function WinningDecksSectionSmall({decks, featuredDeck}: {decks: deckSchemaType[
         <div className="flex gap-[32px]">
 
           <div className="basis-[90vw] min-[390px]:basis-[360px] grow-0 shrink-0 flex flex-col gap-[16px]">
-            <YoutubeEmbedContainer>
-              <iframe className='w-full box-shadow' src={`https://www.youtube-nocookie.com/embed/${featuredDeck?.deckTech}?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-            </YoutubeEmbedContainer>
+            <iframe className='w-full box-shadow' src={`https://www.youtube-nocookie.com/embed/${featuredDeck?.deckTech}?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
             {featuredDeck && <DeckThumbnail size='smallSlide' deck={featuredDeck}/>}
           </div>
 

@@ -35,7 +35,7 @@ return (
       <div className="absolute w-[100%] h-[100%] top-0 left-0 bg-black opacity-[30%] hover:opacity-[50%]"></div>
     </Link>
 
-    <div className='flex flex-col gap-[8px] absolute bottom-[18%] left-[50%] translate-x-[-50%] flex-0 h-[0px] z-[1]'>
+    <div className='flex flex-col gap-[8px] absolute bottom-[12%] sm:bottom-[18%]  left-[50%] translate-x-[-50%] flex-0 h-[0px] z-[1]'>
       <div className='text-[16px] w-full text-center *:underline *:text-nowrap flex flex-row gap-[16px] justify-center'>
         {event.officialDetails && <a className="hover:text-purple-500" target="_blank" href={event.officialDetails}>Official Details</a>}
         {event.signUpLink && <a className="hover:text-purple-500" target="_blank" href={event.signUpLink}>Signup Link</a>}

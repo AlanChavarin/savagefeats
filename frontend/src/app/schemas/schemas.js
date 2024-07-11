@@ -94,6 +94,18 @@ export const contentCreatorSchema = z.object({
     backgroundImage: z.string().optional()
 })
 
+export const contentSchema = z.object({
+    _id: z.string(),
+    videoid: z.string(),
+    publishedAt: z.string(),
+    parentContentCreatorYoutubeChannelid: z.string(),
+    parentContentCreatorid: z.string(),
+    title: z.string(),
+    description: z.string(),
+    thumbnail: z.string(),
+    profilePicture: z.string()
+})
+
 export const userSchema = z.object({
     name: z.string(),
     privilege: z.string(),
