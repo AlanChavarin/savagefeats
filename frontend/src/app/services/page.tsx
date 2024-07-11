@@ -97,6 +97,7 @@ async function page() {
       <TestimonialSection backgroundImage="servicePagePics/bRyAk0h.jpg" />
 
       <YoutubeVideoCarousel youtubeIDs={youtubeIDs.slice(0, 5)} backgroundImage='servicePagePics/123234345.jpg'>
+
         <div className='flex flex-col gap-[16px]'>
           <div className='text-[27px] sm:text-[39px] md:text-[48px] text-white text-shadow font-bold'>
             Our Latest Events

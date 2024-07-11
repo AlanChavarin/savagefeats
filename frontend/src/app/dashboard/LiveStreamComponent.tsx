@@ -1,4 +1,3 @@
-import YoutubeEmbedContainer from "@/components/swiperComponents/YoutubeEmbedContainer"
 import { toast } from "react-toastify"
 import { liveStreamSchema } from "../schemas/schemas"
 import { errorSchema } from "../schemas/schemas"
@@ -41,9 +40,7 @@ function LiveStreamComponent({id}: {id: string}) {
 
   return (
     <div key={id} className='flex flex-col items-end gap-[16px]'>
-        <YoutubeEmbedContainer>
-            <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/${id}?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-        </YoutubeEmbedContainer>
+        <iframe className='h-[50vw] w-[85vw] md:w-[500px] md:h-[282px] box-shadow' src={`https://www.youtube-nocookie.com/embed/${id}?start=0`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
         <DeleteButton warningText="Are you sure you want to delete this live stream?" deleteAction={deleteAction}/>
     </div>
   )

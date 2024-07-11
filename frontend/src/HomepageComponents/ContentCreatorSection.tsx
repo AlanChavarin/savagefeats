@@ -39,7 +39,7 @@ async function ContentCreatorSection() {
     })
 
   return (<>
-    {responseData.map(data => <ContentCreatorSectionContainer contents={data.contents} contentCreator={data.contentCreator}/>)}
+    {responseData.map(data => <ContentCreatorSectionContainer contents={data.contents} contentCreator={data.contentCreator} key={data.contentCreator._id}/>)}
   </>)
 }
 
