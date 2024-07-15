@@ -31,7 +31,7 @@ function HeroSelect({placeholder, name, form, type}: {placeholder: string, name:
         console.error(validatedError.error)
         throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
-      toast(err.message)
+      toast.error(err.message)
     })
   }, [type])
 

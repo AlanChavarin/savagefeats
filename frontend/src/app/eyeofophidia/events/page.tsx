@@ -20,7 +20,7 @@ const responseSchema = z.object({
   events: z.array(eventSchema),
 })
 
-const limit = 40
+const limit = 29
 
 function Events() {
 
@@ -56,12 +56,12 @@ function Events() {
           throw new Error(validatedError.data.errorMessage)
         }
 
-        console.error(validatedData.error)
-        console.error(validatedError.error)
+        console.error(validatedData.error.toString())
+        console.error(validatedError.error.toString())
         throw new Error('Unexpected data. Check console for further details')
       }).catch(err => {
         setLoading(false)
-        toast(err.message)
+        toast.error(err.message)
       })
     }
 

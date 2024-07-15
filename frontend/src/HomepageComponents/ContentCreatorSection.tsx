@@ -1,8 +1,5 @@
-//import ContentCreatorSectionBig from "./ContentCreatorSectionBig"
 import ContentCreatorSectionContainer from "./ContentCreatorSectionContainer"
-import { useEffect, useState } from "react"
 import { contentCreatorSchema, contentSchema, errorSchema } from "@/app/schemas/schemas"
-import { contentCreatorSchemaType, contentSchemaType } from "@/app/types/types"
 import { z } from "zod"
 import { toast } from "react-toastify"
 

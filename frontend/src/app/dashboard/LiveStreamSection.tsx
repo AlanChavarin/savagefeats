@@ -3,7 +3,6 @@ import { useState, useEffect } from "react"
 import { z } from "zod"
 import { errorSchema } from "../schemas/schemas"
 import { toast } from "react-toastify"
-import YoutubeEmbedContainer from "@/components/swiperComponents/YoutubeEmbedContainer"
 import AddNewLiveStreamButton from "./AddNewLiveStreamButton"
 import LiveStreamComponent from "./LiveStreamComponent"
 
@@ -30,7 +29,7 @@ function LiveStreamSection() {
             console.error(validatedError.error.toString())
             throw new Error('Unexpected data. Check console for further details')
         }).catch(err => {
-            toast(err.message)
+            toast.error(err.message)
         })
 
     }, [])

@@ -44,7 +44,7 @@ function Draft({params}: {params: {draftid: string}}) {
       console.error(validatedError.error)
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
-      toast(err.message)
+      toast.error(err.message)
     })
   }, [params])
 

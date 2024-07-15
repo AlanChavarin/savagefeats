@@ -12,7 +12,6 @@ import Pagination from "../helperComponents/Pagination"
 import { Hourglass } from 'react-loader-spinner'
 import Info from "../helperComponents/Info"
 
-
 const responseSchema = z.object({
   count: z.number(),
   matches: z.array(matchSchema),
@@ -47,8 +46,8 @@ function Matches() {
           throw new Error(validatedError.data.errorMessage)
         }
   
-        console.error(validatedData.error)
-        console.error(validatedError.error)
+        console.error(validatedData.error.toString())
+        console.error(validatedError.error.toString())
         throw new Error('Unexpected data. Check console for further details')
       }).catch(err => {
         setLoading(false)

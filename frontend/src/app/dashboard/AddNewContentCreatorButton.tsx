@@ -41,7 +41,7 @@ function AddNewContentCreatorButton({grabContentCreators}: {grabContentCreators:
           const validatedError = errorSchema.safeParse(data)
           if(validatedData.success){
             console.log(validatedData.data)
-            toast(`Content creator edit success for: ${validatedData.data.title}`)
+            toast.success(`Content creator edit success for: ${validatedData.data.title}`)
             grabContentCreators()
             return
           }
@@ -54,7 +54,7 @@ function AddNewContentCreatorButton({grabContentCreators}: {grabContentCreators:
           console.error(validatedError.error.toString())
           throw new Error('Unexpected data. Check console for further details')
         }).catch(err => {
-          toast(err.message)
+          toast.error(err.message)
         })
 
         //get new updated data

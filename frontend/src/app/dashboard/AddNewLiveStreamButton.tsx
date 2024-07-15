@@ -43,7 +43,7 @@ function AddNewLiveStreamButton() {
           const validatedError = errorSchema.safeParse(data)
           if(validatedData.success){
             console.log(validatedData.data)
-            toast(`live stream post success for: ${validatedData.data.title}`)
+            toast.success(`live stream post success for: ${validatedData.data.title}`)
             return
           }
     
@@ -55,7 +55,7 @@ function AddNewLiveStreamButton() {
           console.error(validatedError.error.toString())
           throw new Error('Unexpected data. Check console for further details')
         }).catch(err => {
-          toast(err.message)
+          toast.error(err.message)
         })
     }
 

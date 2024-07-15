@@ -22,7 +22,7 @@ function LiveStreamComponent({id}: {id: string}) {
         const validatedError = errorSchema.safeParse(data)
         if(validatedData.success){
             console.log(validatedData.data.link + ' Successfully deleted')
-            toast(validatedData.data.link + ' Successfully deleted')
+            toast.success(validatedData.data.link + ' Successfully deleted')
             return
         }
 
@@ -34,7 +34,7 @@ function LiveStreamComponent({id}: {id: string}) {
         console.error(validatedError.error.toString())
         throw new Error('Unexpected contentcreator data. Check console for further details')
         }).catch(err => {
-        toast(err.message)
+        toast.error(err.message)
         })
     }
 

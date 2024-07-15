@@ -49,7 +49,7 @@ function AddNewPortfolioVideoButton() {
           const validatedError = errorSchema.safeParse(data)
           if(validatedData.success){
             console.log(validatedData.data)
-            toast(`portfolio success post success for: ${validatedData.data.videoid}`)
+            toast.success(`portfolio success post success for: ${validatedData.data.videoid}`)
             return
           }
     
@@ -61,7 +61,7 @@ function AddNewPortfolioVideoButton() {
           console.error(validatedError.error.toString())
           throw new Error('Unexpected data. Check console for further details')
         }).catch(err => {
-          toast(err.message)
+          toast.error(err.message)
         })
     }
 

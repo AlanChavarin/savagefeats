@@ -49,7 +49,7 @@ function Event({params}: {params: {eventid: string}}) {
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
       setLoading(prev => ({...prev, event: false}))
-      toast(err.message)
+      toast.error(err.message)
     })
 
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}matches/byevent/${eventid}`)
@@ -73,7 +73,7 @@ function Event({params}: {params: {eventid: string}}) {
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
       setLoading(prev => ({...prev, matches: false}))
-      toast(err.message)
+      toast.error(err.message)
     })
 
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}drafts/byevent/${eventid}`)
@@ -96,7 +96,7 @@ function Event({params}: {params: {eventid: string}}) {
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
       setLoading(prev => ({...prev, drafts: false}))
-      toast(err.message)
+      toast.error(err.message)
     })
 
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}decklists/byevent/${eventid}`)
@@ -120,7 +120,7 @@ function Event({params}: {params: {eventid: string}}) {
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
       setLoading(prev => ({...prev, decks: false}))
-      toast(err.message)
+      toast.error(err.message)
     })
 
   }, [params])

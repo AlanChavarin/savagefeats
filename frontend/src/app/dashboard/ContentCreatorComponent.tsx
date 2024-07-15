@@ -53,7 +53,7 @@ function ContentCreatorComponent({contentCreator, grabContentCreators}: {content
           const validatedData = contentCreatorSchema.safeParse(data)
           const validatedError = errorSchema.safeParse(data)
           if(validatedData.success){
-            toast(`Content creator edit success for: ${validatedData.data.title}`)
+            toast.success(`Content creator edit success for: ${validatedData.data.title}`)
             return
           }
     
@@ -65,7 +65,7 @@ function ContentCreatorComponent({contentCreator, grabContentCreators}: {content
           console.error(validatedError.error.toString())
           throw new Error('Unexpected data. Check console for further details')
         }).catch(err => {
-          toast(err.message)
+          toast.error(err.message)
         })
 
         grabContentCreators()
@@ -90,7 +90,7 @@ function ContentCreatorComponent({contentCreator, grabContentCreators}: {content
         if(validatedData.success){
           grabContentCreators()
           console.log(validatedData.data.title + ' Successfully deleted')
-          toast(validatedData.data.title + ' Successfully deleted')
+          toast.success(validatedData.data.title + ' Successfully deleted')
 
           return
         }
@@ -103,7 +103,7 @@ function ContentCreatorComponent({contentCreator, grabContentCreators}: {content
         console.error(validatedError.error.toString())
         throw new Error('Unexpected contentcreator data. Check console for further details')
       }).catch(err => {
-        toast(err.message)
+        toast.error(err.message)
       })
     }
 

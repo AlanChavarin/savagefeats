@@ -28,7 +28,7 @@ function PortfolioComponent({id}: {id: string}) {
             const validatedError = errorSchema.safeParse(data)
             if(validatedData.success){
                 console.log(validatedData.data.videoid + ' Successfully deleted')
-                toast(validatedData.data.videoid + ' Successfully deleted')
+                toast.success(validatedData.data.videoid + ' Successfully deleted')
                 return
             }
 
@@ -40,7 +40,7 @@ function PortfolioComponent({id}: {id: string}) {
             console.error(validatedError.error.toString())
             throw new Error('Unexpected contentcreator data. Check console for further details')
         }).catch(err => {
-            toast(err.message)
+            toast.error(err.message)
         })
     }
 

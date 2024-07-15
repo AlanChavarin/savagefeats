@@ -52,7 +52,7 @@ function Decks() {
         throw new Error('Unexpected data. Check console for further details')
       }).catch(err => {
         setLoading(false)
-        toast(err.message)
+        toast.success(err.message)
       })
     }
 

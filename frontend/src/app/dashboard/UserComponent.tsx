@@ -56,7 +56,7 @@ function UserComponent({userData, grabUsers}: {userData: userSchemaType, grabUse
           const validatedError = errorSchema.safeParse(data)
           if(validatedData.success){
             console.log(validatedData.data)
-            toast(`User edit success for user: ${validatedData.data.name}`)
+            toast.success(`User edit success for user: ${validatedData.data.name}`)
             return
           }
     
@@ -68,7 +68,7 @@ function UserComponent({userData, grabUsers}: {userData: userSchemaType, grabUse
           console.error(validatedError.error.toString())
           throw new Error('Unexpected data. Check console for further details')
         }).catch(err => {
-          toast(err.message)
+          toast.error(err.message)
         })
 
         const url2 = `${process.env.NEXT_PUBLIC_BACKEND_API}users/verify/${userData.name}`
@@ -87,7 +87,7 @@ function UserComponent({userData, grabUsers}: {userData: userSchemaType, grabUse
             const validatedError = errorSchema.safeParse(data)
             if(validatedData.success){
               console.log(validatedData.data)
-              toast(`User verify edit success for user: ${validatedData.data.name}`)
+              toast.success(`User verify edit success for user: ${validatedData.data.name}`)
               return
             }
       
@@ -99,7 +99,7 @@ function UserComponent({userData, grabUsers}: {userData: userSchemaType, grabUse
             console.error(validatedError.error.toString())
             throw new Error('Unexpected data. Check console for further details')
           }).catch(err => {
-            toast(err.message)
+            toast.error(err.message)
           })
 
           //get new updated data
