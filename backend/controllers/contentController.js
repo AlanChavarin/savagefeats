@@ -189,7 +189,7 @@ const latestInFleshAndBlood = asyncHandler(async (req, res) => {
         contents.map(content => arr.push(content))
     }))
 
-    arr.sort((a, b) => a.publishedAt - b.publishedAt)
+    arr.sort((a, b) => b.publishedAt - a.publishedAt)
 
     //let contentVideoIdsAndThumbnails = arr.map(content => {return {"videoid": content.videoid, "thumbnail": content.thumbnail}})
 
@@ -264,7 +264,7 @@ const updateContentByContentCreator_AbtractedOutLogic = async (contentCreatorId)
             description: item.snippet.description,
             channelTitle: item.snippet.title,
             thumbnail: item.snippet?.thumbnails?.medium?.url,
-            profilepicture: contentCreator ? contentCreator.profilePictureDefault : null
+            profilePicture: contentCreator ? contentCreator.profilePictureDefault : null
         })
 
         console.log("Content posted, title:" + content.title + ", id:" + content.videoid)

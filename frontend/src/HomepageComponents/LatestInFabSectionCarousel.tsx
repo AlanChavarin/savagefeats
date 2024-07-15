@@ -13,7 +13,7 @@ function LatestInFABSectionCarousel({backgroundImage, contents, events} : { back
 
 
     const [emblaRef, emblaApi] = useEmblaCarousel({
-        startIndex: 2
+        startIndex: 0
     })
 
     const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
