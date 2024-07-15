@@ -1,6 +1,5 @@
 import { deckSchema, errorSchema } from "@/app/schemas/schemas"
 import { deckSchemaType } from "@/app/types/types"
-import { toast } from "react-toastify"
 import { z } from "zod"
 import WinningDecksSectionBig from "./WinningDecksSectionBig"
 import WinningDecksSectionSmall from "./WinningDecksSectionSmall"
@@ -34,8 +33,6 @@ async function WinningDecksSection() {
     console.error(validatedData.error)
     console.error(validatedError.error)
     throw new Error('Unexpected data. Check console for further details')
-    }).catch(err => {
-        toast.error(err.message)
     })
 
     //grab latest deck with decktech 
@@ -58,8 +55,6 @@ async function WinningDecksSection() {
         console.error(validatedData.error.toString())
         console.error(validatedError.error.toString())
         throw new Error('Unexpected data. Check console for further details')
-    }).catch(err => {
-        toast.error(err.message)
     })
 
 

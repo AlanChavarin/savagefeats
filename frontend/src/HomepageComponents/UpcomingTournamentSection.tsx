@@ -2,7 +2,6 @@ import { errorSchema, eventSchema } from "@/app/schemas/schemas"
 import { eventSchemaType } from "@/app/types/types"
 import { z } from "zod"
 import EventsSectionCarousel from "./EventsSectionCarousel"
-import { toast } from "react-toastify"
 
 
 //const responseEventSchema = z.array(eventSchema)
@@ -29,8 +28,6 @@ async function UpcomingTournamentSection() {
         console.error(validatedData.error)
         console.error(validatedError.error)
         throw new Error('Unexpected data. Check console for further details')
-    }).catch(err => {
-        toast.error(err.message)
     })
 
   return ( <>

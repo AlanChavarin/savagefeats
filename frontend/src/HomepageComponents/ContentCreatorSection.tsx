@@ -1,7 +1,6 @@
 import ContentCreatorSectionContainer from "./ContentCreatorSectionContainer"
 import { contentCreatorSchema, contentSchema, errorSchema } from "@/app/schemas/schemas"
 import { z } from "zod"
-import { toast } from "react-toastify"
 
 const responseSchema = z.array(z.object({
     contentCreator: contentCreatorSchema,
@@ -31,8 +30,6 @@ async function ContentCreatorSection() {
     console.error(validatedData.error)
     console.error(validatedError.error)
     throw new Error('Unexpected data. Check console for further details')
-    }).catch(err => {
-        toast.error(err.message)
     })
 
   return (<>

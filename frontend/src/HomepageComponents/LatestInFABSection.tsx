@@ -1,4 +1,3 @@
-import { toast } from "react-toastify"
 import { contentSchema, errorSchema } from "@/app/schemas/schemas"
 import { z } from "zod"
 import LatestInFABSectionCarousel from "./LatestInFabSectionCarousel"
@@ -27,8 +26,6 @@ async function LatestInFABSection({backgroundImage} : { backgroundImage: string}
     console.error(validatedData.error)
     console.error(validatedError.error)
     throw new Error('Unexpected data. Check console for further details')
-  }).catch(err => {
-    toast.error(err.message)
   })
 
   return (<>
