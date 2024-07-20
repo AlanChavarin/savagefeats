@@ -84,7 +84,7 @@ function Events() {
               </div>
               <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
             </div>
-            { currentEventsDropdown && 
+            { currentEventsDropdown &&
               <div className="flex flex-row flex-wrap gap-[24px] justify-center">
                 {events.filter(event => checkIfHappeningNow(event)).map(event => <div key={event._id}>
                     <EventThumbnailNormal event={event} size={"normal"}/>
@@ -107,7 +107,7 @@ function Events() {
             </div>
             {futureEventsDropdown &&
               <div className="flex flex-row flex-wrap gap-[24px] justify-center">
-                {events.filter(event => checkIfFuture(event)).map(event => <div key={event._id}>
+                {events.filter(event => checkIfFuture(event)).reverse().map(event => <div key={event._id}>
                     <EventThumbnailNormal event={event} size={"normal"}/>
                   </div>
                 )}

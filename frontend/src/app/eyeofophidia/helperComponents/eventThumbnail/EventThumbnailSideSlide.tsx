@@ -14,7 +14,7 @@ function EventThumbnailSideSlide({event}: {event: eventSchemaType}) {
         <Link href={`/eyeofophidia/event/${event._id}`} className="w-full h-full relative">
           <div className="flex w-full z-[1] pointer-events-none">
             <div className='bg-black bg-opacity-60 min-h-[42px] w-full font-bold text-[19px] flex justify-center items-center text-center z-[1]'>{event.name}</div>
-            {checkIfHappeningNow(event) && <HappeningNow />}
+            <HappeningNow event={event} />
           </div>
 
           <div className='flex flex-col justify-between flex-1 p-[8px] w-full z-[1] pointer-events-none'>
@@ -41,8 +41,8 @@ function EventThumbnailSideSlide({event}: {event: eventSchemaType}) {
           <div className='text-[16px] w-full text-center *:underline *:text-nowrap flex flex-row gap-[16px] justify-center'>
             {event.officialDetails && <a className="hover:text-purple-500" target="_blank" href={event.officialDetails}>Official Details</a>}
             {event.signUpLink && <a className="hover:text-purple-500" target="_blank" href={event.signUpLink}>Signup Link</a>}
-            {event.liveStream && !event.liveStream.startsWith('http') && <a className="hover:text-purple-500" target="_blank" href={`https://www.youtube.com/watch?v=${event.liveStream}`}>Live Stream</a>}
-            {event.liveStream && event.liveStream.startsWith('http') && <a className="hover:text-purple-500" target="_blank" href={event.liveStream}><span>Live Stream</span></a>}
+            {/* {event.liveStream && !event.liveStream.startsWith('http') && <a className="hover:text-purple-500" target="_blank" href={`https://www.youtube.com/watch?v=${event.liveStream}`}>Live Stream</a>}
+            {event.liveStream && event.liveStream.startsWith('http') && <a className="hover:text-purple-500" target="_blank" href={event.liveStream}><span>Live Stream</span></a>} */}
             
           </div>
           <div className='text-[9px] text-center'>{event.venue}</div>

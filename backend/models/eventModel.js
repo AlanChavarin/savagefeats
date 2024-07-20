@@ -41,13 +41,15 @@ const eventSchema = mongoose.Schema({
     happeningNow: Boolean,
     streamed: {
         type: Boolean,
-        required: true
+        required: true,
+        default: false
     },
     todaysDate: Date,
     emptyEvent: {
         type: Boolean,
         default: true
     },
+    liveBroadcastContent: String,
 
     //description: String,
     image: String,

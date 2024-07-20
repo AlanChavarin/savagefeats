@@ -28,25 +28,26 @@ function EventThumbnailEventPage({event, lastRound, lastFormat, lastTwitch}: {la
             <div className='text-center *:underline text-[16px] md:text-[19px] justify-self-end'>
               {event.officialDetails && <><a href={event.officialDetails} target="_blank" className="hover:text-purple-500">Official Details</a></>}
 
-              {event.officialDetails && (event.signUpLink || event.officialDetails) && <>{' - '}</>}
+              {event.officialDetails && (event.signUpLink && event.officialDetails) && <>{' - '}</>}
 
               {event.signUpLink && <><a href={event.signUpLink} target="_blank" className="hover:text-purple-500">Signup Link</a></>}
 
-              {event.signUpLink && event.liveStream && <>{' - '}</>}
+              {/* {event.signUpLink && event.liveStream && <>{' - '}</>}
 
               {event.liveStream && !event.liveStream.startsWith('http') && <><a href={event.twitch ? `https://www.twitch.com/${event.liveStream}` : `https://www.youtube.com/watch?v=${event.liveStream}`} target="_blank" className="hover:text-purple-500">Live Stream</a></>}
 
-              {event.liveStream && event.liveStream.startsWith('http') && <a className="hover:text-purple-500" target="_blank" href={event.liveStream}><span>Live Stream</span></a>}
+              {event.liveStream && event.liveStream.startsWith('http') && <a className="hover:text-purple-500" target="_blank" href={event.liveStream}><span>Live Stream</span></a>} */}
 
             </div>
         </div>
  
         {user && 
-          <div className="hidden absolute sm:flex flex-row gap-[8px] bottom-[12px] right-[12px]">
+          <div className="hidden absolute sm:flex flex-col gap-[8px] bottom-[12px] right-[12px]">
             <EditButton text="Edit Event" link={`/eyeofophidia/postevent?eventid=${event._id}`} />
             <EditButton text="Post Match" link={`/eyeofophidia/postmatch?eventname=${event.name}&lastRound=${lastRound}&lastFormat=${lastFormat}&lastTwitch=${lastTwitch}`} />
             <EditButton text="Post Deck" link={`/eyeofophidia/postdeck?eventname=${event.name}&lastFormat=${lastFormat}`} />
             <EditButton text="Post Draft" link={`/eyeofophidia/postdraft?eventname=${event.name}&lastRound=${lastRound}&lastFormat=${lastFormat}&lastTwitch=${lastTwitch}`} />
+            <EditButton text="Post Content" link={`/eyeofophidia/postcontent?eventname=${event.name}&eventid=${event._id}`} />
           </div>
         }
         
@@ -57,6 +58,8 @@ function EventThumbnailEventPage({event, lastRound, lastFormat, lastTwitch}: {la
           <EditButton text="Post Match" link={`/eyeofophidia/postmatch?eventname=${event.name}&lastRound=${lastRound}&lastFormat=${lastFormat}&lastTwitch=${lastTwitch}`} />
           <EditButton text="Post Deck" link={`/eyeofophidia/postdeck?eventname=${event.name}`} />
           <EditButton text="Post Draft" link={`/eyeofophidia/postdraft?eventname=${event.name}&lastRound=${lastRound}&lastFormat=${lastFormat}&lastTwitch=${lastTwitch}`} />
+          <EditButton text="Post Content" link={`/eyeofophidia/postcontent?eventname=${event.name}`} />
+
         </div>
       }
     </>

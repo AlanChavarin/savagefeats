@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const ObjectId = require('mongodb').ObjectId
-const contentTypes = ['decktech', 'portfolio']
+const contentTypes = ['decktech', 'portfolio', 'livestream']
 
 const contentSchema = mongoose.Schema({
     videoid: String,
@@ -21,6 +21,7 @@ const contentSchema = mongoose.Schema({
     relatedDecklistid: ObjectId,
     thumbnail: String,
     profilePicture: String,
+    parentEventId: ObjectId
 })
 
 contentSchema.index({

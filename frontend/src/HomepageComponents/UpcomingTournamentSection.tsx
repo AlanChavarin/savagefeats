@@ -3,9 +3,6 @@ import { eventSchemaType } from "@/app/types/types"
 import { z } from "zod"
 import EventsSectionCarousel from "./EventsSectionCarousel"
 
-
-//const responseEventSchema = z.array(eventSchema)
-
 let events: eventSchemaType[]
 
 async function UpcomingTournamentSection() {
@@ -17,7 +14,7 @@ async function UpcomingTournamentSection() {
         const validatedData = z.array(eventSchema).safeParse(data)
         const validatedError = errorSchema.safeParse(data)
         if(validatedData.success){
-            events = validatedData.data
+            events = validatedData.data.reverse()
             return
         }
 

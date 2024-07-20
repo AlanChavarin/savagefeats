@@ -20,7 +20,16 @@ function YoutubeEmbedContainer({content}: {content: contentSchemaType}) {
         <div onClick={() => setActive(true)} className='absolute w-full h-full top-0 right-0  cursor-pointer hover:glowing-shadow' style={{backgroundImage: `url('${content?.thumbnail}')`, backgroundSize: 'cover', backgroundPosition: `center 0px`, boxShadow: '0 0 100px rgba(0,0,0,.7) inset'}}>
           <div className='relative w-full h-full hover:bg-slate-900/30'> 
             <div className='text-white text-[19px] text-shadow-small flex flex-row items-center gap-[8px] p-[12px] font-bold'>
-              <Image src={content?.profilePicture} alt="profile picture" width={40} height={40} className='rounded-full box-shadow-extra-small self-start'/>
+              { content.profilePicture ? 
+                <Image src={content?.profilePicture} alt="profile picture" width={40} height={40} className='rounded-full box-shadow-extra-small self-start'/>
+                :
+                <div className='rounded-full bg-red-600 min-w-[48px] min-h-[48px] flex justify-center items-center text-[14px]'>
+                  {content.liveBroadcastContent === 'live' && 'Live'}
+                  {content.liveBroadcastContent === 'upcoming' && <>Live <br/> Soon</>}
+                </div>
+              }
+
+
               <div>{content?.title}</div>
             </div>
 

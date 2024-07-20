@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react"
 import { toast } from "react-toastify"
 import { errorSchema, matchSchema, draftSchema } from '@/app/schemas/schemas'
 import { draftSchemaType, matchSchemaType } from "@/app/types/types"
-import EventThumbnail from "../../helperComponents/eventThumbnail/EventThumbnail"
+import EventThumbnail from "../../helperComponents/eventThumbnail/EventThumbnailEventPage"
 import { z } from "zod"
 import MatchThumbnail from "../../helperComponents/MatchThumbnail"
 import UserContext from "@/context/UserContext"
@@ -79,7 +79,7 @@ function Draft({params}: {params: {draftid: string}}) {
         {/* details container */}
         {draft && <div className="w-[90%] flex flex-col gap-[32px] max-w-[400px]">
 
-            <EventThumbnail event={draft.event} size={"matchPage"} />
+            <EventThumbnail event={draft.event} />
 
             { user &&
               <div className="flex flex-row items-center gap-[12px]">

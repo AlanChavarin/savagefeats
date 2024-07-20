@@ -6,7 +6,9 @@ const {sanitate} = require('./middleware/sanitateMiddleware')
 require('dotenv').config()
 const cors = require('cors')
 const cron = require('node-cron')
-const {updateContentForAllCreators_AbtractedOutLogic} = require('./controllers/contentController')
+const {updateContentForAllCreators_AbtractedOutLogic, updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic} = require('./controllers/contentController')
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+
 
 //const cors = require('cors')
 //const dotenv = require('dotenv').config()
@@ -50,9 +52,14 @@ app.use(errorHandler)
 
 // cron jobs
 
-cron.schedule('*/10 * * * *', () => {
+cron.schedule('*/10 * * * *', async () => {
     console.log('cron job fired: running updateContentForAllCreators_AbtractedOutLogic()' + ' At date: ' + new Date())
     updateContentForAllCreators_AbtractedOutLogic()
+})
+
+cron.schedule('*/10 * * * *', async () => {
+    console.log('cron job fired: running updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic()' + ' At date: ' + new Date())
+    updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic()
 })
 
 

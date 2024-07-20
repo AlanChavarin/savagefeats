@@ -1,7 +1,7 @@
 'use client'
 import { toast } from "react-toastify"
-import { errorSchema, matchSchema, eventSchema, deckSchema, draftSchema } from '@/app/schemas/schemas'
-import { matchSchemaType, eventSchemaType, deckSchemaType, draftSchemaType } from "@/app/types/types"
+import { errorSchema, matchSchema, eventSchema, deckSchema, draftSchema, contentSchema } from '@/app/schemas/schemas'
+import { matchSchemaType, eventSchemaType, deckSchemaType, draftSchemaType, contentSchemaType } from "@/app/types/types"
 import DeckThumbnail from "../../helperComponents/DeckThumbnail"
 import { z } from "zod"
 import MatchThumbnail from "../../helperComponents/MatchThumbnail"
@@ -19,6 +19,7 @@ function Event({params}: {params: {eventid: string}}) {
   const [matches, setMatches] = useState<matchSchemaType[] | undefined>(undefined)
   const [decks, setDecks] = useState<deckSchemaType[] | undefined>(undefined)
   const [drafts, setDrafts] = useState<draftSchemaType[] | undefined>(undefined)
+  const [liveContent, setLiveContent] = useState<contentSchemaType[] | undefined>(undefined)
   const { eventid } = params
 
   const [loading, setLoading] = useState({
@@ -26,6 +27,7 @@ function Event({params}: {params: {eventid: string}}) {
     matches: true,
     drafts: true,
     decks: true,
+    content: true,
   })
  
   useEffect(() => {
@@ -123,7 +125,34 @@ function Event({params}: {params: {eventid: string}}) {
       toast.error(err.message)
     })
 
+    // get live content
+
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}content/byevent/${eventid}`)
+    .then(r => r.json())
+    .then(data => {
+      console.log(data)
+      const validatedContentData = z.array(contentSchema).safeParse(data)
+      const validatedError = errorSchema.safeParse(data)
+      if(validatedContentData.success){
+        setLiveContent(validatedContentData.data)
+        setLoading(prev => ({...prev, content: false}))
+        return
+      }
+
+      if(validatedError.success){
+        throw new Error(validatedError.data.errorMessage)
+      }
+
+      console.error(validatedContentData.error.toString())
+      console.error(validatedError.error.toString())
+      throw new Error('Unexpected data. Check console for further details')
+    }).catch(err => {
+      setLoading(prev => ({...prev, content: false}))
+      toast.error(err.message)
+    })
+
   }, [params])
+  
 
   return (
     <div className="justify-start items-center flex flex-1 flex-col gap-[32px] pb-[64px]">
@@ -143,26 +172,37 @@ function Event({params}: {params: {eventid: string}}) {
 
             {/* <div className="text-[39px] font-bold">Matches:</div>  */}
 
-            {event.liveStream && (!matches || matches.length === 0) && !event.liveStream.startsWith('http') && !event.twitch &&
+
+            {matches?.length === 0 && liveContent?.map(content => 
+              <div className="flex-1 w-[100%] max-w-[700px]" key={content._id}>
+                <div className="relative w-[100%] pb-[56.25%] h-[0%] box-shadow">
+                  <iframe className="absolute w-[100%] h-[100%]" src={`https://www.youtube-nocookie.com/embed/${content.videoid}`} title="YouTube video player" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                </div>
+              </div>
+            )}
+
+            {/* {event.liveStream && (!matches || matches.length === 0) && !event.liveStream.startsWith('http') && !event.twitch &&
               <div className="flex-1 w-[100%] max-w-[700px]">
                 <div className="relative w-[100%] pb-[56.25%] h-[0%] box-shadow">
                   <iframe className="absolute w-[100%] h-[100%]" src={`https://www.youtube-nocookie.com/embed/${event.liveStream}`} title="YouTube video player" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                 </div>
               </div>
-            }
+            } */}
 
-            {event.liveStream && (!matches || matches.length === 0) && event.liveStream.startsWith('http') && !event.twitch &&
+            
+
+            {/* {event.liveStream && (!matches || matches.length === 0) && event.liveStream.startsWith('http') && !event.twitch &&
               <a href={event.liveStream} target="_blank" className="hover:text-purple-500 underline font-bold text-[19px]">Event will be streamed here</a>
-            }
+            } */}
 
 
-            {event.liveStream && (!matches || matches.length === 0) && event.twitch &&
+            {/* {event.liveStream && (!matches || matches.length === 0) && event.twitch &&
               <div className="flex-1 w-[100%]">
                 <div className="relative w-[100%] pb-[56.25%] h-[0%] box-shadow">
                   <iframe className="absolute w-[100%] h-[100%]" src={`https://player.twitch.tv/?channel=${event.liveStream}&parent=${process.env.NODE_ENV==='production' ? 'www.savagefeats.com' : 'localhost'}`}></iframe>
                 </div>
               </div>
-            }
+            } */}
 
 
           {loading.matches && <Hourglass

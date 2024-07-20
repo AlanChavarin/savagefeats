@@ -12,7 +12,7 @@ function EventThumbnail({event}: {event: eventSchemaType}) {
         <Link href={`/eyeofophidia/event/${event._id}`} className="w-full h-full relative">
           <div className="flex w-full pointer-events-none">
             <div className='bg-black bg-opacity-60 min-h-[32px] min-[400px]:min-h-[48px] w-full font-bold text-[16px] min-[400px]:text-[19px] flex justify-center items-center z-[1] text-center'>{event.name}</div>
-            {checkIfHappeningNow(event) && <HappeningNow />}
+            <HappeningNow event={event} />
           </div>
 
           <div className='flex flex-col gap-[8px] font-bold text-[13px] min-[400px]:text-[16px] items-start self-start p-[8px] z-[1] pointer-events-none'>

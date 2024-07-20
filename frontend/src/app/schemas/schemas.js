@@ -30,7 +30,8 @@ export const eventSchema = z.object({
     emptyEvent: z.boolean().optional(),
     image: z.any().optional(),
     bigImage: z.any().optional(),
-    backgroundPosition: z.number().optional()
+    backgroundPosition: z.number().optional(),
+    liveBroadcastContent: z.string().optional()
 })
 
 export const deckSchema = z.object({
@@ -98,12 +99,14 @@ export const contentSchema = z.object({
     _id: z.string(),
     videoid: z.string(),
     publishedAt: z.string(),
-    parentContentCreatorYoutubeChannelid: z.string(),
-    parentContentCreatorid: z.string(),
+    parentContentCreatorYoutubeChannelid: z.union([z.string(), z.null()]).optional(),
+    parentContentCreatorid: z.union([z.string(), z.null()]).optional(),
     title: z.string(),
     description: z.string(),
     thumbnail: z.string(),
-    profilePicture: z.string()
+    profilePicture: z.string().optional(),
+    parentEventId: z.string().optional(),
+    liveBroadcastContent: z.string().optional()
 })
 
 export const userSchema = z.object({

@@ -3,23 +3,19 @@ import { eventSchemaType } from "@/app/types/types"
 import { z } from "zod"
 import EventsSectionCarousel from "./EventsSectionCarousel"
 
-const responseEventSchema = z.object({
-    count: z.number(),
-    events: z.array(eventSchema),
-  })
 
 let events: eventSchemaType[]
 
 async function LatestTournamentSection() {
 
     //grab latest events
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events?&limit=9&emptyEvent=false`, {cache: 'no-store'})
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events/getlatestevents`, {cache: 'no-store'})
     .then(r => r.json())
     .then(data => {
-        const validatedData = responseEventSchema.safeParse(data)
+        const validatedData = z.array(eventSchema).safeParse(data)
         const validatedError = errorSchema.safeParse(data)
         if(validatedData.success){
-            events = validatedData.data.events
+            events = validatedData.data
             return
         }
 
@@ -27,8 +23,8 @@ async function LatestTournamentSection() {
             throw new Error(validatedError.data.errorMessage)
         }
 
-        console.error(validatedData.error)
-        console.error(validatedError.error)
+        console.error(validatedData.error.toString())
+        console.error(validatedError.error.toString())
         throw new Error('Unexpected data. Check console for further details')
     })
 

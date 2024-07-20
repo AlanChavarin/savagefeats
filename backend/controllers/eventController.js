@@ -144,7 +144,31 @@ const getCurrentAndFutureEvents = asyncHandler(async (req, res) => {
                 "startDate": {"$gte": date}
             }
         ]
-    })
+    }).sort({startDate: -1})
+
+    events.map(event => event.todaysDate = date)
+
+    res.status(200)
+    res.json(events)
+})
+
+const getLatestEvents = asyncHandler(async (req, res) => {
+    const date = getTodaysDate()
+    const events = await Event.find({
+        '$or': [
+            {
+                "startDate": {"$lt": date},
+                "endDate": {"$lt": date},
+                "emptyEvent": false
+            },
+            {
+                "startDate": {"$lt": date},
+                "emptyEvent": false
+            }
+        ]
+    }).sort({startDate: -1}).limit(9)
+
+    events.map(event => event.todaysDate = date)
 
     res.status(200)
     res.json(events)
@@ -409,7 +433,8 @@ module.exports = {
     getEventNames,
     getCurrentAndFutureEvents,
     getAllBackgroundImageLinks,
-    deleteBackgroundImage
+    deleteBackgroundImage,
+    getLatestEvents
     //checkIfHappeningNow
     //editBackgroundPosition,
 }

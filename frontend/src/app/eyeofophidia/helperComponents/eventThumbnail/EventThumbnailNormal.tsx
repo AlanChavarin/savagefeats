@@ -1,7 +1,6 @@
 import { eventSchemaType } from "@/app/types/types"
 import Link from "next/link"
 import HappeningNow from "../HappeningNow"
-import { checkIfHappeningNow } from "../../helpers/checkIfHappeningNow"
 import getDateString from "./getDateString"
 import getImage from "./getImage"
 
@@ -13,7 +12,7 @@ return (
     <Link href={`/eyeofophidia/event/${event._id}`} className="w-full h-full relative">
       <div className="flex w-full pointer-events-none">
         <div className='bg-black bg-opacity-60 w-full font-bold p-[8px] text-[20px] flex justify-center items-center z-[2]'>{event.name}</div>
-        {checkIfHappeningNow(event) && <HappeningNow />}
+        <HappeningNow event={event} />
       </div>
 
       <div className='flex flex-col gap-[8px] font-bold text-[16px] items-start self-start p-[8px] pointer-events-none'>
@@ -39,8 +38,8 @@ return (
       <div className='text-[16px] w-full text-center *:underline *:text-nowrap flex flex-row gap-[16px] justify-center'>
         {event.officialDetails && <a className="hover:text-purple-500" target="_blank" href={event.officialDetails}>Official Details</a>}
         {event.signUpLink && <a className="hover:text-purple-500" target="_blank" href={event.signUpLink}>Signup Link</a>}
-        {event.liveStream && !event.liveStream.startsWith('http') && <a className="hover:text-purple-500" target="_blank" href={`https://www.youtube.com/watch?v=${event.liveStream}`}><span>Live Stream</span></a>}
-        {event.liveStream && event.liveStream.startsWith('http') && <a className="hover:text-purple-500" target="_blank" href={event.liveStream}><span>Live Stream</span></a>}
+        {/* {event.liveStream && !event.liveStream.startsWith('http') && <a className="hover:text-purple-500" target="_blank" href={`https://www.youtube.com/watch?v=${event.liveStream}`}><span>Live Stream</span></a>}
+        {event.liveStream && event.liveStream.startsWith('http') && <a className="hover:text-purple-500" target="_blank" href={event.liveStream}><span>Live Stream</span></a>} */}
       </div>
       <div className='text-[9px] text-center'>{event.venue}</div>
     </div>
