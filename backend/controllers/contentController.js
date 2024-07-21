@@ -350,14 +350,58 @@ const updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic = async () => {
 
             console.log(`Updated content ${newUpdatedContent.title} -> LiveBroadcastContent: ${newUpdatedContent.liveBroadcastContent}`)
 
-            const newEvent = await Event.findByIdAndUpdate(newUpdatedContent.parentEventId, {
-                liveBroadcastContent: item.snippet.liveBroadcastContent
-            }, {
-                runValidators: true,
-                new: true
-            })
+            // we have to see if other streams attached to this event are still upcoming before we can change the livebroadcastcontent
+            //this is already stored in the variable contents
+            const contentsFromTheSameEvent = contents.filter(currentContent => (currentContent.parentEventId.equals(parentEvent._id)) && (currentContent.videoid !== content.videoid))
 
-            console.log("Event Updated liveBroadcastContent: " + newEvent?.liveBroadcastContent)
+
+            if(newUpdatedContent.liveBroadcastContent === 'none'){
+                if(contentsFromTheSameEvent.some(content => (content.liveBroadcastContent !== 'none'))){
+                    // do nothing
+                    console.log("Event not updated to 'none' due to other live content still upcoming or live")
+                } else {
+                    const newEvent = await Event.findByIdAndUpdate(newUpdatedContent.parentEventId, {
+                        liveBroadcastContent: item.snippet.liveBroadcastContent
+                    }, {
+                        runValidators: true,
+                        new: true
+                    })
+
+                    console.log("Event Updated liveBroadcastContent: " + newEvent?.liveBroadcastContent)
+                }
+            }
+
+            if(newUpdatedContent.liveBroadcastContent === 'upcoming'){
+                if(contentsFromTheSameEvent.some(content => (content.liveBroadcastContent === 'live'))){
+                    // do nothing
+                    console.log("Event not updated to 'upcoming' due to other live content still upcoming or live")
+                } else {
+                    const newEvent = await Event.findByIdAndUpdate(newUpdatedContent.parentEventId, {
+                        liveBroadcastContent: item.snippet.liveBroadcastContent
+                    }, {
+                        runValidators: true,
+                        new: true
+                    })
+
+                    console.log("Event Updated liveBroadcastContent: " + newEvent?.liveBroadcastContent)
+                }
+            
+            }
+
+            if(newUpdatedContent.liveBroadcastContent === 'live'){
+
+                const newEvent = await Event.findByIdAndUpdate(newUpdatedContent.parentEventId, {
+                    liveBroadcastContent: item.snippet.liveBroadcastContent
+                }, {
+                    runValidators: true,
+                    new: true
+                })
+
+                console.log("Event Updated liveBroadcastContent: " + newEvent?.liveBroadcastContent)
+            
+            }
+
+            
         }
 
         await sleep(1000)

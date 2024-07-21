@@ -57,7 +57,7 @@ cron.schedule('*/10 * * * *', async () => {
     updateContentForAllCreators_AbtractedOutLogic()
 })
 
-cron.schedule('*/10 * * * *', async () => {
+cron.schedule('*/1 * * * *', async () => {
     console.log('cron job fired: running updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic()' + ' At date: ' + new Date())
     updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic()
 })
