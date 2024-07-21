@@ -173,7 +173,7 @@ function Event({params}: {params: {eventid: string}}) {
             {/* <div className="text-[39px] font-bold">Matches:</div>  */}
 
 
-            {matches?.length === 0 && liveContent?.map(content => 
+            {event.liveBroadcastContent !== 'none' && liveContent?.map(content => 
               <div className="flex-1 w-[100%] max-w-[700px]" key={content._id}>
                 <div className="relative w-[100%] pb-[56.25%] h-[0%] box-shadow">
                   <iframe className="absolute w-[100%] h-[100%]" src={`https://www.youtube-nocookie.com/embed/${content.videoid}`} title="YouTube video player" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>

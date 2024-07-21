@@ -351,7 +351,7 @@ const updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic = async () => {
 
             console.log(`Updated content ${newUpdatedContent.title} -> LiveBroadcastContent: ${newUpdatedContent.liveBroadcastContent}`)
             if(newUpdatedContent.parentEventId){
-                const newEvent = await Event.findByIdAndUpdate(newUpdatedContent._id, {
+                const newEvent = await Event.findByIdAndUpdate(new ObjectId(newUpdatedContent._id), {
                     liveBroadcastContent: newUpdatedContent.liveBroadcastContent
                 }, {
                     runValidators: true,
