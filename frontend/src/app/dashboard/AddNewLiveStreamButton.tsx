@@ -42,7 +42,6 @@ function AddNewLiveStreamButton() {
           const validatedData = contentCreatorSchema.safeParse(data)
           const validatedError = errorSchema.safeParse(data)
           if(validatedData.success){
-            console.log(validatedData.data)
             toast.success(`live stream post success for: ${validatedData.data.title}`)
             return
           }

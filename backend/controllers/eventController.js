@@ -134,6 +134,7 @@ const getEvents = asyncHandler(async (req, res) => {
 
 const getCurrentAndFutureEvents = asyncHandler(async (req, res) => {
     const date = getTodaysDate()
+    date.setDate(date.getDate() - 1)
     const events = await Event.find({
         '$or': [
             {
@@ -153,7 +154,8 @@ const getCurrentAndFutureEvents = asyncHandler(async (req, res) => {
 })
 
 const getLatestEvents = asyncHandler(async (req, res) => {
-    const date = getTodaysDate()
+    let date = getTodaysDate()
+    date.setDate(date.getDate() - 1)
     const events = await Event.find({
         '$or': [
             {

@@ -56,7 +56,6 @@ const decklistSchema = mongoose.Schema({
 })
 
 const heroEnum = async (v) => {
-    console.log(Hero.find({}))
     return !!await Hero.findOne({name: v})
 }
 

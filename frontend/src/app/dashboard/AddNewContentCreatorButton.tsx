@@ -40,7 +40,6 @@ function AddNewContentCreatorButton({grabContentCreators}: {grabContentCreators:
           const validatedData = contentCreatorSchema.safeParse(data)
           const validatedError = errorSchema.safeParse(data)
           if(validatedData.success){
-            console.log(validatedData.data)
             toast.success(`Content creator edit success for: ${validatedData.data.title}`)
             grabContentCreators()
             return

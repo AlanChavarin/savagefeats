@@ -358,7 +358,7 @@ const updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic = async () => {
                     new: true
                 })
 
-                console.log("Event Updated liveBroadcastContent: " + newEvent.liveBroadcastContent)
+                console.log("Event Updated liveBroadcastContent: " + newEvent?.liveBroadcastContent)
             }
         }
 

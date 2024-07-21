@@ -17,7 +17,12 @@ export const checkIfHappeningNow = (event: eventSchemaType) => {
         const startDate = new Date(event.startDate)
         // @ts-ignore
         const currentDate = new Date(event.todaysDate)
-        if(startDate.toString() === currentDate.toString()){
+
+        // @ts-ignore
+        let currentDateMinus1 = new Date(event.todaysDate)
+        currentDateMinus1.setDate(currentDateMinus1.getDate()-1)
+
+        if(startDate >= currentDateMinus1 && startDate <= currentDate){
             return true
         }
     }
@@ -31,9 +36,12 @@ export const checkIfPast = (event: eventSchemaType) => {
         const endDate = new Date(event.endDate)
         // @ts-ignore
         const currentDate = new Date(event.todaysDate)
+        // @ts-ignore
+        let currentDateMinus1 = new Date(event.todaysDate)
+        currentDateMinus1.setDate(currentDateMinus1.getDate()-1)
 
 
-        if(endDate < currentDate){
+        if(endDate < currentDateMinus1){
             return true
         }
     } else if(event.startDate){
@@ -41,7 +49,11 @@ export const checkIfPast = (event: eventSchemaType) => {
         const startDate = new Date(event.startDate)
         // @ts-ignore
         const currentDate = new Date(event.todaysDate)
-        if(startDate < currentDate){
+        // @ts-ignore
+        let currentDateMinus1 = new Date(event.todaysDate)
+        currentDateMinus1.setDate(currentDateMinus1.getDate()-1)
+
+        if(startDate < currentDateMinus1){
             return true
         }
     }
@@ -56,7 +68,6 @@ export const checkIfFuture = (event: eventSchemaType) => {
         const currentDate = new Date(event.todaysDate)
 
         if(startDate > currentDate){
-            console.log(1)
             return true
         }
     }
