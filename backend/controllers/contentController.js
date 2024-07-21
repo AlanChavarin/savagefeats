@@ -334,35 +334,33 @@ const updateContentForAllCreators_AbtractedOutLogic = async () => {
 }
 
 const updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic = async () => {
-    const date = getTodaysDate()
+    //const date = getTodaysDate()
     const contents = await Content.find({
-        publishedAt: {"$lte": date},
-        liveBroadcastContent: { $exists: true }
+        liveBroadcastContent: { "$exists": true }
     })
-
-    //console.log(contents)
 
     contents.map(async (content) => {
         const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${content.videoid}&part=snippet,contentDetails&key=${process.env.YOUTUBE_API_KEY}`)
         const data = await response.json()
         const item = data.items[0]
-        if(content.liveBroadcastContent !== item.snippet.liveBroadcastContent){
+        const parentEvent = await Event.findById(content.parentEventId)
+
+        if(content.liveBroadcastContent !== item.snippet.liveBroadcastContent || parentEvent?.liveBroadcastContent !== item.snippet.liveBroadcastContent){
             const newUpdatedContent = await Content.findByIdAndUpdate(new ObjectId(content._id), {liveBroadcastContent: item.snippet.liveBroadcastContent}, {new: true, runValidators: true})
 
             console.log(`Updated content ${newUpdatedContent.title} -> LiveBroadcastContent: ${newUpdatedContent.liveBroadcastContent}`)
-            if(newUpdatedContent.parentEventId){
-                const newEvent = await Event.findByIdAndUpdate(new ObjectId(newUpdatedContent._id), {
-                    liveBroadcastContent: newUpdatedContent.liveBroadcastContent
-                }, {
-                    runValidators: true,
-                    new: true
-                })
 
-                console.log("Event Updated liveBroadcastContent: " + newEvent?.liveBroadcastContent)
-            }
+            const newEvent = await Event.findByIdAndUpdate(newUpdatedContent.parentEventId, {
+                liveBroadcastContent: item.snippet.liveBroadcastContent
+            }, {
+                runValidators: true,
+                new: true
+            })
+
+            console.log("Event Updated liveBroadcastContent: " + newEvent?.liveBroadcastContent)
         }
 
-        await sleep(500)
+        await sleep(1000)
     })
 }
 

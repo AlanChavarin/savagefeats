@@ -6,7 +6,7 @@ import { useEffect } from "react"
 function HappeningNow({event}: {event: eventSchemaType}) {
 
   useEffect(() => {
-    console.log(event.todaysDate, event.name)
+    console.log(event.liveBroadcastContent, event.name)
   }, [])
 
   return (<>
