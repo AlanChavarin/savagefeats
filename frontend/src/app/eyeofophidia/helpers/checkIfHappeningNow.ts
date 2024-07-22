@@ -8,8 +8,11 @@ export const checkIfHappeningNow = (event: eventSchemaType) => {
         const endDate = new Date(event.endDate)
         // @ts-ignore
         const currentDate = new Date(event.todaysDate)
+        // @ts-ignore
+        let currentDateMinus1 = new Date(event.todaysDate)
+        currentDateMinus1.setDate(currentDateMinus1.getDate()-1)
 
-        if(startDate <= currentDate && endDate >= currentDate){
+        if(startDate <= currentDate && endDate >= currentDateMinus1){
             return true
         }
     } else if(event.startDate){
