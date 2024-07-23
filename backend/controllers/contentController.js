@@ -342,10 +342,10 @@ const updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic = async () => {
     contents.map(async (content) => {
         const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${content.videoid}&part=snippet,contentDetails&key=${process.env.YOUTUBE_API_KEY}`)
         const data = await response.json()
-        const item = data.items[0]
+        const item = data?.items[0]
         const parentEvent = await Event.findById(content.parentEventId)
 
-        if(content.liveBroadcastContent !== item.snippet.liveBroadcastContent || parentEvent?.liveBroadcastContent !== item.snippet.liveBroadcastContent){
+        if(content?.liveBroadcastContent !== item?.snippet?.liveBroadcastContent || parentEvent?.liveBroadcastContent !== item?.snippet?.liveBroadcastContent){
             const newUpdatedContent = await Content.findByIdAndUpdate(new ObjectId(content._id), {liveBroadcastContent: item.snippet.liveBroadcastContent}, {new: true, runValidators: true})
 
             console.log(`Updated content ${newUpdatedContent.title} -> LiveBroadcastContent: ${newUpdatedContent.liveBroadcastContent}`)
@@ -355,13 +355,13 @@ const updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic = async () => {
             const contentsFromTheSameEvent = contents.filter(currentContent => (currentContent.parentEventId.equals(parentEvent._id)) && (currentContent.videoid !== content.videoid))
 
 
-            if(newUpdatedContent.liveBroadcastContent === 'none'){
-                if(contentsFromTheSameEvent.some(content => (content.liveBroadcastContent !== 'none'))){
+            if(newUpdatedContent?.liveBroadcastContent === 'none'){
+                if(contentsFromTheSameEvent.some(content => (content?.liveBroadcastContent !== 'none'))){
                     // do nothing
                     console.log("Event not updated to 'none' due to other live content still upcoming or live")
                 } else {
-                    const newEvent = await Event.findByIdAndUpdate(newUpdatedContent.parentEventId, {
-                        liveBroadcastContent: item.snippet.liveBroadcastContent
+                    const newEvent = await Event.findByIdAndUpdate(newUpdatedContent?.parentEventId, {
+                        liveBroadcastContent: item?.snippet?.liveBroadcastContent
                     }, {
                         runValidators: true,
                         new: true
@@ -371,13 +371,13 @@ const updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic = async () => {
                 }
             }
 
-            if(newUpdatedContent.liveBroadcastContent === 'upcoming'){
-                if(contentsFromTheSameEvent.some(content => (content.liveBroadcastContent === 'live'))){
+            if(newUpdatedContent?.liveBroadcastContent === 'upcoming'){
+                if(contentsFromTheSameEvent.some(content => (content?.liveBroadcastContent === 'live'))){
                     // do nothing
                     console.log("Event not updated to 'upcoming' due to other live content still upcoming or live")
                 } else {
-                    const newEvent = await Event.findByIdAndUpdate(newUpdatedContent.parentEventId, {
-                        liveBroadcastContent: item.snippet.liveBroadcastContent
+                    const newEvent = await Event.findByIdAndUpdate(newUpdatedContent?.parentEventId, {
+                        liveBroadcastContent: item?.snippet?.liveBroadcastContent
                     }, {
                         runValidators: true,
                         new: true
@@ -388,10 +388,10 @@ const updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic = async () => {
             
             }
 
-            if(newUpdatedContent.liveBroadcastContent === 'live'){
+            if(newUpdatedContent?.liveBroadcastContent === 'live'){
 
-                const newEvent = await Event.findByIdAndUpdate(newUpdatedContent.parentEventId, {
-                    liveBroadcastContent: item.snippet.liveBroadcastContent
+                const newEvent = await Event.findByIdAndUpdate(newUpdatedContent?.parentEventId, {
+                    liveBroadcastContent: item?.snippet?.liveBroadcastContent
                 }, {
                     runValidators: true,
                     new: true
