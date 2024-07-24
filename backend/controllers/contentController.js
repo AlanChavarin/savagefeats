@@ -153,27 +153,14 @@ const updateContentRelatedData = asyncHandler(async (req, res) => {
 
 
 const updateContentByContentCreator = asyncHandler(async (req, res) => {
-
-    try{
-        await updateContentByContentCreator_AbtractedOutLogic(req.params.contentcreatorid)
-    } catch(error) {
-        res.status(400)
-        throw new Error(error)
-    }
-
+    await updateContentByContentCreator_AbtractedOutLogic(req.params.contentcreatorid)
     res.status(200)
     res.json({"message": "success"})
  
 })
 
 const updateContentForAllCreators = asyncHandler(async (req, res) => {
-    try{
-        updateContentForAllCreators_AbtractedOutLogic()
-    } catch(error) {
-        res.status(400)
-        throw new Error(error)
-    }
-
+    updateContentForAllCreators_AbtractedOutLogic()
     res.status(200)
     res.json({message: "success"})
 })
@@ -324,42 +311,80 @@ const updateContentByContentCreator_AbtractedOutLogic = async (contentCreatorId)
 }
 
 const updateContentForAllCreators_AbtractedOutLogic = async () => {
-    console.log("running updateContentForAllCreators_AbtractedOutLogic()")
-    const creators = await ContentCreator.find({})        
 
-    await creators.map(async (creator) => {
-        console.log("Updating content for " + creator.title)
-        await updateContentByContentCreator_AbtractedOutLogic(creator._id)
-    })
+    try{
+        console.log("running updateContentForAllCreators_AbtractedOutLogic()")
+        const creators = await ContentCreator.find({})        
+
+        await creators.map(async (creator) => {
+            console.log("Updating content for " + creator.title)
+            await updateContentByContentCreator_AbtractedOutLogic(creator._id)
+        })
+    } catch (error) {
+        console.error(error)
+    }
+
+    
 }
 
 const updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic = async () => {
     //const date = getTodaysDate()
-    const contents = await Content.find({
-        liveBroadcastContent: { "$exists": true }
-    })
+    
+    try{
+        const contents = await Content.find({
+            liveBroadcastContent: { "$exists": true }
+        })
+        contents.map(async (content) => {
+            const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${content.videoid}&part=snippet,contentDetails&key=${process.env.YOUTUBE_API_KEY}`)
+            const data = await response.json()
+            const item = data?.items[0]
+            const parentEvent = await Event.findById(content.parentEventId)
 
-    contents.map(async (content) => {
-        const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${content.videoid}&part=snippet,contentDetails&key=${process.env.YOUTUBE_API_KEY}`)
-        const data = await response.json()
-        const item = data?.items[0]
-        const parentEvent = await Event.findById(content.parentEventId)
+            if(content?.liveBroadcastContent !== item?.snippet?.liveBroadcastContent || parentEvent?.liveBroadcastContent !== item?.snippet?.liveBroadcastContent){
+                const newUpdatedContent = await Content.findByIdAndUpdate(new ObjectId(content._id), {liveBroadcastContent: item.snippet.liveBroadcastContent}, {new: true, runValidators: true})
 
-        if(content?.liveBroadcastContent !== item?.snippet?.liveBroadcastContent || parentEvent?.liveBroadcastContent !== item?.snippet?.liveBroadcastContent){
-            const newUpdatedContent = await Content.findByIdAndUpdate(new ObjectId(content._id), {liveBroadcastContent: item.snippet.liveBroadcastContent}, {new: true, runValidators: true})
+                console.log(`Updated content ${newUpdatedContent.title} -> LiveBroadcastContent: ${newUpdatedContent.liveBroadcastContent}`)
 
-            console.log(`Updated content ${newUpdatedContent.title} -> LiveBroadcastContent: ${newUpdatedContent.liveBroadcastContent}`)
-
-            // we have to see if other streams attached to this event are still upcoming before we can change the livebroadcastcontent
-            //this is already stored in the variable contents
-            const contentsFromTheSameEvent = contents.filter(currentContent => (currentContent.parentEventId.equals(parentEvent._id)) && (currentContent.videoid !== content.videoid))
+                // we have to see if other streams attached to this event are still upcoming before we can change the livebroadcastcontent
+                //this is already stored in the variable contents
+                const contentsFromTheSameEvent = contents.filter(currentContent => (currentContent.parentEventId.equals(parentEvent._id)) && (currentContent.videoid !== content.videoid))
 
 
-            if(newUpdatedContent?.liveBroadcastContent === 'none'){
-                if(contentsFromTheSameEvent.some(content => (content?.liveBroadcastContent !== 'none'))){
-                    // do nothing
-                    console.log("Event not updated to 'none' due to other live content still upcoming or live")
-                } else {
+                if(newUpdatedContent?.liveBroadcastContent === 'none'){
+                    if(contentsFromTheSameEvent.some(content => (content?.liveBroadcastContent !== 'none'))){
+                        // do nothing
+                        console.log("Event not updated to 'none' due to other live content still upcoming or live")
+                    } else {
+                        const newEvent = await Event.findByIdAndUpdate(newUpdatedContent?.parentEventId, {
+                            liveBroadcastContent: item?.snippet?.liveBroadcastContent
+                        }, {
+                            runValidators: true,
+                            new: true
+                        })
+
+                        console.log("Event Updated liveBroadcastContent: " + newEvent?.liveBroadcastContent)
+                    }
+                }
+
+                if(newUpdatedContent?.liveBroadcastContent === 'upcoming'){
+                    if(contentsFromTheSameEvent.some(content => (content?.liveBroadcastContent === 'live'))){
+                        // do nothing
+                        console.log("Event not updated to 'upcoming' due to other live content still upcoming or live")
+                    } else {
+                        const newEvent = await Event.findByIdAndUpdate(newUpdatedContent?.parentEventId, {
+                            liveBroadcastContent: item?.snippet?.liveBroadcastContent
+                        }, {
+                            runValidators: true,
+                            new: true
+                        })
+
+                        console.log("Event Updated liveBroadcastContent: " + newEvent?.liveBroadcastContent)
+                    }
+                
+                }
+
+                if(newUpdatedContent?.liveBroadcastContent === 'live'){
+
                     const newEvent = await Event.findByIdAndUpdate(newUpdatedContent?.parentEventId, {
                         liveBroadcastContent: item?.snippet?.liveBroadcastContent
                     }, {
@@ -368,84 +393,57 @@ const updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic = async () => {
                     })
 
                     console.log("Event Updated liveBroadcastContent: " + newEvent?.liveBroadcastContent)
+                
                 }
+
+                
             }
 
-            if(newUpdatedContent?.liveBroadcastContent === 'upcoming'){
-                if(contentsFromTheSameEvent.some(content => (content?.liveBroadcastContent === 'live'))){
-                    // do nothing
-                    console.log("Event not updated to 'upcoming' due to other live content still upcoming or live")
-                } else {
-                    const newEvent = await Event.findByIdAndUpdate(newUpdatedContent?.parentEventId, {
-                        liveBroadcastContent: item?.snippet?.liveBroadcastContent
-                    }, {
-                        runValidators: true,
-                        new: true
-                    })
-
-                    console.log("Event Updated liveBroadcastContent: " + newEvent?.liveBroadcastContent)
-                }
-            
-            }
-
-            if(newUpdatedContent?.liveBroadcastContent === 'live'){
-
-                const newEvent = await Event.findByIdAndUpdate(newUpdatedContent?.parentEventId, {
-                    liveBroadcastContent: item?.snippet?.liveBroadcastContent
-                }, {
-                    runValidators: true,
-                    new: true
-                })
-
-                console.log("Event Updated liveBroadcastContent: " + newEvent?.liveBroadcastContent)
-            
-            }
-
-            
-        }
-
-        await sleep(1000)
-    })
+            await sleep(1000)
+        })
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 // temp routes for one time updates of content!
 
-const oneTimeUpdateForThumbnails = asyncHandler(async (req, res) => {
-    //get all content
-    const content = await Content.find({})
+// const oneTimeUpdateForThumbnails = asyncHandler(async (req, res) => {
+//     //get all content
+//     const content = await Content.find({})
 
-    //get its full data using its youtubeid and update its thumbnail field
-    const contentYoutubeIds = content.map(content => content.videoid)
+//     //get its full data using its youtubeid and update its thumbnail field
+//     const contentYoutubeIds = content.map(content => content.videoid)
 
-    console.log(contentYoutubeIds)
+//     console.log(contentYoutubeIds)
 
-    let youtubeVideoData = []
+//     let youtubeVideoData = []
 
-    for(let i = 0; i < contentYoutubeIds.length; i++){
-        const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${contentYoutubeIds[i]}&part=snippet,contentDetails&key=${process.env.YOUTUBE_API_KEY}`)
-        const data = await response.json()
-        youtubeVideoData.push(data.items[0])
-        console.log(data.items[0].snippet?.thumbnails?.medium?.url)
-        await sleep(500)
-    }
+//     for(let i = 0; i < contentYoutubeIds.length; i++){
+//         const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${contentYoutubeIds[i]}&part=snippet,contentDetails&key=${process.env.YOUTUBE_API_KEY}`)
+//         const data = await response.json()
+//         youtubeVideoData.push(data.items[0])
+//         console.log(data.items[0].snippet?.thumbnails?.medium?.url)
+//         await sleep(500)
+//     }
 
-    youtubeVideoData.map(async (item) => {
-        const content = await Content.updateOne(
-            {
-                videoid: item.id
-            }
-            ,
-            {   
-                thumbnail: item.snippet?.thumbnails?.medium?.url //we are only updating the thumbnail here
-            }
-        )
+//     youtubeVideoData.map(async (item) => {
+//         const content = await Content.updateOne(
+//             {
+//                 videoid: item.id
+//             }
+//             ,
+//             {   
+//                 thumbnail: item.snippet?.thumbnails?.medium?.url //we are only updating the thumbnail here
+//             }
+//         )
 
-        console.log("Content thumbnail updated, title:" + content.title + ", id:" + content.videoid + ", thumbnail Link: " + content.thumbnail)
-    })
+//         console.log("Content thumbnail updated, title:" + content.title + ", id:" + content.videoid + ", thumbnail Link: " + content.thumbnail)
+//     })
 
-    res.status(200)
-    res.json({message: "Success! (Hopefully)"})
-})
+//     res.status(200)
+//     res.json({message: "Success! (Hopefully)"})
+// })
 
 
 module.exports = {
@@ -462,10 +460,11 @@ module.exports = {
     deleteContentVideoId,
     updateContentForAllCreators,
     updateContentForAllCreators_AbtractedOutLogic,
-    oneTimeUpdateForThumbnails,
     getFeaturedContentCreatorsAndTheirLatest8Videos,
     updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic,
     getContentByEvent,
     updateUpcomingContentToSeeIfItsLive,
     deleteContentByEvent
+    //oneTimeUpdateForThumbnails,
+
 }
