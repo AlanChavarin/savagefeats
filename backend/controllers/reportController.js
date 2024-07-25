@@ -10,7 +10,7 @@ const getReports = asyncHandler(async (req, res) => {
     if(!req.query.page){skip = 0} 
     else {skip = parseInt(req.query.page*limit)}
     order = parseInt(req.query.order)
-    !(order==+1 || order===-1) && (order=1)
+    !(order==+1 || order===-1) && (order=-1)
 
     if(req.query.status){
         find['status'] = req.query.status
