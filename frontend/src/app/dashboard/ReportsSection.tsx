@@ -11,9 +11,7 @@ import { useSearchParams } from "next/navigation"
 const responseSchema = z.object({
     count: z.number(),
     reports: z.array(reportSchema),
-  })
-
-
+})
 
 function ReportsSection() {
 
@@ -60,10 +58,12 @@ function ReportsSection() {
 
     <div className="flex flex-col gap-[8px]">
         <div className="font-bold">Reports Section: </div>
-        <div className="flex flex-col gap-[16px]">
+        <div className="grid grid-col-1 lg:grid-cols-2 gap-[16px] lg:gap-[32px]">
             {reports && reports.map(report => <Report key={report._id} report={report} />)}
         </div>
-        <Pagination count={count} limit={10}/>
+        <div className="w-full flex justify-center">
+            <Pagination count={count} limit={10}/>
+        </div>
     </div>
     
   )

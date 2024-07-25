@@ -38,7 +38,7 @@ function PortfolioSection() {
       })
   }, [])
   return (
-    <div className="flex flex-col gap-[8px]">
+    <div className="flex flex-col gap-[8px] items-center">
       <div className="font-bold">Portfolio:</div>
       {links && links.map(id => <PortfolioComponent id={id} key={id}/>)}
         
