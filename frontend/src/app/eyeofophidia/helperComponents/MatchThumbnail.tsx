@@ -4,13 +4,13 @@ import Link from "next/link"
 
 function MatchThumbnail({match, maxWidth}: {match: matchSchemaType, maxWidth?: boolean}) {
   return (
-    <Link href={`/eyeofophidia/match/${match._id}`} className={`${maxWidth ? 'w-[100%]' : 'w-[330px]'} h-[180px] flex flex-row justify-center box-shadow relative text-white font-bold text-shadow-medium cursor-pointer`}>
+    <Link href={`/eyeofophidia/match/${match._id}`} className={`${maxWidth ? 'w-[100%]' : 'w-[330px]'} h-[140px] sm:h-[180px] flex flex-row justify-center box-shadow relative text-white font-bold text-shadow-medium cursor-pointer`}>
         {/* player 1 side */}
         <div className="flex-1 flex flex-col justify-end p-[8px]" style={{
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('/heroes/${heroUrlHelper(match.player1hero)}.jpg')`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: '140%',
-            backgroundPosition: '40% 00%',
+            backgroundPosition: '40% 10%',
           }}>
 
           <div className="text-center text-[16px] z-[1] pointer-events-none">
@@ -24,7 +24,7 @@ function MatchThumbnail({match, maxWidth}: {match: matchSchemaType, maxWidth?: b
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url('/heroes/${heroUrlHelper(match.player2hero)}.jpg')`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: '140%',
-            backgroundPosition: '40% 0%',
+            backgroundPosition: '40% 10%',
           }}>
 
           <div className="text-center text-[16px] z-[1] pointer-events-none">
@@ -44,7 +44,7 @@ function MatchThumbnail({match, maxWidth}: {match: matchSchemaType, maxWidth?: b
           }
           <div className="text-[12px]">{match.event.startDate && <>{match.event.startDate.slice(0, 10)}</>}</div>
         </div>
-        <div className="absolute w-[100%] h-[100%] bg-black opacity-[30%] hover:opacity-[50%]">
+        <div className="absolute w-full h-full bg-black opacity-[30%] hover:opacity-[50%]">
 
         </div>
     </Link>

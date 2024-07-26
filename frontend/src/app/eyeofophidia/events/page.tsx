@@ -68,21 +68,21 @@ function Events() {
   }, [searchParams])
 
   return (
-    <div className="flex-1 overflow-hidden pb-[128px] flex flex-col justify-start items-center w-[100%] p-[16px] gap-[48px] pt-[32px]">
+    <div className="flex-1 overflow-hidden pb-[128px] flex flex-col justify-start items-center w-[100%] p-[16px] gap-[32px] sm:gap-[48px] pt-[32px]">
       <Title subheader="Events"/>
       <EventSearchForm />
 
       {/* event thumbnail container for past events */}
       {!loading ? <>{events &&
-        <div className="flex flex-col gap-[32px] items-center">
+        <div className="flex flex-col gap-[8px] sm:gap-[32px] items-start sm:items-center w-full">
           {/* current events */}
           {!searchParams?.get('pastEventsOnly') && events.filter(event => checkIfHappeningNow(event)).length > 0 && <>
-            <div className="flex flex-col gap-[16px] items-center cursor-pointer" onClick={() => setCurrentEventsDropdown(!currentEventsDropdown)}>
-              <div className="text-[39px] font-bold text-center flex flex-row gap-[16px] items-center select-none">
+            <div className="flex flex-col gap-[4px] sm:gap-[16px] items-start sm:items-center cursor-pointer my-[16px] sm:my-[0px]" onClick={() => setCurrentEventsDropdown(!currentEventsDropdown)}>
+              <div className="text-[18px] sm:text-[39px] font-bold text-center flex flex-row gap-[16px] items-center select-none">
                 Happening Now 
                 <FontAwesomeIcon icon={currentEventsDropdown ? faCaretDown : faCaretUp}/>
               </div>
-              <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
+              <div className="w-full md:w-[384px] border-[1px] border-black"></div>
             </div>
             { currentEventsDropdown &&
               <div className="flex flex-row flex-wrap gap-[24px] justify-center">
@@ -98,12 +98,12 @@ function Events() {
 
           {/* future events */}
           {!searchParams?.get('pastEventsOnly') && events.filter(event => checkIfFuture(event)).length > 0 && <>
-            <div className="flex flex-col gap-[16px] items-center cursor-pointer" onClick={() => setFutureEventsDropdown(!futureEventsDropdown)}>
-              <div className="text-[39px] font-bold text-center flex flex-row gap-[16px] items-center select-none">
+            <div className="flex flex-col gap-[8px] sm:gap-[32px] items-center cursor-pointer my-[16px] sm:my-[0px]" onClick={() => setFutureEventsDropdown(!futureEventsDropdown)}>
+              <div className="text-[18px] sm:text-[39px] font-bold text-center flex flex-row gap-[16px] items-center select-none">
                 Future Events
                 <FontAwesomeIcon icon={futureEventsDropdown ? faCaretDown : faCaretUp}/>
               </div>
-              <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
+              <div className="w-full md:w-[384px] border-[1px] border-black"></div>
             </div>
             {futureEventsDropdown &&
               <div className="flex flex-row flex-wrap gap-[24px] justify-center">
@@ -119,12 +119,12 @@ function Events() {
 
           {/* past events */}
           {events.filter(event => checkIfPast(event)).length > 0 && <>
-            <div className="flex flex-col gap-[16px] items-center cursor-pointer" onClick={() => setPastEventsDropdown(!pastEventsDropdown)}>
-              <div className="text-[39px] font-bold text-center flex flex-row gap-[16px] items-center select-none">
+            <div className="flex flex-col gap-[8px] sm:gap-[32px] items-center cursor-pointer my-[16px] sm:my-[0px]" onClick={() => setPastEventsDropdown(!pastEventsDropdown)}>
+              <div className="text-[18px] sm:text-[39px] font-bold text-center flex flex-row gap-[16px] items-center select-none">
                 Past Events
                 <FontAwesomeIcon icon={pastEventsDropdown ? faCaretDown : faCaretUp}/>
               </div>
-              <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
+              <div className="w-full md:w-[384px] border-[1px] border-black"></div>
             </div>
             {pastEventsDropdown && 
               <div className="flex flex-row flex-wrap gap-[24px] justify-center">

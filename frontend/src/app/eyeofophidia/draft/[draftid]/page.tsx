@@ -9,6 +9,7 @@ import MatchThumbnail from "../../helperComponents/MatchThumbnail"
 import UserContext from "@/context/UserContext"
 import EditButton from "../../helperComponents/EditButton"
 import { Hourglass } from 'react-loader-spinner'
+import EventThumbnailNormal from "../../helperComponents/eventThumbnail/EventThumbnailNormal"
 
 
 function Draft({params}: {params: {draftid: string}}) {
@@ -33,6 +34,7 @@ function Draft({params}: {params: {draftid: string}}) {
         if(validatedRelatedMatches.success){
           setRelatedMatches(validatedRelatedMatches.data)
         }
+        setLoading(false)
         return
       }
 
@@ -44,6 +46,7 @@ function Draft({params}: {params: {draftid: string}}) {
       console.error(validatedError.error)
       throw new Error('Unexpected data. Check console for further details')
     }).catch(err => {
+      setLoading(false)
       toast.error(err.message)
     })
   }, [params])
@@ -79,7 +82,7 @@ function Draft({params}: {params: {draftid: string}}) {
         {/* details container */}
         {draft && <div className="w-[90%] flex flex-col gap-[32px] max-w-[400px]">
 
-            <EventThumbnail event={draft.event} />
+            <EventThumbnailNormal size={'matchPage'} event={draft.event} />
 
             { user &&
               <div className="flex flex-row items-center gap-[12px]">

@@ -155,7 +155,7 @@ function Event({params}: {params: {eventid: string}}) {
   
 
   return (
-    <div className="justify-start items-center flex flex-1 flex-col gap-[32px] pb-[64px]">
+    <div className="justify-start items-center flex flex-1 flex-col gap-[16px] sm:gap-[24px] pb-[64px]">
 
         {loading.event && <Hourglass
           visible={true}
@@ -250,7 +250,7 @@ function Event({params}: {params: {eventid: string}}) {
                 :
                 <>
                   {(matches && matches.filter(match => !match.top8).length > 0) && <>
-                    <div className="text-[30px] md:text-[39px] font-bold">Swiss</div>
+                    <div className="text-[30px] md:text-[39px] font-bold">Swiss: </div>
                     <div className="w-[70%] md:w-[384px] border-[1px] border-black"></div>
                   </>}
                   <div className="flex flex-row flex-wrap gap-[24px] justify-center w-full">

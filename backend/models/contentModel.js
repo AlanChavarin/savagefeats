@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const ObjectId = require('mongodb').ObjectId
-const contentTypes = ['decktech', 'portfolio', 'livestream']
+const contentTypes = ['decktech', 'portfolio', 'livestream', 'featured']
 
 const contentSchema = mongoose.Schema({
     videoid: String,

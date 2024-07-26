@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {getAllContent, getContent, getContentByContentCreator, updateContentRelatedData, updateContentByContentCreator, postContent, deleteContent, latestInFleshAndBlood, postPortfolioContent, getPortfolioContent, deleteContentVideoId, updateContentForAllCreators, getFeaturedContentCreatorsAndTheirLatest8Videos, getContentByEvent, updateUpcomingContentToSeeIfItsLive, deleteContentByEvent} = require('../controllers/contentController')
+const {getAllContent, getContent, getContentByContentCreator, updateContentRelatedData, updateContentByContentCreator, postContent, deleteContent, latestInFleshAndBlood, postPortfolioContent, getPortfolioContent, deleteContentVideoId, updateContentForAllCreators, getFeaturedContentCreatorsAndTheirLatest8Videos, getContentByEvent, updateUpcomingContentToSeeIfItsLive, deleteContentByEvent, getContentByType} = require('../controllers/contentController')
 const {protect, protectModerator} = require('../middleware/authMiddleware')
 
 router.get('/updateUpcomingContentToSeeIfItsLive', protect, protectModerator, updateUpcomingContentToSeeIfItsLive)
@@ -14,6 +14,8 @@ router.get('/latestinfleshandblood', latestInFleshAndBlood)
 router.get('/portfoliocontent', getPortfolioContent)
 
 router.get('/byevent/:parenteventid', getContentByEvent)
+
+router.get('/bytype/', getContentByType)
 
 router.get('/', getAllContent)
 

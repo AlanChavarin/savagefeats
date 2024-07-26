@@ -3,12 +3,12 @@ import { useContext, useEffect, useState } from "react"
 import UserContext from "@/context/UserContext"
 import UserSection from "./UserSection"
 import ContentCreatorSection from "./ContentCreatorSection"
-import LiveStreamSection from "./LiveStreamSection"
 import ReportsSection from "./ReportsSection"
 import PortfolioSection from "./PortfolioSection"
 import { useSearchParams, useRouter } from "next/navigation"
+import FeaturedContentSection from "./FeaturedContentSection"
 
-const sections: ('users' | 'contents' | 'liveStreams' | 'reports' | 'portfolio')[] = ['reports' , 'users', 'contents', 'liveStreams', 'portfolio']
+const sections: ('users' | 'contents' | 'featuredContent' | 'reports' | 'portfolio')[] = ['reports' , 'users', 'contents', 'featuredContent', 'portfolio']
 
 function Dashboard() {
     const {user} = useContext(UserContext)
@@ -50,7 +50,7 @@ function Dashboard() {
                     {searchParams?.get('section')==='reports' && <ReportsSection/>}
                     {searchParams?.get('section')==='users' && <UserSection />}
                     {searchParams?.get('section')==='contents' && <ContentCreatorSection />}
-                    {searchParams?.get('section')==='liveStreams' && <LiveStreamSection/>}
+                    {searchParams?.get('section')==='featuredContent' && <FeaturedContentSection/>}
                     {searchParams?.get('section')==='portfolio' && <PortfolioSection/>}
                 </div>
             </div>

@@ -1,13 +1,13 @@
 import { toast } from "react-toastify"
-import { liveStreamSchema } from "../schemas/schemas"
+import { contentSchema, liveStreamSchema } from "../schemas/schemas"
 import { errorSchema } from "../schemas/schemas"
 import DeleteButton from "../eyeofophidia/helperComponents/DeleteButton"
 
 
-function LiveStreamComponent({id}: {id: string}) {
+function FeaturedContentComponent({id}: {id: string}) {
 
     const deleteAction = () => {
-        const url = `${process.env.NEXT_PUBLIC_BACKEND_API}livestreams/${id}`
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_API}content/videoid/${id}`
 
         fetch(url, {
         method: 'DELETE',
@@ -18,11 +18,11 @@ function LiveStreamComponent({id}: {id: string}) {
         })
         .then(r => r.json())
         .then(data => {
-        const validatedData = liveStreamSchema.safeParse(data)
+        const validatedData = contentSchema.safeParse(data)
         const validatedError = errorSchema.safeParse(data)
         if(validatedData.success){
-            console.log(validatedData.data.link + ' Successfully deleted')
-            toast.success(validatedData.data.link + ' Successfully deleted')
+            console.log(validatedData.data.videoid + ' Successfully deleted')
+            toast.success(validatedData.data.videoid + ' Successfully deleted')
             return
         }
 
@@ -30,11 +30,11 @@ function LiveStreamComponent({id}: {id: string}) {
             throw new Error(validatedError.data.errorMessage)
         }
 
-        console.error(validatedData.error?.toString())
-        console.error(validatedError.error.toString())
+        console.error(validatedData?.error?.toString())
+        console.error(validatedError?.error?.toString())
         throw new Error('Unexpected contentcreator data. Check console for further details')
         }).catch(err => {
-        toast.error(err.message)
+            toast.error(err.message)
         })
     }
 
@@ -45,4 +45,4 @@ function LiveStreamComponent({id}: {id: string}) {
     </div>
   )
 }
-export default LiveStreamComponent
+export default FeaturedContentComponent
