@@ -22,7 +22,6 @@ function Dashboard() {
     useEffect(() => {
         if(searchParams?.get('section') === null){
             setSection('reports')
-            console.log('1')
         }
 
     }, [])

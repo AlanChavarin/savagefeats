@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 
 //font awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faX } from "@fortawesome/free-solid-svg-icons"
+import { faEye, faX } from "@fortawesome/free-solid-svg-icons"
 
 //context
 import { useContext } from "react"

@@ -259,7 +259,7 @@ const latestInFleshAndBlood = asyncHandler(async (req, res) => {
 
     //liveStreams.map(liveStream => contentVideoIdsAndThumbnails.unshift({"videoid": liveStream.link, "thumbnail": null}))
 
-    console.log(arr.map(item => item.videoid))
+    //console.log(arr.map(item => item.videoid))
     
     res.status(200)
     res.json(arr)

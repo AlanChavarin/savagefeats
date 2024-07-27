@@ -35,10 +35,6 @@ function FeaturedContentSection() {
 
     }, [])
 
-    useEffect(() => {
-      console.log(contents?.map(content => content.videoid))
-    }, [])
-
   return (
     <div className="flex flex-col gap-[8px]">
       <div className="font-bold">Featured Content:</div>

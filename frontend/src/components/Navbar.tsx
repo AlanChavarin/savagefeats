@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation'
 
 //font awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretUp, faCaretDown, faBars } from "@fortawesome/free-solid-svg-icons"
+import { faCaretUp, faCaretDown, faBars, faEye } from "@fortawesome/free-solid-svg-icons"
 
 //components
 import Sidebar from "./Sidebar"
@@ -183,7 +183,10 @@ function Navbar() {
             <Link href="/" className="cursor-pointer hover:bg-color">
                 <Image src={'/favicon.png'} width={48} height={48} alt='savage feats'/>
             </Link>
-            <button className='text-white flex flex-col justify-center' onClick={() => buttonClickEvent()}>
+            <Link href="/eyeofophidia" className="cursor-pointer hover:bg-color flex flex-col justify-center">
+                <FontAwesomeIcon icon={faEye} className='text-[32px] text-white'/>
+            </Link>
+            <button className='text-white flex flex-col justify-center items-center w-[48px]' onClick={() => buttonClickEvent()}>
                 <FontAwesomeIcon icon={faBars} className='text-[32px]'/>
             </button>
         </div>

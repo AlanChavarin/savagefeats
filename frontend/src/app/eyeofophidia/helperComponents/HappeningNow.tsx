@@ -5,9 +5,9 @@ import { useEffect } from "react"
 
 function HappeningNow({event, small}: {event: eventSchemaType, small?: boolean}) {
 
-  useEffect(() => {
-    console.log(event.liveBroadcastContent, event.name)
-  }, [])
+  // useEffect(() => {
+  //   console.log(event.liveBroadcastContent, event.name)
+  // }, [])
 
   return (<>
       {((checkIfHappeningNow(event) && !event.liveBroadcastContent) || event.liveBroadcastContent === 'upcoming' || event.liveBroadcastContent === 'live') &&

@@ -37,10 +37,6 @@ function ContentCreatorSection() {
     grabContentCreators()
   }, [])
 
-  useEffect(() => {
-    console.log(contentCreators)
-  }, [contentCreators])
-
   return (
     <div className="flex flex-col gap-[8px]">
       <div className="font-bold">Content Creators:</div>

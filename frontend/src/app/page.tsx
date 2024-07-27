@@ -13,7 +13,7 @@ export default async function Home() {
     <main className="flex-1 overflow-hidden pb-[128px] min-h-[512px]" style={{transformStyle: 'preserve-3d'}}>
       <HomepageHero />
 
-      <div className='flex flex-col gap-[196px] min-[480px]:gap-[280px] justify-between py-[128px] md:py-[128px] lg:py-[256px]'>
+      <div className='flex flex-col gap-[128px] min-[480px]:gap-[280px] justify-between py-[96px] sm:py-[128px] md:py-[128px] lg:py-[256px]'>
 
         <LatestInFABSection backgroundImage={'hvy.jpg'} />
         

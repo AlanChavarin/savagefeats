@@ -130,7 +130,7 @@ function Event({params}: {params: {eventid: string}}) {
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}content/byevent/${eventid}`)
     .then(r => r.json())
     .then(data => {
-      console.log(data)
+      //console.log(data)
       const validatedContentData = z.array(contentSchema).safeParse(data)
       const validatedError = errorSchema.safeParse(data)
       if(validatedContentData.success){
