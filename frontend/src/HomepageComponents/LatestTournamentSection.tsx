@@ -29,7 +29,7 @@ async function LatestTournamentSection() {
     })
 
   return ( <>
-        {events && <EventsSectionCarousel events={events} header="Latest Tournaments" backgroundImage="wildride.jpg"/>}
+        {events && <EventsSectionCarousel events={events} header="Latest Tournaments" backgroundImage="/wildride.jpg"/>}
       </>
   )
 }

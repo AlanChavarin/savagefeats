@@ -8,6 +8,7 @@ import Link from "next/link"
 import EditButton from "./EditButton"
 import UserContext from "@/context/UserContext"
 import { useContext } from "react"
+import Image from "next/image"
 
 const deckPlacementString = (placement: number | undefined, placementRangeEnding: number | undefined) => {
 
@@ -52,7 +53,20 @@ function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featu
         <div className="relative min-w-[296px] w-[100%] max-w-[496px] min-h-[80px] bg-white hover:bg-gray-200">
             <a href={deck.decklistLink} target="_blank" className='w-full h-full cursor-pointer z-[1] absolute'></a>
             <div className="absolute top-0 w-full h-full flex box-shadow">
-                <div className='h-full w-[80px]' style={{backgroundImage: `url('/heroes/${heroUrlHelper(deck.hero)}.jpg')`, backgroundSize: '180%', backgroundPosition: `center -10px`}}></div>
+                <div className='h-full w-[80px] relative' 
+                style={{backgroundImage: `url('/heroes/${heroUrlHelper(deck.hero)}.jpg')`, backgroundSize: '180%', backgroundPosition: `center -10px`}}
+                >
+                    {/* <Image 
+                        priority={true}
+                        alt="background Image"
+                        src={`/heroes/${heroUrlHelper(deck.hero)}.jpg`}
+                        fill
+                        sizes="100%"
+                        quality={10}
+                        className={`object-cover object-top`}
+                        style={{objectPosition: `center 0px`}}
+                    /> */}
+                </div>
                 <div className='flex flex-col flex-1 p-[8px] justify-between gap-[2px] relative text-[13px]'>  
 
                     { deck.event ?

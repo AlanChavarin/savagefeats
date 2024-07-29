@@ -1,8 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    unoptimized: false,
-    domains: ['yt3.ggpht.com', 'res.cloudinary.com']
+    //domains: ['yt3.ggpht.com', 'res.cloudinary.com', 'cloudfront.net', 'artstation']
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
   },
 
   async rewrites() {

@@ -2,16 +2,25 @@ import Image from "next/image"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrophy, faList, faEye, faVideo, faChevronDown, faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons"
 import { faYoutube } from "@fortawesome/free-brands-svg-icons"
-import HomepageHeroBackground from "./HomepageHeroBackground"
+import HomePageHeroBackground2 from "./HomePageHeroBackground2"
+
 
 function HomepageHero() {
-
   return (
-      <div className='relative w-full bg-fill py-[32px] sm:py-[64px] flex flex-col items-center  gap-[32px] sm:gap-[96px]' style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.70), rgba(0, 0, 0, 0.70))`}}> 
+      <div className='overflow-hidden relative w-full bg-fill py-[32px] sm:py-[64px] flex flex-col items-center  gap-[32px] sm:gap-[96px]' style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.70), rgba(0, 0, 0, 0.70))`}}> 
 
-        <div className="h-full w-full absolute z-[-1] top-0">
-          <HomepageHeroBackground />    
-        </div>
+        {/* <div className="h-full w-full absolute z-[-1] top-0 rellax" data-relax-speed="10">
+          <HomepageHeroBackground />
+          <Image 
+            alt="background Image"
+            src={'/mulch.jpg'}
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div> */}
+
+        <HomePageHeroBackground2/>
 
         <div className='w-[90%] ssm:w-[512px] flex flex-col gap-[16px] sm:gap-[32px] items-center'>
           <Image src={'/SVGWHITE.png'} alt='savage feats logo' width={512} height={128} className='w-full'/>

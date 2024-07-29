@@ -24,7 +24,7 @@ function TestimonialSection({backgroundImage} : {backgroundImage: string}) {
 
   return (
     <div className='w-full h-[65vw] min-[490px]:h-[256px] lg:h-[360px] relative bg-red flex flex-col items-center py-[32px] md:py-[96px] gap-[16px] md:gap-[64px]'>
-      <SectionBackground image={backgroundImage} size={'medium'}/>
+        <SectionBackground image={backgroundImage} size={'medium'} idAddon="sdfdfg"/>
 
         <div className='text-[21px] sm:text-[33px] md:text-[48px] font-bold text-white text-shadow self-center'>
             Testimonials

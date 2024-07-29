@@ -3,12 +3,15 @@ import Link from "next/link"
 import HappeningNow from "../HappeningNow"
 import getImage from "./getImage"
 import { getDateRangeString, getFormatString, getCompressedFormatString } from "./eventStringUtilities"
-import DynamicFontSizeElement from "./DynamicFontSizeElement"
+//import DynamicFontSizeElement from "./DynamicFontSizeElement"
+import Image from "next/image"
 
 function EventThumbnailNormal({event, size}: {event: eventSchemaType, size: ('normal' | 'eventPage' | 'matchPage')}) {
 
 return (
-  <div className={`${size==='normal' && 'w-[90vw] md:w-[400px] sm:h-[220px]'} ${size==='matchPage' && 'w-[100%] sm:h-[200px] lg:h-[250px]'} flex flex-col justify-start items-center box-shadow text-white text-shadow-small cursor-pointer relative`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('${getImage(event)}')`, backgroundSize: 'cover', backgroundPosition: `center ${event.backgroundPosition ? event.backgroundPosition : 40}%`}}>
+  <div className={`${size==='normal' && 'w-[90vw] md:w-[400px] sm:h-[220px]'} ${size==='matchPage' && 'w-[100%] sm:h-[200px] lg:h-[250px]'} flex flex-col justify-start items-center box-shadow text-white text-shadow-small cursor-pointer relative`} 
+    //style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('${getImage(event)}')`, backgroundSize: 'cover', backgroundPosition: `center ${event.backgroundPosition ? event.backgroundPosition : 40}%`}}
+  >
 
     <Link href={`/eyeofophidia/event/${event._id}`} className="w-full h-[100%] relative flex sm:block justify-between ">
       <div className="flex flex-col p-[12px] sm:p-[0px]">
@@ -50,9 +53,19 @@ return (
         <HappeningNow event={event} small={true}/>
       </div>
 
+      <div className="absolute w-[100%] h-full top-0 left-0 bg-black">
+        <Image 
+          priority={true}
+          alt="background Image"
+          src={getImage(event)}
+          fill
+          sizes="100%"
+          className={`object-cover opacity-[50%] sm:opacity-[70%] hover:opacity-[50%]`}
+          style={{objectPosition: `center ${event.backgroundPosition ? event.backgroundPosition : 40}%`}}
+        />
+      </div>
 
 
-      <div className="absolute w-[100%] h-full top-0 left-0 bg-black opacity-[50%] sm:opacity-[30%] hover:opacity-[50%]"></div>
     </Link>
 
     <div className='flex flex-col gap-[8px] absolute bottom-[12%] sm:bottom-[18%]  left-[50%] translate-x-[-50%] flex-0 h-[0px] z-[1]'>

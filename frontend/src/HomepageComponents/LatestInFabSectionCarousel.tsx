@@ -13,17 +13,17 @@ function LatestInFABSectionCarousel({backgroundImage, contents, events} : { back
 
 
     const [emblaRef, emblaApi] = useEmblaCarousel({
-        startIndex: 0
+      startIndex: 0
     })
 
     const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
 
     const prevOnClick = () => {
-        emblaApi?.scrollPrev()
+      emblaApi?.scrollPrev()
     }
 
     const nextOnClick = () => {
-        emblaApi?.scrollNext()
+      emblaApi?.scrollNext()
     }
 
 

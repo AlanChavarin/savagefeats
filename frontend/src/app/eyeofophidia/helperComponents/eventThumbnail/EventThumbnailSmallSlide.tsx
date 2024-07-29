@@ -4,6 +4,7 @@ import HappeningNow from "../HappeningNow"
 import { checkIfHappeningNow } from "../../helpers/checkIfHappeningNow"
 import getDateString from "./getDateString"
 import getImage from "./getImage"
+import Image from "next/image"
 
 function EventThumbnail({event}: {event: eventSchemaType}) {
   return (
@@ -31,7 +32,16 @@ function EventThumbnail({event}: {event: eventSchemaType}) {
           </div>
 
           {/* absolute positioned elements */}
-          <div className="absolute w-[100%] h-[100%] top-0 bg-black opacity-[0%] hover:opacity-[20%]"></div>
+          <div className="absolute w-[100%] h-[100%] top-0 bg-black">
+            <Image 
+              alt="background Image"
+              src={getImage(event)}
+              fill
+              sizes="100%"
+              className={`object-cover opacity-[80%] hover:opacity-[50%]`}
+              style={{objectPosition: `center ${event.backgroundPosition ? event.backgroundPosition : 40}%`}}
+            />
+          </div>
         
         </Link>
 

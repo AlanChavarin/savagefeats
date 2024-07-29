@@ -4,6 +4,7 @@ import UserContext from "@/context/UserContext"
 import { useContext } from "react"
 import getDateString from "./getDateString"
 import getImage from "./getImage"
+import Image from "next/image"
 
 function EventThumbnailEventPage({event, lastRound, lastFormat, lastTwitch}: {lastRound?: string | undefined, lastFormat?: string | undefined, lastTwitch?: string | undefined, event: eventSchemaType}) {
 
@@ -11,7 +12,9 @@ function EventThumbnailEventPage({event, lastRound, lastFormat, lastTwitch}: {la
 
   return (
     <>
-      <div className={`relative h-[240px] md:h-[280px] w-[100%] flex flex-col justify-start items-center box-shadow text-white text-shadow-small`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('${getImage(event)}')`, backgroundSize: 'cover', backgroundPosition: `center ${event.backgroundPosition ? event.backgroundPosition : 40}%`}}>
+      <div className={`relative h-[240px] md:h-[280px] w-[100%] flex flex-col justify-start items-center box-shadow text-white text-shadow-small`} 
+      //</>style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('${getImage(event)}')`, backgroundSize: 'cover', backgroundPosition: `center ${event.backgroundPosition ? event.backgroundPosition : 40}%`}}
+      >
 
         <div className='bg-black bg-opacity-60 w-full font-bold p-[8px] text-[24px] md:text-[40px] flex justify-center items-center'>{event.name}</div>
 
@@ -39,6 +42,17 @@ function EventThumbnailEventPage({event, lastRound, lastFormat, lastTwitch}: {la
               {event.liveStream && event.liveStream.startsWith('http') && <a className="hover:text-purple-500" target="_blank" href={event.liveStream}><span>Live Stream</span></a>} */}
 
             </div>
+        </div>
+
+        <div className={`absolute z-[-1] w-[100%] h-[100%] top-0 left-0 bg-black cursor-pointer`}>
+            <Image 
+              alt="background Image"
+              src={getImage(event)}
+              fill
+              sizes="100%"
+              className={`object-cover opacity-[80%]`}
+              style={{objectPosition: `center ${event.backgroundPosition ? event.backgroundPosition : 40}%`}}
+            />
         </div>
  
         {user && 

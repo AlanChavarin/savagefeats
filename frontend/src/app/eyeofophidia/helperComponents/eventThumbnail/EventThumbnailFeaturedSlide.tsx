@@ -3,6 +3,7 @@ import Link from "next/link"
 import HappeningNow from "../HappeningNow"
 import getDateString from "./getDateString"
 import getImage from "./getImage"
+import Image from "next/image"
 
 function EventThumbnail({event}: {event: eventSchemaType}) {
 
@@ -32,7 +33,16 @@ function EventThumbnail({event}: {event: eventSchemaType}) {
             </div>
           </div>
 
-          <div className={`absolute w-[100%] h-[100%] top-0 left-0 bg-black opacity-[0%] hover:opacity-[20%] cursor-pointer`}></div>
+          <div className={`absolute w-[100%] h-[100%] top-0 left-0 bg-black cursor-pointer`}>
+            <Image 
+              alt="background Image"
+              src={getImage(event)}
+              fill
+              sizes="100%"
+              className={`object-cover opacity-[80%] hover:opacity-[50%]`}
+              style={{objectPosition: `center ${event.backgroundPosition ? event.backgroundPosition : 40}%`}}
+            />
+          </div>
         </Link>
         
         <div className='flex flex-col gap-[8px] absolute z-[4] bottom-[20%] left-[50%] translate-x-[-50%] flex-0 h-[0px] '>

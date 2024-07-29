@@ -4,12 +4,13 @@ import HappeningNow from "../HappeningNow"
 import { checkIfHappeningNow } from "../../helpers/checkIfHappeningNow"
 import getDateString from "./getDateString"
 import getImage from "./getImage"
-
-
+import Image from "next/image"
 function EventThumbnailSideSlide({event}: {event: eventSchemaType}) {
 
   return (
-      <div  className={`flex flex-col justify-start items-center h-full w-full max-h-[190px] box-shadow text-white text-shadow-small cursor-pointer relative`} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('${getImage(event)}')`, backgroundSize: 'cover', backgroundPosition: `0 0px `}}>
+      <div  className={`flex flex-col justify-start items-center h-full w-full max-h-[190px] box-shadow text-white text-shadow-small cursor-pointer relative`} 
+      //style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('${getImage(event)}')`, backgroundSize: 'cover', backgroundPosition: `0 0px `}}
+      >
 
         <Link href={`/eyeofophidia/event/${event._id}`} className="w-full h-full relative">
           <div className="flex w-full z-[1] pointer-events-none">
@@ -33,7 +34,16 @@ function EventThumbnailSideSlide({event}: {event: eventSchemaType}) {
           </div>
 
           {/* absolute positioned elements */}
-          <div className="absolute w-[100%] h-[100%] bg-black top-0 opacity-[0%] hover:opacity-[20%]"></div>
+          <div className="absolute w-[100%] h-[100%] bg-black top-0">
+            <Image 
+              alt="background Image"
+              src={getImage(event)}
+              fill
+              sizes="100%"
+              className={`object-cover opacity-[80%] hover:opacity-[50%]`}
+              style={{objectPosition: `center ${event.backgroundPosition ? event.backgroundPosition : 40}%`}}
+            />
+          </div>
         
         </Link>
 

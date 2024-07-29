@@ -6,7 +6,6 @@ import WinningDecksSection from "@/HomepageComponents/WinningDecksSection"
 import ContentCreatorSection from "@/HomepageComponents/ContentCreatorSection"
 import LatestInFABSection from "@/HomepageComponents/LatestInFABSection"
 
-
 export default async function Home() {
 
   return (
@@ -15,7 +14,7 @@ export default async function Home() {
 
       <div className='flex flex-col gap-[128px] min-[480px]:gap-[280px] justify-between py-[96px] sm:py-[128px] md:py-[128px] lg:py-[256px]'>
 
-        <LatestInFABSection backgroundImage={'hvy.jpg'} />
+        <LatestInFABSection backgroundImage={'/hvy.jpg'} />
         
         <LatestTournamentSection/>
 

@@ -28,7 +28,7 @@ async function UpcomingTournamentSection() {
     })
 
   return ( <>
-        { events && events.length > 0 && <EventsSectionCarousel events={events} header="Upcoming Tournaments" backgroundImage="tomasz-jedrusz.png"/>}
+        { events && events.length > 0 && <EventsSectionCarousel events={events} header="Upcoming Tournaments" backgroundImage="/tomasz-jedrusz.png"/>}
       </>
   )
 }
