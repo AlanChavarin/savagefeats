@@ -22,13 +22,14 @@ function ParallaxContainer({image, idAddon}: {image: string, idAddon?: string}){
       //   console.log(window.scrollY, rect.y)
       // }
 
-
       let scrolled = -rect.y*.7
       if(window.innerWidth > 600){
         setPosition(scrolled)
       } else {
         setPosition(0)
       }
+
+      
     }
 
     window.addEventListener('scroll', handleParallax)
