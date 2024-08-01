@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import DeckThumbnail from "@/app/eyeofophidia/helperComponents/DeckThumbnail"
 import useEmblaCarousel from 'embla-carousel-react'
-import { DotButton, useDotButton } from '../components/swiperComponents/EmblaCarouselDotButton'
-import YoutubeEmbedContainer from "../components/swiperComponents/YoutubeEmbedContainer"
+import { DotButton, useDotButton } from '../../components/swiperComponents/EmblaCarouselDotButton'
+import YoutubeEmbedContainer from "../../components/swiperComponents/YoutubeEmbedContainer"
 import { deckSchemaType } from "@/app/types/types"
-import chunkArray from "./helpers/ChunkArray"
+import chunkArray from "../helpers/ChunkArray"
 
 function WinningDecksSectionBig({decks, featuredDeck}: {decks: deckSchemaType[] | undefined, featuredDeck: deckSchemaType | undefined}) {
 

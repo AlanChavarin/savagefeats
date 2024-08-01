@@ -1,6 +1,6 @@
 import { contentSchema, errorSchema } from "@/app/schemas/schemas"
 import { z } from "zod"
-import LatestInFABSectionCarousel from "./LatestInFabSectionCarousel"
+import LatestInFabSectionCarouselLazyLoadingWrapper from "./LatestInFabSectionCarouselLazyLoadingWrapper"
 
 const responseSchema = z.array(contentSchema)
 
@@ -29,7 +29,7 @@ async function LatestInFABSection({backgroundImage, backgroundImageBlur} : { bac
   })
 
   return (<>
-      <LatestInFABSectionCarousel backgroundImage={backgroundImage} backgroundImageBlur={backgroundImageBlur} contents={contents}/>
+      <LatestInFabSectionCarouselLazyLoadingWrapper backgroundImage={backgroundImage} backgroundImageBlur={backgroundImageBlur} contents={contents}/>
     </>
   )
 }

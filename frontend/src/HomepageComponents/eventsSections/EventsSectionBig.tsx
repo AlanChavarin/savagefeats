@@ -1,13 +1,13 @@
 'use client'
 import SectionBackground from "@/components/swiperComponents/SectionBackground"
 import useEmblaCarousel from 'embla-carousel-react'
-import { DotButton, useDotButton } from '../components/swiperComponents/EmblaCarouselDotButton'
+import { DotButton, useDotButton } from '../../components/swiperComponents/EmblaCarouselDotButton'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import EventThumbnailFeaturedSlide from "@/app/eyeofophidia/helperComponents/eventThumbnail/EventThumbnailFeaturedSlide"
 import EventThumbnailSideSlide from "@/app/eyeofophidia/helperComponents/eventThumbnail/EventThumbnailSideSlide"
 import { eventSchemaType } from "@/app/types/types"
-import chunkArray from "./helpers/ChunkArray"
+import chunkArray from "../helpers/ChunkArray"
 
 function EventsSectionBig({events, header, backgroundImage}: {events: eventSchemaType[] | undefined, header: string, backgroundImage: string}) {
 

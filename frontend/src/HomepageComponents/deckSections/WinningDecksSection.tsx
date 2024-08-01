@@ -1,8 +1,7 @@
 import { deckSchema, errorSchema } from "@/app/schemas/schemas"
 import { deckSchemaType } from "@/app/types/types"
 import { z } from "zod"
-import WinningDecksSectionBig from "./WinningDecksSectionBig"
-import WinningDecksSectionSmall from "./WinningDecksSectionSmall"
+import WinningDecksSectionLazyLoadWrapper from "./WinningDecksSectionLazyLoadWrapper"
 
 const responseDeckSchema = z.object({
     count: z.number(),
@@ -13,7 +12,6 @@ let decks: deckSchemaType[]
 let featuredDeck: deckSchemaType
 
 async function WinningDecksSection() {
-
 
     //grab latest decks
     await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}decklists?&limit=20`, {cache: "default"})
@@ -56,13 +54,8 @@ async function WinningDecksSection() {
     })
 
 
-  return (<>
-    {
-        decks && <>
-          <div className='block lg:hidden'><WinningDecksSectionSmall decks={decks} featuredDeck={featuredDeck}/></div>
-          <div className='hidden lg:block'><WinningDecksSectionBig decks={decks} featuredDeck={featuredDeck}/></div>
-        </>
-    }
-  </>)
+  return (
+    <WinningDecksSectionLazyLoadWrapper decks={decks} featuredDeck={featuredDeck}/>
+  )
 }
 export default WinningDecksSection

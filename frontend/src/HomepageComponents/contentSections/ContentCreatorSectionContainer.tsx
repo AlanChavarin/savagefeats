@@ -1,6 +1,6 @@
 import SectionBackground from "@/components/swiperComponents/SectionBackground"
 import Image from "next/image"
-import ContentCreatorSectionCarousel from "./helpers/ContentCreatorSectionCarousel"
+import ContentCreatorSectionCarousel from "../helpers/ContentCreatorSectionCarousel"
 import { contentCreatorSchemaType, contentSchemaType } from "@/app/types/types"
 
 function ContentCreatorSectionContainer({contentCreator, contents}: {contentCreator: contentCreatorSchemaType, contents: contentSchemaType[]}){

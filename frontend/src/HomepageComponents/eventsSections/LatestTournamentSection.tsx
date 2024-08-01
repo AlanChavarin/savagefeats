@@ -1,8 +1,8 @@
 import { errorSchema, eventSchema } from "@/app/schemas/schemas"
 import { eventSchemaType } from "@/app/types/types"
 import { z } from "zod"
-import EventsSectionCarousel from "./EventsSectionCarousel"
-
+//import EventsSectionCarousel from "./EventsSectionCarousel"
+import EventsSectionCarouselLazyLoadWrapper from "./EventsSectionCarouselLazyLoadWrapper"
 
 let events: eventSchemaType[]
 
@@ -29,7 +29,7 @@ async function LatestTournamentSection() {
     })
 
   return ( <>
-        {events && <EventsSectionCarousel events={events} header="Latest Tournaments" backgroundImage="/wildride.jpg" backgroundImageBlur="/wildrideBlur.jpg"/> }
+        {events && <EventsSectionCarouselLazyLoadWrapper events={events} header="Latest Tournaments" backgroundImage="/wildride.jpg" backgroundImageBlur="/wildrideBlur.jpg"/> }
       </>
   )
 }

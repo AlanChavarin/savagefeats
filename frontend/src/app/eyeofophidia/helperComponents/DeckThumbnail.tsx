@@ -1,5 +1,3 @@
-'use client'
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons"
 import { deckSchemaType } from "@/app/types/types"

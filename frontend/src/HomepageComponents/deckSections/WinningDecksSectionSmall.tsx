@@ -2,13 +2,13 @@
 
 import SectionBackground from "@/components/swiperComponents/SectionBackground"
 import useEmblaCarousel from 'embla-carousel-react'
-import { DotButton, useDotButton } from '../components/swiperComponents/EmblaCarouselDotButton'
+import { DotButton, useDotButton } from '../../components/swiperComponents/EmblaCarouselDotButton'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import DeckThumbnail from "@/app/eyeofophidia/helperComponents/DeckThumbnail"
-import YoutubeEmbedContainer from "../components/swiperComponents/YoutubeEmbedContainer"
+import YoutubeEmbedContainer from "../../components/swiperComponents/YoutubeEmbedContainer"
 import { deckSchemaType } from "@/app/types/types"
-import chunkArray from "./helpers/ChunkArray"
+import chunkArray from "../helpers/ChunkArray"
 
 function WinningDecksSectionSmall({decks, featuredDeck}: {decks: deckSchemaType[] | undefined, featuredDeck: deckSchemaType | undefined}) {
 

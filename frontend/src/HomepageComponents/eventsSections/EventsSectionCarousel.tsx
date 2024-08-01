@@ -1,13 +1,13 @@
 'use client'
 import SectionBackground from "@/components/swiperComponents/SectionBackground"
 import useEmblaCarousel from 'embla-carousel-react'
-import { DotButton, useDotButton } from '../components/swiperComponents/EmblaCarouselDotButton'
+import { DotButton, useDotButton } from '../../components/swiperComponents/EmblaCarouselDotButton'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import EventThumbnailSmallSlide from "@/app/eyeofophidia/helperComponents/eventThumbnail/EventThumbnailSmallSlide"
 import { eventSchemaType } from "@/app/types/types"
 import EventThumbnailFeaturedSlide from "@/app/eyeofophidia/helperComponents/eventThumbnail/EventThumbnailFeaturedSlide"
-import chunkArray from "./helpers/ChunkArray"
+import chunkArray from "../helpers/ChunkArray"
 import EventThumbnailSideSlide from "@/app/eyeofophidia/helperComponents/eventThumbnail/EventThumbnailSideSlide"
 
 function EventsSectionCarousel({events, header, backgroundImage, backgroundImageBlur}: {events: eventSchemaType[] | undefined, header: string, backgroundImage: string, backgroundImageBlur?: string}) {

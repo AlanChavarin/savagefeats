@@ -2,7 +2,8 @@
 import { errorSchema, eventSchema } from "@/app/schemas/schemas"
 import { eventSchemaType } from "@/app/types/types"
 import { z } from "zod"
-import EventsSectionCarousel from "./EventsSectionCarousel"
+//import EventsSectionCarousel from "./EventsSectionCarousel"
+import EventsSectionCarouselLazyLoadWrapper from "./EventsSectionCarouselLazyLoadWrapper"
 
 let events: eventSchemaType[]
 
@@ -31,7 +32,7 @@ async function UpcomingTournamentSection() {
     })
 
   return ( <>
-        { events && events.length > 0 && <EventsSectionCarousel events={events} header="Upcoming Tournaments" backgroundImage="/tomasz-jedrusz.png" backgroundImageBlur="/tomasz-jedruszBlur.png"/>}
+        { events && events.length > 0 && <EventsSectionCarouselLazyLoadWrapper events={events} header="Upcoming Tournaments" backgroundImage="/tomasz-jedrusz.png" backgroundImageBlur="/tomasz-jedruszBlur.png"/>}
       </>
   )
 }

@@ -1,10 +1,10 @@
 'use client'
 import SectionBackground from "@/components/swiperComponents/SectionBackground"
 import useEmblaCarousel from 'embla-carousel-react'
-import { DotButton, useDotButton } from '../components/swiperComponents/EmblaCarouselDotButton'
+import { DotButton, useDotButton } from '../../components/swiperComponents/EmblaCarouselDotButton'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
-import YoutubeEmbedContainer from "../components/swiperComponents/YoutubeEmbedContainer"
+import YoutubeEmbedContainer from "../../components/swiperComponents/YoutubeEmbedContainer"
 import { contentSchemaType, eventSchemaType } from "@/app/types/types"
 import EventThumbnailFeaturedSlide from "@/app/eyeofophidia/helperComponents/eventThumbnail/EventThumbnailFeaturedSlide"
 import EventThumbnailSmallSlide from "@/app/eyeofophidia/helperComponents/eventThumbnail/EventThumbnailSmallSlide"
