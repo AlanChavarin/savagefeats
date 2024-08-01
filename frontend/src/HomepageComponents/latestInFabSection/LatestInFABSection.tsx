@@ -9,7 +9,11 @@ let contents: z.infer<typeof responseSchema>
 async function LatestInFABSection({backgroundImage, backgroundImageBlur} : { backgroundImage: string, backgroundImageBlur?: string}) {
 
   //grab latest in fab data
-  await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}content/latestinfleshandblood`, {cache: "default"})
+  await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}content/latestinfleshandblood`, {
+    next: {
+      revalidate: 3600
+    }
+  })
   .then(r => r.json())
   .then(data => {
     const validatedData = responseSchema.safeParse(data)

@@ -12,7 +12,11 @@ async function UpcomingTournamentSection() {
     console.log("hello world")
 
     //grab current and future events
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events/getcurrentandfutureevents`, {cache: 'default'})
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events/getcurrentandfutureevents`, {
+        next: {
+            revalidate: 3600
+        }
+    })
     .then(r => r.json())
     .then(data => {
         const validatedData = z.array(eventSchema).safeParse(data)

@@ -14,7 +14,11 @@ let featuredDeck: deckSchemaType
 async function WinningDecksSection() {
 
     //grab latest decks
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}decklists?&limit=20`, {cache: "default"})
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}decklists?&limit=20`, {
+      next: {
+        revalidate: 3600
+      }
+    })
     .then(r => r.json())
     .then(data => {
     const validatedData = responseDeckSchema.safeParse(data)

@@ -9,7 +9,11 @@ let events: eventSchemaType[]
 async function LatestTournamentSection() {
 
     //grab latest events
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events/getlatestevents`, {cache: 'default'})
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events/getlatestevents`, {
+        next: {
+            revalidate: 3600
+        }
+    })
     .then(r => r.json())
     .then(data => {
         const validatedData = z.array(eventSchema).safeParse(data)

@@ -15,7 +15,11 @@ let responseData: responseSchemaType
 
 async function ContentCreatorSection() {
 
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}content/getfeaturedcontentcreatorsandtheirlatest8videos`)
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}content/getfeaturedcontentcreatorsandtheirlatest8videos`, {
+      next: {
+        revalidate: 3600
+      }
+    })
     .then(r => r.json())
     .then(data => {
     const validatedData = responseSchema.safeParse(data)
