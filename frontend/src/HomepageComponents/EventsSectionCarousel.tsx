@@ -10,7 +10,7 @@ import EventThumbnailFeaturedSlide from "@/app/eyeofophidia/helperComponents/eve
 import chunkArray from "./helpers/ChunkArray"
 import EventThumbnailSideSlide from "@/app/eyeofophidia/helperComponents/eventThumbnail/EventThumbnailSideSlide"
 
-function EventsSectionCarousel({events, header, backgroundImage}: {events: eventSchemaType[] | undefined, header: string, backgroundImage: string}) {
+function EventsSectionCarousel({events, header, backgroundImage, backgroundImageBlur}: {events: eventSchemaType[] | undefined, header: string, backgroundImage: string, backgroundImageBlur?: string}) {
 
   const [emblaRef, emblaApi] = useEmblaCarousel({startIndex: 1})
   const [emblaRefBig, emblaApiBig] = useEmblaCarousel({startIndex: 1})
@@ -30,7 +30,7 @@ function EventsSectionCarousel({events, header, backgroundImage}: {events: event
 
   return (
     <div className='h-[65vw] min-[360px]:h-[256px] relative bg-red flex flex-col items-center py-[32px] gap-[24px] lg:mb-[256px]'>
-      <SectionBackground image={backgroundImage} size={'big'}/>
+      <SectionBackground image={backgroundImage} imageBlur={backgroundImageBlur} size={'big'}/>
 
       <div className='flex justify-between lg:w-[900px] lg:my-[32px]'>
         <div className='text-[13px] md:text-[16px] lg:text-[19px] xl:text-[23px] text-white foulfiend text-shadow'>

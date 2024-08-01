@@ -32,9 +32,9 @@ async function ContentCreatorSection() {
     throw new Error('Unexpected data. Check console for further details')
     })
 
-  return (<>
+  return (<div className="flex flex-col gap-[128px] min-[480px]:gap-[280px]">
     {responseData.map(data => <ContentCreatorSectionContainer contents={data.contents} contentCreator={data.contentCreator} key={data.contentCreator._id}/>)}
-  </>)
+  </div>)
 }
 
 export default ContentCreatorSection

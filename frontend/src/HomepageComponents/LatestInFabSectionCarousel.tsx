@@ -9,8 +9,7 @@ import { contentSchemaType, eventSchemaType } from "@/app/types/types"
 import EventThumbnailFeaturedSlide from "@/app/eyeofophidia/helperComponents/eventThumbnail/EventThumbnailFeaturedSlide"
 import EventThumbnailSmallSlide from "@/app/eyeofophidia/helperComponents/eventThumbnail/EventThumbnailSmallSlide"
 
-function LatestInFABSectionCarousel({backgroundImage, contents, events} : { backgroundImage: string, contents: contentSchemaType[], events?: eventSchemaType[]}) {
-
+function LatestInFABSectionCarousel({backgroundImage, contents, events, backgroundImageBlur} : { backgroundImage: string, contents: contentSchemaType[], events?: eventSchemaType[], backgroundImageBlur?: string}) {
 
     const [emblaRef, emblaApi] = useEmblaCarousel({
       startIndex: 0
@@ -26,11 +25,9 @@ function LatestInFABSectionCarousel({backgroundImage, contents, events} : { back
       emblaApi?.scrollNext()
     }
 
-
-
   return (
     <div className='h-[65vw] min-[490px]:h-[256px] lg:h-[360px] relative flex flex-col items-center pt-[32px] gap-[24px] w-full'>
-      <SectionBackground image={backgroundImage} size={'small'}/>
+      <SectionBackground image={backgroundImage} imageBlur={backgroundImageBlur} size={'small'}/>
 
       <div className='text-[11px] md:text-[16px] lg:text-[19px] lg:my-[32px] xl:text-[27px] text-white foulfiend text-shadow'>
         The Latest in Flesh and Blood

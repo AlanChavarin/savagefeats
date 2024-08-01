@@ -1,10 +1,10 @@
 'use client'
-import { Providers } from '@/app/Providers'
+//import { Providers } from '@/app/Providers'
 //import { ParallaxBanner } from 'react-scroll-parallax'
 import Image from "next/image"
 import { useEffect, useState } from "react"
 
-function ParallaxContainer({image, idAddon}: {image: string, idAddon?: string}){
+function ParallaxContainer({image, imageBlur, idAddon}: {image: string, imageBlur?: string, idAddon?: string}){
 
   const [position, setPosition] = useState<number>(0)
 
@@ -48,21 +48,23 @@ function ParallaxContainer({image, idAddon}: {image: string, idAddon?: string}){
         fill
         sizes="100%"
         className={`object-cover opacity-50`}
+        placeholder={`${imageBlur ? 'blur' : 'empty'}`}
+        blurDataURL={imageBlur}
       />
     </div>
   )
 }
 
-function SectionBackground({image, size, idAddon}: {image: string, size: ('small' | 'medium' | 'big' | 'veryBig'), idAddon?: string}) {
+function SectionBackground({image, imageBlur, size, idAddon}: {image: string, size: ('small' | 'medium' | 'big' | 'veryBig'), idAddon?: string, imageBlur?: string}) {
 
-  return (<Providers>
+  return (<>
     {
       (size==='small') && 
       <div className='text-white w-full h-[60vw] min-[370px]:h-[256px] lg:h-[384px] skew-y-[-3deg] lg:skew-y-[-2deg] absolute top-[0px] bottom-[0px] z-[-1] overflow-hidden bg-black'>
         {/* <ParallaxBanner layers={[{image, translateY: (typeof window !== "undefined" && window.innerWidth < 600) ? [0, 0] : [-30, 30], opacity: [.5, .5]}]} style={{willChange: 'transform'}}>
           <div className='w-full bg-black h-[65vw] min-[360px]:h-[256px] lg:h-[384px]'></div>
         </ParallaxBanner> */}
-        <ParallaxContainer image={image} idAddon={idAddon}/>
+        <ParallaxContainer image={image} imageBlur={imageBlur} idAddon={idAddon}/>
 
       </div>
     }
@@ -73,7 +75,7 @@ function SectionBackground({image, size, idAddon}: {image: string, size: ('small
         {/* <ParallaxBanner layers={[{image, translateY: (typeof window !== "undefined" && window.innerWidth < 600) ? [0, 0] : [-30, 30], opacity: [.5, .5]}]} style={{willChange: 'transform'}}>
           <div className='w-full bg-black h-[65vw] min-[455px]:h-[256px] min-[774px]:h-[400px] bg-top' style={{backgroundPosition: '0px -200px'}}></div>
         </ParallaxBanner> */}
-        <ParallaxContainer image={image} idAddon={idAddon}/>
+        <ParallaxContainer image={image} imageBlur={imageBlur} idAddon={idAddon}/>
       </div>
     }
 
@@ -83,7 +85,7 @@ function SectionBackground({image, size, idAddon}: {image: string, size: ('small
         {/* <ParallaxBanner layers={[{image, translateY: (typeof window !== "undefined" && window.innerWidth < 600) ? [0, 0] : [-30, 30], opacity: [.5, .5]}]} style={{willChange: 'transform'}}>
           <div className='w-full bg-black h-[65vw] min-[455px]:h-[256px] lg:h-[512px]'></div>
         </ParallaxBanner> */}
-        <ParallaxContainer image={image} idAddon={idAddon}/>
+        <ParallaxContainer image={image} imageBlur={imageBlur} idAddon={idAddon}/>
       </div>
     }
 
@@ -93,10 +95,10 @@ function SectionBackground({image, size, idAddon}: {image: string, size: ('small
         {/* <ParallaxBanner layers={[{image, translateY: (typeof window !== "undefined" && window.innerWidth < 600) ? [0, 0] : [-30, 30], opacity: [.5, .5]}]} style={{willChange: 'transform'}}>
           <div className='w-full bg-black h-[80vw] min-[455px]:h-[256px] md:h-[512px]'></div>
         </ParallaxBanner> */}
-        <ParallaxContainer image={image} idAddon={idAddon}/>
+        <ParallaxContainer image={image} imageBlur={imageBlur} idAddon={idAddon}/>
       </div>
     }
-  </Providers>)
+  </>)
 }
 export default SectionBackground
 

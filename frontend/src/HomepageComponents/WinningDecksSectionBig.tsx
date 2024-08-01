@@ -26,7 +26,7 @@ function WinningDecksSectionBig({decks, featuredDeck}: {decks: deckSchemaType[] 
 
   return (
     <div className='h-[512px] relative bg-red flex flex-col items-center py-[32px] gap-[24px]'>
-      <SectionBackground image={'/ripples.jpg'} size={'big'} idAddon="bigSectionId"/>
+      <SectionBackground image="/ripples.jpg" imageBlur="/rippleBlur.jpg" size={'big'} idAddon="bigSectionId"/>
 
       <div className='flex justify-between w-[1000px] my-[32px]'>
         <div className=' text-[13px] md:text-[16px] lg:text-[19px] xl:text-[23px] text-white foulfiend text-shadow'>

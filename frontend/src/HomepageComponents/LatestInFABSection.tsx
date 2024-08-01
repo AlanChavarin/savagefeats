@@ -6,10 +6,10 @@ const responseSchema = z.array(contentSchema)
 
 let contents: z.infer<typeof responseSchema>
 
-async function LatestInFABSection({backgroundImage} : { backgroundImage: string}) {
+async function LatestInFABSection({backgroundImage, backgroundImageBlur} : { backgroundImage: string, backgroundImageBlur?: string}) {
 
   //grab latest in fab data
-  await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}content/latestinfleshandblood`, {cache: "no-store"})
+  await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}content/latestinfleshandblood`, {cache: "default"})
   .then(r => r.json())
   .then(data => {
     const validatedData = responseSchema.safeParse(data)
@@ -29,7 +29,7 @@ async function LatestInFABSection({backgroundImage} : { backgroundImage: string}
   })
 
   return (<>
-      <LatestInFABSectionCarousel backgroundImage={backgroundImage} contents={contents}/>
+      <LatestInFABSectionCarousel backgroundImage={backgroundImage} backgroundImageBlur={backgroundImageBlur} contents={contents}/>
     </>
   )
 }

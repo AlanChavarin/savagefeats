@@ -9,7 +9,7 @@ let events: eventSchemaType[]
 async function LatestTournamentSection() {
 
     //grab latest events
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events/getlatestevents`, {cache: 'no-store'})
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events/getlatestevents`, {cache: 'default'})
     .then(r => r.json())
     .then(data => {
         const validatedData = z.array(eventSchema).safeParse(data)
@@ -29,7 +29,7 @@ async function LatestTournamentSection() {
     })
 
   return ( <>
-        {events && <EventsSectionCarousel events={events} header="Latest Tournaments" backgroundImage="/wildride.jpg"/>}
+        {events && <EventsSectionCarousel events={events} header="Latest Tournaments" backgroundImage="/wildride.jpg" backgroundImageBlur="/wildrideBlur.jpg"/> }
       </>
   )
 }

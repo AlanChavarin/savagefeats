@@ -24,9 +24,10 @@ function HomePageHeroBackground2() {
           fill
           sizes="100%"
           className={`object-cover object-top`}
-          data-rellax-speed="-12"
+          placeholder="blur"          
+          blurDataURL={'/mulchBlur.jpg'}
         />
-        </div>
+      </div>
     </div>
   )
 }

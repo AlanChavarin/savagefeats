@@ -26,7 +26,7 @@ function WinningDecksSectionSmall({decks, featuredDeck}: {decks: deckSchemaType[
 
   return (
     <div className='h-[80vw] min-[360px]:h-[320px] relative bg-red flex flex-col items-center py-[32px] gap-[24px]'>
-      <SectionBackground image={'/ripples.jpg'} size={'big'}/>
+      <SectionBackground image="/ripples.jpg" size={'big'} imageBlur="/ripplesBlur.jpg"/>
       <div className='flex justify-between lg:w-[900px] lg:my-[32px]'>
         <div className='text-[13px] md:text-[16px] lg:text-[19px] xl:text-[23px] text-white foulfiend text-shadow'>
           Winning Decklists

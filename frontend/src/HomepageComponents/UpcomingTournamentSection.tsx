@@ -1,3 +1,4 @@
+'use server'
 import { errorSchema, eventSchema } from "@/app/schemas/schemas"
 import { eventSchemaType } from "@/app/types/types"
 import { z } from "zod"
@@ -7,8 +8,10 @@ let events: eventSchemaType[]
 
 async function UpcomingTournamentSection() {
 
+    console.log("hello world")
+
     //grab current and future events
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events/getcurrentandfutureevents`, {cache: 'no-cache'})
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events/getcurrentandfutureevents`, {cache: 'default'})
     .then(r => r.json())
     .then(data => {
         const validatedData = z.array(eventSchema).safeParse(data)
@@ -28,7 +31,7 @@ async function UpcomingTournamentSection() {
     })
 
   return ( <>
-        { events && events.length > 0 && <EventsSectionCarousel events={events} header="Upcoming Tournaments" backgroundImage="/tomasz-jedrusz.png"/>}
+        { events && events.length > 0 && <EventsSectionCarousel events={events} header="Upcoming Tournaments" backgroundImage="/tomasz-jedrusz.png" backgroundImageBlur="/tomasz-jedruszBlur.png"/>}
       </>
   )
 }
