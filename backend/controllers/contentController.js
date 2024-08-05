@@ -376,7 +376,8 @@ const updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic = async () => {
             liveBroadcastContent: { "$exists": true, "$ne": "none" }
         })
         console.log("contents.length", contents.length)
-        contents.map(async (content) => {
+
+        for(const content of contents){
             const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${content.videoid}&part=snippet,contentDetails&key=${process.env.YOUTUBE_API_KEY}`)
             const data = await response.json()
             const item = data?.items[0]
@@ -448,7 +449,7 @@ const updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic = async () => {
             }
 
             await sleep(1000)
-        })
+        }
     } catch (error) {
         console.error(error)
     }
@@ -463,7 +464,8 @@ const deleteContentThatHasBeenDeleted_AbstractedOutLogic = async () => {
 
     console.log("videoids.length", videoids.length)
 
-    videoids.map(async (id) => {
+    // using a forloop here since it works with sleeping properly
+    for(const id of videoids){
         const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${id}&part=snippet,contentDetails&key=${process.env.YOUTUBE_API_KEY}`)
         const data = await response.json()
         if(data?.items?.length === 0){
@@ -472,8 +474,8 @@ const deleteContentThatHasBeenDeleted_AbstractedOutLogic = async () => {
             console.log('Content removed: ', id)
         }
         console.log("Content checked")
-        sleep(1000)
-    })
+        await sleep(1000)
+    }
 
 }
 
