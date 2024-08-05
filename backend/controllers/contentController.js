@@ -303,21 +303,27 @@ const updateContentByContentCreator_AbtractedOutLogic = async (contentCreatorId)
 
     const parser = new Parser()
 
+    // grab latest youtube ids for given content creator
     const feed = await parser.parseURL(`https://www.youtube.com/feeds/videos.xml?channel_id=${contentCreator.channelid}`)
 
     let youtubeIds = []
 
+    // ids filtered and put into youtubeIds
     for(let i = 0; i < feed.items.length; i++){
         const videoUrlParts = feed.items[i].link.split('?v=') 
         youtubeIds.push(videoUrlParts[videoUrlParts.length - 1])
     }
 
+    // get all current content in our database from our creator
     const content = await Content.find({parentContentCreatorid: contentCreatorId})
 
+    // filter to just the video ids
     const contentYoutubeIds = content.map(content => content.videoid)
 
     let youtubeVideoData = []
 
+    // we loop through each video id in youtubeIds, and check if that id is already in our database
+    // if its not, we pull the full data and add it to our database
     for(let i = 0; i < youtubeIds.length; i++){
         if(!contentYoutubeIds.includes(youtubeIds[i])){
             const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${youtubeIds[i]}&part=snippet,contentDetails&key=${process.env.YOUTUBE_API_KEY}`)
@@ -448,6 +454,29 @@ const updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic = async () => {
     }
 }
 
+const deleteContentThatHasBeenDeleted_AbstractedOutLogic = async () => {
+    const content = await Content.find({parentContentCreatorid: {$ne: null}}).limit(6)
+
+    console.log("Content.length: ", content.length)
+
+    const videoids = content.map(content => content.videoid)
+
+    console.log("videoids.length", videoids.length)
+
+    videoids.map(async (id) => {
+        const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${id}&part=snippet,contentDetails&key=${process.env.YOUTUBE_API_KEY}`)
+        const data = await response.json()
+        if(data?.items?.length === 0){
+            // then this content does not exist anymore, we need to remove it
+            const content = await Content.findOneAndDelete({videoid: id}, {new: true})
+            console.log('Content removed: ', id)
+        }
+        console.log("Content checked")
+        sleep(1000)
+    })
+
+}
+
 // temp routes for one time updates of content!
 
 // const oneTimeUpdateForThumbnails = asyncHandler(async (req, res) => {
@@ -507,7 +536,8 @@ module.exports = {
     getContentByEvent,
     updateUpcomingContentToSeeIfItsLive,
     deleteContentByEvent,
-    getContentByType
+    getContentByType,
+    deleteContentThatHasBeenDeleted_AbstractedOutLogic
     //oneTimeUpdateForThumbnails,
 
 }

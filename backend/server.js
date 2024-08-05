@@ -11,7 +11,7 @@ const {sanitate} = require('./middleware/sanitateMiddleware')
 require('dotenv').config()
 const cors = require('cors')
 const cron = require('node-cron')
-const {updateContentForAllCreators_AbtractedOutLogic, updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic} = require('./controllers/contentController')
+const {updateContentForAllCreators_AbtractedOutLogic, updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic,  deleteContentThatHasBeenDeleted_AbstractedOutLogic} = require('./controllers/contentController')
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 
@@ -62,7 +62,12 @@ cron.schedule('*/10 * * * *', async () => {
     updateContentForAllCreators_AbtractedOutLogic()
 })
 
-cron.schedule('*/1 * * * *', async () => {
+cron.schedule('*/20 * * * *', async () => {
+    console.log('cron job fired: running deleteContentThatHasBeenDeleted_AbstractedOutLogic' + ' At date: ' + new Date())
+    deleteContentThatHasBeenDeleted_AbstractedOutLogic()
+})
+
+cron.schedule('*/10 * * * *', async () => {
     console.log('cron job fired: running updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic()' + ' At date: ' + new Date())
     updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic()
 })
