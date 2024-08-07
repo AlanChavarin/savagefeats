@@ -99,6 +99,8 @@ const getEventPageData = asyncHandler(async (req, res) => {
 
     if((event.endDate && event.endDate >= dateMinusTwoDays) || (event.startDate && event.startDate >= dateMinusTwoDays)){
         liveContent = await Content.find({parentEventId: req.params.eventid})
+    } else {
+        event.liveStream = ''
     }
 
     const data = {event, matches: compartedMatches, decklists, drafts: compartedDrafts, deckTech, liveContent}
