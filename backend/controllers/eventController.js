@@ -1,10 +1,13 @@
 const asyncHandler = require('express-async-handler')
 const Event = require('../models/eventModel')
 const Match = require('../models/matchModel')
+const Draft = require('../models/draftModel')
+const Content = require('../models/contentModel')
 const wordWrapper = require('../helpers/wordWrapper')
 const { Decklist } = require('../models/decklistModel')
 const getTodaysDate = require('../helpers/getTodaysDate')
 //const {postEventEdit} = require('./eventEditHistoryController')
+const ObjectId = require('mongodb').ObjectId
 const {handleImageFiles, handleImageDeletion} = require('../helpers/cloudinaryHelper')
 
 const getEvent = asyncHandler(async (req, res) => {
@@ -21,6 +24,87 @@ const getEvent = asyncHandler(async (req, res) => {
 
     res.status(200)
     res.json(event)
+})
+
+const getEventPageData = asyncHandler(async (req, res) => {
+    if(!req.recyclebin){req.recyclebin = false}
+    let event = await Event.findOne({_id: req.params.eventid, deleted: req.recyclebin})
+
+    if(!event){
+        res.status(400)
+        throw new Error('Event with that id not found')
+    }
+
+    const date = getTodaysDate()
+
+    event.todaysDate = date
+
+    const matches = await Match.find({"event._id": event._id})
+
+    let compartedMatches = []
+    
+    const drafts = await Draft.find({"event._id": event._id})
+    
+    let compartedDrafts = []
+
+    if(event.endDate){
+        for(let i = 0; i < event.dayRoundArr.length; i++){
+            compartedMatches[i] = matches.filter(match => {
+                if(i === 0){
+                    return (match.top8 === false && match.swissRound <= event.dayRoundArr[i])
+                } else if(i > 0){
+                    return (
+                        match.top8 === false &&
+                        match.swissRound <= event.dayRoundArr[i] &&
+                        match.swissRound > event.dayRoundArr[i-1]
+                    )
+                }
+            })
+
+            compartedDrafts[i] = drafts.filter(draft => {
+                if(i === 0){
+                    return (draft.top8 === false && draft.swissRound <= event.dayRoundArr[i])
+                } else if(i > 0){
+                    return (
+                        draft.top8 === false &&
+                        draft.swissRound <= event.dayRoundArr[i] &&
+                        draft.swissRound > event.dayRoundArr[i-1]
+                    )
+                }
+            })
+        }
+        compartedMatches.push(matches.filter(match => match.top8===true))
+        compartedDrafts.push(drafts.filter(draft => draft.top8===true))
+    } else {
+        compartedMatches[0] = matches.filter(match => match.top8===false)
+        compartedMatches[1] = matches.filter(match => match.top8===true)
+        compartedDrafts[0] = drafts.filter(draft => draft.top8===false)
+        compartedDrafts[1] = drafts.filter(draft => draft.top8===true)
+    }
+    
+    const decklists = await Decklist.find({"event._id": event._id})    
+
+    let deckTech
+
+    drafts.map(draft => {
+        if(draft.deckTech){
+            deckTech.push(draft.deckTech)
+        }
+    })
+
+    let liveContent
+
+    let dateMinusTwoDays = new Date(date)
+    dateMinusTwoDays.setDate(date.getDate()-2)
+
+    if((event.endDate && event.endDate >= dateMinusTwoDays) || (event.startDate && event.startDate >= dateMinusTwoDays)){
+        liveContent = await Content.find({parentEventId: req.params.eventid})
+    }
+
+    const data = {event, matches: compartedMatches, decklists, drafts: compartedDrafts, deckTech, liveContent}
+
+    res.status(200)
+    res.json(data)
 })
 
 const getEventNames = asyncHandler(async (req, res) => {
@@ -242,7 +326,6 @@ const postEvent = asyncHandler(async (req, res) => {
 })
 
 const updateEvent = asyncHandler(async (req, res) => {
-
     if(!req.body.backgroundPosition){
         delete req.body.backgroundPosition
     }
@@ -289,6 +372,7 @@ const updateEvent = asyncHandler(async (req, res) => {
     }
 
     //postEventEdit(event, req.user._id)
+
 
     //update embedded events in match data
     await Match.updateMany({'event._id': event._id}, {event: event}, {runValidators: true, new: true})
@@ -436,7 +520,8 @@ module.exports = {
     getCurrentAndFutureEvents,
     getAllBackgroundImageLinks,
     deleteBackgroundImage,
-    getLatestEvents
+    getLatestEvents,
+    getEventPageData
     //checkIfHappeningNow
     //editBackgroundPosition,
 }

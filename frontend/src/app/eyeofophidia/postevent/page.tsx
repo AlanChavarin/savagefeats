@@ -129,14 +129,14 @@ function Postevent() {
     const formDataObject = new FormData()
     Object.keys(data).forEach((key, i) => {
         //@ts-ignore
-        if(data[key]){
+        if(data[key] || data[key] === false){
           //@ts-ignore
           formDataObject.append(key, data[key])
         }
-        
     })
 
     formDataObject.set('enctype', "multipart/form-data")
+
 
     const url = `${process.env.NEXT_PUBLIC_BACKEND_API}events/${eventid ? eventid : ''}`
 
@@ -295,11 +295,12 @@ function Postevent() {
       //@ts-ignore
       const name = getTwitchChannelName(getValues('videolink') ? getValues('videolink') : '')
       setValue('liveStream', name)
-    } else {
-      //@ts-ignore
-      const params = getYoutubeParams(getValues('videolink') ? getValues('videolink') : '')
-      setValue('liveStream', params.id)
-    }
+    } 
+    // else {
+    //   //@ts-ignore
+    //   const params = getYoutubeParams(getValues('videolink') ? getValues('videolink') : '')
+    //   setValue('liveStream', params.id)
+    // }
   }
 
   const onChangeImage = async (e: any) => {
@@ -312,6 +313,10 @@ function Postevent() {
     console.log(getValues('image'))
     console.log(getValues('bigImage'))
   }
+
+  useEffect(() => {
+    console.log(getValues('twitch'))
+  }, [ watch('twitch')])
 
   // JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX 
 
@@ -444,9 +449,9 @@ function Postevent() {
         }
 
         { getValues('twitch') !== undefined && getValues('streamed') === true && <>
-          <BasicTextInput placeholder='' name='videolink' label='Video Link: ' register={register} required={false} onChange={videoLinkOnChange}/>
+          {getValues('twitch') === true && <BasicTextInput placeholder='' name='videolink' label='Video Link: ' register={register} required={false} onChange={videoLinkOnChange}/>}
 
-          <BasicTextInput placeholder='' name='liveStream' label={`${watch('twitch') ? 'twitch' : 'youtube'} id: (or paste full link here if stream cannot be embedded)`} register={register} required={true}/>
+          <BasicTextInput placeholder='' name='liveStream' label={`${watch('twitch') ? 'twitch channel id' : 'Paste Full Youtube Channel Link Here: '}`} register={register} required={true}/>
         </>}
 
         <div>

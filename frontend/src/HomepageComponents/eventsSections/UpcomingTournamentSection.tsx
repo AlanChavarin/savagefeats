@@ -1,4 +1,3 @@
-'use server'
 import { errorSchema, eventSchema } from "@/app/schemas/schemas"
 import { eventSchemaType } from "@/app/types/types"
 import { z } from "zod"
@@ -8,8 +7,6 @@ import EventsSectionCarouselLazyLoadWrapper from "./EventsSectionCarouselLazyLoa
 let events: eventSchemaType[]
 
 async function UpcomingTournamentSection() {
-
-    console.log("hello world")
 
     //grab current and future events
     await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}events/getcurrentandfutureevents`, {
