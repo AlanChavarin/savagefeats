@@ -229,7 +229,8 @@ const latestInFleshAndBlood = asyncHandler(async (req, res) => {
             {liveBroadcastContent: 'upcoming'},
             {liveBroadcastContent: 'live'},
             {type: 'featured'}
-        ]
+        ],
+        parentContentCreatorid: {$exists: false}
     })
 
     liveStreamsAndFeaturedContent.map(content => arr.push(content))
