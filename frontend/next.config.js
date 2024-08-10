@@ -7,7 +7,7 @@ const nextConfig = {
         protocol: "https",
         hostname: "**",
       },
-    ],
+    ]
   },
 
   async rewrites() {
@@ -17,7 +17,13 @@ const nextConfig = {
         destination: 'https://www.youtube.com/:path*',
       },
     ]
-  }
+  },
+
 }
+
+// const withBundleAnalyzer = require('@next/bundle-analyzer')({
+//   enabled: process.env.ANALYZE === 'true',
+// })
+// module.exports = withBundleAnalyzer(nextConfig)
 
 module.exports = nextConfig
