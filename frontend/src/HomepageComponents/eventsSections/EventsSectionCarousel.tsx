@@ -12,7 +12,7 @@ import EventThumbnailSideSlide from "@/app/eyeofophidia/helperComponents/eventTh
 
 function EventsSectionCarousel({events, header, backgroundImage, backgroundImageBlur}: {events: eventSchemaType[] | undefined, header: string, backgroundImage: string, backgroundImageBlur?: string}) {
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({startIndex: 1})
+  const [emblaRef, emblaApi] = useEmblaCarousel({startIndex: 0})
   const [emblaRefBig, emblaApiBig] = useEmblaCarousel({startIndex: 1})
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)

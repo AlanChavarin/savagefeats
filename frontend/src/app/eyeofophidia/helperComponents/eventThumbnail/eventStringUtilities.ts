@@ -7,9 +7,9 @@ export const getDateRangeString = (str1: string, str2?: string) => {
     if(str2){
         const date2 = new Date(str2)
         const date2Day = date2.getDate()
-        return `${month} ${date1Day}-${date2Day}th, ${year}`
+        return `${month} ${date1Day+1}-${date2Day+1}th, ${year}`
     } else {
-        return `${month} ${date1Day}th, ${year}`
+        return `${month} ${date1Day+1}th, ${year}`
     }
 }
 

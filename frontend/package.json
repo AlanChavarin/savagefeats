@@ -20,7 +20,7 @@
     "babel-plugin-macros": "^3.1.0",
     "browser-image-compression": "^2.0.2",
     "embla-carousel-react": "^8.0.0-rc19",
-    "next": "14.0.4",
+    "next": "14.2.0",
     "react": "^18",
     "react-dom": "^18",
     "react-google-recaptcha-v3": "^1.10.1",
