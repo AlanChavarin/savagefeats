@@ -39,11 +39,11 @@ const getEventPageData = asyncHandler(async (req, res) => {
 
     event.todaysDate = date
 
-    const matches = await Match.find({"event._id": event._id})
+    const matches = await Match.find({"event._id": event._id}).sort({top8: 1, swissRound: 1})
 
     let compartedMatches = []
     
-    const drafts = await Draft.find({"event._id": event._id})
+    const drafts = await Draft.find({"event._id": event._id}).sort({top8: 1, swissRound: 1})
     
     let compartedDrafts = []
 
@@ -82,7 +82,7 @@ const getEventPageData = asyncHandler(async (req, res) => {
         compartedDrafts[1] = drafts.filter(draft => draft.top8===true)
     }
     
-    const decklists = await Decklist.find({"event._id": event._id})    
+    const decklists = await Decklist.find({"event._id": event._id}).sort({placement: 1})
 
     let deckTech
 

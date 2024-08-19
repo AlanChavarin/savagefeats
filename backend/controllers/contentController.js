@@ -251,6 +251,15 @@ const latestInFleshAndBlood = asyncHandler(async (req, res) => {
     }))
 
     arr.sort((a, b) => b.publishedAt - a.publishedAt)
+    arr.sort((a, b) => {
+        if (a.liveBroadcastContent === "live" && b.liveBroadcastContent !== "live") {
+          return -1
+        }
+        if (a.liveBroadcastContent !== "live" && b.liveBroadcastContent === "live") {
+          return 1
+        }
+        return 0
+      })
 
     //let contentVideoIdsAndThumbnails = arr.map(content => {return {"videoid": content.videoid, "thumbnail": content.thumbnail}})
 
