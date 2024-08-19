@@ -72,6 +72,7 @@ function Postevent() {
       top8Day: false,
       notATypicalTournamentStructure: false,
       streamed: false,
+      twitch: false,
     }
   })
 
@@ -126,17 +127,22 @@ function Postevent() {
       data.liveStream = ''
     }
 
+    if(!getValues('image') || !getValues('bigImage')){
+      delete data.image
+      delete data.bigImage
+    }
+
     const formDataObject = new FormData()
     Object.keys(data).forEach((key, i) => {
         //@ts-ignore
-        if(data[key] || data[key] === false){
-          //@ts-ignore
-          formDataObject.append(key, data[key])
-        }
+        formDataObject.append(key, data[key])
     })
 
     formDataObject.set('enctype', "multipart/form-data")
 
+    // formDataObject.forEach((value, key) => {
+    //   console.log(`Key: ${key}, Value: ${value}`);
+    // })
 
     const url = `${process.env.NEXT_PUBLIC_BACKEND_API}events/${eventid ? eventid : ''}`
 
@@ -153,7 +159,7 @@ function Postevent() {
       const validatedData = eventSchema.safeParse(data)
       const validatedError = errorSchema.safeParse(data)
       if(validatedData.success){
-        console.log(validatedData.data)
+        //console.log(validatedData.data)
         toast.success(`Post Event Success for ${validatedData.data._id}`)
         router.push(`event/${validatedData.data._id}`)
         return
@@ -286,9 +292,16 @@ function Postevent() {
 
   useEffect(() => {
     if(getValues('official') === false){
-      setValue('tier', undefined)
+      setValue('tier', 0)
     }
+
   }, [watch('official')])
+
+  useEffect(() => {
+    if(getValues('tier') === 0){
+      setValue('official', false)
+    }
+  }, [watch('tier')])
 
   const videoLinkOnChange = () => {
     if(getValues('twitch')){
@@ -310,13 +323,9 @@ function Postevent() {
     setValue('image', smallCompressedImage)
     setValue('bigImage', bigCompressedImage)
 
-    console.log(getValues('image'))
-    console.log(getValues('bigImage'))
+    //console.log(getValues('image'))
+    //console.log(getValues('bigImage'))
   }
-
-  useEffect(() => {
-    console.log(getValues('twitch'))
-  }, [ watch('twitch')])
 
   // JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX SECTION JSX 
 
@@ -358,11 +367,6 @@ function Postevent() {
           <CustomRadio options={{'Official': true, 'Unofficial': false}} form={form} name="official"/>
         </div>
 
-        <div className="flex flex-col">
-          <label>Streamed/Recorded? <span className="text-red-500">*</span></label>
-          <CustomRadio options={{'Yes': true, 'No': false}} form={form} name="streamed"/>
-        </div>
-
         {/* Select event tier */}
         { watch('official') && 
           <div className="flex flex-col gap-[8px]" >
@@ -372,7 +376,7 @@ function Postevent() {
               '2': 2,
               '3': 3,
               '4': 4,
-              'None': undefined
+              'None': 0
             }} form={form} name="tier"/>
           </div>
         }
@@ -441,10 +445,15 @@ function Postevent() {
 
         <BasicTextInput label="Event Information/Signup link:" register={register} name='officialDetails' placeholder='' required={false}/>
 
+        <div className="flex flex-col">
+          <label>Streamed/Recorded? <span className="text-red-500">*</span></label>
+          <CustomRadio options={{'Yes': true, 'No': false}} form={form} name="streamed"/>
+        </div>
+
         {watch('streamed') && 
           <div className="flex flex-col">
             <label>Livestream Platform:</label>
-            <CustomRadio options={{'Youtube': false, 'Twitch': true, 'None': undefined}} form={form} name="twitch"/>
+            <CustomRadio options={{'Youtube': false, 'Twitch': true}} form={form} name="twitch"/>
           </div>
         }
 
@@ -465,7 +474,7 @@ function Postevent() {
 
         <div className="flex flex-row gap-[4px]">
           <label>Background Position: </label>
-          <input min={1} type="number" className="border-black border-[1px] w-[48px]" {...register('backgroundPosition')}/>
+          <input min={0} type="number" className="border-black border-[1px] w-[48px]" {...register('backgroundPosition')}/>
         </div>
 
         <label>Preview: </label>
