@@ -13,7 +13,6 @@ import { useSearchParams } from "next/navigation"
 import DeleteButton from "../helperComponents/DeleteButton"
 import NameSelect from "../helperComponents/NameSelect"
 import getYoutubeParams from "../helpers/YoutubeParams"
-import typeCalculator from "../postmatch/typeCalculator"
 
 const formSchema = z.object({
   playerName: z.string().min(1),
@@ -234,7 +233,7 @@ function Postmatch() {
 
         <div className="flex flex-col">
           <label>Hero <span className="text-red-500">*</span>&nbsp;</label>
-          <HeroSelect placeholder="" name="hero" form={form} type={typeCalculator(watch('format'))}/>
+          <HeroSelect placeholder="" name="hero" form={form}/>
         </div>
 
         <div className="flex flex-col">

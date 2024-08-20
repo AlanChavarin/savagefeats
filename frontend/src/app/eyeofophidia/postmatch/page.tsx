@@ -15,7 +15,6 @@ import HeroSelect from "../helperComponents/HeroSelect"
 import { useSearchParams } from "next/navigation"
 import NameSelect from "../helperComponents/NameSelect"
 import DeleteButton from "../helperComponents/DeleteButton"
-import typeCalculator from "./typeCalculator"
 
 const formSchema = z.object({
   event: z.string().min(3),
@@ -415,7 +414,7 @@ function Postmatch() {
 
         <div className="flex flex-col">
           <label>Player 1 Hero: <span className="text-red-500">*</span>&nbsp;</label>
-          <HeroSelect placeholder="" name="player1hero" form={form} type={typeCalculator(watch('format'))}/>
+          <HeroSelect placeholder="" name="player1hero" form={form}/>
         </div>
 
         <div className="flex flex-col">
@@ -425,7 +424,7 @@ function Postmatch() {
 
         <div className="flex flex-col">
           <label>Player 2 Hero: <span className="text-red-500">*</span>&nbsp;</label>
-          <HeroSelect placeholder="" name="player2hero" form={form} type={typeCalculator(watch('format'))}/>
+          <HeroSelect placeholder="" name="player2hero" form={form}/>
         </div>
 
         <button onClick={() => setActionAfterSubmit('TO_MATCH')} disabled={isSubmitting} type="submit" className="bg-custom-primary hover:bg-custom-primaryHover py-[8px] w-[80%] mt-[16px] self-center border-[1px] border-black box-shadow-extra-small">

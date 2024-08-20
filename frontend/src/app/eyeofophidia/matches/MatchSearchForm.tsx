@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation"
 import HeroSelect from "../helperComponents/HeroSelect"
 import Select from '@/app/eyeofophidia/helperComponents/Select'
 import { zodResolver } from "@hookform/resolvers/zod"
-import typeCalculator from "../postmatch/typeCalculator"
 
 const formSchema = z.object({
   text: z.string().optional(),
@@ -96,10 +95,10 @@ function MatchSearchForm(){
           <div className="flex flex-col gap-[8px] w-[85%] md:items-center md:flex-row">
             <div className="whitespace-nowrap">Hero Matchup: </div>
             {/* hero 1 */}
-            <HeroSelect placeholder="Hero" name="hero1" form={form} type={typeCalculator(watch('format'))}/>
+            <HeroSelect placeholder="Hero" name="hero1" form={form}/>
             <div className="hidden md:block"> VS. </div>
             {/* hero 2 */}
-            <HeroSelect placeholder="Hero" name="hero2" form={form} type={typeCalculator(watch('format'))}/>
+            <HeroSelect placeholder="Hero" name="hero2" form={form}/>
           </div>
 
           {/* date range  */}
