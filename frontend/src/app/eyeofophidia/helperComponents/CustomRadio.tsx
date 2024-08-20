@@ -15,7 +15,7 @@ function CustomRadio({options, form, name, flexDirection}: {options: OptionsType
   return (
     <div className={`flex ${flexDirection ? `flex-${flexDirection}` : 'flex-row'} gap-[8px] flex-wrap`}>
         {Object.keys(options).map(key => <div key={key}>
-            {watch(name) === options[key] ? 
+            {watch(name) === options[key] || JSON.stringify(watch(name)) === JSON.stringify(options[key]) ? 
                 <div onClick={() => handleClick(options[key])} className="cursor-pointer h-[32px] px-[6px] border-[1px] border-black bg-custom-primary box-shadow-extra-small flex items-center justify-center">
                     {key}
                 </div>

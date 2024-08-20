@@ -13,6 +13,7 @@ import { useSearchParams } from "next/navigation"
 import DeleteButton from "../helperComponents/DeleteButton"
 import NameSelect from "../helperComponents/NameSelect"
 import getYoutubeParams from "../helpers/YoutubeParams"
+import CustomRadio from "../helperComponents/CustomRadio"
 
 const formSchema = z.object({
   playerName: z.string().min(1),
@@ -22,6 +23,7 @@ const formSchema = z.object({
   format: z.enum(['Classic Constructed', 'Blitz', 'Living Legend', 'Draft', 'Sealed', 'Mixed', '']),
   placement: z.coerce.number().optional(),
   placementRangeEnding: z.coerce.number().optional(),
+  placementPreset: z.tuple([z.number(), z.number().optional()]).optional(),
   deckTech: z.string().optional(),
   //dummy fields that the backend doesnt actually accept
   videoLink: z.string().optional(),
@@ -34,6 +36,8 @@ function Postmatch() {
   const searchParams = useSearchParams()
 
   const [eventNames, setEventNames] = useState<string[] | undefined>(undefined)
+  const [nameHeroPairs, setNameHeroPairs] = useState<{[key: string]: string} | undefined>(undefined)
+
 
   const form = useForm<FormFields>({resolver: zodResolver(formSchema),})
 
@@ -65,6 +69,9 @@ function Postmatch() {
         resetField('decklistLink')
         resetField('videoLink')
         resetField('deckTech')
+
+        grabNameHeroPairs()
+
         return
       }
 
@@ -198,6 +205,56 @@ function Postmatch() {
     
   }
 
+  const grabNameHeroPairs = () => {
+    //grab name-hero pairs
+    if(getValues('event') && getValues('format')){
+      const url = `${process.env.NEXT_PUBLIC_BACKEND_API}matches/getnameheropairsbyevent/?&event=${getValues('event')}&format=${getValues('format')}`
+
+      fetch(url)
+      .then(r => r.json())
+      .then(data => {
+        const validatedData = z.record(z.string()).safeParse(data)
+        const validatedError = errorSchema.safeParse(data)
+        if(validatedData.success){
+          setNameHeroPairs(validatedData.data)
+          return
+        }
+
+        if(validatedError.success){
+          throw new Error(validatedError.data.errorMessage)
+        }
+
+        console.error(validatedData.error)
+        console.error(validatedError.error)
+        throw new Error('Unexpected event name data. Check console for further details')
+      }).catch(err => {
+        toast(err.message)
+      })
+    }
+  }
+
+  useEffect(() => {
+    grabNameHeroPairs()
+  }, [watch('event'), watch('format')])
+
+  useEffect(() => {
+    if(nameHeroPairs && nameHeroPairs[getValues('playerName')]){
+      setValue('hero', nameHeroPairs[getValues('playerName')])
+    }
+  }, [watch('playerName')])
+
+  useEffect(() => {
+    const placementPreset = getValues('placementPreset')
+    if(placementPreset){
+      setValue('placement', placementPreset[0])
+      if(placementPreset[1]){
+        setValue('placementRangeEnding', placementPreset[1])
+      } else {
+        setValue('placementRangeEnding', undefined)
+      }
+    }
+  }, [watch('placementPreset')])
+
   return (
     <div className="flex-1 flex justify-center items-start my-[32px]">
       <form onSubmit={handleSubmit(onSubmit)} className="relative font-bold flex flex-col gap-[8px] items-start bg-white border-[1px] border-black w-[90%] px-[16px] pt-[16px] pb-[24px] box-shadow-extra-small max-w-[300px]">
@@ -229,23 +286,35 @@ function Postmatch() {
           <label>Format: <span className="text-red-500">*</span></label>
           <Select placeholder='Format' name='format' form={form} data={['Classic Constructed', 'Blitz', 'Living Legend', 'Draft', 'Sealed']}/>
         </div>
-        
+  
+        <div className="flex flex-col">
+          <label>Full Player Name <span className="text-red-500">*</span>&nbsp;</label>
+          <NameSelect placeholder='' name='playerName' form={form}/>
+        </div>
 
         <div className="flex flex-col">
           <label>Hero <span className="text-red-500">*</span>&nbsp;</label>
           <HeroSelect placeholder="" name="hero" form={form}/>
         </div>
 
-        <div className="flex flex-col">
-          <label>Full Player Name <span className="text-red-500">*</span>&nbsp;</label>
-          <NameSelect placeholder='' name='playerName' form={form}/>
-        </div>
 
         <BasicTextInput placeholder='' name='decklistLink' label='Decklist Link: ' register={register} required={true}/>
 
         <BasicTextInput placeholder='' name='videoLink' label='Deck Tech Link: ' register={register} required={false} onChange={videoLinkOnChange}/>
 
         <BasicTextInput placeholder='' name='deckTech' label="Deck Tech Video ID" register={register} required={false}/>
+
+        <div className="flex flex-col">
+          <label>Placement Preset:</label>
+          <CustomRadio options={{
+            '1st': [1, undefined], 
+            '2nd': [2, undefined],
+            '3-4th': [3,4],
+            '5-8th': [5,8],
+            '9th-16th': [9, 16],
+            '17th-32th': [17, 32]
+            }} form={form} name="placementPreset"/>
+        </div>
 
         <div className="flex flex-row">
           <label>Placement: &nbsp;</label>

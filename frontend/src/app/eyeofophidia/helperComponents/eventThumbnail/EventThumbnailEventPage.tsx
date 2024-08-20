@@ -70,7 +70,7 @@ function EventThumbnailEventPage({event, lastRound, lastFormat, lastTwitch}: {la
         <div className="sm:hidden grid grid-cols-2 gap-[8px]">
           <EditButton text="Edit Event" link={`/eyeofophidia/postevent?eventid=${event._id}`} />
           <EditButton text="Post Match" link={`/eyeofophidia/postmatch?eventname=${event.name}&lastRound=${lastRound}&lastFormat=${lastFormat}&lastTwitch=${lastTwitch}`} />
-          <EditButton text="Post Deck" link={`/eyeofophidia/postdeck?eventname=${event.name}`} />
+          <EditButton text="Post Deck" link={`/eyeofophidia/postdeck?eventname=${event.name}&lastFormat=${lastFormat}`} />
           <EditButton text="Post Draft" link={`/eyeofophidia/postdraft?eventname=${event.name}&lastRound=${lastRound}&lastFormat=${lastFormat}&lastTwitch=${lastTwitch}`} />
           <EditButton text="Post Content" link={`/eyeofophidia/postcontent?eventname=${event.name}`} />
 
