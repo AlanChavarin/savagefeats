@@ -1,7 +1,7 @@
 import { matchSchemaType } from "@/app/types/types"
 import heroUrlHelper from "../helpers/heroNameHelper"
 import Link from "next/link"
-import Image from "next/image"
+//import Image from "next/image"
 
 function MatchThumbnail({match, maxWidth}: {match: matchSchemaType, maxWidth?: boolean}) {
   return (
