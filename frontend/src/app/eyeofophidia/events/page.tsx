@@ -13,7 +13,7 @@ import { checkIfHappeningNow, checkIfFuture, checkIfPast } from "../helpers/chec
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons"
 import { Hourglass } from 'react-loader-spinner'
-import Info from "../helperComponents/Info"
+//import Info from "../helperComponents/Info"
 
 const responseSchema = z.object({
   count: z.number(),
@@ -36,7 +36,7 @@ function Events() {
 
 
   useEffect(() => {
-    if(searchParams && searchParams.get('query') === 'true'){
+    //if(searchParams && searchParams.get('query') === 'true'){
       
       const url = `${process.env.NEXT_PUBLIC_BACKEND_API}events?` + new URLSearchParams(searchParams.toString() + `&limit=${limit}` ).toString()
       setLoading(true)
@@ -63,7 +63,7 @@ function Events() {
         setLoading(false)
         toast.error(err.message)
       })
-    }
+    //}
 
   }, [searchParams])
 
@@ -153,7 +153,7 @@ function Events() {
         />
       }
 
-      {!events && <Info />}
+      {/* {!events && <Info />} */}
 
       <Pagination count={count} limit={limit}/>
     </div>
