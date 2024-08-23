@@ -30,6 +30,10 @@ function Footer() {
             <a target="_blank" href="https://youtube.com/@SavageFeats/featured" className="flex align-middle text-[32px]"><FontAwesomeIcon icon={faYoutube}/></a>
             {user && <div>Logged in as <span className="font-bold">{user.name}</span>, permissions: <span className="font-bold">{user.privilege}</span></div>}
           </div>
+          <div className="text-[16px]">
+            <div>Contact Us!</div>
+            <span className='text-custom-primary hover:text-custom-primaryHover underline'><a href="mailto:contact@savagefeats.com">contact@savagefeats.com</a></span>
+          </div>
         </div>
 
         <div className="text-center md:order-1">
