@@ -1,15 +1,16 @@
 export const getDateRangeString = (str1: string, str2?: string) => {
     const date1 = new Date(str1)
-    const date1Day = date1.getDate()
-    const month = date1.toLocaleDateString('en-US', {month: 'short'})
-    const year = date1.toLocaleDateString('en-US', {year: 'numeric'})
+    const date1Day = date1.getUTCDate()
+
+    const month = date1.toUTCString().slice(8, 11)
+    const year = date1.getUTCFullYear().toString()
 
     if(str2){
         const date2 = new Date(str2)
-        const date2Day = date2.getDate()
-        return `${month} ${date1Day+1}-${date2Day+1}th, ${year}`
+        const date2Day = date2.getUTCDate()
+        return `${month} ${date1Day}-${date2Day}th, ${year}`
     } else {
-        return `${month} ${date1Day+1}th, ${year}`
+        return `${month} ${date1Day}th, ${year}`
     }
 }
 

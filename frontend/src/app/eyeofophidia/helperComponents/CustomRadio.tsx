@@ -1,4 +1,3 @@
-import { SyntheticEvent } from "react";
 import { UseFormReturn } from "react-hook-form"
 
 interface OptionsType {
