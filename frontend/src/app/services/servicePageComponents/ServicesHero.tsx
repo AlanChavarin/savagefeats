@@ -43,13 +43,11 @@ function ServicesHero() {
                 <FontAwesomeIcon icon={faRectangleAd} />
                 <FontAwesomeIcon icon={faRectangleAd} className='text-black absolute z-[-1] top-[12px] left-[4px]'/>
               </div>
-              <div>Live Streaming</div>
+              <div>Sponsorships</div>
             </div>
           </div>
 
           <GetInTouchButton />
-
-          
 
         </div>
         

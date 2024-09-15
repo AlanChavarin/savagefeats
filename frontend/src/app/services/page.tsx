@@ -45,7 +45,25 @@ async function page() {
 
       <ServicesHero />
 
-      <ImageSection imageSize={'normal'} backgroundImage="/servicePagePics/Capture1212131.jpg" images={['battlehardenedmontreal.jpg', 'battlehardenedPhiladelphia.jpg', 'Capture1212131.jpg']} descriptions={['Battle Hardened: Montreal', 'Battle Hardened: Philadelphia', 'Battle Hardened: Orlando']}> 
+      <ImageSection imageSize={'normal'} backgroundImage="/servicePagePics/crazyillusionistboard_usnats.png" images={[
+        'protourfinalsStart.png', 
+        'AmsterdamnFinals.png', 
+        'RosettaWorldPremiere_YukiDraftPov.PNG', 
+        'RosettaWorldPremiere_MichaelHamiltonVSLucasOswald.png', 
+        'protouramsterdamn_metabreakdown.png',
+        'battlehardenedmontreal.jpg', 
+        'battlehardenedPhiladelphia.jpg', 
+        'Capture1212131.jpg'
+      ]} descriptions={[
+        'Los Angeles Pro Tour Finals', 
+        'Amsterdam Pro Tour Winner', 
+        'Draft Pov - Rosetta World Premiere', 
+        'Rosetta World Premiere', 
+        'Amsterdam Pro Tour Meta Breakdown',
+        'Battle Hardened: Montreal', 
+        'Battle Hardened: Philadelphia', 
+        'Battle Hardened: Orlando'
+      ]}> 
         <div className='flex flex-col w-[90vw] md:w-[540px] gap-[8px]'>
           <div className='text-[23px] sm:text-[33px] md:text-[48px] font-bold text-white text-shadow self-center md:self-start'>
             Live Streaming Services
@@ -56,7 +74,24 @@ async function page() {
         </div>
       </ImageSection>
 
-      <ImageSection imageSize={'normal'} backgroundImage="/servicePagePics/dacrew.jpg" images={['shawnandfrank.jpg', 'naibandyuanji.jpg', 'dacrew.jpg']} descriptions={['Battle Hardened: Montreal', 'Battle Hardened: Philadelphia', 'Battle Hardened: Portland']}> 
+      <ImageSection imageSize={'normal'} backgroundImage="/servicePagePics/dacrew.jpg" 
+      images={[
+        'RosettaWorldPremiere_Sam&LucasChamp.PNG', 
+        'protourLA_casting.png', 
+        'ProtourAmsterdamn_casters.png',
+        'RosettaWorldPremiere_Elly&Sam.PNG', 
+        'protourLA_casting2.png', 
+        'canadiannats_ellyandbrodie2.png',
+        'dacrew.jpg'
+      ]} descriptions={[
+        'Rosetta World Premiere', 
+        'Protour Los Angeles', 
+        'Protour Amsterdam',
+        'Rosetta World Premiere', 
+        'Protour Los Angeles', 
+        'Canadian Nationals',
+        'Battle Hardened: Portland'
+      ]}> 
         <div className='flex flex-row gap-[16px] md:gap-[32px] items-center w-[90vw] md:w-[800px] '>
 
           <div className='flex flex-col gap-[8px]'>
@@ -75,7 +110,7 @@ async function page() {
         </div>
       </ImageSection>
 
-      <ImageSection imageSize={'square'} backgroundImage="/servicePagePics/bRyAk0h.jpg" images={['channels4_profile (1).jpg', 'download (1).jpg', 'download.jpg', 'z_zrnyMK_400x400.jpg']} descriptions={['Fresh and Buds', 'Fab Foundary', 'Kayfabe Cards', 'Team Ascent']}> 
+      <ImageSection imageSize={'square'} backgroundImage="/servicePagePics/genis.jpg" images={['thaicardsshop.PNG', 'heavyplay.PNG', 'fabreclogo.png', 'realm_games.png', 'channels4_profile (1).jpg', 'download (1).jpg', 'download.jpg', 'z_zrnyMK_400x400.jpg']} descriptions={['Thai Cards Shop', 'Heavy Play', 'Fab Rec', "Realm Games", 'Fresh and Buds', 'Fab Foundary', 'Kayfabe Cards', 'Team Ascent']}> 
         <div className='flex flex-row gap-[16px] md:gap-[32px] items-center justify-center w-[90vw] md:w-[800px] '>
 
           <div className='hidden md:block'>
@@ -94,9 +129,9 @@ async function page() {
         </div>
       </ImageSection>
 
-      <TestimonialSection backgroundImage="/servicePagePics/bRyAk0h.jpg" />
+      <TestimonialSection backgroundImage="/servicePagePics/tomeofduplicity.jpg" />
 
-      <YoutubeVideoCarousel youtubeIDs={youtubeIDs.slice(0, 5)} backgroundImage='/servicePagePics/123234345.jpg'>
+      <YoutubeVideoCarousel youtubeIDs={youtubeIDs.slice(0, 5)} backgroundImage='/servicePagePics/protourfinalsStart.png'>
 
         <div className='flex flex-col gap-[16px]'>
           <div className='text-[27px] sm:text-[39px] md:text-[48px] text-white text-shadow font-bold'>
