@@ -245,8 +245,6 @@ const latestInFleshAndBlood = asyncHandler(async (req, res) => {
 
     const contentCreators = await ContentCreator.find({featured: true})
 
-    console.log("Limit: ", limit)
-
     await Promise.all(contentCreators.flatMap(async contentCreator => {
         const contents = await Content.find({parentContentCreatorid: contentCreator._id}).sort({publishedAt: -1}).limit(limit)
         contents.map(content => arr.push(content))
