@@ -246,7 +246,7 @@ const latestInFleshAndBlood = asyncHandler(async (req, res) => {
     const contentCreators = await ContentCreator.find({featured: true})
 
     await Promise.all(contentCreators.flatMap(async contentCreator => {
-        const contents = await Content.find({parentContentCreatorid: contentCreator._id}).sort({publishedAt: -1}).limit(limit)
+        const contents = await Content.find({parentContentCreatorid: contentCreator._id}).sort({publishedAt: -1}).limit(3)
         contents.map(content => arr.push(content))
     }))
 
