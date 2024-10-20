@@ -110,7 +110,7 @@ async function page() {
         </div>
       </ImageSection>
 
-      <ImageSection imageSize={'square'} backgroundImage="/servicePagePics/genis.jpg" images={['thaicardsshop.PNG', 'heavyplay.PNG', 'fabreclogo.png', 'realm_games.png', 'channels4_profile (1).jpg', 'download (1).jpg', 'download.jpg', 'z_zrnyMK_400x400.jpg']} descriptions={['Thai Cards Shop', 'Heavy Play', 'Fab Rec', "Realm Games", 'Fresh and Buds', 'Fab Foundary', 'Kayfabe Cards', 'Team Ascent']}> 
+      <ImageSection imageSize={'square'} backgroundImage="/servicePagePics/genis.jpg" images={['thaicardsshop.PNG', 'heavyplay.PNG', 'fabreclogo.png', 'realm_games.png', 'channels4_profile (1).jpg', 'download (1).jpg', 'download.jpg', 'z_zrnyMK_400x400.jpg']} descriptions={['Thai Cards Shop', 'Heavy Play', 'Fab Rec', "Realm Games", 'Fresh and Buds', 'Fab Foundry', 'Kayfabe Cards', 'Team Ascent']}> 
         <div className='flex flex-row gap-[16px] md:gap-[32px] items-center justify-center w-[90vw] md:w-[800px] '>
 
           <div className='hidden md:block'>

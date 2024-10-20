@@ -30,9 +30,9 @@ function Events() {
   const [loading, setLoading] = useState(false)
 
 
-  const [pastEventsDropdown, setPastEventsDropdown] = useState<boolean>(true)
-  const [futureEventsDropdown, setFutureEventsDropdown] = useState<boolean>(true)
-  const [currentEventsDropdown, setCurrentEventsDropdown] = useState<boolean>(true)
+  const [pastEventsDropdown, setPastEventsDropdown] = useState<boolean>(searchParams.get('pastEventsOnly') === 'false' ? false : true)
+  const [futureEventsDropdown, setFutureEventsDropdown] = useState<boolean>(searchParams.get('futureEventsOnly') === 'false' ? false : true)
+  const [currentEventsDropdown, setCurrentEventsDropdown] = useState<boolean>(searchParams.get('currentEventsOnly') === 'false' ? false : true)
 
 
   useEffect(() => {
@@ -68,7 +68,7 @@ function Events() {
   }, [searchParams])
 
   return (
-    <div className="flex-1 overflow-hidden pb-[128px] flex flex-col justify-start items-center w-[100%] p-[16px] gap-[32px] sm:gap-[48px] pt-[32px]">
+    <div className="flex-1 overflow-hidden pb-[128px] flex flex-col justify-start items-center w-[100%] p-[16px] gap-[16px] sm:gap-[48px] pt-[32px]">
       <Title subheader="Events"/>
       <EventSearchForm />
 
@@ -76,13 +76,13 @@ function Events() {
       {!loading ? <>{events &&
         <div className="flex flex-col gap-[8px] sm:gap-[32px] items-start sm:items-center w-full">
           {/* current events */}
-          {!searchParams?.get('pastEventsOnly') && events.filter(event => checkIfHappeningNow(event)).length > 0 && <>
-            <div className="flex flex-col gap-[4px] sm:gap-[16px] items-start sm:items-center cursor-pointer my-[16px] sm:my-[0px]" onClick={() => setCurrentEventsDropdown(!currentEventsDropdown)}>
-              <div className="text-[18px] sm:text-[39px] font-bold text-center flex flex-row gap-[16px] items-center select-none">
-                Happening Now 
+          {events.filter(event => checkIfHappeningNow(event)).length > 0 && <>
+            <div className="flex flex-col gap-[4px] sm:gap-[16px] items-start sm:items-center cursor-pointer my-[16px] sm:my-[0px] sm:hover:text-custom-primary" onClick={() => setCurrentEventsDropdown(!currentEventsDropdown)}>
+              <div className={`${currentEventsDropdown ? 'text-[18px] sm:text-[39px]' : 'text-[18px] sm:text-[24px]'} font-bold text-center flex flex-row gap-[16px] items-center select-none`}>
+                Happening Now {!currentEventsDropdown && <span className="font-normal">({events.filter(event => checkIfHappeningNow(event)).length})</span>}
                 <FontAwesomeIcon icon={currentEventsDropdown ? faCaretDown : faCaretUp}/>
               </div>
-              <div className="w-full md:w-[384px] border-[1px] border-black"></div>
+              {currentEventsDropdown && <div className="w-full md:w-[384px] border-[1px] border-black"></div>}
             </div>
             { currentEventsDropdown &&
               <div className="flex flex-row flex-wrap gap-[24px] justify-center">
@@ -97,13 +97,13 @@ function Events() {
           
 
           {/* future events */}
-          {!searchParams?.get('pastEventsOnly') && events.filter(event => checkIfFuture(event)).length > 0 && <>
-            <div className="flex flex-col gap-[8px] sm:gap-[32px] items-center cursor-pointer my-[16px] sm:my-[0px]" onClick={() => setFutureEventsDropdown(!futureEventsDropdown)}>
-              <div className="text-[18px] sm:text-[39px] font-bold text-center flex flex-row gap-[16px] items-center select-none">
-                Future Events
+          {events.filter(event => checkIfFuture(event)).length > 0 && <>
+            <div className="flex flex-col gap-[8px] sm:gap-[32px] items-center cursor-pointer my-[16px] sm:my-[0px] sm:hover:text-custom-primary" onClick={() => setFutureEventsDropdown(!futureEventsDropdown)}>
+              <div className={`${futureEventsDropdown ? 'text-[18px] sm:text-[39px]' : 'text-[18px] sm:text-[24px]'} font-bold text-center flex flex-row gap-[16px] items-center select-none`}>
+                Future Events {!futureEventsDropdown && <span className="font-normal">({events.filter(event => checkIfFuture(event)).length})</span>}
                 <FontAwesomeIcon icon={futureEventsDropdown ? faCaretDown : faCaretUp}/>
               </div>
-              <div className="w-full md:w-[384px] border-[1px] border-black"></div>
+              {futureEventsDropdown && <div className="w-full md:w-[384px] border-[1px] border-black"></div>}
             </div>
             {futureEventsDropdown &&
               <div className="flex flex-row flex-wrap gap-[24px] justify-center">
@@ -119,12 +119,12 @@ function Events() {
 
           {/* past events */}
           {events.filter(event => checkIfPast(event)).length > 0 && <>
-            <div className="flex flex-col gap-[8px] sm:gap-[32px] items-center cursor-pointer my-[16px] sm:my-[0px]" onClick={() => setPastEventsDropdown(!pastEventsDropdown)}>
-              <div className="text-[18px] sm:text-[39px] font-bold text-center flex flex-row gap-[16px] items-center select-none">
-                Past Events
+            <div className="flex flex-col gap-[8px] sm:gap-[32px] items-center cursor-pointer my-[16px] sm:my-[0px] sm:hover:text-custom-primary" onClick={() => setPastEventsDropdown(!pastEventsDropdown)}>
+              <div className={`${pastEventsDropdown ? 'text-[18px] sm:text-[39px]' : 'text-[18px] sm:text-[24px]'} font-bold text-center flex flex-row gap-[16px] items-center select-none`}>
+                Past Events {!pastEventsDropdown && <span className="font-normal">({events.filter(event => checkIfPast(event)).length})</span>}
                 <FontAwesomeIcon icon={pastEventsDropdown ? faCaretDown : faCaretUp}/>
               </div>
-              <div className="w-full md:w-[384px] border-[1px] border-black"></div>
+              {pastEventsDropdown && <div className="w-full md:w-[384px] border-[1px] border-black"></div>}
             </div>
             {pastEventsDropdown && 
               <div className="flex flex-row flex-wrap gap-[24px] justify-center">

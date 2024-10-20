@@ -9,7 +9,7 @@ const getTodaysDate = require('../helpers/getTodaysDate')
 //const {postEventEdit} = require('./eventEditHistoryController')
 const ObjectId = require('mongodb').ObjectId
 const {handleImageFiles, handleImageDeletion} = require('../helpers/cloudinaryHelper')
-
+const GeneralEventSection = require('../models/generalEventSectionModel')
 const getEvent = asyncHandler(async (req, res) => {
     if(!req.recyclebin){req.recyclebin = false}
     let event = await Event.findOne({_id: req.params.eventid, deleted: req.recyclebin})
@@ -103,7 +103,10 @@ const getEventPageData = asyncHandler(async (req, res) => {
         event.liveStream = ''
     }
 
-    const data = {event, matches: compartedMatches, decklists, drafts: compartedDrafts, deckTech, liveContent}
+    // get general event sections
+    const generalEventSections = await GeneralEventSection.find({eventId: req.params.eventid})
+
+    const data = {event, matches: compartedMatches, decklists, drafts: compartedDrafts, deckTech, liveContent, generalEventSections}
 
     res.status(200)
     res.json(data)
@@ -452,14 +455,15 @@ const deleteEvent = asyncHandler(async (req, res) => {
 
 const deleteBackgroundImage = asyncHandler(async (req, res) => {
 
-    if(!req.body.image || !req.body.bigImage){
+    if(!req.body.image){
         res.status(400)
-        throw new Error('You need to pass in image and bigImage links to be deleted')
+        throw new Error('You need to pass in at least an image link to be deleted')
     }
 
     await handleImageDeletion(req.body.image, req.body.bigImage)
 
     await Event.updateMany({image: req.body.image}, {image: null, bigImage: null})
+    await GeneralEventSection.updateMany({image: req.body.image}, {image: null})
     
     res.status(200)
     res.json({message: 'images deleted'})

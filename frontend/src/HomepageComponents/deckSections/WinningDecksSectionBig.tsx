@@ -9,6 +9,7 @@ import { DotButton, useDotButton } from '../../components/swiperComponents/Embla
 import YoutubeEmbedContainer from "../../components/swiperComponents/YoutubeEmbedContainer"
 import { deckSchemaType } from "@/app/types/types"
 import chunkArray from "../helpers/ChunkArray"
+import Link from "next/link"
 
 function WinningDecksSectionBig({decks, featuredDeck}: {decks: deckSchemaType[] | undefined, featuredDeck: deckSchemaType | undefined}) {
 
@@ -29,9 +30,9 @@ function WinningDecksSectionBig({decks, featuredDeck}: {decks: deckSchemaType[] 
       <SectionBackground image="/ripples.jpg" imageBlur="/rippleBlur.jpg" size={'big'} idAddon="bigSectionId"/>
 
       <div className='flex justify-between w-[1000px] my-[32px]'>
-        <div className=' text-[13px] md:text-[16px] lg:text-[19px] xl:text-[23px] text-white foulfiend text-shadow'>
+        <Link href='eyeofophidia/decks' className=' text-[13px] md:text-[16px] lg:text-[19px] xl:text-[23px] text-white foulfiend text-shadow hover:text-custom-primary'>
           Winning Decklists
-        </div>
+        </Link>
         <a className='hover:text-purple-400 text-[16px] text-white text-shadow underline flex flex-row items-center' href='eyeofophidia/decks'>
           View all winning deck lists
           &nbsp;&nbsp;

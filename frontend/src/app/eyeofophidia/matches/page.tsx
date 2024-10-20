@@ -26,8 +26,8 @@ function Matches() {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    
-    if(searchParams?.get('query') === 'true'){
+
+   // if(searchParams?.get('query') === 'true'){
       const url = `${process.env.NEXT_PUBLIC_BACKEND_API}matches?` + new URLSearchParams(searchParams.toString() + `&limit=${limit}` ).toString()
       setLoading(true)
       fetch(url, {cache: 'no-store'})
@@ -53,7 +53,7 @@ function Matches() {
         setLoading(false)
         toast.error(err.message)
       })
-    }
+    //}
 
   
   }, [searchParams])

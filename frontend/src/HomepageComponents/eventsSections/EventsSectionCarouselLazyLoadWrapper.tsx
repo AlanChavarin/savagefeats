@@ -9,10 +9,10 @@ const DynamicEventSectionCarousel = dynamic(() => import("./EventsSectionCarouse
   loading: () => <LoadingSection />
 })
 
-function EventsSectionCarouselLazyLoadWrapper({events, header, backgroundImage, backgroundImageBlur}: {events: eventSchemaType[] | undefined, header: string, backgroundImage: string, backgroundImageBlur?: string}) {
+function EventsSectionCarouselLazyLoadWrapper({events, header, backgroundImage, backgroundImageBlur, whichEvents}: {events: eventSchemaType[] | undefined, header: string, backgroundImage: string, backgroundImageBlur?: string, whichEvents?: ("pastEventsOnly" | "futureEventsOnly" | "currentEventsOnly")}) {
   return (
     <LazyComponentWrapper>
-      <DynamicEventSectionCarousel events={events} header={header} backgroundImage={backgroundImage} backgroundImageBlur={backgroundImageBlur}/>
+      <DynamicEventSectionCarousel events={events} header={header} backgroundImage={backgroundImage} backgroundImageBlur={backgroundImageBlur} whichEvents={whichEvents}/>
     </LazyComponentWrapper>
   )
 }

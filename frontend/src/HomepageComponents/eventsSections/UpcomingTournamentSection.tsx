@@ -33,7 +33,7 @@ async function UpcomingTournamentSection() {
     })
 
   return ( <>
-        { events && events.length > 0 && <EventsSectionCarouselLazyLoadWrapper events={events} header="Upcoming Tournaments" backgroundImage="/tomasz-jedrusz.png" backgroundImageBlur="/tomasz-jedruszBlur.png"/>}
+        { events && events.length > 0 && <EventsSectionCarouselLazyLoadWrapper whichEvents="futureEventsOnly" events={events} header="Upcoming Tournaments" backgroundImage="/tomasz-jedrusz.png" backgroundImageBlur="/tomasz-jedruszBlur.png"/>}
       </>
   )
 }

@@ -41,6 +41,7 @@ app.use('/api/events', require('./routes/eventRoutes'))
 app.use('/api/matches', require('./routes/matchRoutes'))
 app.use('/api/decklists', require('./routes/decklistRoutes'))
 app.use('/api/drafts', require('./routes/draftRoutes'))
+app.use('/api/generalEventSections', require('./routes/generalEventSectionRoutes'))
 
 app.use('/api/names', require('./routes/nameRoutes'))
 app.use('/api/heroes', require('./routes/heroRoutes'))

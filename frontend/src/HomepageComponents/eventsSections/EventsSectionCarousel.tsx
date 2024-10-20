@@ -9,8 +9,27 @@ import { eventSchemaType } from "@/app/types/types"
 import EventThumbnailFeaturedSlide from "@/app/eyeofophidia/helperComponents/eventThumbnail/EventThumbnailFeaturedSlide"
 import chunkArray from "../helpers/ChunkArray"
 import EventThumbnailSideSlide from "@/app/eyeofophidia/helperComponents/eventThumbnail/EventThumbnailSideSlide"
+import Link from "next/link"
 
-function EventsSectionCarousel({events, header, backgroundImage, backgroundImageBlur}: {events: eventSchemaType[] | undefined, header: string, backgroundImage: string, backgroundImageBlur?: string}) {
+const headerLinkBuilder = (whichEvents?: ("pastEventsOnly" | "futureEventsOnly" | "currentEventsOnly")) => {
+  
+  let link = 'eyeofophidia/events?'
+  if(whichEvents){
+    let arr = ["pastEventsOnly", "futureEventsOnly", "currentEventsOnly"]
+    arr.forEach(str => {
+    if(whichEvents === str){
+        link += `&${str}=true`
+      } else{
+        link += `&${str}=false`
+      }
+    })
+  }
+
+  console.log(link)
+  return link
+}
+
+function EventsSectionCarousel({events, header, backgroundImage, backgroundImageBlur, whichEvents}: {events: eventSchemaType[] | undefined, header: string, backgroundImage: string, backgroundImageBlur?: string, whichEvents?: ("pastEventsOnly" | "futureEventsOnly" | "currentEventsOnly")}) {
 
   const [emblaRef, emblaApi] = useEmblaCarousel({startIndex: 0})
   const [emblaRefBig, emblaApiBig] = useEmblaCarousel({startIndex: 1})
@@ -28,16 +47,18 @@ function EventsSectionCarousel({events, header, backgroundImage, backgroundImage
     emblaApiBig?.scrollNext()
   }
 
+  const link = headerLinkBuilder(whichEvents)
+
   return (
     <div className='h-[65vw] min-[360px]:h-[256px] relative bg-red flex flex-col items-center py-[32px] gap-[24px] lg:mb-[256px]'>
       <SectionBackground image={backgroundImage} imageBlur={backgroundImageBlur} size={'big'}/>
 
       <div className='flex justify-between lg:w-[900px] lg:my-[32px]'>
-        <div className='text-[13px] md:text-[16px] lg:text-[19px] xl:text-[23px] text-white foulfiend text-shadow'>
+        <Link href={link} className='text-[13px] md:text-[16px] lg:text-[19px] xl:text-[23px] text-white foulfiend text-shadow hover:text-custom-primary'>
           {header}
-        </div>
-        <a className='hover:text-purple-400 hidden text-[16px] lg:block text-white text-shadow underline' href='eyeofophidia/events?query=true'>
-          View all Events
+        </Link>
+        <a className='hover:text-purple-400 hidden text-[16px] lg:block text-white text-shadow underline' href={link}>
+          View latest Events
           &nbsp;&nbsp;
           <FontAwesomeIcon icon={faChevronRight}/>
           <FontAwesomeIcon icon={faChevronRight}/>
@@ -96,7 +117,7 @@ function EventsSectionCarousel({events, header, backgroundImage, backgroundImage
         <FontAwesomeIcon onClick={() => nextOnClick()} icon={faChevronRight} className='h-[24px] w-[24px] cursor-pointer'/>
       </div>
 
-      <a className='hover:text-purple-400 lg:hidden block text-[11px] text-blackunderline underline' href='eyeofophidia/events?query=true'>
+      <a className='hover:text-purple-400 lg:hidden block text-[11px] text-blackunderline underline' href={link}>
         View all upcoming Tournaments
         &nbsp;&nbsp;
         <FontAwesomeIcon icon={faChevronRight}/>

@@ -19,21 +19,32 @@ const handleImageFiles = async (image, bigImage) => {
     let dataURIimage = "data:" + image[0].mimetype + ";base64," + b64Image
     let cldResImage = await handleUpload(dataURIimage)
 
-    const b64BigImage = Buffer.from(bigImage[0].buffer).toString("base64")
-    let dataURIbigImage = "data:" + bigImage[0].mimetype + ";base64," + b64BigImage
-    let cldResBigImage = await handleUpload(dataURIbigImage)
+    let cldResBigImage
+    let dataURIbigImage
+    let b64BigImage
+
+    if(bigImage){
+        b64BigImage = Buffer.from(bigImage[0].buffer).toString("base64")
+        dataURIbigImage = "data:" + bigImage[0].mimetype + ";base64," + b64BigImage
+        cldResBigImage = await handleUpload(dataURIbigImage)
+    }
 
     return {
         image: cldResImage.secure_url,
-        bigImage: cldResBigImage.secure_url
+        bigImage: cldResBigImage ? cldResBigImage.secure_url : null
     }
 }
 
 const handleImageDeletion = async (imageLink, bigImageLink) => {
+
+
     const imageId = extractPublicId(imageLink)
     await cloudinary.uploader.destroy(imageId)
-    const bigImageId = extractPublicId(bigImageLink)
-    await cloudinary.uploader.destroy(bigImageId)
+
+    if(bigImageLink){
+        const bigImageId = extractPublicId(bigImageLink)
+        await cloudinary.uploader.destroy(bigImageId)
+    }
 }
 
 module.exports = {

@@ -12,13 +12,17 @@ import { faX } from "@fortawesome/free-solid-svg-icons"
 
 const backgroundImagesSchema = z.array(z.object({
     image: z.string(),
-    bigImage: z.string()
+    bigImage: z.string().optional()
 }))
+
+const deleteActionReturnSchema = z.object({
+    message: z.string()
+})
 
 type backgroundImagesSchemaType = z.infer<typeof backgroundImagesSchema>
 
 
-function SelectBackgroundImage({form, setChooseBackgroundImageToggle}: {form: UseFormReturn<any>, setChooseBackgroundImageToggle: (bool: boolean) => void}) {
+function SelectBackgroundImage({form, setChooseBackgroundImageToggle, mode}: {form: UseFormReturn<any>, setChooseBackgroundImageToggle: (bool: boolean) => void, mode: 'event' | 'generalEventSection'}) {
 
     const {control, register, handleSubmit, setValue, getValues, reset, watch, formState: {errors, isSubmitting}} = form
 
@@ -26,7 +30,13 @@ function SelectBackgroundImage({form, setChooseBackgroundImageToggle}: {form: Us
 
     useEffect(() => {
 
-        const url = `${process.env.NEXT_PUBLIC_BACKEND_API}events/getallbackgroundimagelinks`
+        let url
+
+        if(mode === 'event'){
+            url = `${process.env.NEXT_PUBLIC_BACKEND_API}events/getallbackgroundimagelinks`
+        } else {
+            url = `${process.env.NEXT_PUBLIC_BACKEND_API}generaleventsections/getallsectionimagelinks`
+        }
 
         fetch(url)
         .then(r => r.json())
@@ -52,7 +62,7 @@ function SelectBackgroundImage({form, setChooseBackgroundImageToggle}: {form: Us
     }, [])
 
 
-    const deleteAction = (image: string, bigImage: string) => {
+    const deleteAction = (image: string, bigImage: string | undefined) => {
         const url = `${process.env.NEXT_PUBLIC_BACKEND_API}events/deletebackgroundimage`
 
         fetch(url, {
@@ -68,9 +78,17 @@ function SelectBackgroundImage({form, setChooseBackgroundImageToggle}: {form: Us
           })
         .then(r => r.json())
         .then(data => {
-            const validatedData = backgroundImagesSchema.safeParse(data)
+            console.log(data)
+            const validatedData = deleteActionReturnSchema.safeParse(data)
             const validatedError = errorSchema.safeParse(data)
             if(validatedData.success){
+                toast.success(validatedData.data.message)
+                // clear the image from the form if the matching image was deleted
+                if(image === getValues('image')){
+                    setValue('image', '')
+                }
+
+                setChooseBackgroundImageToggle(false)
                 return
             }
     
@@ -86,7 +104,7 @@ function SelectBackgroundImage({form, setChooseBackgroundImageToggle}: {form: Us
         })
     }
 
-    const onClick = (image: string, bigImage: string) => {
+    const onClick = (image: string, bigImage: string | undefined) => {
         setValue('image', image)
         setValue('bigImage', bigImage)
         setChooseBackgroundImageToggle(false)
@@ -101,10 +119,11 @@ function SelectBackgroundImage({form, setChooseBackgroundImageToggle}: {form: Us
             </div>
             
             {backgroundImages && backgroundImages.map(item => 
-                <div key={item.bigImage} onClick={() => onClick(item.image, item.bigImage)} className="relative w-[90%] h-[150px] md:w-[300px] md:h-[200px] cursor-pointer box-shadow-small hover:box-shadow" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('${item.image}')`, backgroundSize: 'cover', backgroundPosition: `center 0px`}}>
-                    <div className="absolute top-[2px] right-[2px]">
-                        <DeleteButton warningText="Are you sure you want to remove this background image from all events?" deleteAction={() => deleteAction(item.image, item.bigImage)}/>
+                <div key={item.image} className="relative w-[90%] h-[150px] md:w-[300px] md:h-[200px] cursor-pointer box-shadow-small hover:box-shadow" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('${item.image}')`, backgroundSize: 'cover', backgroundPosition: `center 0px`}}>
+                    <div className="absolute top-[2px] right-[2px] z-10" onClick={(e) => e.stopPropagation()}>
+                        <DeleteButton warningText="Are you sure you want to remove this background image from all sections?" deleteAction={() => deleteAction(item.image, item?.bigImage)}/>
                     </div>
+                    <div className="w-full h-full" onClick={() => onClick(item.image, item?.bigImage || '')}></div>
                 </div>
             )}
         </div>

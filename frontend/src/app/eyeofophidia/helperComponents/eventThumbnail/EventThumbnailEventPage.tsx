@@ -62,6 +62,7 @@ function EventThumbnailEventPage({event, lastRound, lastFormat, lastTwitch}: {la
             <EditButton text="Post Deck" link={`/eyeofophidia/postdeck?eventname=${event.name}&lastFormat=${lastFormat}`} />
             <EditButton text="Post Draft" link={`/eyeofophidia/postdraft?eventname=${event.name}&lastRound=${lastRound}&lastFormat=${lastFormat}&lastTwitch=${lastTwitch}`} />
             <EditButton text="Post Content" link={`/eyeofophidia/postcontent?eventname=${event.name}&eventid=${event._id}`} />
+            <EditButton text="Post General Section" link={`/eyeofophidia/postgeneraleventsection?eventname=${event.name}&eventid=${event._id}`} />
           </div>
         }
         
@@ -73,7 +74,7 @@ function EventThumbnailEventPage({event, lastRound, lastFormat, lastTwitch}: {la
           <EditButton text="Post Deck" link={`/eyeofophidia/postdeck?eventname=${event.name}&lastFormat=${lastFormat}`} />
           <EditButton text="Post Draft" link={`/eyeofophidia/postdraft?eventname=${event.name}&lastRound=${lastRound}&lastFormat=${lastFormat}&lastTwitch=${lastTwitch}`} />
           <EditButton text="Post Content" link={`/eyeofophidia/postcontent?eventname=${event.name}`} />
-
+          <EditButton text="Post General Section" link={`/eyeofophidia/postgeneraleventsection?eventname=${event.name}&eventid=${event._id}`} />
         </div>
       }
     </>

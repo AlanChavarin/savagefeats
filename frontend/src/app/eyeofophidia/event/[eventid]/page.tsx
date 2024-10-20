@@ -1,7 +1,7 @@
 'use client'
 import { toast } from "react-toastify"
-import { errorSchema, matchSchema, eventSchema, deckSchema, draftSchema, contentSchema } from '@/app/schemas/schemas'
-import { matchSchemaType, eventSchemaType, deckSchemaType, draftSchemaType, contentSchemaType } from "@/app/types/types"
+import { errorSchema, matchSchema, eventSchema, deckSchema, draftSchema, contentSchema, generalEventSectionSchema } from '@/app/schemas/schemas'
+import { matchSchemaType, eventSchemaType, deckSchemaType, draftSchemaType, contentSchemaType, generalEventSectionSchemaType } from "@/app/types/types"
 import DeckThumbnail from "../../helperComponents/DeckThumbnail"
 import { z } from "zod"
 import MatchThumbnail from "../../helperComponents/MatchThumbnail"
@@ -11,6 +11,7 @@ import DraftThumbnail from "../../helperComponents/DraftThumbnail"
 import { Hourglass } from 'react-loader-spinner'
 import EventThumbnailEventPage from "../../helperComponents/eventThumbnail/EventThumbnailEventPage"
 import Link from "next/link"
+import GeneralEventSection from "../../helperComponents/GeneralEventSection"
 
 const responseSchema = z.object({
   event: eventSchema.optional(),
@@ -19,6 +20,7 @@ const responseSchema = z.object({
   drafts: z.array(z.array(draftSchema)).optional(),
   liveContent: z.array(contentSchema).optional(),
   deckTech: z.array(contentSchema).optional(),
+  generalEventSections: z.array(generalEventSectionSchema).optional()
 })
 
 function Event({params}: {params: {eventid: string}}) {
@@ -28,6 +30,7 @@ function Event({params}: {params: {eventid: string}}) {
   const [drafts, setDrafts] = useState<draftSchemaType[][] | undefined>(undefined)
   const [liveContent, setLiveContent] = useState<contentSchemaType[] | undefined>(undefined)
   const [deckTechs, setDeckTechs] = useState<contentSchemaType[] | undefined>(undefined)
+  const [generalEventSections, setGeneralEventSections] = useState<generalEventSectionSchemaType[] | undefined>(undefined)
   const { eventid } = params
 
   const [loading, setLoading] = useState(true)
@@ -45,6 +48,7 @@ function Event({params}: {params: {eventid: string}}) {
         setDrafts(validatedEventData.data.drafts)
         setLiveContent(validatedEventData.data.liveContent)
         setDeckTechs(validatedEventData.data.deckTech)
+        setGeneralEventSections(validatedEventData.data.generalEventSections)
         setLoading(false)
         return
       }
@@ -109,7 +113,6 @@ function Event({params}: {params: {eventid: string}}) {
             </Link>
             }
 
-
             {matches?.map((matchArray, day) => 
               <div className="flex flex-col items-center gap-[24px]" key={day}>
                 <div className="text-[30px] md:text-[39px] font-bold">
@@ -127,6 +130,11 @@ function Event({params}: {params: {eventid: string}}) {
                 </div>
               </div>
             )}
+
+
+            {generalEventSections && generalEventSections.length > 0 && <div className="flex flex-col items-center w-[95%] max-w-[1050px] gap-[18px] md:gap-[24px]">
+              {generalEventSections.map(generalEventSection => <GeneralEventSection eventName={event.name} generalEventSection={generalEventSection} key={generalEventSection._id}/>)}
+            </div>}
 
             {decks && decks.length > 0 && <>
               <div className="text-[39px] font-bold text-center">Decklists</div>

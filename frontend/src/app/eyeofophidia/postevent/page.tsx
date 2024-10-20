@@ -502,7 +502,7 @@ function Postevent() {
 
       </form>
 
-      {chooseBackgroundImageToggle && <SelectBackgroundImage form={form} setChooseBackgroundImageToggle={setChooseBackgroundImageToggle}/>}
+      {chooseBackgroundImageToggle && <SelectBackgroundImage mode='event' form={form} setChooseBackgroundImageToggle={setChooseBackgroundImageToggle}/>}
       
     </div>
   )

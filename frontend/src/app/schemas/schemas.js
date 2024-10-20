@@ -140,5 +140,11 @@ export const reportSchema = z.object({
     updatedAt: z.string(),
 })
 
+export const generalEventSectionSchema = z.object({
+    _id: z.string(),
+    header: z.string(),
+    eventId: z.string(),
+    image: z.any().optional()
+})  
 
 

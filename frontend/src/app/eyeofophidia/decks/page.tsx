@@ -28,7 +28,7 @@ function Decks() {
 
 
   useEffect(() => {
-    if(searchParams && searchParams.get('query') === 'true'){
+    // if(searchParams && searchParams.get('query') === 'true'){
       const url = `${process.env.NEXT_PUBLIC_BACKEND_API}decklists?` + new URLSearchParams(searchParams.toString() + `&limit=${limit}` ).toString()
       setLoading(true)
       fetch(url)
@@ -54,7 +54,7 @@ function Decks() {
         setLoading(false)
         toast.success(err.message)
       })
-    }
+    //}
 
   }, [searchParams])
 

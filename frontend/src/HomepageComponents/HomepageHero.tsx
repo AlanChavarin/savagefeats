@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrophy, faList, faEye, faVideo, faChevronDown, faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons"
 import { faYoutube } from "@fortawesome/free-brands-svg-icons"
 import HomePageHeroBackground2 from "./HomePageHeroBackground2"
+import Link from "next/link"
 
 
 function HomepageHero() {
@@ -31,7 +32,7 @@ function HomepageHero() {
 
         <div className="w-full items-center flex flex-col gap-[24px] sm:gap-[32px] sm:grid sm:grid-cols-2 lg:flex lg:flex-row text-white xl:w-[1200px] justify-between">
 
-          <div className='flex sm:flex-col items-center m-auto w-[290px] sm:w-[224px] xl:w-[256px] gap-[16px]' style={{textShadow: '4px 4px 2px black'}}>
+          <Link href='/eyeofophidia/events' className='flex sm:flex-col items-center m-auto w-[290px] sm:w-[224px] xl:w-[256px] gap-[16px] hover:text-custom-primary' style={{textShadow: '4px 4px 2px black'}}>
             <FontAwesomeIcon icon={faTrophy} className='text-[48px] xl:text-[64px]'/>
             <div className='hidden sm:block text-[27px] xl:text-[33px] font-bold'>Tournament Info</div>
             <div className='hidden sm:block text-[13px] xl:text-[16px] text-center drop-shadow-xl'>
@@ -40,21 +41,21 @@ function HomepageHero() {
             <div className='sm:hidden text-[13px] xl:text-[16px] text-center drop-shadow-xl'>
               Browse our <span className='font-bold'>comprehensive database</span> of <span className='font-bold'>tournaments, feature matches, and decklists</span>.
             </div>
-          </div>
+          </Link>
 
-          <div className='hidden sm:flex flex-col items-center m-auto w-[224px] xl:w-[256px] gap-[16px]' style={{textShadow: '4px 4px 2px black'}}>
+          <Link href='/eyeofophidia/decks' className='hidden sm:flex flex-col items-center m-auto w-[224px] xl:w-[256px] gap-[16px] hover:text-custom-primary' style={{textShadow: '4px 4px 2px black'}}>
             <FontAwesomeIcon icon={faList} className='text-[48px] xl:text-[64px]'/>
             <div className='text-[27px] xl:text-[33px] font-bold'>Decklists</div>
             <div className='text-[13px] xl:text-[16px] text-center drop-shadow-xl'>
               Easily access the top winning <span className='font-bold'>deck lists</span> from recent tournaments
             </div>
-          </div>
+          </Link>
 
-          <div className='hidden sm:flex flex-col items-center m-auto w-[224px] xl:w-[256px] gap-[16px]' style={{textShadow: '4px 4px 2px black'}}>
+          <Link href='/eyeofophidia/matches' className='hidden sm:flex flex-col items-center m-auto w-[224px] xl:w-[256px] gap-[16px] hover:text-custom-primary' style={{textShadow: '4px 4px 2px black'}}>
             <FontAwesomeIcon icon={faEye} className='text-[48px] xl:text-[64px]'/>
             <div className='text-[27px] xl:text-[33px] font-bold'>Matches</div>
             <div className='text-[13px] xl:text-[16px] text-center drop-shadow-xl' >Search for all streamed <span className='font-bold'>Flesh and Blood feature matches</span> from across different official and community run events.</div>
-          </div>
+          </Link>
 
           <div className='flex sm:flex-col items-center m-auto w-[290px] sm:w-[224px] xl:w-[256px] gap-[16px]' style={{textShadow: '4px 4px 2px black'}}>
             <FontAwesomeIcon icon={faYoutube} className='text-[48px] xl:text-[64px]'/>

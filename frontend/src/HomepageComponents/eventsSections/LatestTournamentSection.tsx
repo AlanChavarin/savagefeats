@@ -33,7 +33,7 @@ async function LatestTournamentSection() {
     })
 
   return ( <>
-        {events && <EventsSectionCarouselLazyLoadWrapper events={events} header="Latest Tournaments" backgroundImage="/wildride.jpg" backgroundImageBlur="/wildrideBlur.jpg"/> }
+        {events && <EventsSectionCarouselLazyLoadWrapper whichEvents="pastEventsOnly" events={events} header="Latest Tournaments" backgroundImage="/wildride.jpg" backgroundImageBlur="/wildrideBlur.jpg"/> }
       </>
   )
 }
