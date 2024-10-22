@@ -26,29 +26,32 @@ const decklistSchema = mongoose.Schema({
     },
 
     event: {
-        _id: {
-            type: ObjectId,
-            required: false
+        type: {
+            _id: {
+                type: ObjectId,
+                required: false
+            },
+            name: {
+                type: String,
+                required: false,
+            },
+            location: {
+                type: String,
+                required: false
+            },
+            format: {
+                type: [String],
+                required: false,
+                enum: formats
+            },
+            official: {
+                type: Boolean,
+                required: false,
+            },
+            startDate: Date,
+            tier: Number,
         },
-        name: {
-            type: String,
-            required: false,
-        },
-        location: {
-            type: String,
-            required: false
-        },
-        format: {
-            type: [String],
-            required: false,
-            enum: formats
-        },
-        official: {
-            type: Boolean,
-            required: false,
-        },
-        startDate: Date,
-        tier: Number,
+        required: false
     },
 
     deckTech: String

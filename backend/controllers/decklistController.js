@@ -6,6 +6,7 @@ const Name = require('../models/nameModel')
 const Match = require('../models/matchModel')
 const wordWrapper = require('../helpers/wordWrapper')
 const ObjectId = require('mongodb').ObjectId
+const {findAndInsertDecksFromWebpageData} = require('../CRONables/deckScraper')
 
 const getDecklists = asyncHandler(async (req, res) => {
     let skip, limit, find, order
@@ -115,11 +116,14 @@ const getDecklistsByEvent = asyncHandler(async (req, res) => {
 })
 
 const getDecklist = asyncHandler(async (req, res) => {
-    const decklist = await Decklist.findById(req.params.decklistid)
+    let decklist = await Decklist.findById(req.params.decklistid)
     if(!decklist){
         res.status(400)
         throw new Error('decklist not found')
     }
+    // if(!decklist?.event?._id){
+    //     delete decklist.event
+    // }
     res.status(200)
     res.json(decklist)
 })
@@ -346,6 +350,11 @@ const replaceDecklistLinksWithDecklistDocumentIds = asyncHandler(async (req, res
     res.json({message: 'check the console!'})
 })
 
+const findAndInsertDecksFromWebpageDataEndPoint = asyncHandler(async (req, res) => {
+    const results = await findAndInsertDecksFromWebpageData(parseInt(req.query.pages))
+    res.status(200).json(results)
+})
+
 // const replaceDeckListLinks = async (decklistLink, format, decklistId) => {
 //     const {decklistLink, format} = formData
 
@@ -373,6 +382,6 @@ module.exports = {
     postDecklist,
     updateDecklist,
     deleteDecklist,
-
-    replaceDecklistLinksWithDecklistDocumentIds
+    replaceDecklistLinksWithDecklistDocumentIds,
+    findAndInsertDecksFromWebpageDataEndPoint
 }

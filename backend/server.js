@@ -13,6 +13,7 @@ const cors = require('cors')
 const cron = require('node-cron')
 const {updateContentForAllCreators_AbtractedOutLogic, updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic,  deleteContentThatHasBeenDeleted_AbstractedOutLogic} = require('./controllers/contentController')
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+const {findAndInsertDecksFromWebpageData} = require('./CRONables/deckScraper')
 
 
 //const cors = require('cors')
@@ -73,6 +74,11 @@ cron.schedule('*/10 * * * *', async () => {
     updateUpcomingContentToSeeIfItsLive_AbtractedOutLogic()
 })
 
+cron.schedule('0 0 * * *', async () => {
+    console.log('cron job fired: running findEventsFromWebpageData()' + ' At date: ' + new Date())
+    findAndInsertDecksFromWebpageData(1)
+})
+
 
 //app.use('/api/issues', require('./routes/issueRoutes'))
 //app.use('/api/admin', require('./routes/adminRoutes'))  
@@ -86,5 +92,3 @@ cron.schedule('*/10 * * * *', async () => {
 // app.get('*', (req, res) => {
 //     res.sendFile(path.resolve( 'frontend', 'build', 'index.html'))
 // })
-
-

@@ -1,7 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const {getDecklist, getDecklists, getDecklistsByEvent, postDecklist, updateDecklist, deleteDecklist, replaceDecklistLinksWithDecklistDocumentIds} = require('../controllers/decklistController')
+const {getDecklist, getDecklists, getDecklistsByEvent, postDecklist, updateDecklist, deleteDecklist, replaceDecklistLinksWithDecklistDocumentIds, findAndInsertDecksFromWebpageDataEndPoint} = require('../controllers/decklistController')
 const {protect, protectModerator} = require('../middleware/authMiddleware')
+
+router.post('/findAndInsertDecksFromWebpageData', protect, protectModerator, findAndInsertDecksFromWebpageDataEndPoint)
 
 router.get('/replacedecklistlinkswithdecklistdocumentids', protect, protectModerator, replaceDecklistLinksWithDecklistDocumentIds)
 

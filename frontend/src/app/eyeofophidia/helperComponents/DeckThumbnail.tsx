@@ -12,7 +12,7 @@ const deckPlacementString = (placement: number | undefined, placementRangeEnding
 
     if(placementRangeEnding){
         switch(placementRangeEnding){
-            case undefined:
+            case undefined || 0:
                 return ''
             case 1:
                 return `1st`
@@ -50,8 +50,8 @@ function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featu
     { (size === 'normal') && 
         <div className="relative min-w-[296px] w-[100%] max-w-[496px] min-h-[80px] bg-white hover:bg-gray-200">
             <a href={deck.decklistLink} target="_blank" className='w-full h-full cursor-pointer z-[1] absolute'></a>
-            <div className="absolute top-0 w-full h-full flex box-shadow">
-                <div className='h-full w-[80px] relative' 
+            <div className="absolute top-0 w-full max-w-full h-full max-h-full flex box-shadow">
+                <div className='h-full min-w-[80px] relative' 
                 style={{backgroundImage: `url('/heroes/${heroUrlHelper(deck.hero)}.jpg')`, backgroundSize: '180%', backgroundPosition: `center -10px`}}
                 >
                     {/* <Image 
@@ -65,7 +65,7 @@ function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featu
                         style={{objectPosition: `center 0px`}}
                     /> */}
                 </div>
-                <div className='flex flex-col flex-1 p-[8px] justify-between gap-[2px] relative text-[13px]'>  
+                <div className='flex flex-col flex-1 p-[8px] justify-between gap-[2px] relative text-[13px] overflow-hidden'>  
 
                     { deck.event ?
                         <Link href={`/eyeofophidia/event/${deck.event._id}`} className="z-[1] font-bold flex flex-row flex-wrap text-[13px] md:text-[16px] hover:text-purple-500 underline self-start">
@@ -80,19 +80,15 @@ function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featu
                     <div className='hidden text-black ssm:flex flex-col gap-[4px] sm:gap-[0px] sm:flex-row justify-between'>
                         {deck.hero}
                     </div>
-                
-
-                    <p className='text-gray-600 gap-[4px] sm:gap-[0px] sm:flex-row'>
-                        {deck.placement && <>{`${deckPlacementString(deck.placement, deck.placementRangeEnding)} Place - `}</>}
+                    
+                    <p className='text-gray-600 gap-[4px] sm:gap-[0px] sm:flex-row ssm:overflow-hidden ssm:whitespace-nowrap text-ellipsis '>
+                        {deck.placement ? <>{`${deckPlacementString(deck.placement, deck.placementRangeEnding)} Place - `}</>: ''}
                         {deck.playerName && <>{`${deck.playerName}`}</>}
                         {deck.event?.startDate && <>{` - ${deck.event.startDate.slice(0, 10)}`}</>}
                         {<> - {deck.format}</>}
-
                     </p>
 
-                    <div className="absolute top-[4px] right-[4px]">
-                        <FontAwesomeIcon icon={faSquareArrowUpRight}/>
-                    </div>
+                    
 
                 </div>
             </div>
@@ -100,6 +96,9 @@ function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featu
 
             <div className="absolute left-[4px] bottom-[4px] z-[1]">
                 {user && <EditButton text='' tiny={true} link={`/eyeofophidia/postdeck?deckid=${deck._id}`} />}
+            </div>
+            <div className="absolute top-[0px] right-[4px]">
+                <FontAwesomeIcon icon={faSquareArrowUpRight} className="text-[13px]"/>
             </div>
         </div>
     }

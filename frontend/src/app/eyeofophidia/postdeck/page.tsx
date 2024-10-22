@@ -116,7 +116,7 @@ function Postmatch() {
         if(validatedData.success){
           const {event, format, playerName, placement, placementRangeEnding, hero, decklistLink, deckTech} = validatedData.data
           reset({
-            event: event && event.name, 
+            event: event ? event.name : undefined, 
             format, 
             playerName,
             hero,
