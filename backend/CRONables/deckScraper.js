@@ -10,6 +10,7 @@ const Event = require('../models/eventModel')
 const {Decklist} = require('../models/decklistModel')
 const axios = require('axios')
 const cheerio = require('cheerio')
+const Match = require('../models/matchModel')
 
 const calculatePlacement = (str) => {
     let placement = parseInt(str[0])
@@ -111,6 +112,32 @@ const findAndInsertDecksFromWebpageDataForASpecificPage = async (page) => {
         )
         if(!decklist){
             const decklist = await Decklist.create(validDeck)
+
+            if(decklist.event){
+                // player 1
+                await Match.updateMany({
+                    'event._id': decklist.event._id,
+                    player1name: decklist.playerName,
+                    format: decklist.format,
+                },
+                {
+                    player1deck: decklist._id
+                },
+                {runValidators: true, new: true})
+        
+                // player 2
+                await Match.updateMany({
+                    'event._id': decklist.event._id,
+                    player2name: decklist.playerName,
+                    format: decklist.format,
+                },
+                {
+                    player2deck: decklist._id
+                },
+                {runValidators: true, new: true})
+        
+            }
+
             console.log("decklist Created:",decklist)
             insertedDecklists.push(decklist)
         }

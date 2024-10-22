@@ -355,6 +355,46 @@ const findAndInsertDecksFromWebpageDataEndPoint = asyncHandler(async (req, res) 
     res.status(200).json(results)
 })
 
+
+const connectEachDeckToMatches = asyncHandler(async (req, res) => {
+    const decklists = await Decklist.find({})
+
+    console.log("decklists found: ", decklists.length)
+
+    decklists.forEach(async decklist => {
+
+        if(!decklist?.event?._id){
+            return
+        }
+
+        // player 1
+        await Match.updateMany({
+            'event._id': new ObjectId(decklist.event._id),
+            player1name: decklist.playerName,
+            format: decklist.format,
+            //player1deck: ""
+        },
+        {
+            player1deck: new ObjectId(decklist._id)
+        },
+        {runValidators: true, new: true})
+
+        // player 2
+        await Match.updateMany({
+            'event._id': new ObjectId(decklist.event._id),
+            player2name: decklist.playerName,
+            format: decklist.format,
+            //player2deck: ""
+        },
+        {
+            player2deck: new ObjectId(decklist._id)
+        },
+        {runValidators: true, new: true})
+    })
+    
+    res.status(200).json("decks updated and connected to matches (hopefully!)")
+})
+
 // const replaceDeckListLinks = async (decklistLink, format, decklistId) => {
 //     const {decklistLink, format} = formData
 
@@ -383,5 +423,6 @@ module.exports = {
     updateDecklist,
     deleteDecklist,
     replaceDecklistLinksWithDecklistDocumentIds,
-    findAndInsertDecksFromWebpageDataEndPoint
+    findAndInsertDecksFromWebpageDataEndPoint,
+    connectEachDeckToMatches,
 }
