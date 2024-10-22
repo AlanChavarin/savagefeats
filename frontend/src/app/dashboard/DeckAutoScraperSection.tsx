@@ -109,7 +109,7 @@ function DeckAutoScraperSection() {
                 We have scrapped and submitted a total of {newlyScrappedDecks.length } decklists total    
             </div>}
             <div className="flex flex-row flex-wrap gap-[16px]">
-                {newlyScrappedDecks && newlyScrappedDecks.map(deck => <DeckThumbnail size="normal" deck={deck} />)}
+                {newlyScrappedDecks && newlyScrappedDecks.map(deck => <DeckThumbnail key={deck._id} size="normal" deck={deck} />)}
             </div>
         </div>
     </div>
