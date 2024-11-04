@@ -37,9 +37,13 @@ const findAndInsertDecksFromWebpageData = async (numberOfPages) => {
     if((typeof numberOfPages) !== 'number'){
         throw new Error(`numberOfPages(${numberOfPages}) must be a number`)
     }
+
+    if(numberOfPages < 1){
+        throw new Error(`numberOfPages(${numberOfPages}) must be greater than 0`)
+    }
     console.log("---------- Starting deck scraping process for ", numberOfPages, " pages --------")
     let decksInserted = []
-    for(let page = 0; page < numberOfPages; page++){
+    for(let page = 1; page <= numberOfPages; page++){
         const data = await findAndInsertDecksFromWebpageDataForASpecificPage(page)
         data.forEach(deck => {
             decksInserted.push(deck)
@@ -151,6 +155,8 @@ const findAndInsertDecksFromWebpageDataForASpecificPage = async (page) => {
 
 
 async function scrapeWebpageData(url, baseUrl) {
+    console.log(url)
+    console.log(baseUrl)
     try {
       // Fetch the HTML content of the webpage
       const response = await axios.get(url);
@@ -163,6 +169,7 @@ async function scrapeWebpageData(url, baseUrl) {
       const trs = [];
       $('tr').each((index, element) => {
           const tr = $(element).html();
+          //console.log(tr)
           //grab the second td's text, call it date
           const date = $(element).find('td').eq(1).text().replace(/\n/g, '').trim();
   
@@ -173,12 +180,12 @@ async function scrapeWebpageData(url, baseUrl) {
           //split the text by dashes and put into an array
           const textArray = text.split(' - ');
           const name = textArray[0];
+
           let event = textArray[2];
           if(textArray[3]){
             event = event + ' ' + textArray[3]
           }
-  
-  
+    
           // do the same thing for the second a tag
           const a2 = $(element).find('a').eq(1);
           const eventWeekend = a2.text().replace(/\n/g, '').trim();
