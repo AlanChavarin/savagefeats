@@ -54,7 +54,16 @@ const findAndInsertDecksFromWebpageData = async (numberOfPages) => {
 }
 
 const findAndInsertDecksFromWebpageDataForASpecificPage = async (page) => {
-    const events = await Event.find({})
+    let events = await Event.find({})
+
+    // let preparedEvents = events.map(event => {
+    //     return {
+    //         obj: event,
+    //         filteredName: event.name.replace(/[^a-zA-Z]/g, '')
+    //     }
+    // })
+
+    //console.log(preparedEvents[0])
 
     let data = await scrapeWebpageData(`https://fabtcg.com/en/decklists/?page=${page}`, 'https://fabtcg.com')
 
@@ -66,7 +75,17 @@ const findAndInsertDecksFromWebpageDataForASpecificPage = async (page) => {
 
     data.forEach(deck => {
         deck.event = deck.event.replace(/[^a-zA-Z]/g, '')
+
         let event = fuzzysort.go(deck.event, events, {key: 'name', threshold: .1, limit: 1})
+
+        //console.log(event[0].obj.filteredName)
+
+        // event = event.map(item => {
+        //     //console.log(item.obj.obj)
+        //     return item.obj.obj
+        // })
+
+        //console.log(event)
 
         if(event.length > 0){
             //make a date out of event.date
@@ -76,6 +95,11 @@ const findAndInsertDecksFromWebpageDataForASpecificPage = async (page) => {
             const eventDateMinus30Days = new Date(event[0].obj.startDate.getTime() - 30 * 24 * 60 * 60 * 1000);
             //event date plus 3 days
             const eventDatePlus30Days = new Date(event[0].obj.startDate.getTime() + 30 * 24 * 60 * 60 * 1000);
+
+            // console.log("event date minus 30 days:", eventDateMinus30Days)
+            // console.log("event date plus 30 days:", eventDatePlus30Days)
+            // console.log("event start date:", event[0].startDate)
+            // console.log("deck date:", deck.date)
 
             // check that the event.startDate and the deck.date are within 4 days of each other
             if(event[0].obj.startDate && deck.date >= eventDateMinus30Days && deck.date <= eventDatePlus30Days){
@@ -95,6 +119,7 @@ const findAndInsertDecksFromWebpageDataForASpecificPage = async (page) => {
                     placement: placements[0],
                     placementRangeEnding: placements[1]
                 })
+
             }
         } else {
             // add the decklist without attaching it to an event
@@ -203,6 +228,8 @@ async function scrapeWebpageData(url, baseUrl) {
           const result = $(element).find('td').eq(6).text().replace(/\n/g, '').trim();
           trs.push({text, date, name, event, href, eventWeekend, eventWeekendHref, format, hero, result});
       });
+
+      //console.log(trs)
   
   
       return trs;
