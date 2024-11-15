@@ -73,7 +73,7 @@ function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featu
                         </Link>
                         :
                         <div className="flex font-bold flex-row flex-wrap text-[16px] self-start">
-                            {deck.playerName}'s {deck.hero}
+                            {deck.playerName}&apos;s {deck.hero}
                         </div>
                     }
 
