@@ -54,14 +54,14 @@ const findAndInsertDecksFromWebpageData = async (numberOfPages) => {
 }
 
 const findAndInsertDecksFromWebpageDataForASpecificPage = async (page) => {
-    let events = await Event.find({})
+    let events = await Event.find({}).sort({startDate: -1})
 
-    // let preparedEvents = events.map(event => {
-    //     return {
-    //         obj: event,
-    //         filteredName: event.name.replace(/[^a-zA-Z]/g, '')
-    //     }
-    // })
+    let preparedEvents = events.map(event => {
+        return {
+            obj: event,
+            filteredName: event.name.replace(/[^a-zA-Z]/g, '')
+        }
+    })
 
     //console.log(preparedEvents[0])
 
@@ -76,14 +76,15 @@ const findAndInsertDecksFromWebpageDataForASpecificPage = async (page) => {
     data.forEach(deck => {
         deck.event = deck.event.replace(/[^a-zA-Z]/g, '')
 
-        let event = fuzzysort.go(deck.event, events, {key: 'name', threshold: .1, limit: 1})
+        let event = fuzzysort.go(deck.event, preparedEvents, {key: 'filteredName', threshold: .1, limit: 1})
 
         //console.log(event[0].obj.filteredName)
 
-        // event = event.map(item => {
-        //     //console.log(item.obj.obj)
-        //     return item.obj.obj
-        // })
+        event = event.map(item => {
+            console.log(item.obj.obj.name)
+            console.log(item.obj.obj.startDate)
+            return item.obj.obj
+        })
 
         //console.log(event)
 
@@ -92,17 +93,18 @@ const findAndInsertDecksFromWebpageDataForASpecificPage = async (page) => {
             deck.date = new Date(deck.date)
 
             //event date minus 3
-            const eventDateMinus30Days = new Date(event[0].obj.startDate.getTime() - 30 * 24 * 60 * 60 * 1000);
+            const eventDateMinus30Days = new Date(event[0].startDate.getTime() - 30 * 24 * 60 * 60 * 1000);
             //event date plus 3 days
-            const eventDatePlus30Days = new Date(event[0].obj.startDate.getTime() + 30 * 24 * 60 * 60 * 1000);
+            const eventDatePlus30Days = new Date(event[0].startDate.getTime() + 30 * 24 * 60 * 60 * 1000);
 
+            // console.log("event:", event[0].name)
             // console.log("event date minus 30 days:", eventDateMinus30Days)
             // console.log("event date plus 30 days:", eventDatePlus30Days)
             // console.log("event start date:", event[0].startDate)
             // console.log("deck date:", deck.date)
 
             // check that the event.startDate and the deck.date are within 4 days of each other
-            if(event[0].obj.startDate && deck.date >= eventDateMinus30Days && deck.date <= eventDatePlus30Days){
+            if(event[0].startDate && deck.date >= eventDateMinus30Days && deck.date <= eventDatePlus30Days){
 
                 const placements = calculatePlacement(deck.result)
 
@@ -111,7 +113,7 @@ const findAndInsertDecksFromWebpageDataForASpecificPage = async (page) => {
                 }
 
                 validDecks.push({
-                    event: event[0].obj,
+                    event: event[0],
                     playerName: deck.name,
                     decklistLink: deck.href,
                     hero: deck.hero,
@@ -130,6 +132,9 @@ const findAndInsertDecksFromWebpageDataForASpecificPage = async (page) => {
 
     for(const validDeck of validDecks){
         //check if the decklist already exists in the database
+
+        console.log(validDeck)
+
         const decklist = await Decklist.findOne(
             // or operator here
             {
