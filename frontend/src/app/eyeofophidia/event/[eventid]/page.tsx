@@ -113,7 +113,7 @@ function Event({params}: {params: {eventid: string}}) {
             </Link>
             }
 
-            {matches?.map((matchArray, day) => 
+            {matches && matches.flat().length > 0 && matches?.map((matchArray, day) => 
               <div className="flex flex-col items-center gap-[24px]" key={day}>
                 <div className="text-[30px] md:text-[39px] font-bold">
                   {matches.length === day+1 ? <>Top Cut:</> : <>Day {day+1}:</>}                          
@@ -126,7 +126,7 @@ function Event({params}: {params: {eventid: string}}) {
 
                 <div className="flex flex-row flex-wrap gap-[24px] justify-center" >
                     {matchArray && matchArray.map(match => <MatchThumbnail key={match._id} match={match}/>)}
-                    {matchArray.length === 0 && <>No Vods Available :{'('}</>}
+                    {/* {matchArray.length === 0 && <>No Vods Available :{'('}</>} */}
                 </div>
               </div>
             )}
@@ -163,6 +163,11 @@ function Event({params}: {params: {eventid: string}}) {
                 </div>
               )}
             </div>
+
+            {matches && matches.flat().length === 0 && <>
+            <div className="text-center">No Matches Found</div>
+              {!event.streamed && <div className="text-center">This event was not streamed :{'('}</div>}
+            </>}
 
         </>}
     </div>

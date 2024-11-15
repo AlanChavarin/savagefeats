@@ -16,7 +16,7 @@ function EventThumbnailEventPage({event, lastRound, lastFormat, lastTwitch}: {la
       //</>style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('${getImage(event)}')`, backgroundSize: 'cover', backgroundPosition: `center ${event.backgroundPosition ? event.backgroundPosition : 40}%`}}
       >
 
-        <div className='bg-black bg-opacity-60 w-full font-bold p-[8px] text-[24px] md:text-[40px] flex justify-center items-center'>{event.name}</div>
+        <div className={`${event.streamed ? 'bg-black' : 'bg-red-950'} bg-opacity-60 w-full font-bold p-[8px] text-[24px] md:text-[40px] flex justify-center items-center`}>{event.name}</div>
 
         <div className='flex flex-col gap-[8px] font-bold text-[16px] md:text-[19px] self-start p-[8px] w-[100%] h-[100%] items-center'>
             <div className="flex flex-row">{
@@ -27,7 +27,7 @@ function EventThumbnailEventPage({event, lastRound, lastFormat, lastTwitch}: {la
             </div>
             <div>{event.startDate && getDateString(event.startDate)} {event.endDate && ' - ' + getDateString(event.endDate)}</div>
             <div>{event.location}</div>
-            <div>{event.streamed ? 'Streamed' : <span className="text-red-500">Unstreamed</span>}</div>
+            <div>{!event.streamed && <span className="text-red-500">Unstreamed</span>}</div>
             <div className='text-center *:underline text-[16px] md:text-[19px] justify-self-end'>
               {event.officialDetails && <><a href={event.officialDetails} target="_blank" className="hover:text-purple-500">Official Details</a></>}
 

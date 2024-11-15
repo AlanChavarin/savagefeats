@@ -14,7 +14,7 @@ function EventThumbnailSideSlide({event}: {event: eventSchemaType}) {
 
         <Link href={`/eyeofophidia/event/${event._id}`} className="w-full h-full relative">
           <div className="flex w-full z-[1] pointer-events-none">
-            <div className='bg-black bg-opacity-60 min-h-[42px] w-full font-bold text-[19px] flex justify-center items-center text-center z-[1]'>{event.name}</div>
+            <div className={`${event.streamed ? 'bg-black' : 'bg-red-950'} bg-opacity-60 min-h-[42px] w-full font-bold text-[19px] flex justify-center items-center text-center z-[1]`}>{event.name}</div>
             <HappeningNow event={event} />
           </div>
 
@@ -29,7 +29,7 @@ function EventThumbnailSideSlide({event}: {event: eventSchemaType}) {
               </div>
               <div>{event.startDate && getDateString(event.startDate)} {event.endDate && ' - ' + getDateString(event.endDate)}</div>
               <div>{event.location}</div>
-              <div>{event.streamed ? 'Streamed' : <span className="text-red-500">Unstreamed</span>}</div>
+              <div>{!event.streamed && <span className="text-red-500">Unstreamed</span>}</div>
             </div>
           </div>
 

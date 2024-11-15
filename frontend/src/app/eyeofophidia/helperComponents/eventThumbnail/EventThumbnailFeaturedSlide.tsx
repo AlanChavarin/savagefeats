@@ -12,7 +12,7 @@ function EventThumbnail({event}: {event: eventSchemaType}) {
 
         <Link href={`/eyeofophidia/event/${event._id}`} className="w-full h-full relative">
           <div className="flex w-full pointer-events-none">
-            <div className='bg-black z-[1] bg-opacity-60 min-h-[48px] w-full font-bold text-[23px] flex justify-center items-center text-center'>
+            <div className={`${event.streamed ? 'bg-black' : 'bg-red-950'} z-[1] bg-opacity-60 min-h-[48px] w-full font-bold text-[23px] flex justify-center items-center text-center`}>
               {event.name}
             </div>
             <HappeningNow event={event}/>
@@ -29,7 +29,7 @@ function EventThumbnail({event}: {event: eventSchemaType}) {
               </div>
               <div>{event.startDate && getDateString(event.startDate)}</div>
               <div>{event.location}</div>
-              <div>{event.streamed ? 'Streamed' : <span className="text-red-500">Unstreamed</span>}</div>
+              <div>{!event.streamed && <span className="text-red-500">Unstreamed</span>}</div>
             </div>
           </div>
 

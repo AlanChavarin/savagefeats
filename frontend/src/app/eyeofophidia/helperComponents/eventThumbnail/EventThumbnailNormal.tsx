@@ -17,7 +17,7 @@ return (
       <div className="flex flex-col p-[12px] sm:p-[0px]">
       
         <div className="flex w-full pointer-events-none">
-          <div className={`bg-black bg-opacity-0 sm:bg-opacity-60 w-full font-bold sm:p-[8px] flex sm:justify-center sm:items-center z-[2] text-[${event.name.length < 31 ? '19' : '16'}px]`}>
+          <div className={`${event.streamed ? 'bg-black' : 'bg-red-950'} bg-opacity-0 sm:bg-opacity-60 w-full font-bold sm:p-[8px] flex sm:justify-center sm:items-center z-[2] text-[${event.name.length < 31 ? '19' : '16'}px]`}>
             {event.name}
           </div>
           <div className="hidden sm:block z-[2]">
@@ -27,6 +27,7 @@ return (
 
         <div className='flex flex-col gap-[8px] font-bold text-[16px] items-start self-start sm:p-[8px] pointer-events-none'>
           <div className="z-[2] flex-col gap-[8px] hidden sm:flex">
+            <div className="hidden sm:block">{!event.streamed && <span className="text-red-500">Unstreamed</span>}</div>
             <div className="flex flex-row">
               {event.format && getFormatString(event.format)}
             </div>
@@ -34,7 +35,6 @@ return (
               {event.startDate && getDateRangeString(event.startDate, event.endDate ? event.endDate : undefined)}
             </div>
             <div>{event.location}</div>
-            <div className="hidden sm:block">{event.streamed ? 'Streamed' : <span className="text-red-500">Unstreamed</span>}</div>
           </div>
 
           <div className="z-[2] text-[13px] sm:hidden">
@@ -42,7 +42,7 @@ return (
             &nbsp;|&nbsp;
             {event.startDate && getDateRangeString(event.startDate, event.endDate ? event.endDate : undefined)}
             &nbsp;|&nbsp;
-            {event.streamed ? 'Streamed' : <span className="text-red-500">Unstreamed</span>}
+            {!event.streamed && <span className="text-red-500">Unstreamed</span>}
           </div>
             
         </div>
