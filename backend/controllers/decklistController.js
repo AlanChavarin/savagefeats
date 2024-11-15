@@ -70,7 +70,10 @@ const getDecklists = asyncHandler(async (req, res) => {
         {"$match": find},
         {"$facet": {
             "decklists": [
-                { "$sort": {"event.startDate": order}},
+                { "$sort": {
+                    "date": order,
+                    "event.startDate": order
+                }},
                 { "$skip": skip },
                 { "$limit": limit },
             ],
@@ -197,37 +200,43 @@ const postDecklist = asyncHandler(async (req, res) => {
 })
 
 const updateDecklist = asyncHandler(async (req, res) => {
+
     if(!Decklist.exists({_id: req.params.decklistid})){
         res.status(400)
         throw new Error('decklist with that id does not exist or has been deleted')
     }
     
-    req.body.event = await Event.findOne({name: req.body.event})
-    console.log(req.body.event)
+    if(req.body.event){
+        req.body.event = await Event.findOne({name: req.body.event})
+    }
+    //console.log(req.body.event)
     const decklist = await Decklist.findOneAndUpdate({_id: req.params.decklistid}, req.body, {runValidators: true, new: true})
     if(!await Name.exists({name: req.body.playerName})){Name.create({name: req.body.playerName})} 
 
-    // player 1
-    await Match.updateMany({
-        'event._id': decklist.event._id,
-        player1name: decklist.playerName,
-        format: decklist.format,
-    },
-    {
-        player1deck: decklist._id
-    },
-    {runValidators: true, new: true})
+    if(decklist.event){
+        // player 1
+        await Match.updateMany({
+            'event._id': decklist.event._id,
+            player1name: decklist.playerName,
+            format: decklist.format,
+        },
+        {
+            player1deck: decklist._id
+        },
+        {runValidators: true, new: true})
 
-    // player 2
-    await Match.updateMany({
-        'event._id': decklist.event._id,
-        player2name: decklist.playerName,
-        format: decklist.format,
-    },
-    {
-        player2deck: decklist._id
-    },
-    {runValidators: true, new: true})
+        // player 2
+        await Match.updateMany({
+            'event._id': decklist.event._id,
+            player2name: decklist.playerName,
+            format: decklist.format,
+        },
+        {
+            player2deck: decklist._id
+        },
+        {runValidators: true, new: true})
+    }
+    
 
     res.status(200)
     res.json(decklist)

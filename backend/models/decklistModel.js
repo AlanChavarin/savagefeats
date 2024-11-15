@@ -54,7 +54,8 @@ const decklistSchema = mongoose.Schema({
         required: false
     },
 
-    deckTech: String
+    deckTech: String,
+    date: Date
 
 })
 

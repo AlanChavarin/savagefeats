@@ -14,6 +14,7 @@ import DeleteButton from "../helperComponents/DeleteButton"
 import NameSelect from "../helperComponents/NameSelect"
 import getYoutubeParams from "../helpers/YoutubeParams"
 import CustomRadio from "../helperComponents/CustomRadio"
+import BasicDateInput from "../helperComponents/BasicDateInput"
 
 const formSchema = z.object({
   playerName: z.string().min(1),
@@ -27,11 +28,12 @@ const formSchema = z.object({
   deckTech: z.string().optional(),
   //dummy fields that the backend doesnt actually accept
   videoLink: z.string().optional(),
+  date: z.string().optional()
 })
 
 type FormFields = z.infer<typeof formSchema>
 
-function Postmatch() {
+function Postdeck() {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -48,6 +50,10 @@ function Postmatch() {
     const deckid = searchParams?.get('deckid')
 
     const url = `${process.env.NEXT_PUBLIC_BACKEND_API}decklists/${deckid ? deckid : ''}`
+
+    if(!data.event){
+      data.event = undefined
+    }
 
     fetch(url, {
       cache: 'no-store',
@@ -114,7 +120,7 @@ function Postmatch() {
         const validatedData = deckSchema.safeParse(data)
         const validatedError = errorSchema.safeParse(data)
         if(validatedData.success){
-          const {event, format, playerName, placement, placementRangeEnding, hero, decklistLink, deckTech} = validatedData.data
+          const {event, format, playerName, placement, placementRangeEnding, hero, decklistLink, deckTech, date} = validatedData.data
           reset({
             event: event ? event.name : undefined, 
             format, 
@@ -123,7 +129,8 @@ function Postmatch() {
             placement, 
             placementRangeEnding,
             decklistLink,
-            deckTech
+            deckTech,
+            date: date ? date.slice(0, 10) : undefined
           })
           return
         }
@@ -326,6 +333,11 @@ function Postmatch() {
           <input className="border-black border-[1px] w-[48px]" {...register('placementRangeEnding')} type="number" min='0'/>
         </div>
 
+        <div className="flex flex-col">
+          <label>Date: (if no event)</label>
+          <BasicDateInput name='date' register={register}/>
+        </div>
+
         <button disabled={isSubmitting} type="submit" className="bg-custom-primary hover:bg-custom-primaryHover py-[8px] px-[48px] mt-[16px] self-center border-[1px] border-black box-shadow-extra-small">
           {isSubmitting ? "Submitting..." : "Submit"}
         </button>
@@ -338,4 +350,4 @@ function Postmatch() {
     </div>
   )
 }
-export default Postmatch
+export default Postdeck

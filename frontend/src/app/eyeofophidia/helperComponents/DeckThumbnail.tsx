@@ -73,19 +73,22 @@ function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featu
                         </Link>
                         :
                         <div className="flex font-bold flex-row flex-wrap text-[16px] self-start">
-                            {deck.hero}
+                            {deck.playerName}'s {deck.hero}
                         </div>
                     }
 
-                    <div className='hidden text-black ssm:flex flex-col gap-[4px] sm:gap-[0px] sm:flex-row justify-between'>
-                        {deck.hero}
-                    </div>
+                    {deck.event &&
+                        <div className='hidden text-black ssm:flex flex-col gap-[4px] sm:gap-[0px] sm:flex-row justify-between'>
+                            {deck.hero}
+                        </div>
+                    }
                     
                     <p className='text-gray-600 gap-[4px] sm:gap-[0px] sm:flex-row ssm:overflow-hidden ssm:whitespace-nowrap text-ellipsis '>
                         {deck.placement ? <>{`${deckPlacementString(deck.placement, deck.placementRangeEnding)} Place - `}</>: ''}
-                        {deck.playerName && <>{`${deck.playerName}`}</>}
-                        {deck.event?.startDate && <>{` - ${deck.event.startDate.slice(0, 10)}`}</>}
-                        {<> - {deck.format}</>}
+                        {deck.playerName && deck.event && <>{`${deck.playerName} - `}</>}
+                        {deck.event?.startDate && <>{`${deck.event.startDate.slice(0, 10)} - `}</>}
+                        {deck.date && <>{`${deck.date.slice(0, 10)} - `}</>}
+                        {<>{deck.format}</>}
                     </p>
 
                     
@@ -132,6 +135,8 @@ function DeckThumbnail({size, deck}: {size: ('matchPage' | 'smallSlide' | 'featu
                 <div className='text-[13px] font-bold'>{deck.event?.name}</div>
                 {/* <div className='text-[13px] text-gray-600'></div> */}
                 <div className='text-[13px]  flex flex-row justify-between'>{deck.playerName} - {deck.hero}</div>
+
+                {deck.date && <div className='text-[13px] text-gray-600'>{deck.date.slice(0, 10)}</div>}
 
                 <FontAwesomeIcon icon={faSquareArrowUpRight} className='absolute top-[8px] right-[8px]'/>
             </div>

@@ -43,7 +43,8 @@ export const deckSchema = z.object({
     hero: z.string(),
     placementRangeEnding: z.number().optional(),
     event: eventSchema.optional(),
-    deckTech: z.string().optional()
+    deckTech: z.string().optional(),
+    date: z.string().optional()
 
 })
 
