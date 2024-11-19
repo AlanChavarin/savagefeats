@@ -73,13 +73,13 @@ function Navbar() {
 
                         {pathname?.startsWith('/eyeofophidia') ? 
                             <>
-                                <Link href="/eyeofophidia/matches" className="hover:text-custom-primary">
+                                <Link href="/eyeofophidia/matches" className="hover:text-custom-primary transition-colors duration-300">
                                     Matches
                                 </Link>
-                                <Link href="/eyeofophidia/events" className="hover:text-custom-primary">
+                                <Link href="/eyeofophidia/events" className="hover:text-custom-primary transition-colors duration-300">
                                     Events
                                 </Link>
-                                <Link href="/eyeofophidia/decks" className="hover:text-custom-primary">
+                                <Link href="/eyeofophidia/decks" className="hover:text-custom-primary transition-colors duration-300">
                                     Decklists
                                 </Link>
                             </>
@@ -87,10 +87,10 @@ function Navbar() {
                             :
 
                             <>
-                                <Link href="/services" className='text-white hover:text-custom-primary'>
+                                <Link href="/services" className='text-white hover:text-custom-primary transition-colors duration-300'>
                                     Production Services
                                 </Link>
-                                <Link href="/portfolio" className='text-white hover:text-custom-primary'>
+                                <Link href="/portfolio" className='text-white hover:text-custom-primary transition-colors duration-300'>
                                     Production Portfolio
                                 </Link>
                                 {/* <Link href="/services#contact" className='text-white hover:text-custom-primary'>
@@ -106,75 +106,76 @@ function Navbar() {
                 
                 
                 <div className='relative'>
-                    <button data-dropdown={true} className="hover:text-custom-primary relative h-full flex gap-[8px] items-center" onClick={() => servicesDropdownToggleEvent()}>
+                    <button data-dropdown={true} className="hover:text-custom-primary relative h-full flex gap-[8px] items-center transition-colors duration-300" onClick={() => servicesDropdownToggleEvent()} onMouseEnter={() => setServicesDropdownToggle(true)} onMouseLeave={() => setServicesDropdownToggle(false)}>
                         {pathname?.startsWith('/eyeofophidia') ? 'Services' : 'Eye Of Ophidia'}
                         <FontAwesomeIcon data-dropdown={true} icon={servicesDropdownToggle ? faCaretDown : faCaretUp} width='16px'/>
                     </button>
-                    {servicesDropdownToggle && 
-                        <div data-dropdown={true} className='z-10 absolute top-[100%] right-[0px] bg-black flex flex-col gap-[16px] p-[16px] w-[148px]'>
-                            {pathname?.startsWith('/eyeofophidia') ? 
-                                <>
-                                    <Link data-dropdown={true} href="/services" className='text-white hover:text-custom-primary'>
-                                        Production Services
-                                    </Link>
-                                    <Link data-dropdown={true} href="/portfolio" className='text-white hover:text-custom-primary'>
-                                        Production Portfolio
-                                    </Link>
-                                    {/* <Link data-dropdown={true} href="/services#contact" className='text-white hover:text-custom-primary'>
-                                        Contact Us! {pathname?.startsWith('/eyeofophidia') ? 'true' : 'false'}
-                                    </Link> */}
-                                </>
+                    <div data-dropdown={true} 
+                         className={`z-10 absolute top-[100%] right-[0px] bg-black flex flex-col gap-[16px] p-[16px] w-[148px]
+                                   transition-all duration-300 ease-in-out origin-top
+                                   ${servicesDropdownToggle ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'}`}>
+                        {pathname?.startsWith('/eyeofophidia') ? 
+                            <>
+                                <Link data-dropdown={true} href="/services" className='text-white hover:text-custom-primary transition-colors duration-300'>
+                                    Production Services
+                                </Link>
+                                <Link data-dropdown={true} href="/portfolio" className='text-white hover:text-custom-primary transition-colors duration-300'>
+                                    Production Portfolio
+                                </Link>
+                                {/* <Link data-dropdown={true} href="/services#contact" className='text-white hover:text-custom-primary'>
+                                    Contact Us! {pathname?.startsWith('/eyeofophidia') ? 'true' : 'false'}
+                                </Link> */}
+                            </>
 
-                                :
+                            :
 
-                                <>
-                                    <Link data-dropdown={true} href="/eyeofophidia/matches" className="hover:text-custom-primary">
-                                        Matches
-                                    </Link>
-                                    <Link data-dropdown={true} href="/eyeofophidia/events" className="hover:text-custom-primary">
-                                        Events
-                                    </Link>
-                                    <Link data-dropdown={true} href="/eyeofophidia/decks" className="hover:text-custom-primary">
-                                        Decklists
-                                    </Link>
-                                </>
+                            <>
+                                <Link data-dropdown={true} href="/eyeofophidia/matches" className="hover:text-custom-primary transition-colors duration-300">
+                                    Matches
+                                </Link>
+                                <Link data-dropdown={true} href="/eyeofophidia/events" className="hover:text-custom-primary transition-colors duration-300">
+                                    Events
+                                </Link>
+                                <Link data-dropdown={true} href="/eyeofophidia/decks" className="hover:text-custom-primary transition-colors duration-300">
+                                    Decklists
+                                </Link>
+                            </>
                         
                             }
                             
-                        </div>
-                    }
+                    </div>
                 </div>
 
                 {user &&
                     <div className='relative'>
-                        <button data-dropdown={true} className="hover:text-custom-primary relative h-full flex gap-[8px] items-center" onClick={() => adminDropdownToggleEvent()}>
-                        Admin
-                        <FontAwesomeIcon data-dropdown={true} icon={adminDropdownToggle ? faCaretDown : faCaretUp} width='16px'/>
-                    </button>
-                    {adminDropdownToggle && 
-                        <div data-dropdown={true} className='z-10 absolute top-[100%] right-[0px] bg-black flex flex-col gap-[16px] p-[16px] w-[196px]'>
-                            <Link data-dropdown={true} href="/dashboard" className='text-white hover:text-custom-primary'>
+                        <button data-dropdown={true} className="hover:text-custom-primary relative h-full flex gap-[8px] items-center transition-colors duration-300" onClick={() => adminDropdownToggleEvent()} onMouseEnter={() => setAdminDropdownToggle(true)} onMouseLeave={() => setAdminDropdownToggle(false)}>
+                            Admin
+                            <FontAwesomeIcon data-dropdown={true} icon={adminDropdownToggle ? faCaretDown : faCaretUp} width='16px'/>
+                        </button>
+                        <div data-dropdown={true} 
+                             className={`z-10 absolute top-[100%] right-[0px] bg-black flex flex-col gap-[16px] p-[16px] w-[196px]
+                                       transition-all duration-300 ease-in-out origin-top
+                                       ${adminDropdownToggle ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'}`}>
+                            <Link data-dropdown={true} href="/dashboard" className='text-white hover:text-custom-primary transition-colors duration-300'>
                                 Dashboard
                             </Link>
-                            <Link data-dropdown={true} href="/eyeofophidia/postevent" className='text-white hover:text-custom-primary'>
+                            <Link data-dropdown={true} href="/eyeofophidia/postevent" className='text-white hover:text-custom-primary transition-colors duration-300'>
                                 Post Event
                             </Link>
-                            <Link data-dropdown={true} href="/eyeofophidia/postmatch" className='text-white hover:text-custom-primary'>
+                            <Link data-dropdown={true} href="/eyeofophidia/postmatch" className='text-white hover:text-custom-primary transition-colors duration-300'>
                                 Post Match
                             </Link>
-                            <Link data-dropdown={true} href="/eyeofophidia/postdeck" className='text-white hover:text-custom-primary'>
+                            <Link data-dropdown={true} href="/eyeofophidia/postdeck" className='text-white hover:text-custom-primary transition-colors duration-300'>
                                 Post Deck
                             </Link>
-                            <Link data-dropdown={true} href="/eyeofophidia/postdraft" className='text-white hover:text-custom-primary'>
+                            <Link data-dropdown={true} href="/eyeofophidia/postdraft" className='text-white hover:text-custom-primary transition-colors duration-300'>
                                 Post Draft
                             </Link>
-                            <Link data-dropdown={true} href="/logout" className='text-white hover:text-custom-primary'>
+                            <Link data-dropdown={true} href="/logout" className='text-white hover:text-custom-primary transition-colors duration-300'>
                                 Logout
                             </Link>
                         </div>
-                    }
                     </div>
-
                 }
             </div>
         </div>
@@ -191,7 +192,12 @@ function Navbar() {
             </button>
         </div>
 
-        {sidebarToggle && <Sidebar buttonClickEvent={buttonClickEvent}/>}
+        {<Sidebar 
+            buttonClickEvent={buttonClickEvent} 
+            className={`fixed top-0 right-0 h-screen bg-black w-[256px] md:w-[256px] text-white z-[10] 
+                        transition-transform duration-300 ease-in-out transform 
+                        ${sidebarToggle ? 'translate-x-0' : 'translate-x-full'}`}
+        />}
         
     </div>
   )

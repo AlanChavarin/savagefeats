@@ -53,7 +53,7 @@ return (
         <HappeningNow event={event} small={true}/>
       </div>
 
-      <div className="absolute w-[100%] h-full top-0 left-0 bg-black">
+      <div className="absolute w-[100%] h-full top-0 left-0 bg-black transition-all duration-300">
         <Image 
           priority={true}
           alt="background Image"

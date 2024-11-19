@@ -1,7 +1,7 @@
 'use client'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faMagnifyingGlass, faGear, faCheck } from "@fortawesome/free-solid-svg-icons"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from "zod"
 import { useRouter } from "next/navigation"
@@ -67,6 +67,13 @@ function EventSearchForm(){
     router.push('events?query=true&' + params)
   }
 
+  useEffect(() => {
+      // fire onsubmit
+      if(!settings){
+        handleSubmit(onSubmit)()
+      }
+  }, [watch('streamed')])
+
   return (
     <form className="w-[100%] flex flex-col items-center gap-[0px] text-[18px] max-w-[700px]" onSubmit={handleSubmit(onSubmit)}>
       {Object.keys(errors).map((key) => {
@@ -92,8 +99,26 @@ function EventSearchForm(){
         </button>
       </div>
 
+      {/* minimal parameters */}
+
+      { !settings &&
+        <div className="relative font-bold flex flex-col gap-[16px] items-start md:items-center bg-gray-100 border-[1px] border-black px-[16px] md:px-[0px] py-[0px]" style={{boxShadow: "2px 2px black"}}>
+         
+          <div className="flex items-center gap-[8px] md:items-center flex-row md:justify-center py-[12px] px-[24px] flex-nowrap text-[14px]">
+            <div className="whitespace-nowrap">Streamed: </div>
+            <CustomRadio options={{
+              'Yes': true,
+              'No': false,
+              'All': undefined
+            }} form={form} name="streamed" small={true}/>
+          </div>
+
+        </div>
+
+      }
+
       {/* dropdown parameters */}
-      {settings && 
+      { settings &&
         <div className="relative font-bold flex flex-col gap-[16px] items-start md:items-center bg-white border-[1px] border-black w-[91%] px-[16px] md:px-[0px] pt-[16px] pb-[24px]" style={{boxShadow: "2px 2px black"}}>
           {/* date range  */}
           <div className="flex flex-col gap-[8px] md:items-center md:flex-row">
