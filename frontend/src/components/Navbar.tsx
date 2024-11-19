@@ -105,8 +105,8 @@ function Navbar() {
                 </Link> */}
                 
                 
-                <div className='relative'>
-                    <button data-dropdown={true} className="hover:text-custom-primary relative h-full flex gap-[8px] items-center transition-colors duration-300" onClick={() => servicesDropdownToggleEvent()} onMouseEnter={() => setServicesDropdownToggle(true)} onMouseLeave={() => setServicesDropdownToggle(false)}>
+                <div className='relative' onMouseEnter={() => setServicesDropdownToggle(true)} onMouseLeave={() => setServicesDropdownToggle(false)}>
+                    <button data-dropdown={true} className="hover:text-custom-primary relative h-full flex gap-[8px] items-center transition-colors duration-300" onClick={() => servicesDropdownToggleEvent()}>
                         {pathname?.startsWith('/eyeofophidia') ? 'Services' : 'Eye Of Ophidia'}
                         <FontAwesomeIcon data-dropdown={true} icon={servicesDropdownToggle ? faCaretDown : faCaretUp} width='16px'/>
                     </button>
@@ -147,8 +147,8 @@ function Navbar() {
                 </div>
 
                 {user &&
-                    <div className='relative'>
-                        <button data-dropdown={true} className="hover:text-custom-primary relative h-full flex gap-[8px] items-center transition-colors duration-300" onClick={() => adminDropdownToggleEvent()} onMouseEnter={() => setAdminDropdownToggle(true)} onMouseLeave={() => setAdminDropdownToggle(false)}>
+                    <div className='relative' onMouseEnter={() => setAdminDropdownToggle(true)} onMouseLeave={() => setAdminDropdownToggle(false)}>
+                        <button data-dropdown={true} className="hover:text-custom-primary relative h-full flex gap-[8px] items-center transition-colors duration-300" onClick={() => adminDropdownToggleEvent()}>
                             Admin
                             <FontAwesomeIcon data-dropdown={true} icon={adminDropdownToggle ? faCaretDown : faCaretUp} width='16px'/>
                         </button>
