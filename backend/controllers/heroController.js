@@ -41,7 +41,6 @@ const getHero = asyncHandler(async(req, res) => {
 })
 
 const postHero = asyncHandler(async (req, res) => {
-    console.log(req.body.hero, req.body.young)
 
     if(!req.body.hero){
         res.status(400)
